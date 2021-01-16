@@ -1,4 +1,4 @@
-# TDLib Prebuilt Java Bundle
+# Prebuilt TDLib Java Bundle
 
 This repository is a prebuilt [TDLib](https://github.com/tdlib/td) Java bundle currently used in **Telegram X**.
 
