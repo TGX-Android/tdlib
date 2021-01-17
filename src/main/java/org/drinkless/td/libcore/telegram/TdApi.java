@@ -70,7 +70,6 @@ public class TdApi {
             CheckCreatedPublicChatsLimit.CONSTRUCTOR,
             CheckDatabaseEncryptionKey.CONSTRUCTOR,
             CheckEmailAddressVerificationCode.CONSTRUCTOR,
-            CheckGroupCallIsJoined.CONSTRUCTOR,
             CheckPhoneNumberConfirmationCode.CONSTRUCTOR,
             CheckPhoneNumberVerificationCode.CONSTRUCTOR,
             CheckRecoveryEmailAddressCode.CONSTRUCTOR,
@@ -11011,9 +11010,17 @@ public class TdApi {
          */
         public boolean isJoined;
         /**
-         * True, if the user can unmute themself.
+         * True, if user was kicked from the call because of network loss and the call needs to be rejoined.
+         */
+        public boolean needRejoin;
+        /**
+         * True, if the current user can unmute themself.
          */
         public boolean canUnmuteSelf;
+        /**
+         * True, if the current user can manage the group call.
+         */
+        public boolean canBeManaged;
         /**
          * Number of participants in the group call.
          */
@@ -11023,9 +11030,9 @@ public class TdApi {
          */
         public boolean loadedAllParticipants;
         /**
-         * Identifiers of recently speaking users in the group call.
+         * Recently speaking users in the group call.
          */
-        public int[] recentSpeakerUserIds;
+        public GroupCallRecentSpeaker[] recentSpeakers;
         /**
          * True, if only group call administrators can unmute new participants.
          */
@@ -11051,22 +11058,26 @@ public class TdApi {
          * @param id Group call identifier.
          * @param isActive True, if the call is active.
          * @param isJoined True, if the call is joined.
-         * @param canUnmuteSelf True, if the user can unmute themself.
+         * @param needRejoin True, if user was kicked from the call because of network loss and the call needs to be rejoined.
+         * @param canUnmuteSelf True, if the current user can unmute themself.
+         * @param canBeManaged True, if the current user can manage the group call.
          * @param participantCount Number of participants in the group call.
          * @param loadedAllParticipants True, if all group call participants are loaded.
-         * @param recentSpeakerUserIds Identifiers of recently speaking users in the group call.
+         * @param recentSpeakers Recently speaking users in the group call.
          * @param muteNewParticipants True, if only group call administrators can unmute new participants.
          * @param allowedChangeMuteNewParticipants True, if group call administrators can enable or disable muteNewParticipants setting.
          * @param duration Call duration; for ended calls only.
          */
-        public GroupCall(int id, boolean isActive, boolean isJoined, boolean canUnmuteSelf, int participantCount, boolean loadedAllParticipants, int[] recentSpeakerUserIds, boolean muteNewParticipants, boolean allowedChangeMuteNewParticipants, int duration) {
+        public GroupCall(int id, boolean isActive, boolean isJoined, boolean needRejoin, boolean canUnmuteSelf, boolean canBeManaged, int participantCount, boolean loadedAllParticipants, GroupCallRecentSpeaker[] recentSpeakers, boolean muteNewParticipants, boolean allowedChangeMuteNewParticipants, int duration) {
             this.id = id;
             this.isActive = isActive;
             this.isJoined = isJoined;
+            this.needRejoin = needRejoin;
             this.canUnmuteSelf = canUnmuteSelf;
+            this.canBeManaged = canBeManaged;
             this.participantCount = participantCount;
             this.loadedAllParticipants = loadedAllParticipants;
-            this.recentSpeakerUserIds = recentSpeakerUserIds;
+            this.recentSpeakers = recentSpeakers;
             this.muteNewParticipants = muteNewParticipants;
             this.allowedChangeMuteNewParticipants = allowedChangeMuteNewParticipants;
             this.duration = duration;
@@ -11075,7 +11086,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1950906138;
+        public static final int CONSTRUCTOR = -276839198;
 
         /**
          * @return this.CONSTRUCTOR
@@ -11291,15 +11302,23 @@ public class TdApi {
          */
         public int source;
         /**
-         * True, if the user is speaking as set by setGroupCallParticipantIsSpeaking.
+         * True, if the participant is speaking as set by setGroupCallParticipantIsSpeaking.
          */
         public boolean isSpeaking;
         /**
-         * True, if the user is muted.
+         * True, if the current user can mute the participant.
+         */
+        public boolean canBeMuted;
+        /**
+         * True, if the current user can allow the participant to unmute themself or unmute the participant (only for self).
+         */
+        public boolean canBeUnmuted;
+        /**
+         * True, if the participant is muted.
          */
         public boolean isMuted;
         /**
-         * True, if the user can unmute themself.
+         * True, if the participant can unmute themself.
          */
         public boolean canUnmuteSelf;
         /**
@@ -11318,15 +11337,19 @@ public class TdApi {
          *
          * @param userId Identifier of the user.
          * @param source User's synchronization source.
-         * @param isSpeaking True, if the user is speaking as set by setGroupCallParticipantIsSpeaking.
-         * @param isMuted True, if the user is muted.
-         * @param canUnmuteSelf True, if the user can unmute themself.
+         * @param isSpeaking True, if the participant is speaking as set by setGroupCallParticipantIsSpeaking.
+         * @param canBeMuted True, if the current user can mute the participant.
+         * @param canBeUnmuted True, if the current user can allow the participant to unmute themself or unmute the participant (only for self).
+         * @param isMuted True, if the participant is muted.
+         * @param canUnmuteSelf True, if the participant can unmute themself.
          * @param order User's order in the group call participant list. The bigger is order, the higher is user in the list. If order is 0, the user must be removed from the participant list.
          */
-        public GroupCallParticipant(int userId, int source, boolean isSpeaking, boolean isMuted, boolean canUnmuteSelf, long order) {
+        public GroupCallParticipant(int userId, int source, boolean isSpeaking, boolean canBeMuted, boolean canBeUnmuted, boolean isMuted, boolean canUnmuteSelf, long order) {
             this.userId = userId;
             this.source = source;
             this.isSpeaking = isSpeaking;
+            this.canBeMuted = canBeMuted;
+            this.canBeUnmuted = canBeUnmuted;
             this.isMuted = isMuted;
             this.canUnmuteSelf = canUnmuteSelf;
             this.order = order;
@@ -11335,7 +11358,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -469570066;
+        public static final int CONSTRUCTOR = 149471862;
 
         /**
          * @return this.CONSTRUCTOR
@@ -11436,6 +11459,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -32269671;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a recently speaking user in a group call.
+     */
+    public static class GroupCallRecentSpeaker extends Object {
+        /**
+         * User identifier.
+         */
+        public int userId;
+        /**
+         * True, is the user has spoken recently.
+         */
+        public boolean isSpeaking;
+
+        /**
+         * Describes a recently speaking user in a group call.
+         */
+        public GroupCallRecentSpeaker() {
+        }
+
+        /**
+         * Describes a recently speaking user in a group call.
+         *
+         * @param userId User identifier.
+         * @param isSpeaking True, is the user has spoken recently.
+         */
+        public GroupCallRecentSpeaker(int userId, boolean isSpeaking) {
+            this.userId = userId;
+            this.isSpeaking = isSpeaking;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 903765260;
 
         /**
          * @return this.CONSTRUCTOR
@@ -11742,7 +11809,7 @@ public class TdApi {
     }
 
     /**
-     * A button that opens a specified URL and automatically logs in in current user if they allowed to do that.
+     * A button that opens a specified URL and automatically authorize the current user if allowed to do so.
      */
     public static class InlineKeyboardButtonTypeLoginUrl extends InlineKeyboardButtonType {
         /**
@@ -11759,13 +11826,13 @@ public class TdApi {
         public String forwardText;
 
         /**
-         * A button that opens a specified URL and automatically logs in in current user if they allowed to do that.
+         * A button that opens a specified URL and automatically authorize the current user if allowed to do so.
          */
         public InlineKeyboardButtonTypeLoginUrl() {
         }
 
         /**
-         * A button that opens a specified URL and automatically logs in in current user if they allowed to do that.
+         * A button that opens a specified URL and automatically authorize the current user if allowed to do so.
          *
          * @param url An HTTP URL to open.
          * @param id Unique button identifier.
@@ -14721,6 +14788,10 @@ public class TdApi {
          * Sticker height.
          */
         public int height;
+        /**
+         * Emoji used to choose the sticker.
+         */
+        public String emoji;
 
         /**
          * A sticker message.
@@ -14735,18 +14806,20 @@ public class TdApi {
          * @param thumbnail Sticker thumbnail, if available.
          * @param width Sticker width.
          * @param height Sticker height.
+         * @param emoji Emoji used to choose the sticker.
          */
-        public InputMessageSticker(InputFile sticker, InputThumbnail thumbnail, int width, int height) {
+        public InputMessageSticker(InputFile sticker, InputThumbnail thumbnail, int width, int height, String emoji) {
             this.sticker = sticker;
             this.thumbnail = thumbnail;
             this.width = width;
             this.height = height;
+            this.emoji = emoji;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 740776325;
+        public static final int CONSTRUCTOR = 1072805625;
 
         /**
          * @return this.CONSTRUCTOR
@@ -18281,7 +18354,7 @@ public class TdApi {
          */
         public String authorSignature;
         /**
-         * Unique identifier of an album this message belongs to. Only photos and videos can be grouped together in albums.
+         * Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums.
          */
         public long mediaAlbumId;
         /**
@@ -18332,7 +18405,7 @@ public class TdApi {
          * @param ttlExpiresIn Time left before the message expires, in seconds.
          * @param viaBotUserId If non-zero, the user identifier of the bot through which this message was sent.
          * @param authorSignature For channel posts and anonymous group messages, optional author signature.
-         * @param mediaAlbumId Unique identifier of an album this message belongs to. Only photos and videos can be grouped together in albums.
+         * @param mediaAlbumId Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums.
          * @param restrictionReason If non-empty, contains a human-readable description of the reason why access to this message must be restricted.
          * @param content Content of the message.
          * @param replyMarkup Reply markup for the message; may be null.
@@ -30836,7 +30909,7 @@ public class TdApi {
          */
         public ClosedVectorPath[] thumbnailOutline;
         /**
-         * True, if the sticker set has been installed by current user.
+         * True, if the sticker set has been installed by the current user.
          */
         public boolean isInstalled;
         /**
@@ -30882,7 +30955,7 @@ public class TdApi {
          * @param name Name of the sticker set.
          * @param thumbnail Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null.
          * @param thumbnailOutline Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
-         * @param isInstalled True, if the sticker set has been installed by current user.
+         * @param isInstalled True, if the sticker set has been installed by the current user.
          * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
          * @param isOfficial True, if the sticker set is official.
          * @param isAnimated True, is the stickers in the set are animated.
@@ -36234,7 +36307,7 @@ public class TdApi {
          */
         public int groupCallId;
         /**
-         * New data about a participant. If this is a current user with different source, then the current user joined the call from another device and the call must not be rejoined automatically.
+         * New data about a participant.
          */
         public GroupCallParticipant participant;
 
@@ -36248,7 +36321,7 @@ public class TdApi {
          * Information about a group call participant was changed. The updates are sent only after the group call is received through getGroupCall and only if the call is joined or being joined.
          *
          * @param groupCallId Identifier of group call.
-         * @param participant New data about a participant. If this is a current user with different source, then the current user joined the call from another device and the call must not be rejoined automatically.
+         * @param participant New data about a participant.
          */
         public UpdateGroupCallParticipant(int groupCallId, GroupCallParticipant participant) {
             this.groupCallId = groupCallId;
@@ -38914,7 +38987,7 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Reperesents a vector path command.
+     * Represents a vector path command.
      */
     public abstract static class VectorPathCommand extends Object {
         @Retention(RetentionPolicy.SOURCE)
@@ -40814,7 +40887,7 @@ public class TdApi {
     }
 
     /**
-     * Changes imported contacts using the list of current user contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. Query result depends on the result of the previous query, so only one query is possible at the same time.
+     * Changes imported contacts using the list of contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. Query result depends on the result of the previous query, so only one query is possible at the same time.
      *
      * <p> Returns {@link ImportedContacts ImportedContacts} </p>
      */
@@ -40825,7 +40898,7 @@ public class TdApi {
         public Contact[] contacts;
 
         /**
-         * Default constructor for a function, which changes imported contacts using the list of current user contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. Query result depends on the result of the previous query, so only one query is possible at the same time.
+         * Default constructor for a function, which changes imported contacts using the list of contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. Query result depends on the result of the previous query, so only one query is possible at the same time.
          *
          * <p> Returns {@link ImportedContacts ImportedContacts} </p>
          */
@@ -40833,7 +40906,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes imported contacts using the list of current user contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. Query result depends on the result of the previous query, so only one query is possible at the same time.
+         * Creates a function, which changes imported contacts using the list of contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. Query result depends on the result of the previous query, so only one query is possible at the same time.
          *
          * <p> Returns {@link ImportedContacts ImportedContacts} </p>
          *
@@ -41355,50 +41428,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -426386685;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Checks whether a group call is still joined. Should be called every 10 seconds when tgcalls notifies about lost connection with the server.
-     *
-     * <p> Returns {@link Ok Ok} </p>
-     */
-    public static class CheckGroupCallIsJoined extends Function {
-        /**
-         * Group call identifier.
-         */
-        public int groupCallId;
-
-        /**
-         * Default constructor for a function, which checks whether a group call is still joined. Should be called every 10 seconds when tgcalls notifies about lost connection with the server.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         */
-        public CheckGroupCallIsJoined() {
-        }
-
-        /**
-         * Creates a function, which checks whether a group call is still joined. Should be called every 10 seconds when tgcalls notifies about lost connection with the server.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         *
-         * @param groupCallId Group call identifier.
-         */
-        public CheckGroupCallIsJoined(int groupCallId) {
-            this.groupCallId = groupCallId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1657344632;
 
         /**
          * @return this.CONSTRUCTOR
@@ -44322,7 +44351,7 @@ public class TdApi {
          */
         public long fromChatId;
         /**
-         * Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order.
+         * Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order. At most 100 messages can be forwarded simultaneously.
          */
         public long[] messageIds;
         /**
@@ -44353,7 +44382,7 @@ public class TdApi {
          *
          * @param chatId Identifier of the chat to which to forward messages.
          * @param fromChatId Identifier of the chat from which to forward messages.
-         * @param messageIds Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order.
+         * @param messageIds Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order. At most 100 messages can be forwarded simultaneously.
          * @param options Options to be used to send the messages.
          * @param sendCopy True, if content of the messages needs to be copied without links to the original messages. Always true if the messages are forwarded to a secret chat.
          * @param removeCaption True, if media caption of message copies needs to be removed. Ignored if sendCopy is false.
@@ -46043,14 +46072,14 @@ public class TdApi {
     }
 
     /**
-     * Uses current user IP address to find their country. Returns two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization.
+     * Uses the current IP address to find the current country. Returns two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization.
      *
      * <p> Returns {@link Text Text} </p>
      */
     public static class GetCountryCode extends Function {
 
         /**
-         * Default constructor for a function, which uses current user IP address to find their country. Returns two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization.
+         * Default constructor for a function, which uses the current IP address to find the current country. Returns two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization.
          *
          * <p> Returns {@link Text Text} </p>
          */
@@ -50266,7 +50295,7 @@ public class TdApi {
     }
 
     /**
-     * Adds current user as a new member to a chat. Private and secret chats can't be joined using this method.
+     * Adds the current user as a new member to a chat. Private and secret chats can't be joined using this method.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -50277,7 +50306,7 @@ public class TdApi {
         public long chatId;
 
         /**
-         * Default constructor for a function, which adds current user as a new member to a chat. Private and secret chats can't be joined using this method.
+         * Default constructor for a function, which adds the current user as a new member to a chat. Private and secret chats can't be joined using this method.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -50285,7 +50314,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds current user as a new member to a chat. Private and secret chats can't be joined using this method.
+         * Creates a function, which adds the current user as a new member to a chat. Private and secret chats can't be joined using this method.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -50416,7 +50445,7 @@ public class TdApi {
     }
 
     /**
-     * Removes current user from chat members. Private and secret chats can't be left using this method.
+     * Removes the current user from chat members. Private and secret chats can't be left using this method.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -50427,7 +50456,7 @@ public class TdApi {
         public long chatId;
 
         /**
-         * Default constructor for a function, which removes current user from chat members. Private and secret chats can't be left using this method.
+         * Default constructor for a function, which removes the current user from chat members. Private and secret chats can't be left using this method.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -50435,7 +50464,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which removes current user from chat members. Private and secret chats can't be left using this method.
+         * Creates a function, which removes the current user from chat members. Private and secret chats can't be left using this method.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -54228,7 +54257,7 @@ public class TdApi {
     }
 
     /**
-     * Sends messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+     * Sends 2-10 messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -54250,12 +54279,12 @@ public class TdApi {
          */
         public MessageSendOptions options;
         /**
-         * Contents of messages to be sent.
+         * Contents of messages to be sent. At most 10 messages can be added to an album.
          */
         public InputMessageContent[] inputMessageContents;
 
         /**
-         * Default constructor for a function, which sends messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+         * Default constructor for a function, which sends 2-10 messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -54263,7 +54292,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sends messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+         * Creates a function, which sends 2-10 messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -54271,7 +54300,7 @@ public class TdApi {
          * @param messageThreadId If not 0, a message thread identifier in which the messages will be sent.
          * @param replyToMessageId Identifier of a message to reply to or 0.
          * @param options Options to be used to send the messages.
-         * @param inputMessageContents Contents of messages to be sent.
+         * @param inputMessageContents Contents of messages to be sent. At most 10 messages can be added to an album.
          */
         public SendMessageAlbum(long chatId, long messageThreadId, long replyToMessageId, MessageSendOptions options, InputMessageContent[] inputMessageContents) {
             this.chatId = chatId;
@@ -55748,7 +55777,7 @@ public class TdApi {
          */
         public int groupCallId;
         /**
-         * Group call participant's synchronization source identifier.
+         * Group call participant's synchronization source identifier, or 0 for the current user.
          */
         public int source;
         /**
@@ -55770,7 +55799,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param groupCallId Group call identifier.
-         * @param source Group call participant's synchronization source identifier.
+         * @param source Group call participant's synchronization source identifier, or 0 for the current user.
          * @param isSpeaking True, if the user is speaking.
          */
         public SetGroupCallParticipantIsSpeaking(int groupCallId, int source, boolean isSpeaking) {
@@ -57909,7 +57938,7 @@ public class TdApi {
     }
 
     /**
-     * Toggles whether a group call participant is muted. Requires canManageVoiceChats rights to mute other group call participants.
+     * Toggles whether a group call participant is muted, unmuted, or allowed to unmute themself.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -57928,7 +57957,7 @@ public class TdApi {
         public boolean isMuted;
 
         /**
-         * Default constructor for a function, which toggles whether a group call participant is muted. Requires canManageVoiceChats rights to mute other group call participants.
+         * Default constructor for a function, which toggles whether a group call participant is muted, unmuted, or allowed to unmute themself.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -57936,7 +57965,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which toggles whether a group call participant is muted. Requires canManageVoiceChats rights to mute other group call participants.
+         * Creates a function, which toggles whether a group call participant is muted, unmuted, or allowed to unmute themself.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
