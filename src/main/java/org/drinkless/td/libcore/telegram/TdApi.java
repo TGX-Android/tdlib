@@ -268,6 +268,7 @@ public class TdApi {
             GetStickers.CONSTRUCTOR,
             GetStorageStatistics.CONSTRUCTOR,
             GetStorageStatisticsFast.CONSTRUCTOR,
+            GetSuggestedFileName.CONSTRUCTOR,
             GetSuggestedStickerSetName.CONSTRUCTOR,
             GetSuitableDiscussionChats.CONSTRUCTOR,
             GetSupergroup.CONSTRUCTOR,
@@ -1484,7 +1485,7 @@ public class TdApi {
          */
         public int maxOtherFileSize;
         /**
-         * The maximum suggested bitrate for uploaded videos.
+         * The maximum suggested bitrate for uploaded videos, in kbit/s.
          */
         public int videoUploadBitrate;
         /**
@@ -1513,7 +1514,7 @@ public class TdApi {
          * @param maxPhotoFileSize The maximum size of a photo file to be auto-downloaded.
          * @param maxVideoFileSize The maximum size of a video file to be auto-downloaded.
          * @param maxOtherFileSize The maximum size of other file types to be auto-downloaded.
-         * @param videoUploadBitrate The maximum suggested bitrate for uploaded videos.
+         * @param videoUploadBitrate The maximum suggested bitrate for uploaded videos, in kbit/s.
          * @param preloadLargeVideos True, if the beginning of video files needs to be preloaded for instant playback.
          * @param preloadNextAudio True, if the next audio track needs to be preloaded while the user is listening to an audio file.
          * @param useLessDataForCalls True, if &quot;use less data for calls&quot; option needs to be enabled.
@@ -1544,7 +1545,7 @@ public class TdApi {
     }
 
     /**
-     * Contains auto-download settings presets for the user.
+     * Contains auto-download settings presets for the current user.
      */
     public static class AutoDownloadSettingsPresets extends Object {
         /**
@@ -1561,13 +1562,13 @@ public class TdApi {
         public AutoDownloadSettings high;
 
         /**
-         * Contains auto-download settings presets for the user.
+         * Contains auto-download settings presets for the current user.
          */
         public AutoDownloadSettingsPresets() {
         }
 
         /**
-         * Contains auto-download settings presets for the user.
+         * Contains auto-download settings presets for the current user.
          *
          * @param low Preset with lowest settings; supposed to be used by default when roaming.
          * @param medium Preset with medium settings; supposed to be used by default when using mobile data.
@@ -7254,7 +7255,7 @@ public class TdApi {
          */
         public boolean canInviteUsers;
         /**
-         * True, if the administrator can restrict, ban, or unban chat members.
+         * True, if the administrator can restrict, ban, or unban chat members; always true for channels.
          */
         public boolean canRestrictMembers;
         /**
@@ -7291,7 +7292,7 @@ public class TdApi {
          * @param canEditMessages True, if the administrator can edit messages of other users and pin messages; applicable to channels only.
          * @param canDeleteMessages True, if the administrator can delete messages of other users.
          * @param canInviteUsers True, if the administrator can invite new users to the chat.
-         * @param canRestrictMembers True, if the administrator can restrict, ban, or unban chat members.
+         * @param canRestrictMembers True, if the administrator can restrict, ban, or unban chat members; always true for channels.
          * @param canPinMessages True, if the administrator can pin messages; applicable to basic groups and supergroups only.
          * @param canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.
          * @param canManageVoiceChats True, if the administrator can manage voice chats.
@@ -17827,20 +17828,33 @@ public class TdApi {
     }
 
     /**
-     * The link is a chat invite link. Call checkChatInviteLink to process the link.
+     * The link is a chat invite link. Call checkChatInviteLink with the given invite link to process the link.
      */
     public static class InternalLinkTypeChatInvite extends InternalLinkType {
+        /**
+         * Internal representation of the invite link.
+         */
+        public String inviteLink;
 
         /**
-         * The link is a chat invite link. Call checkChatInviteLink to process the link.
+         * The link is a chat invite link. Call checkChatInviteLink with the given invite link to process the link.
          */
         public InternalLinkTypeChatInvite() {
         }
 
         /**
+         * The link is a chat invite link. Call checkChatInviteLink with the given invite link to process the link.
+         *
+         * @param inviteLink Internal representation of the invite link.
+         */
+        public InternalLinkTypeChatInvite(String inviteLink) {
+            this.inviteLink = inviteLink;
+        }
+
+        /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1694480310;
+        public static final int CONSTRUCTOR = 428621017;
 
         /**
          * @return this.CONSTRUCTOR
@@ -17877,7 +17891,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a group to send the game, and then call sendMessage with inputMessageGame.
+     * The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a chat to send the game, and then call sendMessage with inputMessageGame.
      */
     public static class InternalLinkTypeGame extends InternalLinkType {
         /**
@@ -17890,13 +17904,13 @@ public class TdApi {
         public String gameShortName;
 
         /**
-         * The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a group to send the game, and then call sendMessage with inputMessageGame.
+         * The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a chat to send the game, and then call sendMessage with inputMessageGame.
          */
         public InternalLinkTypeGame() {
         }
 
         /**
-         * The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a group to send the game, and then call sendMessage with inputMessageGame.
+         * The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a chat to send the game, and then call sendMessage with inputMessageGame.
          *
          * @param botUsername Username of the bot that owns the game.
          * @param gameShortName Short name of the game.
@@ -17959,20 +17973,33 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a Telegram message. Call getMessageLinkInfo to process the link.
+     * The link is a link to a Telegram message. Call getMessageLinkInfo with the given URL to process the link.
      */
     public static class InternalLinkTypeMessage extends InternalLinkType {
+        /**
+         * URL to be passed to getMessageLinkInfo.
+         */
+        public String url;
 
         /**
-         * The link is a link to a Telegram message. Call getMessageLinkInfo to process the link.
+         * The link is a link to a Telegram message. Call getMessageLinkInfo with the given URL to process the link.
          */
         public InternalLinkTypeMessage() {
         }
 
         /**
+         * The link is a link to a Telegram message. Call getMessageLinkInfo with the given URL to process the link.
+         *
+         * @param url URL to be passed to getMessageLinkInfo.
+         */
+        public InternalLinkTypeMessage(String url) {
+            this.url = url;
+        }
+
+        /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -975319663;
+        public static final int CONSTRUCTOR = 978541650;
 
         /**
          * @return this.CONSTRUCTOR
@@ -18028,7 +18055,7 @@ public class TdApi {
     }
 
     /**
-     * The link contains a request of Telegram passport data. Call getPassportAuthorizationForm to process the link if the link was received outside of the app, otherwise ignore it.
+     * The link contains a request of Telegram passport data. Call getPassportAuthorizationForm with the given parameters to process the link if the link was received from outside of the app, otherwise ignore it.
      */
     public static class InternalLinkTypePassportDataRequest extends InternalLinkType {
         /**
@@ -18053,13 +18080,13 @@ public class TdApi {
         public String callbackUrl;
 
         /**
-         * The link contains a request of Telegram passport data. Call getPassportAuthorizationForm to process the link if the link was received outside of the app, otherwise ignore it.
+         * The link contains a request of Telegram passport data. Call getPassportAuthorizationForm with the given parameters to process the link if the link was received from outside of the app, otherwise ignore it.
          */
         public InternalLinkTypePassportDataRequest() {
         }
 
         /**
-         * The link contains a request of Telegram passport data. Call getPassportAuthorizationForm to process the link if the link was received outside of the app, otherwise ignore it.
+         * The link contains a request of Telegram passport data. Call getPassportAuthorizationForm with the given parameters to process the link if the link was received from outside of the app, otherwise ignore it.
          *
          * @param botUserId User identifier of the service's bot.
          * @param scope Telegram Passport element types requested by the service.
@@ -18134,7 +18161,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a proxy. Call addProxy to process the link and add the proxy.
+     * The link is a link to a proxy. Call addProxy with the given parameters to process the link and add the proxy.
      */
     public static class InternalLinkTypeProxy extends InternalLinkType {
         /**
@@ -18151,13 +18178,13 @@ public class TdApi {
         public ProxyType type;
 
         /**
-         * The link is a link to a proxy. Call addProxy to process the link and add the proxy.
+         * The link is a link to a proxy. Call addProxy with the given parameters to process the link and add the proxy.
          */
         public InternalLinkTypeProxy() {
         }
 
         /**
-         * The link is a link to a proxy. Call addProxy to process the link and add the proxy.
+         * The link is a link to a proxy. Call addProxy with the given parameters to process the link and add the proxy.
          *
          * @param server Proxy server IP address.
          * @param port Proxy server port.
@@ -18376,6 +18403,10 @@ public class TdApi {
      * The link is an unknown tg: link. Call getDeepLinkInfo to process the link.
      */
     public static class InternalLinkTypeUnknownDeepLink extends InternalLinkType {
+        /**
+         * Link to be passed to getDeepLinkInfo.
+         */
+        public String link;
 
         /**
          * The link is an unknown tg: link. Call getDeepLinkInfo to process the link.
@@ -18384,9 +18415,18 @@ public class TdApi {
         }
 
         /**
+         * The link is an unknown tg: link. Call getDeepLinkInfo to process the link.
+         *
+         * @param link Link to be passed to getDeepLinkInfo.
+         */
+        public InternalLinkTypeUnknownDeepLink(String link) {
+            this.link = link;
+        }
+
+        /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 836016303;
+        public static final int CONSTRUCTOR = 625596379;
 
         /**
          * @return this.CONSTRUCTOR
@@ -20121,6 +20161,14 @@ public class TdApi {
          */
         public boolean canGetMessageThread;
         /**
+         * True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description.
+         */
+        public boolean canGetMediaTimestampLinks;
+        /**
+         * True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
+         */
+        public boolean hasTimestampedMedia;
+        /**
          * True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
          */
         public boolean isChannelPost;
@@ -20161,7 +20209,7 @@ public class TdApi {
          */
         public int ttl;
         /**
-         * Time left before the message expires, in seconds.
+         * Time left before the message expires, in seconds. If the TTL timer isn't started yet, equals to the value of the ttl field.
          */
         public double ttlExpiresIn;
         /**
@@ -20211,6 +20259,8 @@ public class TdApi {
          * @param canBeDeletedForAllUsers True, if the message can be deleted for all users.
          * @param canGetStatistics True, if the message statistics are available.
          * @param canGetMessageThread True, if the message thread info is available.
+         * @param canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description.
+         * @param hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
          * @param isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
          * @param containsUnreadMention True, if the message contains an unread mention for the current user.
          * @param date Point in time (Unix timestamp) when the message was sent.
@@ -20221,7 +20271,7 @@ public class TdApi {
          * @param replyToMessageId If non-zero, the identifier of the message this message is replying to; can be the identifier of a deleted message.
          * @param messageThreadId If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs.
          * @param ttl For self-destructing messages, the message's TTL (Time To Live), in seconds; 0 if none. TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires.
-         * @param ttlExpiresIn Time left before the message expires, in seconds.
+         * @param ttlExpiresIn Time left before the message expires, in seconds. If the TTL timer isn't started yet, equals to the value of the ttl field.
          * @param viaBotUserId If non-zero, the user identifier of the bot through which this message was sent.
          * @param authorSignature For channel posts and anonymous group messages, optional author signature.
          * @param mediaAlbumId Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums.
@@ -20229,7 +20279,7 @@ public class TdApi {
          * @param content Content of the message.
          * @param replyMarkup Reply markup for the message; may be null.
          */
-        public Message(long id, MessageSender sender, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean canBeEdited, boolean canBeForwarded, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetStatistics, boolean canGetMessageThread, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, MessageInteractionInfo interactionInfo, long replyInChatId, long replyToMessageId, long messageThreadId, int ttl, double ttlExpiresIn, int viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, ReplyMarkup replyMarkup) {
+        public Message(long id, MessageSender sender, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean canBeEdited, boolean canBeForwarded, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetStatistics, boolean canGetMessageThread, boolean canGetMediaTimestampLinks, boolean hasTimestampedMedia, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, MessageInteractionInfo interactionInfo, long replyInChatId, long replyToMessageId, long messageThreadId, int ttl, double ttlExpiresIn, int viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, ReplyMarkup replyMarkup) {
             this.id = id;
             this.sender = sender;
             this.chatId = chatId;
@@ -20243,6 +20293,8 @@ public class TdApi {
             this.canBeDeletedForAllUsers = canBeDeletedForAllUsers;
             this.canGetStatistics = canGetStatistics;
             this.canGetMessageThread = canGetMessageThread;
+            this.canGetMediaTimestampLinks = canGetMediaTimestampLinks;
+            this.hasTimestampedMedia = hasTimestampedMedia;
             this.isChannelPost = isChannelPost;
             this.containsUnreadMention = containsUnreadMention;
             this.date = date;
@@ -20265,7 +20317,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1370136327;
+        public static final int CONSTRUCTOR = -1212312080;
 
         /**
          * @return this.CONSTRUCTOR
@@ -22867,6 +22919,10 @@ public class TdApi {
          */
         @Nullable public Message message;
         /**
+         * Timestamp from which the video/audio/video note/voice note playing should start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview.
+         */
+        public int mediaTimestamp;
+        /**
          * True, if the whole media album to which the message belongs is linked.
          */
         public boolean forAlbum;
@@ -22887,13 +22943,15 @@ public class TdApi {
          * @param isPublic True, if the link is a public link for a message in a chat.
          * @param chatId If found, identifier of the chat to which the message belongs, 0 otherwise.
          * @param message If found, the linked message; may be null.
+         * @param mediaTimestamp Timestamp from which the video/audio/video note/voice note playing should start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview.
          * @param forAlbum True, if the whole media album to which the message belongs is linked.
          * @param forComment True, if the message is linked as a channel post comment or from a message thread.
          */
-        public MessageLinkInfo(boolean isPublic, long chatId, Message message, boolean forAlbum, boolean forComment) {
+        public MessageLinkInfo(boolean isPublic, long chatId, Message message, int mediaTimestamp, boolean forAlbum, boolean forComment) {
             this.isPublic = isPublic;
             this.chatId = chatId;
             this.message = message;
+            this.mediaTimestamp = mediaTimestamp;
             this.forAlbum = forAlbum;
             this.forComment = forComment;
         }
@@ -22901,7 +22959,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1002342529;
+        public static final int CONSTRUCTOR = -981646294;
 
         /**
          * @return this.CONSTRUCTOR
@@ -35200,7 +35258,8 @@ public class TdApi {
             TextEntityTypePre.CONSTRUCTOR,
             TextEntityTypePreCode.CONSTRUCTOR,
             TextEntityTypeTextUrl.CONSTRUCTOR,
-            TextEntityTypeMentionName.CONSTRUCTOR
+            TextEntityTypeMentionName.CONSTRUCTOR,
+            TextEntityTypeMediaTimestamp.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -35288,12 +35347,12 @@ public class TdApi {
     }
 
     /**
-     * A bot command, beginning with &quot;/&quot;. This shouldn't be highlighted if there are no bots in the chat.
+     * A bot command, beginning with &quot;/&quot;.
      */
     public static class TextEntityTypeBotCommand extends TextEntityType {
 
         /**
-         * A bot command, beginning with &quot;/&quot;. This shouldn't be highlighted if there are no bots in the chat.
+         * A bot command, beginning with &quot;/&quot;.
          */
         public TextEntityTypeBotCommand() {
         }
@@ -35666,6 +35725,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -791517091;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A media timestamp.
+     */
+    public static class TextEntityTypeMediaTimestamp extends TextEntityType {
+        /**
+         * Timestamp from which a video/audio/video note/voice note playing should start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message.
+         */
+        public int mediaTimestamp;
+
+        /**
+         * A media timestamp.
+         */
+        public TextEntityTypeMediaTimestamp() {
+        }
+
+        /**
+         * A media timestamp.
+         *
+         * @param mediaTimestamp Timestamp from which a video/audio/video note/voice note playing should start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message.
+         */
+        public TextEntityTypeMediaTimestamp(int mediaTimestamp) {
+            this.mediaTimestamp = mediaTimestamp;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1841898992;
 
         /**
          * @return this.CONSTRUCTOR
@@ -42113,6 +42210,10 @@ public class TdApi {
          * True, if the instant view contains the full page. A network request might be needed to get the full web page instant view.
          */
         public boolean isFull;
+        /**
+         * An internal link to be opened to leave feedback about the instant view.
+         */
+        public InternalLinkType feedbackLink;
 
         /**
          * Describes an instant view page for a web page.
@@ -42128,19 +42229,21 @@ public class TdApi {
          * @param version Version of the instant view, currently can be 1 or 2.
          * @param isRtl True, if the instant view must be shown from right to left.
          * @param isFull True, if the instant view contains the full page. A network request might be needed to get the full web page instant view.
+         * @param feedbackLink An internal link to be opened to leave feedback about the instant view.
          */
-        public WebPageInstantView(PageBlock[] pageBlocks, int viewCount, int version, boolean isRtl, boolean isFull) {
+        public WebPageInstantView(PageBlock[] pageBlocks, int viewCount, int version, boolean isRtl, boolean isFull, InternalLinkType feedbackLink) {
             this.pageBlocks = pageBlocks;
             this.viewCount = viewCount;
             this.version = version;
             this.isRtl = isRtl;
             this.isFull = isFull;
+            this.feedbackLink = feedbackLink;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1069193541;
+        public static final int CONSTRUCTOR = 778202453;
 
         /**
          * @return this.CONSTRUCTOR
@@ -43280,7 +43383,7 @@ public class TdApi {
          */
         public int bannedUntilDate;
         /**
-         * Pass true to delete all messages in the chat for the user. Always true for supergroups and channels.
+         * Pass true to delete all messages in the chat for the user that is being removed. Always true for supergroups and channels.
          */
         public boolean revokeMessages;
 
@@ -43300,7 +43403,7 @@ public class TdApi {
          * @param chatId Chat identifier.
          * @param memberId Member identifier.
          * @param bannedUntilDate Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Ignored in basic groups.
-         * @param revokeMessages Pass true to delete all messages in the chat for the user. Always true for supergroups and channels.
+         * @param revokeMessages Pass true to delete all messages in the chat for the user that is being removed. Always true for supergroups and channels.
          */
         public BanChatMember(long chatId, MessageSender memberId, int bannedUntilDate, boolean revokeMessages) {
             this.chatId = chatId;
@@ -48603,7 +48706,7 @@ public class TdApi {
     }
 
     /**
-     * Returns messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library. This is an offline request if onlyLocal is true.
+     * Returns messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if onlyLocal is true.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -48621,7 +48724,7 @@ public class TdApi {
          */
         public int offset;
         /**
-         * The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
         /**
@@ -48630,7 +48733,7 @@ public class TdApi {
         public boolean onlyLocal;
 
         /**
-         * Default constructor for a function, which returns messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library. This is an offline request if onlyLocal is true.
+         * Default constructor for a function, which returns messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if onlyLocal is true.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -48638,14 +48741,14 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library. This is an offline request if onlyLocal is true.
+         * Creates a function, which returns messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if onlyLocal is true.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
          * @param chatId Chat identifier.
          * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
          * @param offset Specify 0 to get results from exactly the fromMessageId or a negative offset up to 99 to get additionally some newer messages.
-         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          * @param onlyLocal If true, returns only messages that are available locally without sending network requests.
          */
         public GetChatHistory(long chatId, long fromMessageId, int offset, int limit, boolean onlyLocal) {
@@ -49345,7 +49448,7 @@ public class TdApi {
     }
 
     /**
-     * Returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance the number of returned chats is chosen by the library.
+     * Returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance, the number of returned chats is chosen by TDLib.
      *
      * <p> Returns {@link Chats Chats} </p>
      */
@@ -49363,12 +49466,12 @@ public class TdApi {
          */
         public long offsetChatId;
         /**
-         * The maximum number of chats to be returned. It is possible that fewer chats than the limit are returned even if the end of the list is not reached.
+         * The maximum number of chats to be returned. For optimal performance, the number of returned chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
          */
         public int limit;
 
         /**
-         * Default constructor for a function, which returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance the number of returned chats is chosen by the library.
+         * Default constructor for a function, which returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance, the number of returned chats is chosen by TDLib.
          *
          * <p> Returns {@link Chats Chats} </p>
          */
@@ -49376,14 +49479,14 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance the number of returned chats is chosen by the library.
+         * Creates a function, which returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance, the number of returned chats is chosen by TDLib.
          *
          * <p> Returns {@link Chats Chats} </p>
          *
          * @param chatList The chat list in which to return chats.
          * @param offsetOrder Chat order to return chats from.
          * @param offsetChatId Chat identifier to return chats from.
-         * @param limit The maximum number of chats to be returned. It is possible that fewer chats than the limit are returned even if the end of the list is not reached.
+         * @param limit The maximum number of chats to be returned. For optimal performance, the number of returned chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
          */
         public GetChats(ChatList chatList, long offsetOrder, long offsetChatId, int limit) {
             this.chatList = chatList;
@@ -49813,7 +49916,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats.
+     * Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if web page preview is disabled in secret chats.
      *
      * <p> Returns {@link LoginUrlInfo LoginUrlInfo} </p>
      */
@@ -49824,7 +49927,7 @@ public class TdApi {
         public String link;
 
         /**
-         * Default constructor for a function, which returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats.
+         * Default constructor for a function, which returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if web page preview is disabled in secret chats.
          *
          * <p> Returns {@link LoginUrlInfo LoginUrlInfo} </p>
          */
@@ -49832,7 +49935,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats.
+         * Creates a function, which returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if web page preview is disabled in secret chats.
          *
          * <p> Returns {@link LoginUrlInfo LoginUrlInfo} </p>
          *
@@ -51472,7 +51575,7 @@ public class TdApi {
     }
 
     /**
-     * Returns an HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels. This is an offline request.
+     * Returns an HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels, or if message.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline request.
      *
      * <p> Returns {@link MessageLink MessageLink} </p>
      */
@@ -51486,6 +51589,10 @@ public class TdApi {
          */
         public long messageId;
         /**
+         * If not 0, timestamp from which the video/audio/video note/voice note playing should start, in seconds. The media can be in the message content or in its web page preview.
+         */
+        public int mediaTimestamp;
+        /**
          * Pass true to create a link for the whole media album.
          */
         public boolean forAlbum;
@@ -51495,7 +51602,7 @@ public class TdApi {
         public boolean forComment;
 
         /**
-         * Default constructor for a function, which returns an HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels. This is an offline request.
+         * Default constructor for a function, which returns an HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels, or if message.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline request.
          *
          * <p> Returns {@link MessageLink MessageLink} </p>
          */
@@ -51503,18 +51610,20 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels. This is an offline request.
+         * Creates a function, which returns an HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels, or if message.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline request.
          *
          * <p> Returns {@link MessageLink MessageLink} </p>
          *
          * @param chatId Identifier of the chat to which the message belongs.
          * @param messageId Identifier of the message.
+         * @param mediaTimestamp If not 0, timestamp from which the video/audio/video note/voice note playing should start, in seconds. The media can be in the message content or in its web page preview.
          * @param forAlbum Pass true to create a link for the whole media album.
          * @param forComment Pass true to create a link to the message as a channel post comment, or from a message thread.
          */
-        public GetMessageLink(long chatId, long messageId, boolean forAlbum, boolean forComment) {
+        public GetMessageLink(long chatId, long messageId, int mediaTimestamp, boolean forAlbum, boolean forComment) {
             this.chatId = chatId;
             this.messageId = messageId;
+            this.mediaTimestamp = mediaTimestamp;
             this.forAlbum = forAlbum;
             this.forComment = forComment;
         }
@@ -51522,7 +51631,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -177667137;
+        public static final int CONSTRUCTOR = -1607389329;
 
         /**
          * @return this.CONSTRUCTOR
@@ -51534,7 +51643,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a public or private message link.
+     * Returns information about a public or private message link. Can be called for any internal link of the type internalLinkTypeMessage.
      *
      * <p> Returns {@link MessageLinkInfo MessageLinkInfo} </p>
      */
@@ -51545,7 +51654,7 @@ public class TdApi {
         public String url;
 
         /**
-         * Default constructor for a function, which returns information about a public or private message link.
+         * Default constructor for a function, which returns information about a public or private message link. Can be called for any internal link of the type internalLinkTypeMessage.
          *
          * <p> Returns {@link MessageLinkInfo MessageLinkInfo} </p>
          */
@@ -51553,7 +51662,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a public or private message link.
+         * Creates a function, which returns information about a public or private message link. Can be called for any internal link of the type internalLinkTypeMessage.
          *
          * <p> Returns {@link MessageLinkInfo MessageLinkInfo} </p>
          *
@@ -51628,7 +51737,7 @@ public class TdApi {
     }
 
     /**
-     * Returns forwarded copies of a channel message to different public channels. For optimal performance the number of returned messages is chosen by the library.
+     * Returns forwarded copies of a channel message to different public channels. For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link FoundMessages FoundMessages} </p>
      */
@@ -51646,12 +51755,12 @@ public class TdApi {
          */
         public String offset;
         /**
-         * The maximum number of messages to be returned; must be positive and can't be greater than 100. Fewer messages may be returned than specified by the limit, even if the end of the list has not been reached.
+         * The maximum number of messages to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
 
         /**
-         * Default constructor for a function, which returns forwarded copies of a channel message to different public channels. For optimal performance the number of returned messages is chosen by the library.
+         * Default constructor for a function, which returns forwarded copies of a channel message to different public channels. For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          */
@@ -51659,14 +51768,14 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns forwarded copies of a channel message to different public channels. For optimal performance the number of returned messages is chosen by the library.
+         * Creates a function, which returns forwarded copies of a channel message to different public channels. For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          *
          * @param chatId Chat identifier of the message.
          * @param messageId Message identifier.
          * @param offset Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results.
-         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. Fewer messages may be returned than specified by the limit, even if the end of the list has not been reached.
+         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public GetMessagePublicForwards(long chatId, long messageId, String offset, int limit) {
             this.chatId = chatId;
@@ -51796,7 +51905,7 @@ public class TdApi {
     }
 
     /**
-     * Returns messages in a message thread of a message. Can be used only if message.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library.
+     * Returns messages in a message thread of a message. Can be used only if message.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -51818,12 +51927,12 @@ public class TdApi {
          */
         public int offset;
         /**
-         * The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. Fewer messages may be returned than specified by the limit, even if the end of the message thread history has not been reached.
+         * The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
 
         /**
-         * Default constructor for a function, which returns messages in a message thread of a message. Can be used only if message.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library.
+         * Default constructor for a function, which returns messages in a message thread of a message. Can be used only if message.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -51831,7 +51940,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns messages in a message thread of a message. Can be used only if message.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library.
+         * Creates a function, which returns messages in a message thread of a message. Can be used only if message.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -51839,7 +51948,7 @@ public class TdApi {
          * @param messageId Message identifier, which thread history needs to be returned.
          * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
          * @param offset Specify 0 to get results from exactly the fromMessageId or a negative offset up to 99 to get additionally some newer messages.
-         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. Fewer messages may be returned than specified by the limit, even if the end of the message thread history has not been reached.
+         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public GetMessageThreadHistory(long chatId, long messageId, long fromMessageId, int offset, int limit) {
             this.chatId = chatId;
@@ -52343,7 +52452,7 @@ public class TdApi {
     }
 
     /**
-     * Returns users voted for the specified option in a non-anonymous polls. For the optimal performance the number of returned users is chosen by the library.
+     * Returns users voted for the specified option in a non-anonymous polls. For optimal performance, the number of returned users is chosen by TDLib.
      *
      * <p> Returns {@link Users Users} </p>
      */
@@ -52365,12 +52474,12 @@ public class TdApi {
          */
         public int offset;
         /**
-         * The maximum number of users to be returned; must be positive and can't be greater than 50. Fewer users may be returned than specified by the limit, even if the end of the voter list has not been reached.
+         * The maximum number of users to be returned; must be positive and can't be greater than 50. For optimal performance, the number of returned users is chosen by TDLib and can be smaller than the specified limit, even if the end of the voter list has not been reached.
          */
         public int limit;
 
         /**
-         * Default constructor for a function, which returns users voted for the specified option in a non-anonymous polls. For the optimal performance the number of returned users is chosen by the library.
+         * Default constructor for a function, which returns users voted for the specified option in a non-anonymous polls. For optimal performance, the number of returned users is chosen by TDLib.
          *
          * <p> Returns {@link Users Users} </p>
          */
@@ -52378,7 +52487,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns users voted for the specified option in a non-anonymous polls. For the optimal performance the number of returned users is chosen by the library.
+         * Creates a function, which returns users voted for the specified option in a non-anonymous polls. For optimal performance, the number of returned users is chosen by TDLib.
          *
          * <p> Returns {@link Users Users} </p>
          *
@@ -52386,7 +52495,7 @@ public class TdApi {
          * @param messageId Identifier of the message containing the poll.
          * @param optionId 0-based identifier of the answer option.
          * @param offset Number of users to skip in the result; must be non-negative.
-         * @param limit The maximum number of users to be returned; must be positive and can't be greater than 50. Fewer users may be returned than specified by the limit, even if the end of the voter list has not been reached.
+         * @param limit The maximum number of users to be returned; must be positive and can't be greater than 50. For optimal performance, the number of returned users is chosen by TDLib and can be smaller than the specified limit, even if the end of the voter list has not been reached.
          */
         public GetPollVoters(long chatId, long messageId, int optionId, int offset, int limit) {
             this.chatId = chatId;
@@ -53275,6 +53384,56 @@ public class TdApi {
     }
 
     /**
+     * Returns suggested name for saving a file in a given directory.
+     *
+     * <p> Returns {@link Text Text} </p>
+     */
+    public static class GetSuggestedFileName extends Function {
+        /**
+         * Identifier of the file.
+         */
+        public int fileId;
+        /**
+         * Directory in which the file is supposed to be saved.
+         */
+        public String directory;
+
+        /**
+         * Default constructor for a function, which returns suggested name for saving a file in a given directory.
+         *
+         * <p> Returns {@link Text Text} </p>
+         */
+        public GetSuggestedFileName() {
+        }
+
+        /**
+         * Creates a function, which returns suggested name for saving a file in a given directory.
+         *
+         * <p> Returns {@link Text Text} </p>
+         *
+         * @param fileId Identifier of the file.
+         * @param directory Directory in which the file is supposed to be saved.
+         */
+        public GetSuggestedFileName(int fileId, String directory) {
+            this.fileId = fileId;
+            this.directory = directory;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2049399674;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns a suggested name for a new sticker set with a given title.
      *
      * <p> Returns {@link Text Text} </p>
@@ -53650,7 +53809,7 @@ public class TdApi {
     }
 
     /**
-     * Returns a list of trending sticker sets. For the optimal performance the number of returned sticker sets is chosen by the library.
+     * Returns a list of trending sticker sets. For optimal performance, the number of returned sticker sets is chosen by TDLib.
      *
      * <p> Returns {@link StickerSets StickerSets} </p>
      */
@@ -53660,12 +53819,12 @@ public class TdApi {
          */
         public int offset;
         /**
-         * The maximum number of sticker sets to be returned; must be non-negative. Fewer sticker sets may be returned than specified by the limit, even if the end of the list has not been reached.
+         * The maximum number of sticker sets to be returned; must be non-negative. For optimal performance, the number of returned sticker sets is chosen by TDLib and can be smaller than the specified limit, even if the end of the list has not been reached.
          */
         public int limit;
 
         /**
-         * Default constructor for a function, which returns a list of trending sticker sets. For the optimal performance the number of returned sticker sets is chosen by the library.
+         * Default constructor for a function, which returns a list of trending sticker sets. For optimal performance, the number of returned sticker sets is chosen by TDLib.
          *
          * <p> Returns {@link StickerSets StickerSets} </p>
          */
@@ -53673,12 +53832,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns a list of trending sticker sets. For the optimal performance the number of returned sticker sets is chosen by the library.
+         * Creates a function, which returns a list of trending sticker sets. For optimal performance, the number of returned sticker sets is chosen by TDLib.
          *
          * <p> Returns {@link StickerSets StickerSets} </p>
          *
          * @param offset The offset from which to return the sticker sets; must be non-negative.
-         * @param limit The maximum number of sticker sets to be returned; must be non-negative. Fewer sticker sets may be returned than specified by the limit, even if the end of the list has not been reached.
+         * @param limit The maximum number of sticker sets to be returned; must be non-negative. For optimal performance, the number of returned sticker sets is chosen by TDLib and can be smaller than the specified limit, even if the end of the list has not been reached.
          */
         public GetTrendingStickerSets(int offset, int limit) {
             this.offset = offset;
@@ -56342,14 +56501,14 @@ public class TdApi {
     }
 
     /**
-     * Re-sends the authentication code sent to confirm a new phone number for the user. Works only if the previously received authenticationCodeInfo nextCodeType was not null and the server-specified timeout has passed.
+     * Re-sends the authentication code sent to confirm a new phone number for the current user. Works only if the previously received authenticationCodeInfo nextCodeType was not null and the server-specified timeout has passed.
      *
      * <p> Returns {@link AuthenticationCodeInfo AuthenticationCodeInfo} </p>
      */
     public static class ResendChangePhoneNumberCode extends Function {
 
         /**
-         * Default constructor for a function, which re-sends the authentication code sent to confirm a new phone number for the user. Works only if the previously received authenticationCodeInfo nextCodeType was not null and the server-specified timeout has passed.
+         * Default constructor for a function, which re-sends the authentication code sent to confirm a new phone number for the current user. Works only if the previously received authenticationCodeInfo nextCodeType was not null and the server-specified timeout has passed.
          *
          * <p> Returns {@link AuthenticationCodeInfo AuthenticationCodeInfo} </p>
          */
@@ -56847,7 +57006,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library.
+     * Searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -56857,7 +57016,7 @@ public class TdApi {
          */
         public long fromMessageId;
         /**
-         * The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
         /**
@@ -56866,7 +57025,7 @@ public class TdApi {
         public boolean onlyMissed;
 
         /**
-         * Default constructor for a function, which searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library.
+         * Default constructor for a function, which searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -56874,12 +57033,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance the number of returned messages is chosen by the library.
+         * Creates a function, which searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
          * @param fromMessageId Identifier of the message from which to search; use 0 to get results from the last message.
-         * @param limit The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          * @param onlyMissed If true, returns only messages with missed calls.
          */
         public SearchCallMessages(long fromMessageId, int limit, boolean onlyMissed) {
@@ -56965,7 +57124,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages should be used instead), or without an enabled message database. For optimal performance the number of returned messages is chosen by the library.
+     * Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages should be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -56991,7 +57150,7 @@ public class TdApi {
          */
         public int offset;
         /**
-         * The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
         /**
@@ -57004,7 +57163,7 @@ public class TdApi {
         public long messageThreadId;
 
         /**
-         * Default constructor for a function, which searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages should be used instead), or without an enabled message database. For optimal performance the number of returned messages is chosen by the library.
+         * Default constructor for a function, which searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages should be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -57012,7 +57171,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages should be used instead), or without an enabled message database. For optimal performance the number of returned messages is chosen by the library.
+         * Creates a function, which searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages should be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -57021,7 +57180,7 @@ public class TdApi {
          * @param sender If not null, only messages sent by the specified sender will be returned. Not supported in secret chats.
          * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
          * @param offset Specify 0 to get results from exactly the fromMessageId or a negative offset to get the specified message and some newer messages.
-         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          * @param filter Filter for message content in the search results.
          * @param messageThreadId If not 0, only messages in the specified thread will be returned; supergroups only.
          */
@@ -57107,7 +57266,7 @@ public class TdApi {
      */
     public static class SearchChats extends Function {
         /**
-         * Query to search for. If the query is empty, returns up to 20 recently found chats.
+         * Query to search for. If the query is empty, returns up to 50 recently found chats.
          */
         public String query;
         /**
@@ -57128,7 +57287,7 @@ public class TdApi {
          *
          * <p> Returns {@link Chats Chats} </p>
          *
-         * @param query Query to search for. If the query is empty, returns up to 20 recently found chats.
+         * @param query Query to search for. If the query is empty, returns up to 50 recently found chats.
          * @param limit The maximum number of chats to be returned.
          */
         public SearchChats(String query, int limit) {
@@ -57457,7 +57616,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance the number of returned messages is chosen by the library.
+     * Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -57483,7 +57642,7 @@ public class TdApi {
          */
         public long offsetMessageId;
         /**
-         * The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
         /**
@@ -57500,7 +57659,7 @@ public class TdApi {
         public int maxDate;
 
         /**
-         * Default constructor for a function, which searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance the number of returned messages is chosen by the library.
+         * Default constructor for a function, which searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -57508,7 +57667,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance the number of returned messages is chosen by the library.
+         * Creates a function, which searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -57517,7 +57676,7 @@ public class TdApi {
          * @param offsetDate The date of the message starting from which the results should be fetched. Use 0 or any date in the future to get results from the last message.
          * @param offsetChatId The chat identifier of the last found message, or 0 for the first request.
          * @param offsetMessageId The message identifier of the last found message, or 0 for the first request.
-         * @param limit The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          * @param filter Filter for message content in the search results; searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function.
          * @param minDate If not 0, the minimum date of the messages to return.
          * @param maxDate If not 0, the maximum date of the messages to return.
@@ -57637,7 +57796,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance the number of returned messages is chosen by the library.
+     * Searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link FoundMessages FoundMessages} </p>
      */
@@ -57655,7 +57814,7 @@ public class TdApi {
          */
         public String offset;
         /**
-         * The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
         /**
@@ -57664,7 +57823,7 @@ public class TdApi {
         public SearchMessagesFilter filter;
 
         /**
-         * Default constructor for a function, which searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance the number of returned messages is chosen by the library.
+         * Default constructor for a function, which searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          */
@@ -57672,14 +57831,14 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance the number of returned messages is chosen by the library.
+         * Creates a function, which searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          *
          * @param chatId Identifier of the chat in which to search. Specify 0 to search in all secret chats.
          * @param query Query to search for. If empty, searchChatMessages should be used instead.
          * @param offset Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results.
-         * @param limit The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          * @param filter A filter for message content in the search results.
          */
         public SearchSecretMessages(long chatId, String query, String offset, int limit, SearchMessagesFilter filter) {
@@ -59373,7 +59532,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * New TTL value, in seconds; must be one of 0, 86400, 604800 unless chat is secret.
+         * New TTL value, in seconds; must be one of 0, 86400, 7 * 86400, or 31 * 86400 unless the chat is secret.
          */
         public int ttl;
 
@@ -59391,7 +59550,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Chat identifier.
-         * @param ttl New TTL value, in seconds; must be one of 0, 86400, 604800 unless chat is secret.
+         * @param ttl New TTL value, in seconds; must be one of 0, 86400, 7 * 86400, or 31 * 86400 unless the chat is secret.
          */
         public SetChatMessageTtlSetting(long chatId, int ttl) {
             this.chatId = chatId;
@@ -60411,11 +60570,11 @@ public class TdApi {
      */
     public static class SetName extends Function {
         /**
-         * The new value of the first name for the user; 1-64 characters.
+         * The new value of the first name for the current user; 1-64 characters.
          */
         public String firstName;
         /**
-         * The new value of the optional last name for the user; 0-64 characters.
+         * The new value of the optional last name for the current user; 0-64 characters.
          */
         public String lastName;
 
@@ -60432,8 +60591,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param firstName The new value of the first name for the user; 1-64 characters.
-         * @param lastName The new value of the optional last name for the user; 0-64 characters.
+         * @param firstName The new value of the first name for the current user; 1-64 characters.
+         * @param lastName The new value of the optional last name for the current user; 0-64 characters.
          */
         public SetName(String firstName, String lastName) {
             this.firstName = firstName;
@@ -60649,7 +60808,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the password for the user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
+     * Changes the password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
      *
      * <p> Returns {@link PasswordState PasswordState} </p>
      */
@@ -60676,7 +60835,7 @@ public class TdApi {
         public String newRecoveryEmailAddress;
 
         /**
-         * Default constructor for a function, which changes the password for the user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
+         * Default constructor for a function, which changes the password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
          *
          * <p> Returns {@link PasswordState PasswordState} </p>
          */
@@ -60684,7 +60843,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the password for the user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
+         * Creates a function, which changes the password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
          *
          * <p> Returns {@link PasswordState PasswordState} </p>
          *
