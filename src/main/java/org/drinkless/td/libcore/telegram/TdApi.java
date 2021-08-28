@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import androidx.annotation.IntDef;
-import androidx.annotation.Nullable;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
