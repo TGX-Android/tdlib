@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -179,8 +179,10 @@ public class TdApi {
             GetChatNotificationSettingsExceptions.CONSTRUCTOR,
             GetChatPinnedMessage.CONSTRUCTOR,
             GetChatScheduledMessages.CONSTRUCTOR,
+            GetChatSponsoredMessages.CONSTRUCTOR,
             GetChatStatistics.CONSTRUCTOR,
             GetChatStatisticsUrl.CONSTRUCTOR,
+            GetChatThemes.CONSTRUCTOR,
             GetChats.CONSTRUCTOR,
             GetCommands.CONSTRUCTOR,
             GetConnectedWebsites.CONSTRUCTOR,
@@ -246,6 +248,7 @@ public class TdApi {
             GetPaymentForm.CONSTRUCTOR,
             GetPaymentReceipt.CONSTRUCTOR,
             GetPhoneNumberInfo.CONSTRUCTOR,
+            GetPhoneNumberInfoSync.CONSTRUCTOR,
             GetPollVoters.CONSTRUCTOR,
             GetPreferredCountryLanguage.CONSTRUCTOR,
             GetProxies.CONSTRUCTOR,
@@ -295,6 +298,7 @@ public class TdApi {
             JoinGroupCall.CONSTRUCTOR,
             LeaveChat.CONSTRUCTOR,
             LeaveGroupCall.CONSTRUCTOR,
+            LoadChats.CONSTRUCTOR,
             LoadGroupCallParticipants.CONSTRUCTOR,
             LogOut.CONSTRUCTOR,
             OpenChat.CONSTRUCTOR,
@@ -399,6 +403,7 @@ public class TdApi {
             SetChatPermissions.CONSTRUCTOR,
             SetChatPhoto.CONSTRUCTOR,
             SetChatSlowModeDelay.CONSTRUCTOR,
+            SetChatTheme.CONSTRUCTOR,
             SetChatTitle.CONSTRUCTOR,
             SetCommands.CONSTRUCTOR,
             SetCustomLanguagePack.CONSTRUCTOR,
@@ -476,6 +481,7 @@ public class TdApi {
             UploadStickerFile.CONSTRUCTOR,
             ValidateOrderInfo.CONSTRUCTOR,
             ViewMessages.CONSTRUCTOR,
+            ViewSponsoredMessage.CONSTRUCTOR,
             ViewTrendingStickerSets.CONSTRUCTOR,
             WriteGeneratedFilePart.CONSTRUCTOR
         })
@@ -1473,15 +1479,15 @@ public class TdApi {
          */
         public boolean isAutoDownloadEnabled;
         /**
-         * The maximum size of a photo file to be auto-downloaded.
+         * The maximum size of a photo file to be auto-downloaded, in bytes.
          */
         public int maxPhotoFileSize;
         /**
-         * The maximum size of a video file to be auto-downloaded.
+         * The maximum size of a video file to be auto-downloaded, in bytes.
          */
         public int maxVideoFileSize;
         /**
-         * The maximum size of other file types to be auto-downloaded.
+         * The maximum size of other file types to be auto-downloaded, in bytes.
          */
         public int maxOtherFileSize;
         /**
@@ -1511,9 +1517,9 @@ public class TdApi {
          * Contains auto-download settings.
          *
          * @param isAutoDownloadEnabled True, if the auto-download is enabled.
-         * @param maxPhotoFileSize The maximum size of a photo file to be auto-downloaded.
-         * @param maxVideoFileSize The maximum size of a video file to be auto-downloaded.
-         * @param maxOtherFileSize The maximum size of other file types to be auto-downloaded.
+         * @param maxPhotoFileSize The maximum size of a photo file to be auto-downloaded, in bytes.
+         * @param maxVideoFileSize The maximum size of a video file to be auto-downloaded, in bytes.
+         * @param maxOtherFileSize The maximum size of other file types to be auto-downloaded, in bytes.
          * @param videoUploadBitrate The maximum suggested bitrate for uploaded videos, in kbit/s.
          * @param preloadLargeVideos True, if the beginning of video files needs to be preloaded for instant playback.
          * @param preloadNextAudio True, if the next audio track needs to be preloaded while the user is listening to an audio file.
@@ -3987,6 +3993,10 @@ public class TdApi {
          */
         public int messageTtlSetting;
         /**
+         * If non-empty, name of the theme set for the chat.
+         */
+        public String themeName;
+        /**
          * Describes actions which should be possible to do through a chat action bar; may be null.
          */
         @Nullable public ChatActionBar actionBar;
@@ -4036,13 +4046,14 @@ public class TdApi {
          * @param unreadMentionCount Number of unread messages with a mention/reply in the chat.
          * @param notificationSettings Notification settings for this chat.
          * @param messageTtlSetting Current message Time To Live setting (self-destruct timer) for the chat; 0 if not defined. TTL is counted from the time message or its content is viewed in secret chats and from the send date in other chats.
+         * @param themeName If non-empty, name of the theme set for the chat.
          * @param actionBar Describes actions which should be possible to do through a chat action bar; may be null.
          * @param voiceChat Contains information about voice chat of the chat.
          * @param replyMarkupMessageId Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat.
          * @param draftMessage A draft of a message in the chat; may be null.
          * @param clientData Contains application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used.
          */
-        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, int messageTtlSetting, ChatActionBar actionBar, VoiceChat voiceChat, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
+        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, int messageTtlSetting, String themeName, ChatActionBar actionBar, VoiceChat voiceChat, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
             this.id = id;
             this.type = type;
             this.title = title;
@@ -4063,6 +4074,7 @@ public class TdApi {
             this.unreadMentionCount = unreadMentionCount;
             this.notificationSettings = notificationSettings;
             this.messageTtlSetting = messageTtlSetting;
+            this.themeName = themeName;
             this.actionBar = actionBar;
             this.voiceChat = voiceChat;
             this.replyMarkupMessageId = replyMarkupMessageId;
@@ -4073,7 +4085,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1468164559;
+        public static final int CONSTRUCTOR = 1672092758;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4098,6 +4110,7 @@ public class TdApi {
             ChatActionUploadingVoiceNote.CONSTRUCTOR,
             ChatActionUploadingPhoto.CONSTRUCTOR,
             ChatActionUploadingDocument.CONSTRUCTOR,
+            ChatActionChoosingSticker.CONSTRUCTOR,
             ChatActionChoosingLocation.CONSTRUCTOR,
             ChatActionChoosingContact.CONSTRUCTOR,
             ChatActionStartPlayingGame.CONSTRUCTOR,
@@ -4332,6 +4345,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 167884362;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user is picking a sticker to send.
+     */
+    public static class ChatActionChoosingSticker extends ChatAction {
+
+        /**
+         * The user is picking a sticker to send.
+         */
+        public ChatActionChoosingSticker() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 372753697;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4878,6 +4916,7 @@ public class TdApi {
             ChatEventDescriptionChanged.CONSTRUCTOR,
             ChatEventUsernameChanged.CONSTRUCTOR,
             ChatEventPhotoChanged.CONSTRUCTOR,
+            ChatEventThemeChanged.CONSTRUCTOR,
             ChatEventInvitesToggled.CONSTRUCTOR,
             ChatEventLinkedChatChanged.CONSTRUCTOR,
             ChatEventSlowModeDelayChanged.CONSTRUCTOR,
@@ -5543,6 +5582,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -811572541;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat theme was changed.
+     */
+    public static class ChatEventThemeChanged extends ChatEventAction {
+        /**
+         * Previous chat theme name; empty if default one.
+         */
+        public String oldThemeName;
+        /**
+         * New chat theme name; empty if default one.
+         */
+        public String newThemeName;
+
+        /**
+         * The chat theme was changed.
+         */
+        public ChatEventThemeChanged() {
+        }
+
+        /**
+         * The chat theme was changed.
+         *
+         * @param oldThemeName Previous chat theme name; empty if default one.
+         * @param newThemeName New chat theme name; empty if default one.
+         */
+        public ChatEventThemeChanged(String oldThemeName, String newThemeName) {
+            this.oldThemeName = oldThemeName;
+            this.newThemeName = newThemeName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 703128930;
 
         /**
          * @return this.CONSTRUCTOR
@@ -8943,6 +9026,94 @@ public class TdApi {
     }
 
     /**
+     * Describes a chat theme.
+     */
+    public static class ChatTheme extends Object {
+        /**
+         * Theme name.
+         */
+        public String name;
+        /**
+         * Theme settings for a light chat theme.
+         */
+        public ThemeSettings lightSettings;
+        /**
+         * Theme settings for a dark chat theme.
+         */
+        public ThemeSettings darkSettings;
+
+        /**
+         * Describes a chat theme.
+         */
+        public ChatTheme() {
+        }
+
+        /**
+         * Describes a chat theme.
+         *
+         * @param name Theme name.
+         * @param lightSettings Theme settings for a light chat theme.
+         * @param darkSettings Theme settings for a dark chat theme.
+         */
+        public ChatTheme(String name, ThemeSettings lightSettings, ThemeSettings darkSettings) {
+            this.name = name;
+            this.lightSettings = lightSettings;
+            this.darkSettings = darkSettings;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -113218503;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of chat themes.
+     */
+    public static class ChatThemes extends Object {
+        /**
+         * A list of chat themes.
+         */
+        public ChatTheme[] chatThemes;
+
+        /**
+         * Contains a list of chat themes.
+         */
+        public ChatThemes() {
+        }
+
+        /**
+         * Contains a list of chat themes.
+         *
+         * @param chatThemes A list of chat themes.
+         */
+        public ChatThemes(ChatTheme[] chatThemes) {
+            this.chatThemes = chatThemes;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -260514942;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Describes the type of a chat.
      */
@@ -11214,11 +11385,11 @@ public class TdApi {
          */
         public int id;
         /**
-         * File size; 0 if unknown.
+         * File size, in bytes; 0 if unknown.
          */
         public int size;
         /**
-         * Expected file size in case the exact file size is unknown, but an approximate size is known. Can be used to show download/upload progress.
+         * Approximate file size in bytes in case the exact file size is unknown. Can be used to show download/upload progress.
          */
         public int expectedSize;
         /**
@@ -11240,8 +11411,8 @@ public class TdApi {
          * Represents a file.
          *
          * @param id Unique file identifier.
-         * @param size File size; 0 if unknown.
-         * @param expectedSize Expected file size in case the exact file size is unknown, but an approximate size is known. Can be used to show download/upload progress.
+         * @param size File size, in bytes; 0 if unknown.
+         * @param expectedSize Approximate file size in bytes in case the exact file size is unknown. Can be used to show download/upload progress.
          * @param local Information about the local copy of the file.
          * @param remote Information about the remote copy of the file.
          */
@@ -12068,6 +12239,10 @@ public class TdApi {
          */
         public int recordDuration;
         /**
+         * True, if a video file is being recorded for the call.
+         */
+        public boolean isVideoRecorded;
+        /**
          * Call duration, in seconds; for ended calls only.
          */
         public int duration;
@@ -12098,9 +12273,10 @@ public class TdApi {
          * @param muteNewParticipants True, if only group call administrators can unmute new participants.
          * @param canChangeMuteNewParticipants True, if the current user can enable or disable muteNewParticipants setting.
          * @param recordDuration Duration of the ongoing group call recording, in seconds; 0 if none. An updateGroupCall update is not triggered when value of this field changes, but the same recording goes on.
+         * @param isVideoRecorded True, if a video file is being recorded for the call.
          * @param duration Call duration, in seconds; for ended calls only.
          */
-        public GroupCall(int id, String title, int scheduledStartDate, boolean enabledStartNotification, boolean isActive, boolean isJoined, boolean needRejoin, boolean canBeManaged, int participantCount, boolean loadedAllParticipants, GroupCallRecentSpeaker[] recentSpeakers, boolean isMyVideoEnabled, boolean isMyVideoPaused, boolean canEnableVideo, boolean muteNewParticipants, boolean canChangeMuteNewParticipants, int recordDuration, int duration) {
+        public GroupCall(int id, String title, int scheduledStartDate, boolean enabledStartNotification, boolean isActive, boolean isJoined, boolean needRejoin, boolean canBeManaged, int participantCount, boolean loadedAllParticipants, GroupCallRecentSpeaker[] recentSpeakers, boolean isMyVideoEnabled, boolean isMyVideoPaused, boolean canEnableVideo, boolean muteNewParticipants, boolean canChangeMuteNewParticipants, int recordDuration, boolean isVideoRecorded, int duration) {
             this.id = id;
             this.title = title;
             this.scheduledStartDate = scheduledStartDate;
@@ -12118,13 +12294,14 @@ public class TdApi {
             this.muteNewParticipants = muteNewParticipants;
             this.canChangeMuteNewParticipants = canChangeMuteNewParticipants;
             this.recordDuration = recordDuration;
+            this.isVideoRecorded = isVideoRecorded;
             this.duration = duration;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 130933113;
+        public static final int CONSTRUCTOR = 1603639190;
 
         /**
          * @return this.CONSTRUCTOR
@@ -12408,6 +12585,102 @@ public class TdApi {
     }
 
     /**
+     * This class is an abstract base class.
+     * Describes the quality of a group call video.
+     */
+    public abstract static class GroupCallVideoQuality extends Object {
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            GroupCallVideoQualityThumbnail.CONSTRUCTOR,
+            GroupCallVideoQualityMedium.CONSTRUCTOR,
+            GroupCallVideoQualityFull.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+    }
+
+    /**
+     * The worst available video quality.
+     */
+    public static class GroupCallVideoQualityThumbnail extends GroupCallVideoQuality {
+
+        /**
+         * The worst available video quality.
+         */
+        public GroupCallVideoQualityThumbnail() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -379186304;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The medium video quality.
+     */
+    public static class GroupCallVideoQualityMedium extends GroupCallVideoQuality {
+
+        /**
+         * The medium video quality.
+         */
+        public GroupCallVideoQualityMedium() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 394968234;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The best available video quality.
+     */
+    public static class GroupCallVideoQualityFull extends GroupCallVideoQuality {
+
+        /**
+         * The best available video quality.
+         */
+        public GroupCallVideoQualityFull() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2125916617;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes a group of video synchronization source identifiers.
      */
     public static class GroupCallVideoSourceGroup extends Object {
@@ -12544,9 +12817,9 @@ public class TdApi {
          */
         public DatedFile frontSide;
         /**
-         * Reverse side of the document; only for driver license and identity card.
+         * Reverse side of the document; only for driver license and identity card; may be null.
          */
-        public DatedFile reverseSide;
+        @Nullable public DatedFile reverseSide;
         /**
          * Selfie with the document; may be null.
          */
@@ -12568,7 +12841,7 @@ public class TdApi {
          * @param number Document number; 1-24 characters.
          * @param expiryDate Document expiry date; may be null.
          * @param frontSide Front side of the document.
-         * @param reverseSide Reverse side of the document; only for driver license and identity card.
+         * @param reverseSide Reverse side of the document; only for driver license and identity card; may be null.
          * @param selfie Selfie with the document; may be null.
          * @param translation List of files containing a certified English translation of the document.
          */
@@ -14248,7 +14521,7 @@ public class TdApi {
          */
         public String conversion;
         /**
-         * Expected size of the generated file; 0 if unknown.
+         * Expected size of the generated file, in bytes; 0 if unknown.
          */
         public int expectedSize;
 
@@ -14263,7 +14536,7 @@ public class TdApi {
          *
          * @param originalPath Local path to a file from which the file is generated; may be empty if there is no such file.
          * @param conversion String specifying the conversion applied to the original file; should be persistent across application restarts. Conversions beginning with '#' are reserved for internal TDLib usage.
-         * @param expectedSize Expected size of the generated file; 0 if unknown.
+         * @param expectedSize Expected size of the generated file, in bytes; 0 if unknown.
          */
         public InputFileGenerated(String originalPath, String conversion, int expectedSize) {
             this.originalPath = originalPath;
@@ -18449,6 +18722,10 @@ public class TdApi {
          * If non-empty, invite hash to be used to join the voice chat without being muted by administrators.
          */
         public String inviteHash;
+        /**
+         * True, if the voice chat is expected to be a live stream in a channel or a broadcast group.
+         */
+        public boolean isLiveStream;
 
         /**
          * The link is a link to a voice chat. Call searchPublicChat with the given chat username, and then joinGoupCall with the given invite hash to process the link.
@@ -18461,16 +18738,18 @@ public class TdApi {
          *
          * @param chatUsername Username of the chat with the voice chat.
          * @param inviteHash If non-empty, invite hash to be used to join the voice chat without being muted by administrators.
+         * @param isLiveStream True, if the voice chat is expected to be a live stream in a channel or a broadcast group.
          */
-        public InternalLinkTypeVoiceChat(String chatUsername, String inviteHash) {
+        public InternalLinkTypeVoiceChat(String chatUsername, String inviteHash, boolean isLiveStream) {
             this.chatUsername = chatUsername;
             this.inviteHash = inviteHash;
+            this.isLiveStream = isLiveStream;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1471619400;
+        public static final int CONSTRUCTOR = 2122812666;
 
         /**
          * @return this.CONSTRUCTOR
@@ -19470,11 +19749,11 @@ public class TdApi {
          */
         public int downloadOffset;
         /**
-         * If isDownloadingCompleted is false, then only some prefix of the file starting from downloadOffset is ready to be read. downloadedPrefixSize is the size of that prefix.
+         * If isDownloadingCompleted is false, then only some prefix of the file starting from downloadOffset is ready to be read. downloadedPrefixSize is the size of that prefix in bytes.
          */
         public int downloadedPrefixSize;
         /**
-         * Total downloaded file bytes. Should be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage.
+         * Total downloaded file size, in bytes. Should be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage.
          */
         public int downloadedSize;
 
@@ -19493,8 +19772,8 @@ public class TdApi {
          * @param isDownloadingActive True, if the file is currently being downloaded (or a local copy is being generated by some other means).
          * @param isDownloadingCompleted True, if the local copy is fully available.
          * @param downloadOffset Download will be started from this offset. downloadedPrefixSize is calculated from this offset.
-         * @param downloadedPrefixSize If isDownloadingCompleted is false, then only some prefix of the file starting from downloadOffset is ready to be read. downloadedPrefixSize is the size of that prefix.
-         * @param downloadedSize Total downloaded file bytes. Should be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage.
+         * @param downloadedPrefixSize If isDownloadingCompleted is false, then only some prefix of the file starting from downloadOffset is ready to be read. downloadedPrefixSize is the size of that prefix in bytes.
+         * @param downloadedSize Total downloaded file size, in bytes. Should be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage.
          */
         public LocalFile(String path, boolean canBeDownloaded, boolean canBeDeleted, boolean isDownloadingActive, boolean isDownloadingCompleted, int downloadOffset, int downloadedPrefixSize, int downloadedSize) {
             this.path = path;
@@ -19664,7 +19943,7 @@ public class TdApi {
          */
         public String path;
         /**
-         * The maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated.
+         * The maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated, in bytes.
          */
         public long maxFileSize;
         /**
@@ -19682,7 +19961,7 @@ public class TdApi {
          * The log is written to a file.
          *
          * @param path Path to the file to where the internal TDLib log will be written.
-         * @param maxFileSize The maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated.
+         * @param maxFileSize The maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated, in bytes.
          * @param redirectStderr Pass true to additionally redirect stderr to the log file. Ignored on Windows.
          */
         public LogStreamFile(String path, long maxFileSize, boolean redirectStderr) {
@@ -20370,6 +20649,7 @@ public class TdApi {
             MessageChatUpgradeFrom.CONSTRUCTOR,
             MessagePinMessage.CONSTRUCTOR,
             MessageScreenshotTaken.CONSTRUCTOR,
+            MessageChatSetTheme.CONSTRUCTOR,
             MessageChatSetTtl.CONSTRUCTOR,
             MessageCustomServiceAction.CONSTRUCTOR,
             MessageGameScore.CONSTRUCTOR,
@@ -21857,6 +22137,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1564971605;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A theme in the chat has been changed.
+     */
+    public static class MessageChatSetTheme extends MessageContent {
+        /**
+         * If non-empty, name of the new theme set for the chat. Otherwise chat theme was reset to the default one.
+         */
+        public String themeName;
+
+        /**
+         * A theme in the chat has been changed.
+         */
+        public MessageChatSetTheme() {
+        }
+
+        /**
+         * A theme in the chat has been changed.
+         *
+         * @param themeName If non-empty, name of the new theme set for the chat. Otherwise chat theme was reset to the default one.
+         */
+        public MessageChatSetTheme(String themeName) {
+            this.themeName = themeName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1716612088;
 
         /**
          * @return this.CONSTRUCTOR
@@ -23461,6 +23779,10 @@ public class TdApi {
          */
         public MessageReplyInfo replyInfo;
         /**
+         * Approximate number of unread messages in the message thread.
+         */
+        public int unreadMessageCount;
+        /**
          * The messages from which the thread starts. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId).
          */
         public Message[] messages;
@@ -23481,13 +23803,15 @@ public class TdApi {
          * @param chatId Identifier of the chat to which the message thread belongs.
          * @param messageThreadId Message thread identifier, unique within the chat.
          * @param replyInfo Contains information about the message thread.
+         * @param unreadMessageCount Approximate number of unread messages in the message thread.
          * @param messages The messages from which the thread starts. The messages are returned in a reverse chronological order (i.e., in order of decreasing messageId).
          * @param draftMessage A draft of a message in the message thread; may be null.
          */
-        public MessageThreadInfo(long chatId, long messageThreadId, MessageReplyInfo replyInfo, Message[] messages, DraftMessage draftMessage) {
+        public MessageThreadInfo(long chatId, long messageThreadId, MessageReplyInfo replyInfo, int unreadMessageCount, Message[] messages, DraftMessage draftMessage) {
             this.chatId = chatId;
             this.messageThreadId = messageThreadId;
             this.replyInfo = replyInfo;
+            this.unreadMessageCount = unreadMessageCount;
             this.messages = messages;
             this.draftMessage = draftMessage;
         }
@@ -23495,7 +23819,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -65494328;
+        public static final int CONSTRUCTOR = -248536056;
 
         /**
          * @return this.CONSTRUCTOR
@@ -28252,7 +28576,7 @@ public class TdApi {
      */
     public static class PaymentResult extends Object {
         /**
-         * True, if the payment request was successful; otherwise the verificationUrl will be not empty.
+         * True, if the payment request was successful; otherwise the verificationUrl will be non-empty.
          */
         public boolean success;
         /**
@@ -28269,7 +28593,7 @@ public class TdApi {
         /**
          * Contains the result of a payment request.
          *
-         * @param success True, if the payment request was successful; otherwise the verificationUrl will be not empty.
+         * @param success True, if the payment request was successful; otherwise the verificationUrl will be non-empty.
          * @param verificationUrl URL for additional payment credentials verification.
          */
         public PaymentResult(boolean success, String verificationUrl) {
@@ -28546,7 +28870,7 @@ public class TdApi {
          */
         public String countryCallingCode;
         /**
-         * The phone number without country calling code formatted accordingly to local rules.
+         * The phone number without country calling code formatted accordingly to local rules. Expected digits are returned as '-', but even more digits might be entered by the user.
          */
         public String formattedPhoneNumber;
 
@@ -28561,7 +28885,7 @@ public class TdApi {
          *
          * @param country Information about the country to which the phone number belongs; may be null.
          * @param countryCallingCode The part of the phone number denoting country calling code or its part.
-         * @param formattedPhoneNumber The phone number without country calling code formatted accordingly to local rules.
+         * @param formattedPhoneNumber The phone number without country calling code formatted accordingly to local rules. Expected digits are returned as '-', but even more digits might be entered by the user.
          */
         public PhoneNumberInfo(CountryInfo country, String countryCallingCode, String formattedPhoneNumber) {
             this.country = country;
@@ -28654,7 +28978,7 @@ public class TdApi {
          */
         public int height;
         /**
-         * Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image.
+         * Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image; in bytes.
          */
         public int[] progressiveSizes;
 
@@ -28671,7 +28995,7 @@ public class TdApi {
          * @param photo Information about the image file.
          * @param width Image width.
          * @param height Image height.
-         * @param progressiveSizes Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image.
+         * @param progressiveSizes Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image; in bytes.
          */
         public PhotoSize(String type, File photo, int width, int height, int[] progressiveSizes) {
             this.type = type;
@@ -29415,6 +29739,7 @@ public class TdApi {
             PushMessageContentChatAddMembers.CONSTRUCTOR,
             PushMessageContentChatChangePhoto.CONSTRUCTOR,
             PushMessageContentChatChangeTitle.CONSTRUCTOR,
+            PushMessageContentChatChangeTheme.CONSTRUCTOR,
             PushMessageContentChatDeleteMember.CONSTRUCTOR,
             PushMessageContentChatJoinByLink.CONSTRUCTOR,
             PushMessageContentMessageForwards.CONSTRUCTOR,
@@ -30365,6 +30690,44 @@ public class TdApi {
     }
 
     /**
+     * A chat theme was edited.
+     */
+    public static class PushMessageContentChatChangeTheme extends PushMessageContent {
+        /**
+         * If non-empty, name of the new theme set for the chat. Otherwise chat theme was reset to the default one.
+         */
+        public String themeName;
+
+        /**
+         * A chat theme was edited.
+         */
+        public PushMessageContentChatChangeTheme() {
+        }
+
+        /**
+         * A chat theme was edited.
+         *
+         * @param themeName If non-empty, name of the new theme set for the chat. Otherwise chat theme was reset to the default one.
+         */
+        public PushMessageContentChatChangeTheme(String themeName) {
+            this.themeName = themeName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1442786097;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * A chat member was deleted.
      */
     public static class PushMessageContentChatDeleteMember extends PushMessageContent {
@@ -30718,7 +31081,7 @@ public class TdApi {
          */
         public boolean isUploadingCompleted;
         /**
-         * Size of the remote available part of the file; 0 if unknown.
+         * Size of the remote available part of the file, in bytes; 0 if unknown.
          */
         public int uploadedSize;
 
@@ -30735,7 +31098,7 @@ public class TdApi {
          * @param uniqueId Unique file identifier; may be empty if unknown. The unique file identifier which is the same for the same file even for different users and is persistent over time.
          * @param isUploadingActive True, if the file is currently being uploaded (or a remote copy is being generated by some other means).
          * @param isUploadingCompleted True, if a remote copy is fully available.
-         * @param uploadedSize Size of the remote available part of the file; 0 if unknown.
+         * @param uploadedSize Size of the remote available part of the file, in bytes; 0 if unknown.
          */
         public RemoteFile(String id, String uniqueId, boolean isUploadingActive, boolean isUploadingCompleted, int uploadedSize) {
             this.id = id;
@@ -32831,6 +33194,100 @@ public class TdApi {
     }
 
     /**
+     * Describes a sponsored message.
+     */
+    public static class SponsoredMessage extends Object {
+        /**
+         * Unique sponsored message identifier.
+         */
+        public byte[] id;
+        /**
+         * Chat identifier.
+         */
+        public long sponsorChatId;
+        /**
+         * Parameter for the bot start message if the sponsored chat is a chat with a bot.
+         */
+        public String startParameter;
+        /**
+         * Content of the message.
+         */
+        public MessageContent content;
+
+        /**
+         * Describes a sponsored message.
+         */
+        public SponsoredMessage() {
+        }
+
+        /**
+         * Describes a sponsored message.
+         *
+         * @param id Unique sponsored message identifier.
+         * @param sponsorChatId Chat identifier.
+         * @param startParameter Parameter for the bot start message if the sponsored chat is a chat with a bot.
+         * @param content Content of the message.
+         */
+        public SponsoredMessage(byte[] id, long sponsorChatId, String startParameter, MessageContent content) {
+            this.id = id;
+            this.sponsorChatId = sponsorChatId;
+            this.startParameter = startParameter;
+            this.content = content;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 779168689;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of sponsored messages.
+     */
+    public static class SponsoredMessages extends Object {
+        /**
+         * List of sponsored messages.
+         */
+        public SponsoredMessage[] messages;
+
+        /**
+         * Contains a list of sponsored messages.
+         */
+        public SponsoredMessages() {
+        }
+
+        /**
+         * Contains a list of sponsored messages.
+         *
+         * @param messages List of sponsored messages.
+         */
+        public SponsoredMessages(SponsoredMessage[] messages) {
+            this.messages = messages;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2083804091;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Describes a statistical graph.
      */
@@ -33420,7 +33877,7 @@ public class TdApi {
      */
     public static class StorageStatistics extends Object {
         /**
-         * Total size of files.
+         * Total size of files, in bytes.
          */
         public long size;
         /**
@@ -33441,7 +33898,7 @@ public class TdApi {
         /**
          * Contains the exact storage usage statistics split by chats and file type.
          *
-         * @param size Total size of files.
+         * @param size Total size of files, in bytes.
          * @param count Total number of files.
          * @param byChat Statistics split by chats.
          */
@@ -33474,7 +33931,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Total size of the files in the chat.
+         * Total size of the files in the chat, in bytes.
          */
         public long size;
         /**
@@ -33496,7 +33953,7 @@ public class TdApi {
          * Contains the storage usage statistics for a specific chat.
          *
          * @param chatId Chat identifier; 0 if none.
-         * @param size Total size of the files in the chat.
+         * @param size Total size of the files in the chat, in bytes.
          * @param count Total number of files in the chat.
          * @param byFileType Statistics split by file types.
          */
@@ -33530,7 +33987,7 @@ public class TdApi {
          */
         public FileType fileType;
         /**
-         * Total size of the files.
+         * Total size of the files, in bytes.
          */
         public long size;
         /**
@@ -33548,7 +34005,7 @@ public class TdApi {
          * Contains the storage usage statistics for a specific file type.
          *
          * @param fileType File type.
-         * @param size Total size of the files.
+         * @param size Total size of the files, in bytes.
          * @param count Total number of files.
          */
         public StorageStatisticsByFileType(FileType fileType, long size, int count) {
@@ -33576,7 +34033,7 @@ public class TdApi {
      */
     public static class StorageStatisticsFast extends Object {
         /**
-         * Approximate total size of files.
+         * Approximate total size of files, in bytes.
          */
         public long filesSize;
         /**
@@ -33605,7 +34062,7 @@ public class TdApi {
         /**
          * Contains approximate storage usage statistics, excluding files of unknown file type.
          *
-         * @param filesSize Approximate total size of files.
+         * @param filesSize Approximate total size of files, in bytes.
          * @param fileCount Approximate number of files.
          * @param databaseSize Size of the database.
          * @param languagePackDatabaseSize Size of the language pack database.
@@ -35857,6 +36314,62 @@ public class TdApi {
     }
 
     /**
+     * Describes theme settings.
+     */
+    public static class ThemeSettings extends Object {
+        /**
+         * Theme accent color in ARGB format.
+         */
+        public int accentColor;
+        /**
+         * The background to be used in chats; may be null.
+         */
+        @Nullable public Background background;
+        /**
+         * The fill to be used as a background for outgoing messages.
+         */
+        public BackgroundFill messageFill;
+        /**
+         * If true, the freeform gradient fill needs to be animated on every sent message.
+         */
+        public boolean animateMessageFill;
+
+        /**
+         * Describes theme settings.
+         */
+        public ThemeSettings() {
+        }
+
+        /**
+         * Describes theme settings.
+         *
+         * @param accentColor Theme accent color in ARGB format.
+         * @param background The background to be used in chats; may be null.
+         * @param messageFill The fill to be used as a background for outgoing messages.
+         * @param animateMessageFill If true, the freeform gradient fill needs to be animated on every sent message.
+         */
+        public ThemeSettings(int accentColor, Background background, BackgroundFill messageFill, boolean animateMessageFill) {
+            this.accentColor = accentColor;
+            this.background = background;
+            this.messageFill = messageFill;
+            this.animateMessageFill = animateMessageFill;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -982342100;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Represents a thumbnail.
      */
     public static class Thumbnail extends Object {
@@ -36323,6 +36836,7 @@ public class TdApi {
             UpdateScopeNotificationSettings.CONSTRUCTOR,
             UpdateChatMessageTtlSetting.CONSTRUCTOR,
             UpdateChatActionBar.CONSTRUCTOR,
+            UpdateChatTheme.CONSTRUCTOR,
             UpdateChatReplyMarkup.CONSTRUCTOR,
             UpdateChatDraftMessage.CONSTRUCTOR,
             UpdateChatFilters.CONSTRUCTOR,
@@ -37741,6 +38255,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -643671870;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat theme was changed.
+     */
+    public static class UpdateChatTheme extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The new name of the chat theme; may be empty if none.
+         */
+        public String themeName;
+
+        /**
+         * The chat theme was changed.
+         */
+        public UpdateChatTheme() {
+        }
+
+        /**
+         * The chat theme was changed.
+         *
+         * @param chatId Chat identifier.
+         * @param themeName The new name of the chat theme; may be empty if none.
+         */
+        public UpdateChatTheme(long chatId, String themeName) {
+            this.chatId = chatId;
+            this.themeName = themeName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 838063205;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47669,13 +48227,17 @@ public class TdApi {
          */
         public MessageSendOptions options;
         /**
-         * True, if content of the messages needs to be copied without links to the original messages. Always true if the messages are forwarded to a secret chat.
+         * If true, content of the messages will be copied without links to the original messages. Always true if the messages are forwarded to a secret chat.
          */
         public boolean sendCopy;
         /**
-         * True, if media caption of message copies needs to be removed. Ignored if sendCopy is false.
+         * If true, media caption of message copies will be removed. Ignored if sendCopy is false.
          */
         public boolean removeCaption;
+        /**
+         * If true, messages will not be forwarded and instead fake messages will be returned.
+         */
+        public boolean onlyPreview;
 
         /**
          * Default constructor for a function, which forwards previously sent messages. Returns the forwarded messages in the same order as the message identifiers passed in messageIds. If a message can't be forwarded, null will be returned instead of the message.
@@ -47694,22 +48256,24 @@ public class TdApi {
          * @param fromChatId Identifier of the chat from which to forward messages.
          * @param messageIds Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order. At most 100 messages can be forwarded simultaneously.
          * @param options Options to be used to send the messages.
-         * @param sendCopy True, if content of the messages needs to be copied without links to the original messages. Always true if the messages are forwarded to a secret chat.
-         * @param removeCaption True, if media caption of message copies needs to be removed. Ignored if sendCopy is false.
+         * @param sendCopy If true, content of the messages will be copied without links to the original messages. Always true if the messages are forwarded to a secret chat.
+         * @param removeCaption If true, media caption of message copies will be removed. Ignored if sendCopy is false.
+         * @param onlyPreview If true, messages will not be forwarded and instead fake messages will be returned.
          */
-        public ForwardMessages(long chatId, long fromChatId, long[] messageIds, MessageSendOptions options, boolean sendCopy, boolean removeCaption) {
+        public ForwardMessages(long chatId, long fromChatId, long[] messageIds, MessageSendOptions options, boolean sendCopy, boolean removeCaption, boolean onlyPreview) {
             this.chatId = chatId;
             this.fromChatId = fromChatId;
             this.messageIds = messageIds;
             this.options = options;
             this.sendCopy = sendCopy;
             this.removeCaption = removeCaption;
+            this.onlyPreview = onlyPreview;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2086130821;
+        public static final int CONSTRUCTOR = -798726491;
 
         /**
          * @return this.CONSTRUCTOR
@@ -49342,6 +49906,50 @@ public class TdApi {
     }
 
     /**
+     * Returns sponsored messages to be shown in a chat; for channel chats only.
+     *
+     * <p> Returns {@link SponsoredMessages SponsoredMessages} </p>
+     */
+    public static class GetChatSponsoredMessages extends Function {
+        /**
+         * Identifier of the chat.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which returns sponsored messages to be shown in a chat; for channel chats only.
+         *
+         * <p> Returns {@link SponsoredMessages SponsoredMessages} </p>
+         */
+        public GetChatSponsoredMessages() {
+        }
+
+        /**
+         * Creates a function, which returns sponsored messages to be shown in a chat; for channel chats only.
+         *
+         * <p> Returns {@link SponsoredMessages SponsoredMessages} </p>
+         *
+         * @param chatId Identifier of the chat.
+         */
+        public GetChatSponsoredMessages(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1353203864;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns detailed statistics about a chat. Currently this method can be used only for supergroups and channels. Can be used only if SupergroupFullInfo.canGetStatistics == true.
      *
      * <p> Returns {@link ChatStatistics ChatStatistics} </p>
@@ -49448,7 +50056,36 @@ public class TdApi {
     }
 
     /**
-     * Returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance, the number of returned chats is chosen by TDLib.
+     * Returns the list of available chat themes.
+     *
+     * <p> Returns {@link ChatThemes ChatThemes} </p>
+     */
+    public static class GetChatThemes extends Function {
+
+        /**
+         * Default constructor for a function, which returns the list of available chat themes.
+         *
+         * <p> Returns {@link ChatThemes ChatThemes} </p>
+         */
+        public GetChatThemes() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -817619053;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns an ordered list of chats from the beginning of a chat list. For informational purposes only. Use loadChats instead to maintain chat lists.
      *
      * <p> Returns {@link Chats Chats} </p>
      */
@@ -49458,20 +50095,12 @@ public class TdApi {
          */
         public ChatList chatList;
         /**
-         * Chat order to return chats from.
-         */
-        public long offsetOrder;
-        /**
-         * Chat identifier to return chats from.
-         */
-        public long offsetChatId;
-        /**
-         * The maximum number of chats to be returned. For optimal performance, the number of returned chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
+         * The maximum number of chats to be returned.
          */
         public int limit;
 
         /**
-         * Default constructor for a function, which returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance, the number of returned chats is chosen by TDLib.
+         * Default constructor for a function, which returns an ordered list of chats from the beginning of a chat list. For informational purposes only. Use loadChats instead to maintain chat lists.
          *
          * <p> Returns {@link Chats Chats} </p>
          */
@@ -49479,26 +50108,22 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offsetOrder should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). For optimal performance, the number of returned chats is chosen by TDLib.
+         * Creates a function, which returns an ordered list of chats from the beginning of a chat list. For informational purposes only. Use loadChats instead to maintain chat lists.
          *
          * <p> Returns {@link Chats Chats} </p>
          *
          * @param chatList The chat list in which to return chats.
-         * @param offsetOrder Chat order to return chats from.
-         * @param offsetChatId Chat identifier to return chats from.
-         * @param limit The maximum number of chats to be returned. For optimal performance, the number of returned chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
+         * @param limit The maximum number of chats to be returned.
          */
-        public GetChats(ChatList chatList, long offsetOrder, long offsetChatId, int limit) {
+        public GetChats(ChatList chatList, int limit) {
             this.chatList = chatList;
-            this.offsetOrder = offsetOrder;
-            this.offsetChatId = offsetChatId;
             this.limit = limit;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1847129537;
+        public static final int CONSTRUCTOR = -972768574;
 
         /**
          * @return this.CONSTRUCTOR
@@ -50033,7 +50658,7 @@ public class TdApi {
     }
 
     /**
-     * Returns file downloaded prefix size from a given offset.
+     * Returns file downloaded prefix size from a given offset, in bytes.
      *
      * <p> Returns {@link Count Count} </p>
      */
@@ -50048,7 +50673,7 @@ public class TdApi {
         public int offset;
 
         /**
-         * Default constructor for a function, which returns file downloaded prefix size from a given offset.
+         * Default constructor for a function, which returns file downloaded prefix size from a given offset, in bytes.
          *
          * <p> Returns {@link Count Count} </p>
          */
@@ -50056,7 +50681,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns file downloaded prefix size from a given offset.
+         * Creates a function, which returns file downloaded prefix size from a given offset, in bytes.
          *
          * <p> Returns {@link Count Count} </p>
          *
@@ -50321,7 +50946,7 @@ public class TdApi {
     }
 
     /**
-     * Returns a file with a segment of a group call stream in a modified OGG format.
+     * Returns a file with a segment of a group call stream in a modified OGG format for audio or MPEG-4 format for video.
      *
      * <p> Returns {@link FilePart FilePart} </p>
      */
@@ -50338,9 +50963,17 @@ public class TdApi {
          * Segment duration scale; 0-1. Segment's duration is 1000/(2**scale) milliseconds.
          */
         public int scale;
+        /**
+         * Identifier of an audio/video channel to get as received from tgcalls.
+         */
+        public int channelId;
+        /**
+         * Video quality as received from tgcalls.
+         */
+        public GroupCallVideoQuality videoQuality;
 
         /**
-         * Default constructor for a function, which returns a file with a segment of a group call stream in a modified OGG format.
+         * Default constructor for a function, which returns a file with a segment of a group call stream in a modified OGG format for audio or MPEG-4 format for video.
          *
          * <p> Returns {@link FilePart FilePart} </p>
          */
@@ -50348,24 +50981,28 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns a file with a segment of a group call stream in a modified OGG format.
+         * Creates a function, which returns a file with a segment of a group call stream in a modified OGG format for audio or MPEG-4 format for video.
          *
          * <p> Returns {@link FilePart FilePart} </p>
          *
          * @param groupCallId Group call identifier.
          * @param timeOffset Point in time when the stream segment begins; Unix timestamp in milliseconds.
          * @param scale Segment duration scale; 0-1. Segment's duration is 1000/(2**scale) milliseconds.
+         * @param channelId Identifier of an audio/video channel to get as received from tgcalls.
+         * @param videoQuality Video quality as received from tgcalls.
          */
-        public GetGroupCallStreamSegment(int groupCallId, long timeOffset, int scale) {
+        public GetGroupCallStreamSegment(int groupCallId, long timeOffset, int scale, int channelId, GroupCallVideoQuality videoQuality) {
             this.groupCallId = groupCallId;
             this.timeOffset = timeOffset;
             this.scale = scale;
+            this.channelId = channelId;
+            this.videoQuality = videoQuality;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1807528103;
+        public static final int CONSTRUCTOR = -2077959515;
 
         /**
          * @return this.CONSTRUCTOR
@@ -52441,6 +53078,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1608344583;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns information about a phone number by its prefix synchronously. getCountries must be called at least once after changing localization to the specified language if properly localized country information is expected. Can be called synchronously.
+     *
+     * <p> Returns {@link PhoneNumberInfo PhoneNumberInfo} </p>
+     */
+    public static class GetPhoneNumberInfoSync extends Function {
+        /**
+         * A two-letter ISO 639-1 country code for country information localization.
+         */
+        public String languageCode;
+        /**
+         * The phone number prefix.
+         */
+        public String phoneNumberPrefix;
+
+        /**
+         * Default constructor for a function, which returns information about a phone number by its prefix synchronously. getCountries must be called at least once after changing localization to the specified language if properly localized country information is expected. Can be called synchronously.
+         *
+         * <p> Returns {@link PhoneNumberInfo PhoneNumberInfo} </p>
+         */
+        public GetPhoneNumberInfoSync() {
+        }
+
+        /**
+         * Creates a function, which returns information about a phone number by its prefix synchronously. getCountries must be called at least once after changing localization to the specified language if properly localized country information is expected. Can be called synchronously.
+         *
+         * <p> Returns {@link PhoneNumberInfo PhoneNumberInfo} </p>
+         *
+         * @param languageCode A two-letter ISO 639-1 country code for country information localization.
+         * @param phoneNumberPrefix The phone number prefix.
+         */
+        public GetPhoneNumberInfoSync(String languageCode, String phoneNumberPrefix) {
+            this.languageCode = languageCode;
+            this.phoneNumberPrefix = phoneNumberPrefix;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 547061048;
 
         /**
          * @return this.CONSTRUCTOR
@@ -54635,6 +55322,56 @@ public class TdApi {
     }
 
     /**
+     * Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. Returns a 404 error if all chats has been loaded.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class LoadChats extends Function {
+        /**
+         * The chat list in which to load chats.
+         */
+        public ChatList chatList;
+        /**
+         * The maximum number of chats to be loaded. For optimal performance, the number of loaded chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. Returns a 404 error if all chats has been loaded.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public LoadChats() {
+        }
+
+        /**
+         * Creates a function, which loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. Returns a 404 error if all chats has been loaded.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatList The chat list in which to load chats.
+         * @param limit The maximum number of chats to be loaded. For optimal performance, the number of loaded chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached.
+         */
+        public LoadChats(ChatList chatList, int limit) {
+            this.chatList = chatList;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1885635205;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Loads more participants of a group call. The loaded participants will be received through updates. Use the field groupCall.loadedAllParticipants to check whether all participants has already been loaded.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -54814,7 +55551,7 @@ public class TdApi {
      */
     public static class OptimizeStorage extends Function {
         /**
-         * Limit on the total size of files after deletion. Pass -1 to use the default limit.
+         * Limit on the total size of files after deletion, in bytes. Pass -1 to use the default limit.
          */
         public long size;
         /**
@@ -54863,7 +55600,7 @@ public class TdApi {
          *
          * <p> Returns {@link StorageStatistics StorageStatistics} </p>
          *
-         * @param size Limit on the total size of files after deletion. Pass -1 to use the default limit.
+         * @param size Limit on the total size of files after deletion, in bytes. Pass -1 to use the default limit.
          * @param ttl Limit on the time that has passed since the last time a file was accessed (or creation time for some filesystems). Pass -1 to use the default limit.
          * @param count Limit on the total count of files after deletion. Pass -1 to use the default limit.
          * @param immunityDelay The amount of time after the creation of a file during which it can't be deleted, in seconds. Pass -1 to use the default value.
@@ -59772,6 +60509,56 @@ public class TdApi {
     }
 
     /**
+     * Changes the chat theme. Requires canChangeInfo administrator right in groups, supergroups and channels.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetChatTheme extends Function {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * Name of the new chat theme; may be empty to return the default theme.
+         */
+        public String themeName;
+
+        /**
+         * Default constructor for a function, which changes the chat theme. Requires canChangeInfo administrator right in groups, supergroups and channels.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetChatTheme() {
+        }
+
+        /**
+         * Creates a function, which changes the chat theme. Requires canChangeInfo administrator right in groups, supergroups and channels.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Chat identifier.
+         * @param themeName Name of the new chat theme; may be empty to return the default theme.
+         */
+        public SetChatTheme(long chatId, String themeName) {
+            this.chatId = chatId;
+            this.themeName = themeName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1895234925;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes the chat title. Supported only for basic groups, supergroups and channels. Requires canChangeInfo administrator right.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -61577,6 +62364,14 @@ public class TdApi {
          * Group call recording title; 0-64 characters.
          */
         public String title;
+        /**
+         * Pass true to record a video file instead of an audio file.
+         */
+        public boolean recordVideo;
+        /**
+         * Pass true to use portrait orientation for video instead of landscape one.
+         */
+        public boolean usePortraitOrientation;
 
         /**
          * Default constructor for a function, which starts recording of an active group call. Requires groupCall.canBeManaged group call flag.
@@ -61593,16 +62388,20 @@ public class TdApi {
          *
          * @param groupCallId Group call identifier.
          * @param title Group call recording title; 0-64 characters.
+         * @param recordVideo Pass true to record a video file instead of an audio file.
+         * @param usePortraitOrientation Pass true to use portrait orientation for video instead of landscape one.
          */
-        public StartGroupCallRecording(int groupCallId, String title) {
+        public StartGroupCallRecording(int groupCallId, String title, boolean recordVideo, boolean usePortraitOrientation) {
             this.groupCallId = groupCallId;
             this.title = title;
+            this.recordVideo = recordVideo;
+            this.usePortraitOrientation = usePortraitOrientation;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -271125744;
+        public static final int CONSTRUCTOR = 1757774971;
 
         /**
          * @return this.CONSTRUCTOR
@@ -63548,6 +64347,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1155961496;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Informs TDLib that a sponsored message was viewed by the user.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ViewSponsoredMessage extends Function {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The identifier of the sponsored message being viewed.
+         */
+        public byte[] messageId;
+
+        /**
+         * Default constructor for a function, which informs TDLib that a sponsored message was viewed by the user.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ViewSponsoredMessage() {
+        }
+
+        /**
+         * Creates a function, which informs TDLib that a sponsored message was viewed by the user.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Chat identifier.
+         * @param messageId The identifier of the sponsored message being viewed.
+         */
+        public ViewSponsoredMessage(long chatId, byte[] messageId) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 233934271;
 
         /**
          * @return this.CONSTRUCTOR
