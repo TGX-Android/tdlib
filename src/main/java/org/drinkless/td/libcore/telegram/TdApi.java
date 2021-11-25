@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -6862,7 +6862,7 @@ public class TdApi {
      */
     public static class ChatInviteLinkCounts extends Object {
         /**
-         * List of invite linkcounts.
+         * List of invite link counts.
          */
         public ChatInviteLinkCount[] inviteLinkCounts;
 
@@ -6875,7 +6875,7 @@ public class TdApi {
         /**
          * Contains a list of chat invite link counts.
          *
-         * @param inviteLinkCounts List of invite linkcounts.
+         * @param inviteLinkCounts List of invite link counts.
          */
         public ChatInviteLinkCounts(ChatInviteLinkCount[] inviteLinkCounts) {
             this.inviteLinkCounts = inviteLinkCounts;
