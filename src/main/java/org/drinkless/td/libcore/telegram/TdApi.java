@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import androidx.annotation.IntDef;
-import androidx.annotation.Nullable;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -1117,7 +1117,7 @@ public class TdApi {
     }
 
     /**
-     * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that should be entered automatically.
+     * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that must be entered automatically.
      */
     public static class AuthenticationCodeTypeFlashCall extends AuthenticationCodeType {
         /**
@@ -1126,13 +1126,13 @@ public class TdApi {
         public String pattern;
 
         /**
-         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that should be entered automatically.
+         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that must be entered automatically.
          */
         public AuthenticationCodeTypeFlashCall() {
         }
 
         /**
-         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that should be entered automatically.
+         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that must be entered automatically.
          *
          * @param pattern Pattern of the phone number from which the call will be made.
          */
@@ -1155,7 +1155,7 @@ public class TdApi {
     }
 
     /**
-     * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that should be entered manually by the user.
+     * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that is supposed to be entered manually by the user.
      */
     public static class AuthenticationCodeTypeMissedCall extends AuthenticationCodeType {
         /**
@@ -1168,13 +1168,13 @@ public class TdApi {
         public int length;
 
         /**
-         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that should be entered manually by the user.
+         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that is supposed to be entered manually by the user.
          */
         public AuthenticationCodeTypeMissedCall() {
         }
 
         /**
-         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that should be entered manually by the user.
+         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that is supposed to be entered manually by the user.
          *
          * @param phoneNumberPrefix Prefix of the phone number from which the call will be made.
          * @param length Number of digits in the code, excluding the prefix.
@@ -33084,8 +33084,6 @@ public class TdApi {
             SearchMessagesFilterPhotoAndVideo.CONSTRUCTOR,
             SearchMessagesFilterUrl.CONSTRUCTOR,
             SearchMessagesFilterChatPhoto.CONSTRUCTOR,
-            SearchMessagesFilterCall.CONSTRUCTOR,
-            SearchMessagesFilterMissedCall.CONSTRUCTOR,
             SearchMessagesFilterVideoNote.CONSTRUCTOR,
             SearchMessagesFilterVoiceAndVideoNote.CONSTRUCTOR,
             SearchMessagesFilterMention.CONSTRUCTOR,
@@ -33343,56 +33341,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1247751329;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns only call messages.
-     */
-    public static class SearchMessagesFilterCall extends SearchMessagesFilter {
-
-        /**
-         * Returns only call messages.
-         */
-        public SearchMessagesFilterCall() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1305231012;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns only incoming call messages with missed/declined discard reasons.
-     */
-    public static class SearchMessagesFilterMissedCall extends SearchMessagesFilter {
-
-        /**
-         * Returns only incoming call messages with missed/declined discard reasons.
-         */
-        public SearchMessagesFilterMissedCall() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 970663098;
 
         /**
          * @return this.CONSTRUCTOR
@@ -45054,7 +45002,7 @@ public class TdApi {
          */
         public MessageSender memberId;
         /**
-         * Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Ignored in basic groups.
+         * Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Ignored in basic groups and if a chat is banned.
          */
         public int bannedUntilDate;
         /**
@@ -45077,7 +45025,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param memberId Member identifier.
-         * @param bannedUntilDate Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Ignored in basic groups.
+         * @param bannedUntilDate Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Ignored in basic groups and if a chat is banned.
          * @param revokeMessages Pass true to delete all messages in the chat for the user that is being removed. Always true for supergroups and channels.
          */
         public BanChatMember(long chatId, MessageSender memberId, int bannedUntilDate, boolean revokeMessages) {
@@ -51131,7 +51079,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
+         * Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
          */
         public SearchMessagesFilter filter;
         /**
@@ -51153,7 +51101,7 @@ public class TdApi {
          * <p> Returns {@link MessageCalendar MessageCalendar} </p>
          *
          * @param chatId Identifier of the chat in which to return information about messages.
-         * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
+         * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
          * @param fromMessageId The message identifier from which to return information about messages; use 0 to get results from the last message.
          */
         public GetChatMessageCalendar(long chatId, SearchMessagesFilter filter, long fromMessageId) {
@@ -51381,7 +51329,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
+         * Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
          */
         public SearchMessagesFilter filter;
         /**
@@ -51407,7 +51355,7 @@ public class TdApi {
          * <p> Returns {@link MessagePositions MessagePositions} </p>
          *
          * @param chatId Identifier of the chat in which to return information about message positions.
-         * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
+         * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
          * @param fromMessageId The message identifier from which to return information about message positions.
          * @param limit The expected number of message positions to be returned; 50-2000. A smaller number of positions can be returned, if there are not enough appropriate messages.
          */
@@ -59399,7 +59347,7 @@ public class TdApi {
          */
         public int limit;
         /**
-         * If true, returns only messages with missed calls.
+         * If true, returns only messages with missed/declined calls.
          */
         public boolean onlyMissed;
 
@@ -59418,7 +59366,7 @@ public class TdApi {
          *
          * @param fromMessageId Identifier of the message from which to search; use 0 to get results from the last message.
          * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
-         * @param onlyMissed If true, returns only messages with missed calls.
+         * @param onlyMissed If true, returns only messages with missed/declined calls.
          */
         public SearchCallMessages(long fromMessageId, int limit, boolean onlyMissed) {
             this.fromMessageId = fromMessageId;
@@ -60025,7 +59973,7 @@ public class TdApi {
          */
         public int limit;
         /**
-         * Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function.
+         * Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function.
          */
         public SearchMessagesFilter filter;
         /**
@@ -60056,7 +60004,7 @@ public class TdApi {
          * @param offsetChatId The chat identifier of the last found message, or 0 for the first request.
          * @param offsetMessageId The message identifier of the last found message, or 0 for the first request.
          * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
-         * @param filter Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function.
+         * @param filter Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function.
          * @param minDate If not 0, the minimum date of the messages to return.
          * @param maxDate If not 0, the maximum date of the messages to return.
          */
