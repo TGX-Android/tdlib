@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -13639,7 +13639,7 @@ public class TdApi {
     }
 
     /**
-     * A button to open a chat with a user.
+     * A button with a user reference to be handled in the same way as textEntityTypeMentionName entities.
      */
     public static class InlineKeyboardButtonTypeUser extends InlineKeyboardButtonType {
         /**
@@ -13648,13 +13648,13 @@ public class TdApi {
         public long userId;
 
         /**
-         * A button to open a chat with a user.
+         * A button with a user reference to be handled in the same way as textEntityTypeMentionName entities.
          */
         public InlineKeyboardButtonTypeUser() {
         }
 
         /**
-         * A button to open a chat with a user.
+         * A button with a user reference to be handled in the same way as textEntityTypeMentionName entities.
          *
          * @param userId User identifier.
          */
@@ -33948,7 +33948,7 @@ public class TdApi {
          */
         @Nullable public InternalLinkType link;
         /**
-         * Content of the message.
+         * Content of the message. Currently, can be only of the type messageText.
          */
         public MessageContent content;
 
@@ -33964,7 +33964,7 @@ public class TdApi {
          * @param id Unique sponsored message identifier.
          * @param sponsorChatId Chat identifier.
          * @param link An internal link to be opened when the sponsored message is clicked; may be null. If null, the sponsor chat needs to be opened instead.
-         * @param content Content of the message.
+         * @param content Content of the message. Currently, can be only of the type messageText.
          */
         public SponsoredMessage(int id, long sponsorChatId, InternalLinkType link, MessageContent content) {
             this.id = id;
@@ -35049,7 +35049,7 @@ public class TdApi {
          */
         public ChatMemberStatus status;
         /**
-         * Number of members in the supergroup or channel; 0 if unknown. Currently it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules.
+         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules.
          */
         public int memberCount;
         /**
@@ -35106,7 +35106,7 @@ public class TdApi {
          * @param username Username of the supergroup or channel; empty for private supergroups or channels.
          * @param date Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
          * @param status Status of the current user in the supergroup or channel; custom title will be always empty.
-         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules.
+         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules.
          * @param hasLinkedChat True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
          * @param hasLocation True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup.
          * @param signMessages True, if messages sent to the channel need to contain information about the sender. This field is only applicable to channels.
@@ -43340,7 +43340,7 @@ public class TdApi {
          */
         public String address;
         /**
-         * Provider of the venue database; as defined by the sender. Currently only &quot;foursquare&quot; and &quot;gplaces&quot; (Google Places) need to be supported.
+         * Provider of the venue database; as defined by the sender. Currently, only &quot;foursquare&quot; and &quot;gplaces&quot; (Google Places) need to be supported.
          */
         public String provider;
         /**
@@ -43364,7 +43364,7 @@ public class TdApi {
          * @param location Venue location; as defined by the sender.
          * @param title Venue name; as defined by the sender.
          * @param address Venue address; as defined by the sender.
-         * @param provider Provider of the venue database; as defined by the sender. Currently only &quot;foursquare&quot; and &quot;gplaces&quot; (Google Places) need to be supported.
+         * @param provider Provider of the venue database; as defined by the sender. Currently, only &quot;foursquare&quot; and &quot;gplaces&quot; (Google Places) need to be supported.
          * @param id Identifier of the venue in the provider database; as defined by the sender.
          * @param type Type of the venue in the provider database; as defined by the sender.
          */
@@ -43716,7 +43716,7 @@ public class TdApi {
          */
         @Nullable public Audio audio;
         /**
-         * Preview of the content as a document, if available (currently only available for small PDF files and ZIP archives); may be null.
+         * Preview of the content as a document, if available; may be null.
          */
         @Nullable public Document document;
         /**
@@ -43736,7 +43736,7 @@ public class TdApi {
          */
         @Nullable public VoiceNote voiceNote;
         /**
-         * Version of instant view, available for the web page (currently can be 1 or 2), 0 if none.
+         * Version of instant view, available for the web page (currently, can be 1 or 2), 0 if none.
          */
         public int instantViewVersion;
 
@@ -43764,12 +43764,12 @@ public class TdApi {
          * @param author Author of the content.
          * @param animation Preview of the content as an animation, if available; may be null.
          * @param audio Preview of the content as an audio file, if available; may be null.
-         * @param document Preview of the content as a document, if available (currently only available for small PDF files and ZIP archives); may be null.
+         * @param document Preview of the content as a document, if available; may be null.
          * @param sticker Preview of the content as a sticker for small WEBP files, if available; may be null.
          * @param video Preview of the content as a video, if available; may be null.
          * @param videoNote Preview of the content as a video note, if available; may be null.
          * @param voiceNote Preview of the content as a voice note, if available; may be null.
-         * @param instantViewVersion Version of instant view, available for the web page (currently can be 1 or 2), 0 if none.
+         * @param instantViewVersion Version of instant view, available for the web page (currently, can be 1 or 2), 0 if none.
          */
         public WebPage(String url, String displayUrl, String type, String siteName, String title, FormattedText description, Photo photo, String embedUrl, String embedType, int embedWidth, int embedHeight, int duration, String author, Animation animation, Audio audio, Document document, Sticker sticker, Video video, VideoNote videoNote, VoiceNote voiceNote, int instantViewVersion) {
             this.url = url;
@@ -43822,7 +43822,7 @@ public class TdApi {
          */
         public int viewCount;
         /**
-         * Version of the instant view, currently can be 1 or 2.
+         * Version of the instant view; currently, can be 1 or 2.
          */
         public int version;
         /**
@@ -43849,7 +43849,7 @@ public class TdApi {
          *
          * @param pageBlocks Content of the web page.
          * @param viewCount Number of the instant view views; 0 if unknown.
-         * @param version Version of the instant view, currently can be 1 or 2.
+         * @param version Version of the instant view; currently, can be 1 or 2.
          * @param isRtl True, if the instant view must be shown from right to left.
          * @param isFull True, if the instant view contains the full page. A network request might be needed to get the full web page instant view.
          * @param feedbackLink An internal link to be opened to leave feedback about the instant view.
@@ -44028,7 +44028,7 @@ public class TdApi {
     }
 
     /**
-     * Adds multiple new members to a chat. Currently this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members.
+     * Adds multiple new members to a chat. Currently, this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -44043,7 +44043,7 @@ public class TdApi {
         public long[] userIds;
 
         /**
-         * Default constructor for a function, which adds multiple new members to a chat. Currently this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members.
+         * Default constructor for a function, which adds multiple new members to a chat. Currently, this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -44051,7 +44051,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds multiple new members to a chat. Currently this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members.
+         * Creates a function, which adds multiple new members to a chat. Currently, this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -49775,7 +49775,7 @@ public class TdApi {
     }
 
     /**
-     * Returns a list of sticker sets attached to a file. Currently only photos and videos can have attached sticker sets.
+     * Returns a list of sticker sets attached to a file. Currently, only photos and videos can have attached sticker sets.
      *
      * <p> Returns {@link StickerSets StickerSets} </p>
      */
@@ -49786,7 +49786,7 @@ public class TdApi {
         public int fileId;
 
         /**
-         * Default constructor for a function, which returns a list of sticker sets attached to a file. Currently only photos and videos can have attached sticker sets.
+         * Default constructor for a function, which returns a list of sticker sets attached to a file. Currently, only photos and videos can have attached sticker sets.
          *
          * <p> Returns {@link StickerSets StickerSets} </p>
          */
@@ -49794,7 +49794,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns a list of sticker sets attached to a file. Currently only photos and videos can have attached sticker sets.
+         * Creates a function, which returns a list of sticker sets attached to a file. Currently, only photos and videos can have attached sticker sets.
          *
          * <p> Returns {@link StickerSets StickerSets} </p>
          *
@@ -51425,7 +51425,7 @@ public class TdApi {
     }
 
     /**
-     * Returns detailed statistics about a chat. Currently this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.canGetStatistics == true.
+     * Returns detailed statistics about a chat. Currently, this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.canGetStatistics == true.
      *
      * <p> Returns {@link ChatStatistics ChatStatistics} </p>
      */
@@ -51440,7 +51440,7 @@ public class TdApi {
         public boolean isDark;
 
         /**
-         * Default constructor for a function, which returns detailed statistics about a chat. Currently this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.canGetStatistics == true.
+         * Default constructor for a function, which returns detailed statistics about a chat. Currently, this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.canGetStatistics == true.
          *
          * <p> Returns {@link ChatStatistics ChatStatistics} </p>
          */
@@ -51448,7 +51448,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns detailed statistics about a chat. Currently this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.canGetStatistics == true.
+         * Creates a function, which returns detailed statistics about a chat. Currently, this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.canGetStatistics == true.
          *
          * <p> Returns {@link ChatStatistics ChatStatistics} </p>
          *
@@ -58523,7 +58523,7 @@ public class TdApi {
     }
 
     /**
-     * Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators.
+     * Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.canBeReported.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -58546,7 +58546,7 @@ public class TdApi {
         public String text;
 
         /**
-         * Default constructor for a function, which reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators.
+         * Default constructor for a function, which reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.canBeReported.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -58554,7 +58554,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators.
+         * Creates a function, which reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.canBeReported.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -58585,7 +58585,7 @@ public class TdApi {
     }
 
     /**
-     * Reports a chat photo to the Telegram moderators. A chat photo can be reported only if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators.
+     * Reports a chat photo to the Telegram moderators. A chat photo can be reported only if chat.canBeReported.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -58608,7 +58608,7 @@ public class TdApi {
         public String text;
 
         /**
-         * Default constructor for a function, which reports a chat photo to the Telegram moderators. A chat photo can be reported only if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators.
+         * Default constructor for a function, which reports a chat photo to the Telegram moderators. A chat photo can be reported only if chat.canBeReported.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -58616,7 +58616,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which reports a chat photo to the Telegram moderators. A chat photo can be reported only if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators.
+         * Creates a function, which reports a chat photo to the Telegram moderators. A chat photo can be reported only if chat.canBeReported.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -60035,7 +60035,7 @@ public class TdApi {
     }
 
     /**
-     * Searches a public chat by its username. Currently only private chats, supergroups and channels can be public. Returns the chat if found; otherwise an error is returned.
+     * Searches a public chat by its username. Currently, only private chats, supergroups and channels can be public. Returns the chat if found; otherwise an error is returned.
      *
      * <p> Returns {@link Chat Chat} </p>
      */
@@ -60046,7 +60046,7 @@ public class TdApi {
         public String username;
 
         /**
-         * Default constructor for a function, which searches a public chat by its username. Currently only private chats, supergroups and channels can be public. Returns the chat if found; otherwise an error is returned.
+         * Default constructor for a function, which searches a public chat by its username. Currently, only private chats, supergroups and channels can be public. Returns the chat if found; otherwise an error is returned.
          *
          * <p> Returns {@link Chat Chat} </p>
          */
@@ -60054,7 +60054,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches a public chat by its username. Currently only private chats, supergroups and channels can be public. Returns the chat if found; otherwise an error is returned.
+         * Creates a function, which searches a public chat by its username. Currently, only private chats, supergroups and channels can be public. Returns the chat if found; otherwise an error is returned.
          *
          * <p> Returns {@link Chat Chat} </p>
          *
@@ -60079,7 +60079,7 @@ public class TdApi {
     }
 
     /**
-     * Searches public chats by looking for specified query in their username and title. Currently only private chats, supergroups and channels can be public. Returns a meaningful number of results. Excludes private chats with contacts and chats from the chat list from the results.
+     * Searches public chats by looking for specified query in their username and title. Currently, only private chats, supergroups and channels can be public. Returns a meaningful number of results. Excludes private chats with contacts and chats from the chat list from the results.
      *
      * <p> Returns {@link Chats Chats} </p>
      */
@@ -60090,7 +60090,7 @@ public class TdApi {
         public String query;
 
         /**
-         * Default constructor for a function, which searches public chats by looking for specified query in their username and title. Currently only private chats, supergroups and channels can be public. Returns a meaningful number of results. Excludes private chats with contacts and chats from the chat list from the results.
+         * Default constructor for a function, which searches public chats by looking for specified query in their username and title. Currently, only private chats, supergroups and channels can be public. Returns a meaningful number of results. Excludes private chats with contacts and chats from the chat list from the results.
          *
          * <p> Returns {@link Chats Chats} </p>
          */
@@ -60098,7 +60098,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches public chats by looking for specified query in their username and title. Currently only private chats, supergroups and channels can be public. Returns a meaningful number of results. Excludes private chats with contacts and chats from the chat list from the results.
+         * Creates a function, which searches public chats by looking for specified query in their username and title. Currently, only private chats, supergroups and channels can be public. Returns a meaningful number of results. Excludes private chats with contacts and chats from the chat list from the results.
          *
          * <p> Returns {@link Chats Chats} </p>
          *
@@ -60895,7 +60895,7 @@ public class TdApi {
     }
 
     /**
-     * Sends 2-10 messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+     * Sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -60922,7 +60922,7 @@ public class TdApi {
         public InputMessageContent[] inputMessageContents;
 
         /**
-         * Default constructor for a function, which sends 2-10 messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+         * Default constructor for a function, which sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -60930,7 +60930,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sends 2-10 messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+         * Creates a function, which sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
