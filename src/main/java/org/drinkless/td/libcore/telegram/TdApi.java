@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import androidx.annotation.IntDef;
-import androidx.annotation.Nullable;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -1117,7 +1117,7 @@ public class TdApi {
     }
 
     /**
-     * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that must be entered automatically.
+     * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number, from which the call was made, is the code that must be entered automatically.
      */
     public static class AuthenticationCodeTypeFlashCall extends AuthenticationCodeType {
         /**
@@ -1126,13 +1126,13 @@ public class TdApi {
         public String pattern;
 
         /**
-         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that must be entered automatically.
+         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number, from which the call was made, is the code that must be entered automatically.
          */
         public AuthenticationCodeTypeFlashCall() {
         }
 
         /**
-         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that must be entered automatically.
+         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number, from which the call was made, is the code that must be entered automatically.
          *
          * @param pattern Pattern of the phone number from which the call will be made.
          */
@@ -1155,7 +1155,7 @@ public class TdApi {
     }
 
     /**
-     * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that is supposed to be entered manually by the user.
+     * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number, from which the call was made, is the code that is supposed to be entered manually by the user.
      */
     public static class AuthenticationCodeTypeMissedCall extends AuthenticationCodeType {
         /**
@@ -1168,13 +1168,13 @@ public class TdApi {
         public int length;
 
         /**
-         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that is supposed to be entered manually by the user.
+         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number, from which the call was made, is the code that is supposed to be entered manually by the user.
          */
         public AuthenticationCodeTypeMissedCall() {
         }
 
         /**
-         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number from which the call was made is the code that is supposed to be entered manually by the user.
+         * An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number, from which the call was made, is the code that is supposed to be entered manually by the user.
          *
          * @param phoneNumberPrefix Prefix of the phone number from which the call will be made.
          * @param length Number of digits in the code, excluding the prefix.
@@ -6901,7 +6901,7 @@ public class TdApi {
          */
         public boolean createsJoinRequest;
         /**
-         * True, if the link is primary. Primary invite link can't have name, expire date or usage limit. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
+         * True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
          */
         public boolean isPrimary;
         /**
@@ -6928,7 +6928,7 @@ public class TdApi {
          * @param memberCount Number of chat members, which joined the chat using the link.
          * @param pendingJoinRequestCount Number of pending join requests created using this link.
          * @param createsJoinRequest True, if the link only creates join request. If true, total number of joining members will be unlimited.
-         * @param isPrimary True, if the link is primary. Primary invite link can't have name, expire date or usage limit. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
+         * @param isPrimary True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
          * @param isRevoked True, if the link was revoked.
          */
         public ChatInviteLink(String inviteLink, String name, long creatorUserId, int date, int editDate, int expireDate, int memberLimit, int memberCount, int pendingJoinRequestCount, boolean createsJoinRequest, boolean isPrimary, boolean isRevoked) {
@@ -7381,7 +7381,7 @@ public class TdApi {
          */
         public int totalCount;
         /**
-         * Identifiers of users sent the newest pending join requests.
+         * Identifiers of at most 3 users sent the newest pending join requests.
          */
         public long[] userIds;
 
@@ -7395,7 +7395,7 @@ public class TdApi {
          * Contains information about pending chat join requests.
          *
          * @param totalCount Total number of pending join requests.
-         * @param userIds Identifiers of users sent the newest pending join requests.
+         * @param userIds Identifiers of at most 3 users sent the newest pending join requests.
          */
         public ChatJoinRequestsInfo(int totalCount, long[] userIds) {
             this.totalCount = totalCount;
@@ -12609,7 +12609,7 @@ public class TdApi {
          */
         public boolean loadedAllParticipants;
         /**
-         * Recently speaking users in the group call.
+         * At most 3 recently speaking users in the group call.
          */
         public GroupCallRecentSpeaker[] recentSpeakers;
         /**
@@ -12664,7 +12664,7 @@ public class TdApi {
          * @param canBeManaged True, if the current user can manage the group call.
          * @param participantCount Number of participants in the group call.
          * @param loadedAllParticipants True, if all group call participants are loaded.
-         * @param recentSpeakers Recently speaking users in the group call.
+         * @param recentSpeakers At most 3 recently speaking users in the group call.
          * @param isMyVideoEnabled True, if the current user's video is enabled.
          * @param isMyVideoPaused True, if the current user's video is paused.
          * @param canEnableVideo True, if the current user can broadcast video or share screen.
@@ -24025,7 +24025,7 @@ public class TdApi {
          */
         public int replyCount;
         /**
-         * Identifiers of recent repliers to the message; available in channels with a discussion supergroup.
+         * Identifiers of at most 3 recent repliers to the message; available in channels with a discussion supergroup.
          */
         public MessageSender[] recentReplierIds;
         /**
@@ -24051,7 +24051,7 @@ public class TdApi {
          * Contains information about replies to a message.
          *
          * @param replyCount Number of times the message was directly or indirectly replied.
-         * @param recentReplierIds Identifiers of recent repliers to the message; available in channels with a discussion supergroup.
+         * @param recentReplierIds Identifiers of at most 3 recent repliers to the message; available in channels with a discussion supergroup.
          * @param lastReadInboxMessageId Identifier of the last read incoming reply to the message.
          * @param lastReadOutboxMessageId Identifier of the last read outgoing reply to the message.
          * @param lastMessageId Identifier of the last reply to the message.
@@ -29562,7 +29562,7 @@ public class TdApi {
          */
         public boolean allowSmsRetrieverApi;
         /**
-         * List of authentication tokens, received in updateOption(&quot;authentication_token&quot;) in previously logged out sessions.
+         * List of up to 20 authentication tokens, recently received in updateOption(&quot;authentication_token&quot;) in previously logged out sessions.
          */
         public String[] authenticationTokens;
 
@@ -29579,7 +29579,7 @@ public class TdApi {
          * @param allowMissedCall Pass true if the authentication code may be sent via a missed call to the specified phone number.
          * @param isCurrentPhoneNumber Pass true if the authenticated phone number is used on the current device.
          * @param allowSmsRetrieverApi For official applications only. True, if the application can use Android SMS Retriever API (requires Google Play Services &gt;= 10.2) to automatically receive the authentication code from the SMS. See https://developers.google.com/identity/sms-retriever/ for more details.
-         * @param authenticationTokens List of authentication tokens, received in updateOption(&quot;authentication_token&quot;) in previously logged out sessions.
+         * @param authenticationTokens List of up to 20 authentication tokens, recently received in updateOption(&quot;authentication_token&quot;) in previously logged out sessions.
          */
         public PhoneNumberAuthenticationSettings(boolean allowFlashCall, boolean allowMissedCall, boolean isCurrentPhoneNumber, boolean allowSmsRetrieverApi, String[] authenticationTokens) {
             this.allowFlashCall = allowFlashCall;
@@ -34928,12 +34928,12 @@ public class TdApi {
     }
 
     /**
-     * Suggests the user to see a hint about meaning of one and two ticks on sent message.
+     * Suggests the user to see a hint about meaning of one and two ticks on sent messages.
      */
     public static class SuggestedActionSeeTicksHint extends SuggestedAction {
 
         /**
-         * Suggests the user to see a hint about meaning of one and two ticks on sent message.
+         * Suggests the user to see a hint about meaning of one and two ticks on sent messages.
          */
         public SuggestedActionSeeTicksHint() {
         }
@@ -58647,7 +58647,7 @@ public class TdApi {
     }
 
     /**
-     * Reports some messages from a message sender in a supergroup as spam; requires administrator rights in the supergroup.
+     * Reports messages in a supergroup as spam; requires administrator rights in the supergroup.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -58657,12 +58657,12 @@ public class TdApi {
          */
         public long supergroupId;
         /**
-         * Identifiers of messages sent in the supergroup. All messages must be sent by the same sender. This list must be non-empty.
+         * Identifiers of messages to report.
          */
         public long[] messageIds;
 
         /**
-         * Default constructor for a function, which reports some messages from a message sender in a supergroup as spam; requires administrator rights in the supergroup.
+         * Default constructor for a function, which reports messages in a supergroup as spam; requires administrator rights in the supergroup.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -58670,12 +58670,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which reports some messages from a message sender in a supergroup as spam; requires administrator rights in the supergroup.
+         * Creates a function, which reports messages in a supergroup as spam; requires administrator rights in the supergroup.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param supergroupId Supergroup identifier.
-         * @param messageIds Identifiers of messages sent in the supergroup. All messages must be sent by the same sender. This list must be non-empty.
+         * @param messageIds Identifiers of messages to report.
          */
         public ReportSupergroupSpam(long supergroupId, long[] messageIds) {
             this.supergroupId = supergroupId;
@@ -66018,7 +66018,7 @@ public class TdApi {
     }
 
     /**
-     * Uploads a PNG image with a sticker; returns the uploaded file.
+     * Uploads a file with a sticker; returns the uploaded file.
      *
      * <p> Returns {@link File File} </p>
      */
@@ -66033,7 +66033,7 @@ public class TdApi {
         public InputSticker sticker;
 
         /**
-         * Default constructor for a function, which uploads a PNG image with a sticker; returns the uploaded file.
+         * Default constructor for a function, which uploads a file with a sticker; returns the uploaded file.
          *
          * <p> Returns {@link File File} </p>
          */
@@ -66041,7 +66041,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which uploads a PNG image with a sticker; returns the uploaded file.
+         * Creates a function, which uploads a file with a sticker; returns the uploaded file.
          *
          * <p> Returns {@link File File} </p>
          *
