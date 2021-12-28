@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -495,7 +495,6 @@ public class TdApi {
             UploadStickerFile.CONSTRUCTOR,
             ValidateOrderInfo.CONSTRUCTOR,
             ViewMessages.CONSTRUCTOR,
-            ViewSponsoredMessage.CONSTRUCTOR,
             ViewTrendingStickerSets.CONSTRUCTOR,
             WriteGeneratedFilePart.CONSTRUCTOR
         })
@@ -23591,7 +23590,7 @@ public class TdApi {
     }
 
     /**
-     * The message was originally sent by an anonymous chat administrator on behalf of the chat.
+     * The message was originally sent on behalf of a chat.
      */
     public static class MessageForwardOriginChat extends MessageForwardOrigin {
         /**
@@ -23599,21 +23598,21 @@ public class TdApi {
          */
         public long senderChatId;
         /**
-         * Original message author signature.
+         * For messages originally sent by an anonymous chat administrator, original message author signature.
          */
         public String authorSignature;
 
         /**
-         * The message was originally sent by an anonymous chat administrator on behalf of the chat.
+         * The message was originally sent on behalf of a chat.
          */
         public MessageForwardOriginChat() {
         }
 
         /**
-         * The message was originally sent by an anonymous chat administrator on behalf of the chat.
+         * The message was originally sent on behalf of a chat.
          *
          * @param senderChatId Identifier of the chat that originally sent the message.
-         * @param authorSignature Original message author signature.
+         * @param authorSignature For messages originally sent by an anonymous chat administrator, original message author signature.
          */
         public MessageForwardOriginChat(long senderChatId, String authorSignature) {
             this.senderChatId = senderChatId;
@@ -33936,9 +33935,9 @@ public class TdApi {
      */
     public static class SponsoredMessage extends Object {
         /**
-         * Unique sponsored message identifier.
+         * Message identifier; unique for the chat to which the sponsored message belongs among both ordinary and sponsored messages.
          */
-        public int id;
+        public long messageId;
         /**
          * Chat identifier.
          */
@@ -33961,13 +33960,13 @@ public class TdApi {
         /**
          * Describes a sponsored message.
          *
-         * @param id Unique sponsored message identifier.
+         * @param messageId Message identifier; unique for the chat to which the sponsored message belongs among both ordinary and sponsored messages.
          * @param sponsorChatId Chat identifier.
          * @param link An internal link to be opened when the sponsored message is clicked; may be null. If null, the sponsor chat needs to be opened instead.
          * @param content Content of the message. Currently, can be only of the type messageText.
          */
-        public SponsoredMessage(int id, long sponsorChatId, InternalLinkType link, MessageContent content) {
-            this.id = id;
+        public SponsoredMessage(long messageId, long sponsorChatId, InternalLinkType link, MessageContent content) {
+            this.messageId = messageId;
             this.sponsorChatId = sponsorChatId;
             this.link = link;
             this.content = content;
@@ -33976,7 +33975,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 217830434;
+        public static final int CONSTRUCTOR = -1734768993;
 
         /**
          * @return this.CONSTRUCTOR
@@ -66092,7 +66091,7 @@ public class TdApi {
     }
 
     /**
-     * Informs TDLib that messages are being viewed by the user. Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels).
+     * Informs TDLib that messages are being viewed by the user. Sponsored messages must be marked as viewed only when the entire text of the message is shown on the screen (excluding the button). Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels).
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -66115,7 +66114,7 @@ public class TdApi {
         public boolean forceRead;
 
         /**
-         * Default constructor for a function, which informs TDLib that messages are being viewed by the user. Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels).
+         * Default constructor for a function, which informs TDLib that messages are being viewed by the user. Sponsored messages must be marked as viewed only when the entire text of the message is shown on the screen (excluding the button). Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels).
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -66123,7 +66122,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which informs TDLib that messages are being viewed by the user. Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels).
+         * Creates a function, which informs TDLib that messages are being viewed by the user. Sponsored messages must be marked as viewed only when the entire text of the message is shown on the screen (excluding the button). Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels).
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -66143,56 +66142,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1155961496;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Informs TDLib that a sponsored message was viewed by the user.
-     *
-     * <p> Returns {@link Ok Ok} </p>
-     */
-    public static class ViewSponsoredMessage extends Function {
-        /**
-         * Identifier of the chat with the sponsored message.
-         */
-        public long chatId;
-        /**
-         * The identifier of the sponsored message being viewed.
-         */
-        public int sponsoredMessageId;
-
-        /**
-         * Default constructor for a function, which informs TDLib that a sponsored message was viewed by the user.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         */
-        public ViewSponsoredMessage() {
-        }
-
-        /**
-         * Creates a function, which informs TDLib that a sponsored message was viewed by the user.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         *
-         * @param chatId Identifier of the chat with the sponsored message.
-         * @param sponsoredMessageId The identifier of the sponsored message being viewed.
-         */
-        public ViewSponsoredMessage(long chatId, int sponsoredMessageId) {
-            this.chatId = chatId;
-            this.sponsoredMessageId = sponsoredMessageId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1178245499;
 
         /**
          * @return this.CONSTRUCTOR
