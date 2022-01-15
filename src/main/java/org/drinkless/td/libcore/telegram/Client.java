@@ -325,11 +325,11 @@ public final class Client implements Runnable {
                     return;
                 }
 
-                throw new ClientException_55("TDLib fatal error (" + clientCount.get() + "): " + errorMessage);
+                throw new ClientError("TDLib fatal error (" + clientCount.get() + "): " + errorMessage);
             }
 
             private void processExternalError() {
-                throw new ExternalClientException_55("Fatal error (" + clientCount.get() + "): " + errorMessage);
+                throw new ExternalClientError("Fatal error (" + clientCount.get() + "): " + errorMessage);
             }
         }
 
@@ -361,14 +361,14 @@ public final class Client implements Runnable {
           message.contains("I/O error");
     }
 
-    private static final class ClientException_55 extends RuntimeException {
-        private ClientException_55 (String message) {
+    private static final class ClientError extends RuntimeException {
+        private ClientError (String message) {
             super(message);
         }
     }
 
-    private static final class ExternalClientException_55 extends RuntimeException {
-        public ExternalClientException_55 (String message) {
+    private static final class ExternalClientError extends RuntimeException {
+        public ExternalClientError (String message) {
             super(message);
         }
     }
