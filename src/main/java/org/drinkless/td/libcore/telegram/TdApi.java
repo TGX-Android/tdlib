@@ -401,6 +401,7 @@ public class TdApi {
             SetBackground.CONSTRUCTOR,
             SetBio.CONSTRUCTOR,
             SetBotUpdatesStatus.CONSTRUCTOR,
+            SetChatAvailableReactions.CONSTRUCTOR,
             SetChatClientData.CONSTRUCTOR,
             SetChatDescription.CONSTRUCTOR,
             SetChatDiscussionGroup.CONSTRUCTOR,
@@ -4107,9 +4108,13 @@ public class TdApi {
          */
         public int unreadMentionCount;
         /**
-         * Notification settings for this chat.
+         * Notification settings for the chat.
          */
         public ChatNotificationSettings notificationSettings;
+        /**
+         * List of reactions, available in the chat.
+         */
+        public String[] availableReactions;
         /**
          * Current message Time To Live setting (self-destruct timer) for the chat; 0 if not defined. TTL is counted from the time message or its content is viewed in secret chats and from the send date in other chats.
          */
@@ -4172,7 +4177,8 @@ public class TdApi {
          * @param lastReadInboxMessageId Identifier of the last read incoming message.
          * @param lastReadOutboxMessageId Identifier of the last read outgoing message.
          * @param unreadMentionCount Number of unread messages with a mention/reply in the chat.
-         * @param notificationSettings Notification settings for this chat.
+         * @param notificationSettings Notification settings for the chat.
+         * @param availableReactions List of reactions, available in the chat.
          * @param messageTtl Current message Time To Live setting (self-destruct timer) for the chat; 0 if not defined. TTL is counted from the time message or its content is viewed in secret chats and from the send date in other chats.
          * @param themeName If non-empty, name of a theme, set for the chat.
          * @param actionBar Information about actions which must be possible to do through the chat action bar; may be null.
@@ -4182,7 +4188,7 @@ public class TdApi {
          * @param draftMessage A draft of a message in the chat; may be null.
          * @param clientData Application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used.
          */
-        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, boolean hasProtectedContent, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, int messageTtl, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
+        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, boolean hasProtectedContent, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, String[] availableReactions, int messageTtl, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
             this.id = id;
             this.type = type;
             this.title = title;
@@ -4204,6 +4210,7 @@ public class TdApi {
             this.lastReadOutboxMessageId = lastReadOutboxMessageId;
             this.unreadMentionCount = unreadMentionCount;
             this.notificationSettings = notificationSettings;
+            this.availableReactions = availableReactions;
             this.messageTtl = messageTtl;
             this.themeName = themeName;
             this.actionBar = actionBar;
@@ -4217,7 +4224,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1617921149;
+        public static final int CONSTRUCTOR = -1801064074;
 
         /**
          * @return this.CONSTRUCTOR
@@ -5124,38 +5131,39 @@ public class TdApi {
         @IntDef({
             ChatEventMessageEdited.CONSTRUCTOR,
             ChatEventMessageDeleted.CONSTRUCTOR,
-            ChatEventPollStopped.CONSTRUCTOR,
             ChatEventMessagePinned.CONSTRUCTOR,
             ChatEventMessageUnpinned.CONSTRUCTOR,
+            ChatEventPollStopped.CONSTRUCTOR,
             ChatEventMemberJoined.CONSTRUCTOR,
             ChatEventMemberJoinedByInviteLink.CONSTRUCTOR,
             ChatEventMemberJoinedByRequest.CONSTRUCTOR,
-            ChatEventMemberLeft.CONSTRUCTOR,
             ChatEventMemberInvited.CONSTRUCTOR,
+            ChatEventMemberLeft.CONSTRUCTOR,
             ChatEventMemberPromoted.CONSTRUCTOR,
             ChatEventMemberRestricted.CONSTRUCTOR,
-            ChatEventTitleChanged.CONSTRUCTOR,
-            ChatEventPermissionsChanged.CONSTRUCTOR,
+            ChatEventAvailableReactionsChanged.CONSTRUCTOR,
             ChatEventDescriptionChanged.CONSTRUCTOR,
-            ChatEventUsernameChanged.CONSTRUCTOR,
-            ChatEventPhotoChanged.CONSTRUCTOR,
-            ChatEventInvitesToggled.CONSTRUCTOR,
             ChatEventLinkedChatChanged.CONSTRUCTOR,
-            ChatEventSlowModeDelayChanged.CONSTRUCTOR,
-            ChatEventMessageTtlChanged.CONSTRUCTOR,
-            ChatEventSignMessagesToggled.CONSTRUCTOR,
-            ChatEventHasProtectedContentToggled.CONSTRUCTOR,
-            ChatEventStickerSetChanged.CONSTRUCTOR,
             ChatEventLocationChanged.CONSTRUCTOR,
+            ChatEventMessageTtlChanged.CONSTRUCTOR,
+            ChatEventPermissionsChanged.CONSTRUCTOR,
+            ChatEventPhotoChanged.CONSTRUCTOR,
+            ChatEventSlowModeDelayChanged.CONSTRUCTOR,
+            ChatEventStickerSetChanged.CONSTRUCTOR,
+            ChatEventTitleChanged.CONSTRUCTOR,
+            ChatEventUsernameChanged.CONSTRUCTOR,
+            ChatEventHasProtectedContentToggled.CONSTRUCTOR,
+            ChatEventInvitesToggled.CONSTRUCTOR,
             ChatEventIsAllHistoryAvailableToggled.CONSTRUCTOR,
+            ChatEventSignMessagesToggled.CONSTRUCTOR,
             ChatEventInviteLinkEdited.CONSTRUCTOR,
             ChatEventInviteLinkRevoked.CONSTRUCTOR,
             ChatEventInviteLinkDeleted.CONSTRUCTOR,
             ChatEventVideoChatCreated.CONSTRUCTOR,
             ChatEventVideoChatEnded.CONSTRUCTOR,
+            ChatEventVideoChatMuteNewParticipantsToggled.CONSTRUCTOR,
             ChatEventVideoChatParticipantIsMutedToggled.CONSTRUCTOR,
-            ChatEventVideoChatParticipantVolumeLevelChanged.CONSTRUCTOR,
-            ChatEventVideoChatMuteNewParticipantsToggled.CONSTRUCTOR
+            ChatEventVideoChatParticipantVolumeLevelChanged.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -5250,44 +5258,6 @@ public class TdApi {
     }
 
     /**
-     * A poll in a message was stopped.
-     */
-    public static class ChatEventPollStopped extends ChatEventAction {
-        /**
-         * The message with the poll.
-         */
-        public Message message;
-
-        /**
-         * A poll in a message was stopped.
-         */
-        public ChatEventPollStopped() {
-        }
-
-        /**
-         * A poll in a message was stopped.
-         *
-         * @param message The message with the poll.
-         */
-        public ChatEventPollStopped(Message message) {
-            this.message = message;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 2009893861;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * A message was pinned.
      */
     public static class ChatEventMessagePinned extends ChatEventAction {
@@ -5353,6 +5323,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -376161513;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A poll in a message was stopped.
+     */
+    public static class ChatEventPollStopped extends ChatEventAction {
+        /**
+         * The message with the poll.
+         */
+        public Message message;
+
+        /**
+         * A poll in a message was stopped.
+         */
+        public ChatEventPollStopped() {
+        }
+
+        /**
+         * A poll in a message was stopped.
+         *
+         * @param message The message with the poll.
+         */
+        public ChatEventPollStopped(Message message) {
+            this.message = message;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2009893861;
 
         /**
          * @return this.CONSTRUCTOR
@@ -5471,31 +5479,6 @@ public class TdApi {
     }
 
     /**
-     * A member left the chat.
-     */
-    public static class ChatEventMemberLeft extends ChatEventAction {
-
-        /**
-         * A member left the chat.
-         */
-        public ChatEventMemberLeft() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -948420593;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * A new chat member was invited.
      */
     public static class ChatEventMemberInvited extends ChatEventAction {
@@ -5529,6 +5512,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 953663433;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A member left the chat.
+     */
+    public static class ChatEventMemberLeft extends ChatEventAction {
+
+        /**
+         * A member left the chat.
+         */
+        public ChatEventMemberLeft() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -948420593;
 
         /**
          * @return this.CONSTRUCTOR
@@ -5640,83 +5648,39 @@ public class TdApi {
     }
 
     /**
-     * The chat title was changed.
+     * The chat available reactions were changed.
      */
-    public static class ChatEventTitleChanged extends ChatEventAction {
+    public static class ChatEventAvailableReactionsChanged extends ChatEventAction {
         /**
-         * Previous chat title.
+         * Previous chat available reactions.
          */
-        public String oldTitle;
+        public String[] oldAvailableReactions;
         /**
-         * New chat title.
+         * New chat available reactions.
          */
-        public String newTitle;
+        public String[] newAvailableReactions;
 
         /**
-         * The chat title was changed.
+         * The chat available reactions were changed.
          */
-        public ChatEventTitleChanged() {
+        public ChatEventAvailableReactionsChanged() {
         }
 
         /**
-         * The chat title was changed.
+         * The chat available reactions were changed.
          *
-         * @param oldTitle Previous chat title.
-         * @param newTitle New chat title.
+         * @param oldAvailableReactions Previous chat available reactions.
+         * @param newAvailableReactions New chat available reactions.
          */
-        public ChatEventTitleChanged(String oldTitle, String newTitle) {
-            this.oldTitle = oldTitle;
-            this.newTitle = newTitle;
+        public ChatEventAvailableReactionsChanged(String[] oldAvailableReactions, String[] newAvailableReactions) {
+            this.oldAvailableReactions = oldAvailableReactions;
+            this.newAvailableReactions = newAvailableReactions;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1134103250;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The chat permissions was changed.
-     */
-    public static class ChatEventPermissionsChanged extends ChatEventAction {
-        /**
-         * Previous chat permissions.
-         */
-        public ChatPermissions oldPermissions;
-        /**
-         * New chat permissions.
-         */
-        public ChatPermissions newPermissions;
-
-        /**
-         * The chat permissions was changed.
-         */
-        public ChatEventPermissionsChanged() {
-        }
-
-        /**
-         * The chat permissions was changed.
-         *
-         * @param oldPermissions Previous chat permissions.
-         * @param newPermissions New chat permissions.
-         */
-        public ChatEventPermissionsChanged(ChatPermissions oldPermissions, ChatPermissions newPermissions) {
-            this.oldPermissions = oldPermissions;
-            this.newPermissions = newPermissions;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1311557720;
+        public static final int CONSTRUCTOR = 1401674536;
 
         /**
          * @return this.CONSTRUCTOR
@@ -5772,132 +5736,6 @@ public class TdApi {
     }
 
     /**
-     * The chat username was changed.
-     */
-    public static class ChatEventUsernameChanged extends ChatEventAction {
-        /**
-         * Previous chat username.
-         */
-        public String oldUsername;
-        /**
-         * New chat username.
-         */
-        public String newUsername;
-
-        /**
-         * The chat username was changed.
-         */
-        public ChatEventUsernameChanged() {
-        }
-
-        /**
-         * The chat username was changed.
-         *
-         * @param oldUsername Previous chat username.
-         * @param newUsername New chat username.
-         */
-        public ChatEventUsernameChanged(String oldUsername, String newUsername) {
-            this.oldUsername = oldUsername;
-            this.newUsername = newUsername;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1728558443;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The chat photo was changed.
-     */
-    public static class ChatEventPhotoChanged extends ChatEventAction {
-        /**
-         * Previous chat photo value; may be null.
-         */
-        @Nullable public ChatPhoto oldPhoto;
-        /**
-         * New chat photo value; may be null.
-         */
-        @Nullable public ChatPhoto newPhoto;
-
-        /**
-         * The chat photo was changed.
-         */
-        public ChatEventPhotoChanged() {
-        }
-
-        /**
-         * The chat photo was changed.
-         *
-         * @param oldPhoto Previous chat photo value; may be null.
-         * @param newPhoto New chat photo value; may be null.
-         */
-        public ChatEventPhotoChanged(ChatPhoto oldPhoto, ChatPhoto newPhoto) {
-            this.oldPhoto = oldPhoto;
-            this.newPhoto = newPhoto;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -811572541;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The canInviteUsers permission of a supergroup chat was toggled.
-     */
-    public static class ChatEventInvitesToggled extends ChatEventAction {
-        /**
-         * New value of canInviteUsers permission.
-         */
-        public boolean canInviteUsers;
-
-        /**
-         * The canInviteUsers permission of a supergroup chat was toggled.
-         */
-        public ChatEventInvitesToggled() {
-        }
-
-        /**
-         * The canInviteUsers permission of a supergroup chat was toggled.
-         *
-         * @param canInviteUsers New value of canInviteUsers permission.
-         */
-        public ChatEventInvitesToggled(boolean canInviteUsers) {
-            this.canInviteUsers = canInviteUsers;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -62548373;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * The linked chat of a supergroup was changed.
      */
     public static class ChatEventLinkedChatChanged extends ChatEventAction {
@@ -5931,214 +5769,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1797419439;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The slowModeDelay setting of a supergroup was changed.
-     */
-    public static class ChatEventSlowModeDelayChanged extends ChatEventAction {
-        /**
-         * Previous value of slowModeDelay, in seconds.
-         */
-        public int oldSlowModeDelay;
-        /**
-         * New value of slowModeDelay, in seconds.
-         */
-        public int newSlowModeDelay;
-
-        /**
-         * The slowModeDelay setting of a supergroup was changed.
-         */
-        public ChatEventSlowModeDelayChanged() {
-        }
-
-        /**
-         * The slowModeDelay setting of a supergroup was changed.
-         *
-         * @param oldSlowModeDelay Previous value of slowModeDelay, in seconds.
-         * @param newSlowModeDelay New value of slowModeDelay, in seconds.
-         */
-        public ChatEventSlowModeDelayChanged(int oldSlowModeDelay, int newSlowModeDelay) {
-            this.oldSlowModeDelay = oldSlowModeDelay;
-            this.newSlowModeDelay = newSlowModeDelay;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1653195765;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The message TTL was changed.
-     */
-    public static class ChatEventMessageTtlChanged extends ChatEventAction {
-        /**
-         * Previous value of messageTtl.
-         */
-        public int oldMessageTtl;
-        /**
-         * New value of messageTtl.
-         */
-        public int newMessageTtl;
-
-        /**
-         * The message TTL was changed.
-         */
-        public ChatEventMessageTtlChanged() {
-        }
-
-        /**
-         * The message TTL was changed.
-         *
-         * @param oldMessageTtl Previous value of messageTtl.
-         * @param newMessageTtl New value of messageTtl.
-         */
-        public ChatEventMessageTtlChanged(int oldMessageTtl, int newMessageTtl) {
-            this.oldMessageTtl = oldMessageTtl;
-            this.newMessageTtl = newMessageTtl;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 776386995;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The signMessages setting of a channel was toggled.
-     */
-    public static class ChatEventSignMessagesToggled extends ChatEventAction {
-        /**
-         * New value of signMessages.
-         */
-        public boolean signMessages;
-
-        /**
-         * The signMessages setting of a channel was toggled.
-         */
-        public ChatEventSignMessagesToggled() {
-        }
-
-        /**
-         * The signMessages setting of a channel was toggled.
-         *
-         * @param signMessages New value of signMessages.
-         */
-        public ChatEventSignMessagesToggled(boolean signMessages) {
-            this.signMessages = signMessages;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1313265634;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The hasProtectedContent setting of a channel was toggled.
-     */
-    public static class ChatEventHasProtectedContentToggled extends ChatEventAction {
-        /**
-         * New value of hasProtectedContent.
-         */
-        public boolean hasProtectedContent;
-
-        /**
-         * The hasProtectedContent setting of a channel was toggled.
-         */
-        public ChatEventHasProtectedContentToggled() {
-        }
-
-        /**
-         * The hasProtectedContent setting of a channel was toggled.
-         *
-         * @param hasProtectedContent New value of hasProtectedContent.
-         */
-        public ChatEventHasProtectedContentToggled(boolean hasProtectedContent) {
-            this.hasProtectedContent = hasProtectedContent;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -184270335;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The supergroup sticker set was changed.
-     */
-    public static class ChatEventStickerSetChanged extends ChatEventAction {
-        /**
-         * Previous identifier of the chat sticker set; 0 if none.
-         */
-        public long oldStickerSetId;
-        /**
-         * New identifier of the chat sticker set; 0 if none.
-         */
-        public long newStickerSetId;
-
-        /**
-         * The supergroup sticker set was changed.
-         */
-        public ChatEventStickerSetChanged() {
-        }
-
-        /**
-         * The supergroup sticker set was changed.
-         *
-         * @param oldStickerSetId Previous identifier of the chat sticker set; 0 if none.
-         * @param newStickerSetId New identifier of the chat sticker set; 0 if none.
-         */
-        public ChatEventStickerSetChanged(long oldStickerSetId, long newStickerSetId) {
-            this.oldStickerSetId = oldStickerSetId;
-            this.newStickerSetId = newStickerSetId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1243130481;
 
         /**
          * @return this.CONSTRUCTOR
@@ -6194,6 +5824,390 @@ public class TdApi {
     }
 
     /**
+     * The message TTL was changed.
+     */
+    public static class ChatEventMessageTtlChanged extends ChatEventAction {
+        /**
+         * Previous value of messageTtl.
+         */
+        public int oldMessageTtl;
+        /**
+         * New value of messageTtl.
+         */
+        public int newMessageTtl;
+
+        /**
+         * The message TTL was changed.
+         */
+        public ChatEventMessageTtlChanged() {
+        }
+
+        /**
+         * The message TTL was changed.
+         *
+         * @param oldMessageTtl Previous value of messageTtl.
+         * @param newMessageTtl New value of messageTtl.
+         */
+        public ChatEventMessageTtlChanged(int oldMessageTtl, int newMessageTtl) {
+            this.oldMessageTtl = oldMessageTtl;
+            this.newMessageTtl = newMessageTtl;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 776386995;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat permissions was changed.
+     */
+    public static class ChatEventPermissionsChanged extends ChatEventAction {
+        /**
+         * Previous chat permissions.
+         */
+        public ChatPermissions oldPermissions;
+        /**
+         * New chat permissions.
+         */
+        public ChatPermissions newPermissions;
+
+        /**
+         * The chat permissions was changed.
+         */
+        public ChatEventPermissionsChanged() {
+        }
+
+        /**
+         * The chat permissions was changed.
+         *
+         * @param oldPermissions Previous chat permissions.
+         * @param newPermissions New chat permissions.
+         */
+        public ChatEventPermissionsChanged(ChatPermissions oldPermissions, ChatPermissions newPermissions) {
+            this.oldPermissions = oldPermissions;
+            this.newPermissions = newPermissions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1311557720;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat photo was changed.
+     */
+    public static class ChatEventPhotoChanged extends ChatEventAction {
+        /**
+         * Previous chat photo value; may be null.
+         */
+        @Nullable public ChatPhoto oldPhoto;
+        /**
+         * New chat photo value; may be null.
+         */
+        @Nullable public ChatPhoto newPhoto;
+
+        /**
+         * The chat photo was changed.
+         */
+        public ChatEventPhotoChanged() {
+        }
+
+        /**
+         * The chat photo was changed.
+         *
+         * @param oldPhoto Previous chat photo value; may be null.
+         * @param newPhoto New chat photo value; may be null.
+         */
+        public ChatEventPhotoChanged(ChatPhoto oldPhoto, ChatPhoto newPhoto) {
+            this.oldPhoto = oldPhoto;
+            this.newPhoto = newPhoto;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -811572541;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The slowModeDelay setting of a supergroup was changed.
+     */
+    public static class ChatEventSlowModeDelayChanged extends ChatEventAction {
+        /**
+         * Previous value of slowModeDelay, in seconds.
+         */
+        public int oldSlowModeDelay;
+        /**
+         * New value of slowModeDelay, in seconds.
+         */
+        public int newSlowModeDelay;
+
+        /**
+         * The slowModeDelay setting of a supergroup was changed.
+         */
+        public ChatEventSlowModeDelayChanged() {
+        }
+
+        /**
+         * The slowModeDelay setting of a supergroup was changed.
+         *
+         * @param oldSlowModeDelay Previous value of slowModeDelay, in seconds.
+         * @param newSlowModeDelay New value of slowModeDelay, in seconds.
+         */
+        public ChatEventSlowModeDelayChanged(int oldSlowModeDelay, int newSlowModeDelay) {
+            this.oldSlowModeDelay = oldSlowModeDelay;
+            this.newSlowModeDelay = newSlowModeDelay;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1653195765;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The supergroup sticker set was changed.
+     */
+    public static class ChatEventStickerSetChanged extends ChatEventAction {
+        /**
+         * Previous identifier of the chat sticker set; 0 if none.
+         */
+        public long oldStickerSetId;
+        /**
+         * New identifier of the chat sticker set; 0 if none.
+         */
+        public long newStickerSetId;
+
+        /**
+         * The supergroup sticker set was changed.
+         */
+        public ChatEventStickerSetChanged() {
+        }
+
+        /**
+         * The supergroup sticker set was changed.
+         *
+         * @param oldStickerSetId Previous identifier of the chat sticker set; 0 if none.
+         * @param newStickerSetId New identifier of the chat sticker set; 0 if none.
+         */
+        public ChatEventStickerSetChanged(long oldStickerSetId, long newStickerSetId) {
+            this.oldStickerSetId = oldStickerSetId;
+            this.newStickerSetId = newStickerSetId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1243130481;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat title was changed.
+     */
+    public static class ChatEventTitleChanged extends ChatEventAction {
+        /**
+         * Previous chat title.
+         */
+        public String oldTitle;
+        /**
+         * New chat title.
+         */
+        public String newTitle;
+
+        /**
+         * The chat title was changed.
+         */
+        public ChatEventTitleChanged() {
+        }
+
+        /**
+         * The chat title was changed.
+         *
+         * @param oldTitle Previous chat title.
+         * @param newTitle New chat title.
+         */
+        public ChatEventTitleChanged(String oldTitle, String newTitle) {
+            this.oldTitle = oldTitle;
+            this.newTitle = newTitle;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1134103250;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat username was changed.
+     */
+    public static class ChatEventUsernameChanged extends ChatEventAction {
+        /**
+         * Previous chat username.
+         */
+        public String oldUsername;
+        /**
+         * New chat username.
+         */
+        public String newUsername;
+
+        /**
+         * The chat username was changed.
+         */
+        public ChatEventUsernameChanged() {
+        }
+
+        /**
+         * The chat username was changed.
+         *
+         * @param oldUsername Previous chat username.
+         * @param newUsername New chat username.
+         */
+        public ChatEventUsernameChanged(String oldUsername, String newUsername) {
+            this.oldUsername = oldUsername;
+            this.newUsername = newUsername;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1728558443;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The hasProtectedContent setting of a channel was toggled.
+     */
+    public static class ChatEventHasProtectedContentToggled extends ChatEventAction {
+        /**
+         * New value of hasProtectedContent.
+         */
+        public boolean hasProtectedContent;
+
+        /**
+         * The hasProtectedContent setting of a channel was toggled.
+         */
+        public ChatEventHasProtectedContentToggled() {
+        }
+
+        /**
+         * The hasProtectedContent setting of a channel was toggled.
+         *
+         * @param hasProtectedContent New value of hasProtectedContent.
+         */
+        public ChatEventHasProtectedContentToggled(boolean hasProtectedContent) {
+            this.hasProtectedContent = hasProtectedContent;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -184270335;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The canInviteUsers permission of a supergroup chat was toggled.
+     */
+    public static class ChatEventInvitesToggled extends ChatEventAction {
+        /**
+         * New value of canInviteUsers permission.
+         */
+        public boolean canInviteUsers;
+
+        /**
+         * The canInviteUsers permission of a supergroup chat was toggled.
+         */
+        public ChatEventInvitesToggled() {
+        }
+
+        /**
+         * The canInviteUsers permission of a supergroup chat was toggled.
+         *
+         * @param canInviteUsers New value of canInviteUsers permission.
+         */
+        public ChatEventInvitesToggled(boolean canInviteUsers) {
+            this.canInviteUsers = canInviteUsers;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -62548373;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * The isAllHistoryAvailable setting of a supergroup was toggled.
      */
     public static class ChatEventIsAllHistoryAvailableToggled extends ChatEventAction {
@@ -6221,6 +6235,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1599063019;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The signMessages setting of a channel was toggled.
+     */
+    public static class ChatEventSignMessagesToggled extends ChatEventAction {
+        /**
+         * New value of signMessages.
+         */
+        public boolean signMessages;
+
+        /**
+         * The signMessages setting of a channel was toggled.
+         */
+        public ChatEventSignMessagesToggled() {
+        }
+
+        /**
+         * The signMessages setting of a channel was toggled.
+         *
+         * @param signMessages New value of signMessages.
+         */
+        public ChatEventSignMessagesToggled(boolean signMessages) {
+            this.signMessages = signMessages;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1313265634;
 
         /**
          * @return this.CONSTRUCTOR
@@ -6428,6 +6480,44 @@ public class TdApi {
     }
 
     /**
+     * The muteNewParticipants setting of a video chat was toggled.
+     */
+    public static class ChatEventVideoChatMuteNewParticipantsToggled extends ChatEventAction {
+        /**
+         * New value of the muteNewParticipants setting.
+         */
+        public boolean muteNewParticipants;
+
+        /**
+         * The muteNewParticipants setting of a video chat was toggled.
+         */
+        public ChatEventVideoChatMuteNewParticipantsToggled() {
+        }
+
+        /**
+         * The muteNewParticipants setting of a video chat was toggled.
+         *
+         * @param muteNewParticipants New value of the muteNewParticipants setting.
+         */
+        public ChatEventVideoChatMuteNewParticipantsToggled(boolean muteNewParticipants) {
+            this.muteNewParticipants = muteNewParticipants;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -126547970;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * A video chat participant was muted or unmuted.
      */
     public static class ChatEventVideoChatParticipantIsMutedToggled extends ChatEventAction {
@@ -6505,44 +6595,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1131385534;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The muteNewParticipants setting of a video chat was toggled.
-     */
-    public static class ChatEventVideoChatMuteNewParticipantsToggled extends ChatEventAction {
-        /**
-         * New value of the muteNewParticipants setting.
-         */
-        public boolean muteNewParticipants;
-
-        /**
-         * The muteNewParticipants setting of a video chat was toggled.
-         */
-        public ChatEventVideoChatMuteNewParticipantsToggled() {
-        }
-
-        /**
-         * The muteNewParticipants setting of a video chat was toggled.
-         *
-         * @param muteNewParticipants New value of the muteNewParticipants setting.
-         */
-        public ChatEventVideoChatMuteNewParticipantsToggled(boolean muteNewParticipants) {
-            this.muteNewParticipants = muteNewParticipants;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -126547970;
 
         /**
          * @return this.CONSTRUCTOR
@@ -12316,7 +12368,7 @@ public class TdApi {
          */
         public String text;
         /**
-         * Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline and Strikethrough entities can contain and to be contained in all other entities. All other entities can't contain each other.
+         * Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline, Strikethrough, and Spoiler entities can contain and to be contained in all other entities. All other entities can't contain each other.
          */
         public TextEntity[] entities;
 
@@ -12330,7 +12382,7 @@ public class TdApi {
          * A text with some entities.
          *
          * @param text The text.
-         * @param entities Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline and Strikethrough entities can contain and to be contained in all other entities. All other entities can't contain each other.
+         * @param entities Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline, Strikethrough, and Spoiler entities can contain and to be contained in all other entities. All other entities can't contain each other.
          */
         public FormattedText(String text, TextEntity[] entities) {
             this.text = text;
@@ -16098,7 +16150,7 @@ public class TdApi {
      */
     public static class InputMessageText extends InputMessageContent {
         /**
-         * Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
+         * Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
          */
         public FormattedText text;
         /**
@@ -16119,7 +16171,7 @@ public class TdApi {
         /**
          * A text message.
          *
-         * @param text Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
+         * @param text Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
          * @param disableWebPagePreview True, if rich web page previews for URLs in the message text must be disabled.
          * @param clearDraft True, if a chat message draft must be deleted.
          */
@@ -17084,7 +17136,7 @@ public class TdApi {
          */
         public boolean inGameShare;
         /**
-         * Options to be used to copy content of the message without reference to the original sender; pass null to try to forward the message as usual.
+         * Options to be used to copy content of the message without reference to the original sender; pass null to forward the message as usual.
          */
         public MessageCopyOptions copyOptions;
 
@@ -17100,7 +17152,7 @@ public class TdApi {
          * @param fromChatId Identifier for the chat this forwarded message came from.
          * @param messageId Identifier of the message to forward.
          * @param inGameShare True, if a game message is being shared from a launched game; applies only to game messages.
-         * @param copyOptions Options to be used to copy content of the message without reference to the original sender; pass null to try to forward the message as usual.
+         * @param copyOptions Options to be used to copy content of the message without reference to the original sender; pass null to forward the message as usual.
          */
         public InputMessageForwarded(long fromChatId, long messageId, boolean inGameShare, MessageCopyOptions copyOptions) {
             this.fromChatId = fromChatId;
@@ -20191,7 +20243,7 @@ public class TdApi {
          */
         public String path;
         /**
-         * True, if it is possible to try to download or generate the file.
+         * True, if it is possible to download or generate the file.
          */
         public boolean canBeDownloaded;
         /**
@@ -20229,7 +20281,7 @@ public class TdApi {
          * Represents a local file.
          *
          * @param path Local path to the locally available file part; may be empty.
-         * @param canBeDownloaded True, if it is possible to try to download or generate the file.
+         * @param canBeDownloaded True, if it is possible to download or generate the file.
          * @param canBeDeleted True, if the file can be deleted.
          * @param isDownloadingActive True, if the file is currently being downloaded (or a local copy is being generated by some other means).
          * @param isDownloadingCompleted True, if the local copy is fully available.
@@ -24173,6 +24225,10 @@ public class TdApi {
          */
         public boolean fromBackground;
         /**
+         * Pass true if the content of the message must be protected from forwarding and saving; for bots only.
+         */
+        public boolean protectContent;
+        /**
          * Message scheduling state; pass null to send message immediately. Messages sent to a secret chat, live location messages and self-destructing messages can't be scheduled.
          */
         public MessageSchedulingState schedulingState;
@@ -24188,18 +24244,20 @@ public class TdApi {
          *
          * @param disableNotification Pass true to disable notification for the message.
          * @param fromBackground Pass true if the message is sent from the background.
+         * @param protectContent Pass true if the content of the message must be protected from forwarding and saving; for bots only.
          * @param schedulingState Message scheduling state; pass null to send message immediately. Messages sent to a secret chat, live location messages and self-destructing messages can't be scheduled.
          */
-        public MessageSendOptions(boolean disableNotification, boolean fromBackground, MessageSchedulingState schedulingState) {
+        public MessageSendOptions(boolean disableNotification, boolean fromBackground, boolean protectContent, MessageSchedulingState schedulingState) {
             this.disableNotification = disableNotification;
             this.fromBackground = fromBackground;
+            this.protectContent = protectContent;
             this.schedulingState = schedulingState;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 914544314;
+        public static final int CONSTRUCTOR = -871066572;
 
         /**
          * @return this.CONSTRUCTOR
@@ -33939,9 +33997,13 @@ public class TdApi {
          */
         public long messageId;
         /**
-         * Chat identifier.
+         * Sponsor chat identifier; 0 if the sponsor chat is accessible through an invite link.
          */
         public long sponsorChatId;
+        /**
+         * Information about the sponsor chat; may be null unless sponsorChatId == 0.
+         */
+        @Nullable public ChatInviteLinkInfo sponsorChatInfo;
         /**
          * An internal link to be opened when the sponsored message is clicked; may be null. If null, the sponsor chat needs to be opened instead.
          */
@@ -33961,13 +34023,15 @@ public class TdApi {
          * Describes a sponsored message.
          *
          * @param messageId Message identifier; unique for the chat to which the sponsored message belongs among both ordinary and sponsored messages.
-         * @param sponsorChatId Chat identifier.
+         * @param sponsorChatId Sponsor chat identifier; 0 if the sponsor chat is accessible through an invite link.
+         * @param sponsorChatInfo Information about the sponsor chat; may be null unless sponsorChatId == 0.
          * @param link An internal link to be opened when the sponsored message is clicked; may be null. If null, the sponsor chat needs to be opened instead.
          * @param content Content of the message. Currently, can be only of the type messageText.
          */
-        public SponsoredMessage(long messageId, long sponsorChatId, InternalLinkType link, MessageContent content) {
+        public SponsoredMessage(long messageId, long sponsorChatId, ChatInviteLinkInfo sponsorChatInfo, InternalLinkType link, MessageContent content) {
             this.messageId = messageId;
             this.sponsorChatId = sponsorChatId;
+            this.sponsorChatInfo = sponsorChatInfo;
             this.link = link;
             this.content = content;
         }
@@ -33975,7 +34039,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1734768993;
+        public static final int CONSTRUCTOR = -1384343080;
 
         /**
          * @return this.CONSTRUCTOR
@@ -35184,7 +35248,7 @@ public class TdApi {
          */
         @Nullable public ChatLocation location;
         /**
-         * Primary invite link for this chat; may be null. For chat administrators with canInviteUsers right only.
+         * Primary invite link for the chat; may be null. For chat administrators with canInviteUsers right only.
          */
         @Nullable public ChatInviteLink inviteLink;
         /**
@@ -35226,7 +35290,7 @@ public class TdApi {
          * @param isAllHistoryAvailable True, if new chat members will have access to old messages. In public or discussion groups and both public and private channels, old messages are always available, so this option affects only private supergroups without a linked chat. The value of this field is only available for chat administrators.
          * @param stickerSetId Identifier of the supergroup sticker set; 0 if none.
          * @param location Location to which the supergroup is connected; may be null.
-         * @param inviteLink Primary invite link for this chat; may be null. For chat administrators with canInviteUsers right only.
+         * @param inviteLink Primary invite link for the chat; may be null. For chat administrators with canInviteUsers right only.
          * @param botCommands List of commands of bots in the group.
          * @param upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
          * @param upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
@@ -36449,6 +36513,7 @@ public class TdApi {
             TextEntityTypeItalic.CONSTRUCTOR,
             TextEntityTypeUnderline.CONSTRUCTOR,
             TextEntityTypeStrikethrough.CONSTRUCTOR,
+            TextEntityTypeSpoiler.CONSTRUCTOR,
             TextEntityTypeCode.CONSTRUCTOR,
             TextEntityTypePre.CONSTRUCTOR,
             TextEntityTypePreCode.CONSTRUCTOR,
@@ -36756,6 +36821,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 961529082;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A spoiler text. Not supported in secret chats.
+     */
+    public static class TextEntityTypeSpoiler extends TextEntityType {
+
+        /**
+         * A spoiler text. Not supported in secret chats.
+         */
+        public TextEntityTypeSpoiler() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 544019899;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37571,6 +37661,7 @@ public class TdApi {
             UpdateChatReadInbox.CONSTRUCTOR,
             UpdateChatReadOutbox.CONSTRUCTOR,
             UpdateChatActionBar.CONSTRUCTOR,
+            UpdateChatAvailableReactions.CONSTRUCTOR,
             UpdateChatDraftMessage.CONSTRUCTOR,
             UpdateChatMessageSender.CONSTRUCTOR,
             UpdateChatMessageTtl.CONSTRUCTOR,
@@ -38609,6 +38700,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -643671870;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat available reactions were changed.
+     */
+    public static class UpdateChatAvailableReactions extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The new list of reactions, available in the chat.
+         */
+        public String[] availableReactions;
+
+        /**
+         * The chat available reactions were changed.
+         */
+        public UpdateChatAvailableReactions() {
+        }
+
+        /**
+         * The chat available reactions were changed.
+         *
+         * @param chatId Chat identifier.
+         * @param availableReactions The new list of reactions, available in the chat.
+         */
+        public UpdateChatAvailableReactions(long chatId, String[] availableReactions) {
+            this.chatId = chatId;
+            this.availableReactions = availableReactions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1461776531;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47386,7 +47521,7 @@ public class TdApi {
          */
         public boolean removeFromChatList;
         /**
-         * Pass true to try to delete chat history for all users.
+         * Pass true to delete chat history for all users.
          */
         public boolean revoke;
 
@@ -47405,7 +47540,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param removeFromChatList Pass true if the chat needs to be removed from the chat list.
-         * @param revoke Pass true to try to delete chat history for all users.
+         * @param revoke Pass true to delete chat history for all users.
          */
         public DeleteChatHistory(long chatId, boolean removeFromChatList, boolean revoke) {
             this.chatId = chatId;
@@ -47446,7 +47581,7 @@ public class TdApi {
          */
         public int maxDate;
         /**
-         * Pass true to try to delete chat messages for all users; private chats only.
+         * Pass true to delete chat messages for all users; private chats only.
          */
         public boolean revoke;
 
@@ -47466,7 +47601,7 @@ public class TdApi {
          * @param chatId Chat identifier.
          * @param minDate The minimum date of the messages to delete.
          * @param maxDate The maximum date of the messages to delete.
-         * @param revoke Pass true to try to delete chat messages for all users; private chats only.
+         * @param revoke Pass true to delete chat messages for all users; private chats only.
          */
         public DeleteChatMessagesByDate(long chatId, int minDate, int maxDate, boolean revoke) {
             this.chatId = chatId;
@@ -47742,7 +47877,7 @@ public class TdApi {
          */
         public long[] messageIds;
         /**
-         * Pass true to try to delete messages for all chat members. Always true for supergroups, channels and secret chats.
+         * Pass true to delete messages for all chat members. Always true for supergroups, channels and secret chats.
          */
         public boolean revoke;
 
@@ -47761,7 +47896,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param messageIds Identifiers of the messages to be deleted.
-         * @param revoke Pass true to try to delete messages for all chat members. Always true for supergroups, channels and secret chats.
+         * @param revoke Pass true to delete messages for all chat members. Always true for supergroups, channels and secret chats.
          */
         public DeleteMessages(long chatId, long[] messageIds, boolean revoke) {
             this.chatId = chatId;
@@ -57088,7 +57223,7 @@ public class TdApi {
      */
     public static class ParseMarkdown extends Function {
         /**
-         * The text to parse. For example, &quot;__italic__ ~~strikethrough~~ **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) _Italic**bold italic_Bold**&quot;.
+         * The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) _Italic**bold italic_Bold**&quot;.
          */
         public FormattedText text;
 
@@ -57105,7 +57240,7 @@ public class TdApi {
          *
          * <p> Returns {@link FormattedText FormattedText} </p>
          *
-         * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) _Italic**bold italic_Bold**&quot;.
+         * @param text The text to parse. For example, &quot;__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ textUrl](telegram.org) _Italic**bold italic_Bold**&quot;.
          */
         public ParseMarkdown(FormattedText text) {
             this.text = text;
@@ -57126,7 +57261,7 @@ public class TdApi {
     }
 
     /**
-     * Parses Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+     * Parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
      *
      * <p> Returns {@link FormattedText FormattedText} </p>
      */
@@ -57141,7 +57276,7 @@ public class TdApi {
         public TextParseMode parseMode;
 
         /**
-         * Default constructor for a function, which parses Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+         * Default constructor for a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
          *
          * <p> Returns {@link FormattedText FormattedText} </p>
          */
@@ -57149,7 +57284,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which parses Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+         * Creates a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
          *
          * <p> Returns {@link FormattedText FormattedText} </p>
          *
@@ -61487,6 +61622,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1154926191;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes reactions, available in a chat. Available for basic groups, supergroups, and channels. Requires canChangeInfo administrator right.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetChatAvailableReactions extends Function {
+        /**
+         * Identifier of the chat.
+         */
+        public long chatId;
+        /**
+         * New list of reactions, available in the chat.
+         */
+        public String[] availableReactions;
+
+        /**
+         * Default constructor for a function, which changes reactions, available in a chat. Available for basic groups, supergroups, and channels. Requires canChangeInfo administrator right.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetChatAvailableReactions() {
+        }
+
+        /**
+         * Creates a function, which changes reactions, available in a chat. Available for basic groups, supergroups, and channels. Requires canChangeInfo administrator right.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the chat.
+         * @param availableReactions New list of reactions, available in the chat.
+         */
+        public SetChatAvailableReactions(long chatId, String[] availableReactions) {
+            this.chatId = chatId;
+            this.availableReactions = availableReactions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1497463414;
 
         /**
          * @return this.CONSTRUCTOR
