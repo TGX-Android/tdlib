@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import androidx.annotation.IntDef;
-import androidx.annotation.Nullable;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -233,6 +233,8 @@ public class TdApi {
             GetMarkdownText.CONSTRUCTOR,
             GetMe.CONSTRUCTOR,
             GetMessage.CONSTRUCTOR,
+            GetMessageAddedReactions.CONSTRUCTOR,
+            GetMessageAvailableReactions.CONSTRUCTOR,
             GetMessageEmbeddingCode.CONSTRUCTOR,
             GetMessageFileType.CONSTRUCTOR,
             GetMessageImportConfirmationText.CONSTRUCTOR,
@@ -319,6 +321,7 @@ public class TdApi {
             ProcessChatJoinRequests.CONSTRUCTOR,
             ProcessPushNotification.CONSTRUCTOR,
             ReadAllChatMentions.CONSTRUCTOR,
+            ReadAllChatReactions.CONSTRUCTOR,
             ReadFilePart.CONSTRUCTOR,
             RecoverAuthenticationPassword.CONSTRUCTOR,
             RecoverPassword.CONSTRUCTOR,
@@ -431,6 +434,7 @@ public class TdApi {
             SetLogStream.CONSTRUCTOR,
             SetLogTagVerbosityLevel.CONSTRUCTOR,
             SetLogVerbosityLevel.CONSTRUCTOR,
+            SetMessageReaction.CONSTRUCTOR,
             SetName.CONSTRUCTOR,
             SetNetworkType.CONSTRUCTOR,
             SetOption.CONSTRUCTOR,
@@ -489,6 +493,7 @@ public class TdApi {
             ToggleSupergroupIsBroadcastGroup.CONSTRUCTOR,
             ToggleSupergroupSignMessages.CONSTRUCTOR,
             TransferChatOwnership.CONSTRUCTOR,
+            TranslateText.CONSTRUCTOR,
             UnpinAllChatMessages.CONSTRUCTOR,
             UnpinChatMessage.CONSTRUCTOR,
             UpgradeBasicGroupChatToSupergroupChat.CONSTRUCTOR,
@@ -541,6 +546,100 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1324495492;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a reaction applied to a message.
+     */
+    public static class AddedReaction extends Object {
+        /**
+         * Text representation of the reaction.
+         */
+        public String reaction;
+        /**
+         * Identifier of the chat member, applied the reaction.
+         */
+        public MessageSender senderId;
+
+        /**
+         * Represents a reaction applied to a message.
+         */
+        public AddedReaction() {
+        }
+
+        /**
+         * Represents a reaction applied to a message.
+         *
+         * @param reaction Text representation of the reaction.
+         * @param senderId Identifier of the chat member, applied the reaction.
+         */
+        public AddedReaction(String reaction, MessageSender senderId) {
+            this.reaction = reaction;
+            this.senderId = senderId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 454543036;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of reactions added to a message.
+     */
+    public static class AddedReactions extends Object {
+        /**
+         * The total count of found reactions.
+         */
+        public int totalCount;
+        /**
+         * The list of added reactions.
+         */
+        public AddedReaction[] reactions;
+        /**
+         * The offset for the next request. If empty, there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Represents a list of reactions added to a message.
+         */
+        public AddedReactions() {
+        }
+
+        /**
+         * Represents a list of reactions added to a message.
+         *
+         * @param totalCount The total count of found reactions.
+         * @param reactions The list of added reactions.
+         * @param nextOffset The offset for the next request. If empty, there are no more results.
+         */
+        public AddedReactions(int totalCount, AddedReaction[] reactions, String nextOffset) {
+            this.totalCount = totalCount;
+            this.reactions = reactions;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 226352304;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1699,6 +1798,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -782099166;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of available reactions.
+     */
+    public static class AvailableReactions extends Object {
+        /**
+         * List of reactions.
+         */
+        public String[] reactions;
+
+        /**
+         * Represents a list of available reactions.
+         */
+        public AvailableReactions() {
+        }
+
+        /**
+         * Represents a list of available reactions.
+         *
+         * @param reactions List of reactions.
+         */
+        public AvailableReactions(String[] reactions) {
+            this.reactions = reactions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -656871316;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4108,6 +4245,10 @@ public class TdApi {
          */
         public int unreadMentionCount;
         /**
+         * Number of messages with unread reactions in the chat.
+         */
+        public int unreadReactionCount;
+        /**
          * Notification settings for the chat.
          */
         public ChatNotificationSettings notificationSettings;
@@ -4177,6 +4318,7 @@ public class TdApi {
          * @param lastReadInboxMessageId Identifier of the last read incoming message.
          * @param lastReadOutboxMessageId Identifier of the last read outgoing message.
          * @param unreadMentionCount Number of unread messages with a mention/reply in the chat.
+         * @param unreadReactionCount Number of messages with unread reactions in the chat.
          * @param notificationSettings Notification settings for the chat.
          * @param availableReactions List of reactions, available in the chat.
          * @param messageTtl Current message Time To Live setting (self-destruct timer) for the chat; 0 if not defined. TTL is counted from the time message or its content is viewed in secret chats and from the send date in other chats.
@@ -4188,7 +4330,7 @@ public class TdApi {
          * @param draftMessage A draft of a message in the chat; may be null.
          * @param clientData Application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used.
          */
-        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, boolean hasProtectedContent, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, String[] availableReactions, int messageTtl, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
+        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, boolean hasProtectedContent, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, int unreadReactionCount, ChatNotificationSettings notificationSettings, String[] availableReactions, int messageTtl, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
             this.id = id;
             this.type = type;
             this.title = title;
@@ -4209,6 +4351,7 @@ public class TdApi {
             this.lastReadInboxMessageId = lastReadInboxMessageId;
             this.lastReadOutboxMessageId = lastReadOutboxMessageId;
             this.unreadMentionCount = unreadMentionCount;
+            this.unreadReactionCount = unreadReactionCount;
             this.notificationSettings = notificationSettings;
             this.availableReactions = availableReactions;
             this.messageTtl = messageTtl;
@@ -4224,7 +4367,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1801064074;
+        public static final int CONSTRUCTOR = -1601123095;
 
         /**
          * @return this.CONSTRUCTOR
@@ -9935,12 +10078,12 @@ public class TdApi {
     }
 
     /**
-     * The user has too much chats with username, one of them must be made private first.
+     * The user has too many chats with username, one of them must be made private first.
      */
     public static class CheckChatUsernameResultPublicChatsTooMuch extends CheckChatUsernameResult {
 
         /**
-         * The user has too much chats with username, one of them must be made private first.
+         * The user has too many chats with username, one of them must be made private first.
          */
         public CheckChatUsernameResultPublicChatsTooMuch() {
         }
@@ -15797,7 +15940,7 @@ public class TdApi {
     }
 
     /**
-     * Represents a link to a WEBP or TGS sticker.
+     * Represents a link to a WEBP, TGS, or WEBM sticker.
      */
     public static class InputInlineQueryResultSticker extends InputInlineQueryResult {
         /**
@@ -15809,7 +15952,7 @@ public class TdApi {
          */
         public String thumbnailUrl;
         /**
-         * The URL of the WEBP or TGS sticker (sticker file size must not exceed 5MB).
+         * The URL of the WEBP, TGS, or WEBM sticker (sticker file size must not exceed 5MB).
          */
         public String stickerUrl;
         /**
@@ -15830,17 +15973,17 @@ public class TdApi {
         public InputMessageContent inputMessageContent;
 
         /**
-         * Represents a link to a WEBP or TGS sticker.
+         * Represents a link to a WEBP, TGS, or WEBM sticker.
          */
         public InputInlineQueryResultSticker() {
         }
 
         /**
-         * Represents a link to a WEBP or TGS sticker.
+         * Represents a link to a WEBP, TGS, or WEBM sticker.
          *
          * @param id Unique identifier of the query result.
          * @param thumbnailUrl URL of the sticker thumbnail, if it exists.
-         * @param stickerUrl The URL of the WEBP or TGS sticker (sticker file size must not exceed 5MB).
+         * @param stickerUrl The URL of the WEBP, TGS, or WEBM sticker (sticker file size must not exceed 5MB).
          * @param stickerWidth Width of the sticker.
          * @param stickerHeight Height of the sticker.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
@@ -18170,31 +18313,11 @@ public class TdApi {
     }
 
     /**
-     * This class is an abstract base class.
-     * Describes a sticker that needs to be added to a sticker set.
+     * A sticker to be added to a sticker set.
      */
-    public abstract static class InputSticker extends Object {
-        @Retention(RetentionPolicy.SOURCE)
-        @IntDef({
-            InputStickerStatic.CONSTRUCTOR,
-            InputStickerAnimated.CONSTRUCTOR
-        })
-        public @interface Constructors {}
-
+    public static class InputSticker extends Object {
         /**
-         * @return identifier uniquely determining type of the object.
-         */
-        @Constructors
-        @Override
-        public abstract int getConstructor();
-    }
-
-    /**
-     * A static sticker in PNG format, which will be converted to WEBP server-side.
-     */
-    public static class InputStickerStatic extends InputSticker {
-        /**
-         * PNG image with the sticker; must be up to 512 KB in size and fit in a 512x512 square.
+         * File with the sticker; must fit in a 512x512 square. For WEBP stickers and masks the file must be in PNG format, which will be converted to WEBP server-side. Otherwise, the file must be local or uploaded within a week. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
          */
         public InputFile sticker;
         /**
@@ -18202,77 +18325,33 @@ public class TdApi {
          */
         public String emojis;
         /**
-         * For masks, position where the mask is placed; pass null if unspecified.
+         * Sticker type.
          */
-        public MaskPosition maskPosition;
+        public StickerType type;
 
         /**
-         * A static sticker in PNG format, which will be converted to WEBP server-side.
+         * A sticker to be added to a sticker set.
          */
-        public InputStickerStatic() {
+        public InputSticker() {
         }
 
         /**
-         * A static sticker in PNG format, which will be converted to WEBP server-side.
+         * A sticker to be added to a sticker set.
          *
-         * @param sticker PNG image with the sticker; must be up to 512 KB in size and fit in a 512x512 square.
+         * @param sticker File with the sticker; must fit in a 512x512 square. For WEBP stickers and masks the file must be in PNG format, which will be converted to WEBP server-side. Otherwise, the file must be local or uploaded within a week. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
          * @param emojis Emojis corresponding to the sticker.
-         * @param maskPosition For masks, position where the mask is placed; pass null if unspecified.
+         * @param type Sticker type.
          */
-        public InputStickerStatic(InputFile sticker, String emojis, MaskPosition maskPosition) {
+        public InputSticker(InputFile sticker, String emojis, StickerType type) {
             this.sticker = sticker;
             this.emojis = emojis;
-            this.maskPosition = maskPosition;
+            this.type = type;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1409680603;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * An animated sticker in TGS format.
-     */
-    public static class InputStickerAnimated extends InputSticker {
-        /**
-         * File with the animated sticker. Only local or uploaded within a week files are supported. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
-         */
-        public InputFile sticker;
-        /**
-         * Emojis corresponding to the sticker.
-         */
-        public String emojis;
-
-        /**
-         * An animated sticker in TGS format.
-         */
-        public InputStickerAnimated() {
-        }
-
-        /**
-         * An animated sticker in TGS format.
-         *
-         * @param sticker File with the animated sticker. Only local or uploaded within a week files are supported. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
-         * @param emojis Emojis corresponding to the sticker.
-         */
-        public InputStickerAnimated(InputFile sticker, String emojis) {
-            this.sticker = sticker;
-            this.emojis = emojis;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1127265952;
+        public static final int CONSTRUCTOR = 878376494;
 
         /**
          * @return this.CONSTRUCTOR
@@ -20950,11 +21029,15 @@ public class TdApi {
          */
         public boolean canBeDeletedForAllUsers;
         /**
-         * True, if the message statistics are available.
+         * True, if the list of added reactions is available through getMessageAddedReactions.
+         */
+        public boolean canGetAddedReactions;
+        /**
+         * True, if the message statistics are available through getMessageStatistics.
          */
         public boolean canGetStatistics;
         /**
-         * True, if the message thread info is available.
+         * True, if the message thread info is available through getMessageThread.
          */
         public boolean canGetMessageThread;
         /**
@@ -20962,7 +21045,7 @@ public class TdApi {
          */
         public boolean canGetViewers;
         /**
-         * True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description.
+         * True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description through getMessageLink.
          */
         public boolean canGetMediaTimestampLinks;
         /**
@@ -20993,6 +21076,10 @@ public class TdApi {
          * Information about interactions with the message; may be null.
          */
         @Nullable public MessageInteractionInfo interactionInfo;
+        /**
+         * Information about unread reactions added to the message.
+         */
+        public UnreadReaction[] unreadReactions;
         /**
          * If non-zero, the identifier of the chat to which the replied message belongs; Currently, only messages in the Replies chat can have different replyInChatId and chatId.
          */
@@ -21059,10 +21146,11 @@ public class TdApi {
          * @param canBeSaved True, if content of the message can be saved locally or copied.
          * @param canBeDeletedOnlyForSelf True, if the message can be deleted only for the current user while other users will continue to see it.
          * @param canBeDeletedForAllUsers True, if the message can be deleted for all users.
-         * @param canGetStatistics True, if the message statistics are available.
-         * @param canGetMessageThread True, if the message thread info is available.
+         * @param canGetAddedReactions True, if the list of added reactions is available through getMessageAddedReactions.
+         * @param canGetStatistics True, if the message statistics are available through getMessageStatistics.
+         * @param canGetMessageThread True, if the message thread info is available through getMessageThread.
          * @param canGetViewers True, if chat members already viewed the message can be received through getMessageViewers.
-         * @param canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description.
+         * @param canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description through getMessageLink.
          * @param hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
          * @param isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
          * @param containsUnreadMention True, if the message contains an unread mention for the current user.
@@ -21070,6 +21158,7 @@ public class TdApi {
          * @param editDate Point in time (Unix timestamp) when the message was last edited.
          * @param forwardInfo Information about the initial message sender; may be null.
          * @param interactionInfo Information about interactions with the message; may be null.
+         * @param unreadReactions Information about unread reactions added to the message.
          * @param replyInChatId If non-zero, the identifier of the chat to which the replied message belongs; Currently, only messages in the Replies chat can have different replyInChatId and chatId.
          * @param replyToMessageId If non-zero, the identifier of the message this message is replying to; can be the identifier of a deleted message.
          * @param messageThreadId If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs.
@@ -21082,7 +21171,7 @@ public class TdApi {
          * @param content Content of the message.
          * @param replyMarkup Reply markup for the message; may be null.
          */
-        public Message(long id, MessageSender senderId, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean canBeEdited, boolean canBeForwarded, boolean canBeSaved, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetStatistics, boolean canGetMessageThread, boolean canGetViewers, boolean canGetMediaTimestampLinks, boolean hasTimestampedMedia, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, MessageInteractionInfo interactionInfo, long replyInChatId, long replyToMessageId, long messageThreadId, int ttl, double ttlExpiresIn, long viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, ReplyMarkup replyMarkup) {
+        public Message(long id, MessageSender senderId, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean canBeEdited, boolean canBeForwarded, boolean canBeSaved, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetAddedReactions, boolean canGetStatistics, boolean canGetMessageThread, boolean canGetViewers, boolean canGetMediaTimestampLinks, boolean hasTimestampedMedia, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, MessageInteractionInfo interactionInfo, UnreadReaction[] unreadReactions, long replyInChatId, long replyToMessageId, long messageThreadId, int ttl, double ttlExpiresIn, long viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, ReplyMarkup replyMarkup) {
             this.id = id;
             this.senderId = senderId;
             this.chatId = chatId;
@@ -21095,6 +21184,7 @@ public class TdApi {
             this.canBeSaved = canBeSaved;
             this.canBeDeletedOnlyForSelf = canBeDeletedOnlyForSelf;
             this.canBeDeletedForAllUsers = canBeDeletedForAllUsers;
+            this.canGetAddedReactions = canGetAddedReactions;
             this.canGetStatistics = canGetStatistics;
             this.canGetMessageThread = canGetMessageThread;
             this.canGetViewers = canGetViewers;
@@ -21106,6 +21196,7 @@ public class TdApi {
             this.editDate = editDate;
             this.forwardInfo = forwardInfo;
             this.interactionInfo = interactionInfo;
+            this.unreadReactions = unreadReactions;
             this.replyInChatId = replyInChatId;
             this.replyToMessageId = replyToMessageId;
             this.messageThreadId = messageThreadId;
@@ -21122,7 +21213,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -961280585;
+        public static final int CONSTRUCTOR = 1435961258;
 
         /**
          * @return this.CONSTRUCTOR
@@ -23827,6 +23918,10 @@ public class TdApi {
          * Information about direct or indirect replies to the message; may be null. Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself.
          */
         @Nullable public MessageReplyInfo replyInfo;
+        /**
+         * The list of reactions added to the message.
+         */
+        public MessageReaction[] reactions;
 
         /**
          * Contains information about interactions with a message.
@@ -23840,17 +23935,19 @@ public class TdApi {
          * @param viewCount Number of times the message was viewed.
          * @param forwardCount Number of times the message was forwarded.
          * @param replyInfo Information about direct or indirect replies to the message; may be null. Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself.
+         * @param reactions The list of reactions added to the message.
          */
-        public MessageInteractionInfo(int viewCount, int forwardCount, MessageReplyInfo replyInfo) {
+        public MessageInteractionInfo(int viewCount, int forwardCount, MessageReplyInfo replyInfo, MessageReaction[] reactions) {
             this.viewCount = viewCount;
             this.forwardCount = forwardCount;
             this.replyInfo = replyInfo;
+            this.reactions = reactions;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -620714966;
+        public static final int CONSTRUCTOR = -574858485;
 
         /**
          * @return this.CONSTRUCTOR
@@ -24057,6 +24154,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1930466649;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about a reaction to a message.
+     */
+    public static class MessageReaction extends Object {
+        /**
+         * Text representation of the reaction.
+         */
+        public String reaction;
+        /**
+         * Number of times the reaction was added.
+         */
+        public int totalCount;
+        /**
+         * True, if the reaction is chosen by the current user.
+         */
+        public boolean isChosen;
+        /**
+         * Identifiers of at most 3 recent message senders, added the reaction; available in private chats, basic groups and supergroups.
+         */
+        public MessageSender[] recentSenderIds;
+
+        /**
+         * Contains information about a reaction to a message.
+         */
+        public MessageReaction() {
+        }
+
+        /**
+         * Contains information about a reaction to a message.
+         *
+         * @param reaction Text representation of the reaction.
+         * @param totalCount Number of times the reaction was added.
+         * @param isChosen True, if the reaction is chosen by the current user.
+         * @param recentSenderIds Identifiers of at most 3 recent message senders, added the reaction; available in private chats, basic groups and supergroups.
+         */
+        public MessageReaction(String reaction, int totalCount, boolean isChosen, MessageSender[] recentSenderIds) {
+            this.reaction = reaction;
+            this.totalCount = totalCount;
+            this.isChosen = isChosen;
+            this.recentSenderIds = recentSenderIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1168486082;
 
         /**
          * @return this.CONSTRUCTOR
@@ -31770,6 +31923,98 @@ public class TdApi {
     }
 
     /**
+     * Contains stickers which must be used for reaction animation rendering.
+     */
+    public static class Reaction extends Object {
+        /**
+         * Text representation of the reaction.
+         */
+        public String reaction;
+        /**
+         * Reaction title.
+         */
+        public String title;
+        /**
+         * True, if the reaction can be added to new messages and enabled in chats.
+         */
+        public boolean isActive;
+        /**
+         * Static icon for the reaction.
+         */
+        public Sticker staticIcon;
+        /**
+         * Appear animation for the reaction.
+         */
+        public Sticker appearAnimation;
+        /**
+         * Select animation for the reaction.
+         */
+        public Sticker selectAnimation;
+        /**
+         * Activate animation for the reaction.
+         */
+        public Sticker activateAnimation;
+        /**
+         * Effect animation for the reaction.
+         */
+        public Sticker effectAnimation;
+        /**
+         * Around animation for the reaction; may be null.
+         */
+        @Nullable public Sticker aroundAnimation;
+        /**
+         * Center animation for the reaction; may be null.
+         */
+        @Nullable public Sticker centerAnimation;
+
+        /**
+         * Contains stickers which must be used for reaction animation rendering.
+         */
+        public Reaction() {
+        }
+
+        /**
+         * Contains stickers which must be used for reaction animation rendering.
+         *
+         * @param reaction Text representation of the reaction.
+         * @param title Reaction title.
+         * @param isActive True, if the reaction can be added to new messages and enabled in chats.
+         * @param staticIcon Static icon for the reaction.
+         * @param appearAnimation Appear animation for the reaction.
+         * @param selectAnimation Select animation for the reaction.
+         * @param activateAnimation Activate animation for the reaction.
+         * @param effectAnimation Effect animation for the reaction.
+         * @param aroundAnimation Around animation for the reaction; may be null.
+         * @param centerAnimation Center animation for the reaction; may be null.
+         */
+        public Reaction(String reaction, String title, boolean isActive, Sticker staticIcon, Sticker appearAnimation, Sticker selectAnimation, Sticker activateAnimation, Sticker effectAnimation, Sticker aroundAnimation, Sticker centerAnimation) {
+            this.reaction = reaction;
+            this.title = title;
+            this.isActive = isActive;
+            this.staticIcon = staticIcon;
+            this.appearAnimation = appearAnimation;
+            this.selectAnimation = selectAnimation;
+            this.activateAnimation = activateAnimation;
+            this.effectAnimation = effectAnimation;
+            this.aroundAnimation = aroundAnimation;
+            this.centerAnimation = centerAnimation;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -9677071;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes a recommended chat filter.
      */
     public static class RecommendedChatFilter extends Object {
@@ -33145,6 +33390,7 @@ public class TdApi {
             SearchMessagesFilterVoiceAndVideoNote.CONSTRUCTOR,
             SearchMessagesFilterMention.CONSTRUCTOR,
             SearchMessagesFilterUnreadMention.CONSTRUCTOR,
+            SearchMessagesFilterUnreadReaction.CONSTRUCTOR,
             SearchMessagesFilterFailedToSend.CONSTRUCTOR,
             SearchMessagesFilterPinned.CONSTRUCTOR
         })
@@ -33498,6 +33744,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -95769149;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns only messages with unread reactions for the current user. When using this filter the results can't be additionally filtered by a query, a message thread or by the sending user.
+     */
+    public static class SearchMessagesFilterUnreadReaction extends SearchMessagesFilter {
+
+        /**
+         * Returns only messages with unread reactions for the current user. When using this filter the results can't be additionally filtered by a query, a message thread or by the sending user.
+         */
+        public SearchMessagesFilterUnreadReaction() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1379651328;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34262,17 +34533,9 @@ public class TdApi {
          */
         public String emoji;
         /**
-         * True, if the sticker is an animated sticker in TGS format.
+         * Sticker type.
          */
-        public boolean isAnimated;
-        /**
-         * True, if the sticker is a mask.
-         */
-        public boolean isMask;
-        /**
-         * Position where the mask is placed; may be null.
-         */
-        @Nullable public MaskPosition maskPosition;
+        public StickerType type;
         /**
          * Sticker's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
          */
@@ -34299,21 +34562,17 @@ public class TdApi {
          * @param width Sticker width; as defined by the sender.
          * @param height Sticker height; as defined by the sender.
          * @param emoji Emoji corresponding to the sticker.
-         * @param isAnimated True, if the sticker is an animated sticker in TGS format.
-         * @param isMask True, if the sticker is a mask.
-         * @param maskPosition Position where the mask is placed; may be null.
+         * @param type Sticker type.
          * @param outline Sticker's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
          * @param thumbnail Sticker thumbnail in WEBP or JPEG format; may be null.
          * @param sticker File containing the sticker.
          */
-        public Sticker(long setId, int width, int height, String emoji, boolean isAnimated, boolean isMask, MaskPosition maskPosition, ClosedVectorPath[] outline, Thumbnail thumbnail, File sticker) {
+        public Sticker(long setId, int width, int height, String emoji, StickerType type, ClosedVectorPath[] outline, Thumbnail thumbnail, File sticker) {
             this.setId = setId;
             this.width = width;
             this.height = height;
             this.emoji = emoji;
-            this.isAnimated = isAnimated;
-            this.isMask = isMask;
-            this.maskPosition = maskPosition;
+            this.type = type;
             this.outline = outline;
             this.thumbnail = thumbnail;
             this.sticker = sticker;
@@ -34322,7 +34581,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 45883239;
+        public static final int CONSTRUCTOR = -1504840173;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34350,7 +34609,7 @@ public class TdApi {
          */
         public String name;
         /**
-         * Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed.
+         * Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed.
          */
         @Nullable public Thumbnail thumbnail;
         /**
@@ -34370,13 +34629,9 @@ public class TdApi {
          */
         public boolean isOfficial;
         /**
-         * True, is the stickers in the set are animated.
+         * Type of the stickers in the set.
          */
-        public boolean isAnimated;
-        /**
-         * True, if the stickers in the set are masks.
-         */
-        public boolean isMasks;
+        public StickerType stickerType;
         /**
          * True for already viewed trending sticker sets.
          */
@@ -34402,18 +34657,17 @@ public class TdApi {
          * @param id Identifier of the sticker set.
          * @param title Title of the sticker set.
          * @param name Name of the sticker set.
-         * @param thumbnail Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed.
+         * @param thumbnail Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed.
          * @param thumbnailOutline Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
          * @param isInstalled True, if the sticker set has been installed by the current user.
          * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
          * @param isOfficial True, if the sticker set is official.
-         * @param isAnimated True, is the stickers in the set are animated.
-         * @param isMasks True, if the stickers in the set are masks.
+         * @param stickerType Type of the stickers in the set.
          * @param isViewed True for already viewed trending sticker sets.
          * @param stickers List of stickers in this set.
          * @param emojis A list of emoji corresponding to the stickers in the same order. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object.
          */
-        public StickerSet(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, boolean isAnimated, boolean isMasks, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
+        public StickerSet(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerType stickerType, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
             this.id = id;
             this.title = title;
             this.name = name;
@@ -34422,8 +34676,7 @@ public class TdApi {
             this.isInstalled = isInstalled;
             this.isArchived = isArchived;
             this.isOfficial = isOfficial;
-            this.isAnimated = isAnimated;
-            this.isMasks = isMasks;
+            this.stickerType = stickerType;
             this.isViewed = isViewed;
             this.stickers = stickers;
             this.emojis = emojis;
@@ -34432,7 +34685,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -79542167;
+        public static final int CONSTRUCTOR = -1816236758;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34460,7 +34713,7 @@ public class TdApi {
          */
         public String name;
         /**
-         * Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null.
+         * Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null.
          */
         @Nullable public Thumbnail thumbnail;
         /**
@@ -34480,13 +34733,9 @@ public class TdApi {
          */
         public boolean isOfficial;
         /**
-         * True, is the stickers in the set are animated.
+         * Type of the stickers in the set.
          */
-        public boolean isAnimated;
-        /**
-         * True, if the stickers in the set are masks.
-         */
-        public boolean isMasks;
+        public StickerType stickerType;
         /**
          * True for already viewed trending sticker sets.
          */
@@ -34512,18 +34761,17 @@ public class TdApi {
          * @param id Identifier of the sticker set.
          * @param title Title of the sticker set.
          * @param name Name of the sticker set.
-         * @param thumbnail Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null.
+         * @param thumbnail Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null.
          * @param thumbnailOutline Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
          * @param isInstalled True, if the sticker set has been installed by the current user.
          * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
          * @param isOfficial True, if the sticker set is official.
-         * @param isAnimated True, is the stickers in the set are animated.
-         * @param isMasks True, if the stickers in the set are masks.
+         * @param stickerType Type of the stickers in the set.
          * @param isViewed True for already viewed trending sticker sets.
          * @param size Total number of stickers in the set.
          * @param covers Up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full sticker set needs to be requested.
          */
-        public StickerSetInfo(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, boolean isAnimated, boolean isMasks, boolean isViewed, int size, Sticker[] covers) {
+        public StickerSetInfo(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerType stickerType, boolean isViewed, int size, Sticker[] covers) {
             this.id = id;
             this.title = title;
             this.name = name;
@@ -34532,8 +34780,7 @@ public class TdApi {
             this.isInstalled = isInstalled;
             this.isArchived = isArchived;
             this.isOfficial = isOfficial;
-            this.isAnimated = isAnimated;
-            this.isMasks = isMasks;
+            this.stickerType = stickerType;
             this.isViewed = isViewed;
             this.size = size;
             this.covers = covers;
@@ -34542,7 +34789,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1307322248;
+        public static final int CONSTRUCTOR = 1207538697;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34587,6 +34834,141 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1883828812;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes type of a sticker.
+     */
+    public abstract static class StickerType extends Object {
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            StickerTypeStatic.CONSTRUCTOR,
+            StickerTypeAnimated.CONSTRUCTOR,
+            StickerTypeVideo.CONSTRUCTOR,
+            StickerTypeMask.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+    }
+
+    /**
+     * The sticker is an image in WEBP format.
+     */
+    public static class StickerTypeStatic extends StickerType {
+
+        /**
+         * The sticker is an image in WEBP format.
+         */
+        public StickerTypeStatic() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1804483793;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The sticker is an animation in TGS format.
+     */
+    public static class StickerTypeAnimated extends StickerType {
+
+        /**
+         * The sticker is an animation in TGS format.
+         */
+        public StickerTypeAnimated() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1763255981;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The sticker is a video in WEBM format.
+     */
+    public static class StickerTypeVideo extends StickerType {
+
+        /**
+         * The sticker is a video in WEBM format.
+         */
+        public StickerTypeVideo() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 522366836;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The sticker is a mask in WEBP format to be placed on photos or videos.
+     */
+    public static class StickerTypeMask extends StickerType {
+        /**
+         * Position where the mask is placed; may be null.
+         */
+        @Nullable public MaskPosition maskPosition;
+
+        /**
+         * The sticker is a mask in WEBP format to be placed on photos or videos.
+         */
+        public StickerTypeMask() {
+        }
+
+        /**
+         * The sticker is a mask in WEBP format to be placed on photos or videos.
+         *
+         * @param maskPosition Position where the mask is placed; may be null.
+         */
+        public StickerTypeMask(MaskPosition maskPosition) {
+            this.maskPosition = maskPosition;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -839756573;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37261,17 +37643,18 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Describes format of the thumbnail.
+     * Describes format of a thumbnail.
      */
     public abstract static class ThumbnailFormat extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
             ThumbnailFormatJpeg.CONSTRUCTOR,
-            ThumbnailFormatPng.CONSTRUCTOR,
-            ThumbnailFormatWebp.CONSTRUCTOR,
             ThumbnailFormatGif.CONSTRUCTOR,
+            ThumbnailFormatMpeg4.CONSTRUCTOR,
+            ThumbnailFormatPng.CONSTRUCTOR,
             ThumbnailFormatTgs.CONSTRUCTOR,
-            ThumbnailFormatMpeg4.CONSTRUCTOR
+            ThumbnailFormatWebm.CONSTRUCTOR,
+            ThumbnailFormatWebp.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -37309,56 +37692,6 @@ public class TdApi {
     }
 
     /**
-     * The thumbnail is in PNG format. It will be used only for background patterns.
-     */
-    public static class ThumbnailFormatPng extends ThumbnailFormat {
-
-        /**
-         * The thumbnail is in PNG format. It will be used only for background patterns.
-         */
-        public ThumbnailFormatPng() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1577490421;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The thumbnail is in WEBP format. It will be used only for some stickers.
-     */
-    public static class ThumbnailFormatWebp extends ThumbnailFormat {
-
-        /**
-         * The thumbnail is in WEBP format. It will be used only for some stickers.
-         */
-        public ThumbnailFormatWebp() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -53588974;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * The thumbnail is in static GIF format. It will be used only for some bot inline results.
      */
     public static class ThumbnailFormatGif extends ThumbnailFormat {
@@ -37384,12 +37717,62 @@ public class TdApi {
     }
 
     /**
-     * The thumbnail is in TGS format. It will be used only for animated sticker sets.
+     * The thumbnail is in MPEG4 format. It will be used only for some animations and videos.
+     */
+    public static class ThumbnailFormatMpeg4 extends ThumbnailFormat {
+
+        /**
+         * The thumbnail is in MPEG4 format. It will be used only for some animations and videos.
+         */
+        public ThumbnailFormatMpeg4() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 278616062;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The thumbnail is in PNG format. It will be used only for background patterns.
+     */
+    public static class ThumbnailFormatPng extends ThumbnailFormat {
+
+        /**
+         * The thumbnail is in PNG format. It will be used only for background patterns.
+         */
+        public ThumbnailFormatPng() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1577490421;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The thumbnail is in TGS format. It will be used only for TGS sticker sets.
      */
     public static class ThumbnailFormatTgs extends ThumbnailFormat {
 
         /**
-         * The thumbnail is in TGS format. It will be used only for animated sticker sets.
+         * The thumbnail is in TGS format. It will be used only for TGS sticker sets.
          */
         public ThumbnailFormatTgs() {
         }
@@ -37409,20 +37792,45 @@ public class TdApi {
     }
 
     /**
-     * The thumbnail is in MPEG4 format. It will be used only for some animations and videos.
+     * The thumbnail is in WEBM format. It will be used only for WEBM sticker sets.
      */
-    public static class ThumbnailFormatMpeg4 extends ThumbnailFormat {
+    public static class ThumbnailFormatWebm extends ThumbnailFormat {
 
         /**
-         * The thumbnail is in MPEG4 format. It will be used only for some animations and videos.
+         * The thumbnail is in WEBM format. It will be used only for WEBM sticker sets.
          */
-        public ThumbnailFormatMpeg4() {
+        public ThumbnailFormatWebm() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 278616062;
+        public static final int CONSTRUCTOR = -660084953;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The thumbnail is in WEBP format. It will be used only for some stickers.
+     */
+    public static class ThumbnailFormatWebp extends ThumbnailFormat {
+
+        /**
+         * The thumbnail is in WEBP format. It will be used only for some stickers.
+         */
+        public ThumbnailFormatWebp() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -53588974;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37634,6 +38042,56 @@ public class TdApi {
     }
 
     /**
+     * Contains information about an unread reaction to a message.
+     */
+    public static class UnreadReaction extends Object {
+        /**
+         * Text representation of the reaction.
+         */
+        public String reaction;
+        /**
+         * Identifier of the sender, added the reaction.
+         */
+        public MessageSender senderId;
+        /**
+         * True, if the reaction was added with a big animation.
+         */
+        public boolean isBig;
+
+        /**
+         * Contains information about an unread reaction to a message.
+         */
+        public UnreadReaction() {
+        }
+
+        /**
+         * Contains information about an unread reaction to a message.
+         *
+         * @param reaction Text representation of the reaction.
+         * @param senderId Identifier of the sender, added the reaction.
+         * @param isBig True, if the reaction was added with a big animation.
+         */
+        public UnreadReaction(String reaction, MessageSender senderId, boolean isBig) {
+            this.reaction = reaction;
+            this.senderId = senderId;
+            this.isBig = isBig;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 88800067;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Contains notifications about data changes.
      */
@@ -37651,6 +38109,7 @@ public class TdApi {
             UpdateMessageInteractionInfo.CONSTRUCTOR,
             UpdateMessageContentOpened.CONSTRUCTOR,
             UpdateMessageMentionRead.CONSTRUCTOR,
+            UpdateMessageUnreadReactions.CONSTRUCTOR,
             UpdateMessageLiveLocationViewed.CONSTRUCTOR,
             UpdateNewChat.CONSTRUCTOR,
             UpdateChatTitle.CONSTRUCTOR,
@@ -37670,6 +38129,7 @@ public class TdApi {
             UpdateChatReplyMarkup.CONSTRUCTOR,
             UpdateChatTheme.CONSTRUCTOR,
             UpdateChatUnreadMentionCount.CONSTRUCTOR,
+            UpdateChatUnreadReactionCount.CONSTRUCTOR,
             UpdateChatVideoChat.CONSTRUCTOR,
             UpdateChatDefaultDisableNotification.CONSTRUCTOR,
             UpdateChatHasProtectedContent.CONSTRUCTOR,
@@ -37717,6 +38177,7 @@ public class TdApi {
             UpdateConnectionState.CONSTRUCTOR,
             UpdateTermsOfService.CONSTRUCTOR,
             UpdateUsersNearby.CONSTRUCTOR,
+            UpdateReactions.CONSTRUCTOR,
             UpdateDiceEmojis.CONSTRUCTOR,
             UpdateAnimatedEmojiMessageClicked.CONSTRUCTOR,
             UpdateAnimationSearchParameters.CONSTRUCTOR,
@@ -38254,6 +38715,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -252228282;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The list of unread reactions added to a message was changed.
+     */
+    public static class UpdateMessageUnreadReactions extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * Message identifier.
+         */
+        public long messageId;
+        /**
+         * The new list of unread reactions.
+         */
+        public UnreadReaction[] unreadReactions;
+        /**
+         * The new number of messages with unread reactions left in the chat.
+         */
+        public int unreadReactionCount;
+
+        /**
+         * The list of unread reactions added to a message was changed.
+         */
+        public UpdateMessageUnreadReactions() {
+        }
+
+        /**
+         * The list of unread reactions added to a message was changed.
+         *
+         * @param chatId Chat identifier.
+         * @param messageId Message identifier.
+         * @param unreadReactions The new list of unread reactions.
+         * @param unreadReactionCount The new number of messages with unread reactions left in the chat.
+         */
+        public UpdateMessageUnreadReactions(long chatId, long messageId, UnreadReaction[] unreadReactions, int unreadReactionCount) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.unreadReactions = unreadReactions;
+            this.unreadReactionCount = unreadReactionCount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 942840008;
 
         /**
          * @return this.CONSTRUCTOR
@@ -39102,6 +39619,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2131461348;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat unreadReactionCount has changed.
+     */
+    public static class UpdateChatUnreadReactionCount extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The number of messages with unread reactions left in the chat.
+         */
+        public int unreadReactionCount;
+
+        /**
+         * The chat unreadReactionCount has changed.
+         */
+        public UpdateChatUnreadReactionCount() {
+        }
+
+        /**
+         * The chat unreadReactionCount has changed.
+         *
+         * @param chatId Chat identifier.
+         * @param unreadReactionCount The number of messages with unread reactions left in the chat.
+         */
+        public UpdateChatUnreadReactionCount(long chatId, int unreadReactionCount) {
+            this.chatId = chatId;
+            this.unreadReactionCount = unreadReactionCount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2124399395;
 
         /**
          * @return this.CONSTRUCTOR
@@ -41176,6 +41737,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1517109163;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The list of supported reactions has changed.
+     */
+    public static class UpdateReactions extends Update {
+        /**
+         * The new list of supported reactions.
+         */
+        public Reaction[] reactions;
+
+        /**
+         * The list of supported reactions has changed.
+         */
+        public UpdateReactions() {
+        }
+
+        /**
+         * The list of supported reactions has changed.
+         *
+         * @param reactions The new list of supported reactions.
+         */
+        public UpdateReactions(Reaction[] reactions) {
+            this.reactions = reactions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1086911093;
 
         /**
          * @return this.CONSTRUCTOR
@@ -44768,7 +45367,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 3869569;
+        public static final int CONSTRUCTOR = -1340783267;
 
         /**
          * @return this.CONSTRUCTOR
@@ -46907,11 +47506,7 @@ public class TdApi {
          */
         public String name;
         /**
-         * True, if stickers are masks. Animated stickers can't be masks.
-         */
-        public boolean isMasks;
-        /**
-         * List of stickers to be added to the set; must be non-empty. All stickers must be of the same type. For animated stickers, uploadStickerFile must be used before the sticker is shown.
+         * List of stickers to be added to the set; must be non-empty. All stickers must have the same format. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
          */
         public InputSticker[] stickers;
         /**
@@ -46935,15 +47530,13 @@ public class TdApi {
          * @param userId Sticker set owner; ignored for regular users.
          * @param title Sticker set title; 1-64 characters.
          * @param name Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive) for bots; 1-64 characters.
-         * @param isMasks True, if stickers are masks. Animated stickers can't be masks.
-         * @param stickers List of stickers to be added to the set; must be non-empty. All stickers must be of the same type. For animated stickers, uploadStickerFile must be used before the sticker is shown.
+         * @param stickers List of stickers to be added to the set; must be non-empty. All stickers must have the same format. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
          * @param source Source of the sticker set; may be empty if unknown.
          */
-        public CreateNewStickerSet(long userId, String title, String name, boolean isMasks, InputSticker[] stickers, String source) {
+        public CreateNewStickerSet(long userId, String title, String name, InputSticker[] stickers, String source) {
             this.userId = userId;
             this.title = title;
             this.name = name;
-            this.isMasks = isMasks;
             this.stickers = stickers;
             this.source = source;
         }
@@ -46951,7 +47544,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -396493358;
+        public static final int CONSTRUCTOR = -1682292738;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47735,7 +48328,7 @@ public class TdApi {
          */
         public BotCommandScope scope;
         /**
-         * A two-letter ISO 639-1 country code or an empty string.
+         * A two-letter ISO 639-1 language code or an empty string.
          */
         public String languageCode;
 
@@ -47753,7 +48346,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param scope The scope to which the commands are relevant; pass null to delete commands in the default bot command scope.
-         * @param languageCode A two-letter ISO 639-1 country code or an empty string.
+         * @param languageCode A two-letter ISO 639-1 language code or an empty string.
          */
         public DeleteCommands(BotCommandScope scope, String languageCode) {
             this.scope = scope;
@@ -51175,7 +51768,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
+         * Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function.
          */
         public SearchMessagesFilter filter;
         /**
@@ -51197,7 +51790,7 @@ public class TdApi {
          * <p> Returns {@link MessageCalendar MessageCalendar} </p>
          *
          * @param chatId Identifier of the chat in which to return information about messages.
-         * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
+         * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function.
          * @param fromMessageId The message identifier from which to return information about messages; use 0 to get results from the last message.
          */
         public GetChatMessageCalendar(long chatId, SearchMessagesFilter filter, long fromMessageId) {
@@ -51425,7 +52018,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
+         * Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function.
          */
         public SearchMessagesFilter filter;
         /**
@@ -51451,7 +52044,7 @@ public class TdApi {
          * <p> Returns {@link MessagePositions MessagePositions} </p>
          *
          * @param chatId Identifier of the chat in which to return information about message positions.
-         * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function.
+         * @param filter Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function.
          * @param fromMessageId The message identifier from which to return information about message positions.
          * @param limit The expected number of message positions to be returned; 50-2000. A smaller number of positions can be returned, if there are not enough appropriate messages.
          */
@@ -51631,7 +52224,7 @@ public class TdApi {
          */
         public BotCommandScope scope;
         /**
-         * A two-letter ISO 639-1 country code or an empty string.
+         * A two-letter ISO 639-1 language code or an empty string.
          */
         public String languageCode;
 
@@ -51649,7 +52242,7 @@ public class TdApi {
          * <p> Returns {@link BotCommands BotCommands} </p>
          *
          * @param scope The scope to which the commands are relevant; pass null to get commands in the default bot command scope.
-         * @param languageCode A two-letter ISO 639-1 country code or an empty string.
+         * @param languageCode A two-letter ISO 639-1 language code or an empty string.
          */
         public GetCommands(BotCommandScope scope, String languageCode) {
             this.scope = scope;
@@ -53554,6 +54147,124 @@ public class TdApi {
     }
 
     /**
+     * Returns reactions added for a message, along with their sender.
+     *
+     * <p> Returns {@link AddedReactions AddedReactions} </p>
+     */
+    public static class GetMessageAddedReactions extends Function {
+        /**
+         * Identifier of the chat to which the message belongs.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message.
+         */
+        public long messageId;
+        /**
+         * If non-empty, only added reactions with the specified text representation will be returned.
+         */
+        public String reaction;
+        /**
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of reactions to be returned; must be positive and can't be greater than 100.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns reactions added for a message, along with their sender.
+         *
+         * <p> Returns {@link AddedReactions AddedReactions} </p>
+         */
+        public GetMessageAddedReactions() {
+        }
+
+        /**
+         * Creates a function, which returns reactions added for a message, along with their sender.
+         *
+         * <p> Returns {@link AddedReactions AddedReactions} </p>
+         *
+         * @param chatId Identifier of the chat to which the message belongs.
+         * @param messageId Identifier of the message.
+         * @param reaction If non-empty, only added reactions with the specified text representation will be returned.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of reactions to be returned; must be positive and can't be greater than 100.
+         */
+        public GetMessageAddedReactions(long chatId, long messageId, String reaction, String offset, int limit) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.reaction = reaction;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1430014415;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message.
+     *
+     * <p> Returns {@link AvailableReactions AvailableReactions} </p>
+     */
+    public static class GetMessageAvailableReactions extends Function {
+        /**
+         * Identifier of the chat to which the message belongs.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message.
+         */
+        public long messageId;
+
+        /**
+         * Default constructor for a function, which returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message.
+         *
+         * <p> Returns {@link AvailableReactions AvailableReactions} </p>
+         */
+        public GetMessageAvailableReactions() {
+        }
+
+        /**
+         * Creates a function, which returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message.
+         *
+         * <p> Returns {@link AvailableReactions AvailableReactions} </p>
+         *
+         * @param chatId Identifier of the chat to which the message belongs.
+         * @param messageId Identifier of the message.
+         */
+        public GetMessageAvailableReactions(long chatId, long messageId) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 205497679;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns an HTML code for embedding the message. Available only for messages in supergroups and channels with a username.
      *
      * <p> Returns {@link Text Text} </p>
@@ -53874,7 +54585,7 @@ public class TdApi {
          */
         public long messageId;
         /**
-         * Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results.
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
          */
         public String offset;
         /**
@@ -53897,7 +54608,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier of the message.
          * @param messageId Message identifier.
-         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
          * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
         public GetMessagePublicForwards(long chatId, long messageId, String offset, int limit) {
@@ -54631,7 +55342,7 @@ public class TdApi {
      */
     public static class GetPhoneNumberInfoSync extends Function {
         /**
-         * A two-letter ISO 639-1 country code for country information localization.
+         * A two-letter ISO 639-1 language code for country information localization.
          */
         public String languageCode;
         /**
@@ -54652,7 +55363,7 @@ public class TdApi {
          *
          * <p> Returns {@link PhoneNumberInfo PhoneNumberInfo} </p>
          *
-         * @param languageCode A two-letter ISO 639-1 country code for country information localization.
+         * @param languageCode A two-letter ISO 639-1 language code for country information localization.
          * @param phoneNumberPrefix The phone number prefix.
          */
         public GetPhoneNumberInfoSync(String languageCode, String phoneNumberPrefix) {
@@ -57617,6 +58328,50 @@ public class TdApi {
     }
 
     /**
+     * Marks all reactions in a chat as read.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ReadAllChatReactions extends Function {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which marks all reactions in a chat as read.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ReadAllChatReactions() {
+        }
+
+        /**
+         * Creates a function, which marks all reactions in a chat as read.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Chat identifier.
+         */
+        public ReadAllChatReactions(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1421973357;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Reads a part of a file from the TDLib file cache and returns read bytes. This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct read from the file.
      *
      * <p> Returns {@link FilePart FilePart} </p>
@@ -60069,7 +60824,7 @@ public class TdApi {
          */
         public int limit;
         /**
-         * Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function.
+         * Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction, searchMessagesFilterFailedToSend, and searchMessagesFilterPinned are unsupported in this function.
          */
         public SearchMessagesFilter filter;
         /**
@@ -60100,7 +60855,7 @@ public class TdApi {
          * @param offsetChatId The chat identifier of the last found message, or 0 for the first request.
          * @param offsetMessageId The message identifier of the last found message, or 0 for the first request.
          * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
-         * @param filter Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function.
+         * @param filter Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction, searchMessagesFilterFailedToSend, and searchMessagesFilterPinned are unsupported in this function.
          * @param minDate If not 0, the minimum date of the messages to return.
          * @param maxDate If not 0, the maximum date of the messages to return.
          */
@@ -60233,7 +60988,7 @@ public class TdApi {
          */
         public String query;
         /**
-         * Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results.
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
          */
         public String offset;
         /**
@@ -60260,7 +61015,7 @@ public class TdApi {
          *
          * @param chatId Identifier of the chat in which to search. Specify 0 to search in all secret chats.
          * @param query Query to search for. If empty, searchChatMessages must be used instead.
-         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
          * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          * @param filter Additional filter for messages to search; pass null to search for all messages.
          */
@@ -61643,7 +62398,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * New list of reactions, available in the chat.
+         * New list of reactions, available in the chat. All reactions must be active and order of the reactions must be the same as in updateReactions.
          */
         public String[] availableReactions;
 
@@ -61661,7 +62416,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Identifier of the chat.
-         * @param availableReactions New list of reactions, available in the chat.
+         * @param availableReactions New list of reactions, available in the chat. All reactions must be active and order of the reactions must be the same as in updateReactions.
          */
         public SetChatAvailableReactions(long chatId, String[] availableReactions) {
             this.chatId = chatId;
@@ -62405,7 +63160,7 @@ public class TdApi {
          */
         public BotCommandScope scope;
         /**
-         * A two-letter ISO 639-1 country code. If empty, the commands will be applied to all users from the given scope, for which language there are no dedicated commands.
+         * A two-letter ISO 639-1 language code. If empty, the commands will be applied to all users from the given scope, for which language there are no dedicated commands.
          */
         public String languageCode;
         /**
@@ -62427,7 +63182,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param scope The scope to which the commands are relevant; pass null to change commands in the default bot command scope.
-         * @param languageCode A two-letter ISO 639-1 country code. If empty, the commands will be applied to all users from the given scope, for which language there are no dedicated commands.
+         * @param languageCode A two-letter ISO 639-1 language code. If empty, the commands will be applied to all users from the given scope, for which language there are no dedicated commands.
          * @param commands List of the bot's commands.
          */
         public SetCommands(BotCommandScope scope, String languageCode, BotCommand[] commands) {
@@ -63181,6 +63936,68 @@ public class TdApi {
     }
 
     /**
+     * Changes chosen reaction for a message.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetMessageReaction extends Function {
+        /**
+         * Identifier of the chat to which the message belongs.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message.
+         */
+        public long messageId;
+        /**
+         * Text representation of the new chosen reaction. Can be an empty string or the currently chosen reaction to remove the reaction.
+         */
+        public String reaction;
+        /**
+         * True, if the reaction is added with a big animation.
+         */
+        public boolean isBig;
+
+        /**
+         * Default constructor for a function, which changes chosen reaction for a message.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetMessageReaction() {
+        }
+
+        /**
+         * Creates a function, which changes chosen reaction for a message.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the chat to which the message belongs.
+         * @param messageId Identifier of the message.
+         * @param reaction Text representation of the new chosen reaction. Can be an empty string or the currently chosen reaction to remove the reaction.
+         * @param isBig True, if the reaction is added with a big animation.
+         */
+        public SetMessageReaction(long chatId, long messageId, String reaction, boolean isBig) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.reaction = reaction;
+            this.isBig = isBig;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2024821960;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes the first and last name of the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -63807,7 +64624,7 @@ public class TdApi {
          */
         public String name;
         /**
-         * Thumbnail to set in PNG or TGS format; pass null to remove the sticker set thumbnail. Animated thumbnail must be set for animated sticker sets and only for them.
+         * Thumbnail to set in PNG, TGS, or WEBM format; pass null to remove the sticker set thumbnail. Thumbnail format must match the format of stickers in the set.
          */
         public InputFile thumbnail;
 
@@ -63826,7 +64643,7 @@ public class TdApi {
          *
          * @param userId Sticker set owner.
          * @param name Sticker set name.
-         * @param thumbnail Thumbnail to set in PNG or TGS format; pass null to remove the sticker set thumbnail. Animated thumbnail must be set for animated sticker sets and only for them.
+         * @param thumbnail Thumbnail to set in PNG, TGS, or WEBM format; pass null to remove the sticker set thumbnail. Thumbnail format must match the format of stickers in the set.
          */
         public SetStickerSetThumbnail(long userId, String name, InputFile thumbnail) {
             this.userId = userId;
@@ -65970,6 +66787,62 @@ public class TdApi {
     }
 
     /**
+     * Translates a text to the given language. Returns a 404 error if the translation can't be performed.
+     *
+     * <p> Returns {@link Text Text} </p>
+     */
+    public static class TranslateText extends Function {
+        /**
+         * Text to translate.
+         */
+        public String text;
+        /**
+         * A two-letter ISO 639-1 language code of the language from which the message is translated. If empty, the language will be detected automatically.
+         */
+        public String fromLanguageCode;
+        /**
+         * A two-letter ISO 639-1 language code of the language to which the message is translated.
+         */
+        public String toLanguageCode;
+
+        /**
+         * Default constructor for a function, which translates a text to the given language. Returns a 404 error if the translation can't be performed.
+         *
+         * <p> Returns {@link Text Text} </p>
+         */
+        public TranslateText() {
+        }
+
+        /**
+         * Creates a function, which translates a text to the given language. Returns a 404 error if the translation can't be performed.
+         *
+         * <p> Returns {@link Text Text} </p>
+         *
+         * @param text Text to translate.
+         * @param fromLanguageCode A two-letter ISO 639-1 language code of the language from which the message is translated. If empty, the language will be detected automatically.
+         * @param toLanguageCode A two-letter ISO 639-1 language code of the language to which the message is translated.
+         */
+        public TranslateText(String text, String fromLanguageCode, String toLanguageCode) {
+            this.text = text;
+            this.fromLanguageCode = fromLanguageCode;
+            this.toLanguageCode = toLanguageCode;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1619686803;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Removes all pinned messages from a chat; requires canPinMessages rights in the group or canEditMessages rights in the channel.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -66202,7 +67075,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 597751182;
+        public static final int CONSTRUCTOR = 86279066;
 
         /**
          * @return this.CONSTRUCTOR
