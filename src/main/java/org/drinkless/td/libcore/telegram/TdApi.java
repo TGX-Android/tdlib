@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -41,6 +41,7 @@ public class TdApi {
             AddContact.CONSTRUCTOR,
             AddCustomServerLanguagePack.CONSTRUCTOR,
             AddFavoriteSticker.CONSTRUCTOR,
+            AddFileToDownloads.CONSTRUCTOR,
             AddLocalMessage.CONSTRUCTOR,
             AddLogMessage.CONSTRUCTOR,
             AddNetworkStatistics.CONSTRUCTOR,
@@ -210,6 +211,7 @@ public class TdApi {
             GetGroupCall.CONSTRUCTOR,
             GetGroupCallInviteLink.CONSTRUCTOR,
             GetGroupCallStreamSegment.CONSTRUCTOR,
+            GetGroupCallStreams.CONSTRUCTOR,
             GetGroupsInCommon.CONSTRUCTOR,
             GetImportedContactCount.CONSTRUCTOR,
             GetInactiveSupergroupChats.CONSTRUCTOR,
@@ -296,6 +298,7 @@ public class TdApi {
             GetUserPrivacySettingRules.CONSTRUCTOR,
             GetUserProfilePhotos.CONSTRUCTOR,
             GetVideoChatAvailableParticipants.CONSTRUCTOR,
+            GetVideoChatRtmpUrl.CONSTRUCTOR,
             GetWebPageInstantView.CONSTRUCTOR,
             GetWebPagePreview.CONSTRUCTOR,
             HideSuggestedAction.CONSTRUCTOR,
@@ -327,10 +330,12 @@ public class TdApi {
             RecoverPassword.CONSTRUCTOR,
             RegisterDevice.CONSTRUCTOR,
             RegisterUser.CONSTRUCTOR,
+            RemoveAllFilesFromDownloads.CONSTRUCTOR,
             RemoveBackground.CONSTRUCTOR,
             RemoveChatActionBar.CONSTRUCTOR,
             RemoveContacts.CONSTRUCTOR,
             RemoveFavoriteSticker.CONSTRUCTOR,
+            RemoveFileFromDownloads.CONSTRUCTOR,
             RemoveNotification.CONSTRUCTOR,
             RemoveNotificationGroup.CONSTRUCTOR,
             RemoveProxy.CONSTRUCTOR,
@@ -343,6 +348,7 @@ public class TdApi {
             ReorderChatFilters.CONSTRUCTOR,
             ReorderInstalledStickerSets.CONSTRUCTOR,
             ReplacePrimaryChatInviteLink.CONSTRUCTOR,
+            ReplaceVideoChatRtmpUrl.CONSTRUCTOR,
             ReportChat.CONSTRUCTOR,
             ReportChatPhoto.CONSTRUCTOR,
             ReportSupergroupSpam.CONSTRUCTOR,
@@ -373,15 +379,18 @@ public class TdApi {
             SearchChatsOnServer.CONSTRUCTOR,
             SearchContacts.CONSTRUCTOR,
             SearchEmojis.CONSTRUCTOR,
+            SearchFileDownloads.CONSTRUCTOR,
             SearchHashtags.CONSTRUCTOR,
             SearchInstalledStickerSets.CONSTRUCTOR,
             SearchMessages.CONSTRUCTOR,
+            SearchOutgoingDocumentMessages.CONSTRUCTOR,
             SearchPublicChat.CONSTRUCTOR,
             SearchPublicChats.CONSTRUCTOR,
             SearchSecretMessages.CONSTRUCTOR,
             SearchStickerSet.CONSTRUCTOR,
             SearchStickerSets.CONSTRUCTOR,
             SearchStickers.CONSTRUCTOR,
+            SearchUserByPhoneNumber.CONSTRUCTOR,
             SendBotStartMessage.CONSTRUCTOR,
             SendCallDebugInformation.CONSTRUCTOR,
             SendCallRating.CONSTRUCTOR,
@@ -475,10 +484,12 @@ public class TdApi {
             TestReturnError.CONSTRUCTOR,
             TestSquareInt.CONSTRUCTOR,
             TestUseUpdate.CONSTRUCTOR,
+            ToggleAllDownloadsArePaused.CONSTRUCTOR,
             ToggleChatDefaultDisableNotification.CONSTRUCTOR,
             ToggleChatHasProtectedContent.CONSTRUCTOR,
             ToggleChatIsMarkedAsUnread.CONSTRUCTOR,
             ToggleChatIsPinned.CONSTRUCTOR,
+            ToggleDownloadIsPaused.CONSTRUCTOR,
             ToggleGroupCallEnabledStartNotification.CONSTRUCTOR,
             ToggleGroupCallIsMyVideoEnabled.CONSTRUCTOR,
             ToggleGroupCallIsMyVideoPaused.CONSTRUCTOR,
@@ -605,7 +616,7 @@ public class TdApi {
      */
     public static class AddedReactions extends Object {
         /**
-         * The total count of found reactions.
+         * The total number of found reactions.
          */
         public int totalCount;
         /**
@@ -626,7 +637,7 @@ public class TdApi {
         /**
          * Represents a list of reactions added to a message.
          *
-         * @param totalCount The total count of found reactions.
+         * @param totalCount The total number of found reactions.
          * @param reactions The list of added reactions.
          * @param nextOffset The offset for the next request. If empty, there are no more results.
          */
@@ -781,7 +792,7 @@ public class TdApi {
          */
         public int fitzpatrickType;
         /**
-         * File containing the sound to be played when the animated emoji is clicked if any; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
+         * File containing the sound to be played when the animated emoji is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
          */
         @Nullable public File sound;
 
@@ -796,7 +807,7 @@ public class TdApi {
          *
          * @param sticker Animated sticker for the emoji.
          * @param fitzpatrickType Emoji modifier fitzpatrick type; 0-6; 0 if none.
-         * @param sound File containing the sound to be played when the animated emoji is clicked if any; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
+         * @param sound File containing the sound to be played when the animated emoji is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
          */
         public AnimatedEmoji(Sticker sticker, int fitzpatrickType, File sound) {
             this.sticker = sticker;
@@ -7389,7 +7400,7 @@ public class TdApi {
      */
     public static class ChatInviteLinkMembers extends Object {
         /**
-         * Approximate total count of chat members found.
+         * Approximate total number of chat members found.
          */
         public int totalCount;
         /**
@@ -7406,7 +7417,7 @@ public class TdApi {
         /**
          * Contains a list of chat members joined a chat via an invite link.
          *
-         * @param totalCount Approximate total count of chat members found.
+         * @param totalCount Approximate total number of chat members found.
          * @param members List of chat members, joined a chat via an invite link.
          */
         public ChatInviteLinkMembers(int totalCount, ChatInviteLinkMember[] members) {
@@ -7433,7 +7444,7 @@ public class TdApi {
      */
     public static class ChatInviteLinks extends Object {
         /**
-         * Approximate total count of chat invite links found.
+         * Approximate total number of chat invite links found.
          */
         public int totalCount;
         /**
@@ -7450,7 +7461,7 @@ public class TdApi {
         /**
          * Contains a list of chat invite links.
          *
-         * @param totalCount Approximate total count of chat invite links found.
+         * @param totalCount Approximate total number of chat invite links found.
          * @param inviteLinks List of invite links.
          */
         public ChatInviteLinks(int totalCount, ChatInviteLink[] inviteLinks) {
@@ -7527,7 +7538,7 @@ public class TdApi {
      */
     public static class ChatJoinRequests extends Object {
         /**
-         * Approximate total count of requests found.
+         * Approximate total number of requests found.
          */
         public int totalCount;
         /**
@@ -7544,7 +7555,7 @@ public class TdApi {
         /**
          * Contains a list of requests to join a chat.
          *
-         * @param totalCount Approximate total count of requests found.
+         * @param totalCount Approximate total number of requests found.
          * @param requests List of the requests.
          */
         public ChatJoinRequests(int totalCount, ChatJoinRequest[] requests) {
@@ -8184,7 +8195,7 @@ public class TdApi {
      */
     public static class ChatMembers extends Object {
         /**
-         * Approximate total count of chat members found.
+         * Approximate total number of chat members found.
          */
         public int totalCount;
         /**
@@ -8201,7 +8212,7 @@ public class TdApi {
         /**
          * Contains a list of chat members.
          *
-         * @param totalCount Approximate total count of chat members found.
+         * @param totalCount Approximate total number of chat members found.
          * @param members A list of chat members.
          */
         public ChatMembers(int totalCount, ChatMember[] members) {
@@ -8884,6 +8895,8 @@ public class TdApi {
             ChatReportReasonCopyright.CONSTRUCTOR,
             ChatReportReasonUnrelatedLocation.CONSTRUCTOR,
             ChatReportReasonFake.CONSTRUCTOR,
+            ChatReportReasonIllegalDrugs.CONSTRUCTOR,
+            ChatReportReasonPersonalDetails.CONSTRUCTOR,
             ChatReportReasonCustom.CONSTRUCTOR
         })
         public @interface Constructors {}
@@ -9061,6 +9074,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1713230446;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat has illegal drugs related content.
+     */
+    public static class ChatReportReasonIllegalDrugs extends ChatReportReason {
+
+        /**
+         * The chat has illegal drugs related content.
+         */
+        public ChatReportReasonIllegalDrugs() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -844539307;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat contains messages with personal details.
+     */
+    public static class ChatReportReasonPersonalDetails extends ChatReportReason {
+
+        /**
+         * The chat contains messages with personal details.
+         */
+        public ChatReportReasonPersonalDetails() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1121159029;
 
         /**
          * @return this.CONSTRUCTOR
@@ -9896,7 +9959,7 @@ public class TdApi {
      */
     public static class Chats extends Object {
         /**
-         * Approximate total count of chats found.
+         * Approximate total number of chats found.
          */
         public int totalCount;
         /**
@@ -9913,7 +9976,7 @@ public class TdApi {
         /**
          * Represents a list of chats.
          *
-         * @param totalCount Approximate total count of chats found.
+         * @param totalCount Approximate total number of chats found.
          * @param chatIds List of chat identifiers.
          */
         public Chats(int totalCount, long[] chatIds) {
@@ -11657,6 +11720,56 @@ public class TdApi {
     }
 
     /**
+     * Contains number of being downloaded and recently downloaded files found.
+     */
+    public static class DownloadedFileCounts extends Object {
+        /**
+         * Number of active file downloads found, including paused.
+         */
+        public int activeCount;
+        /**
+         * Number of paused file downloads found.
+         */
+        public int pausedCount;
+        /**
+         * Number of completed file downloads found.
+         */
+        public int completedCount;
+
+        /**
+         * Contains number of being downloaded and recently downloaded files found.
+         */
+        public DownloadedFileCounts() {
+        }
+
+        /**
+         * Contains number of being downloaded and recently downloaded files found.
+         *
+         * @param activeCount Number of active file downloads found, including paused.
+         * @param pausedCount Number of paused file downloads found.
+         * @param completedCount Number of completed file downloads found.
+         */
+        public DownloadedFileCounts(int activeCount, int pausedCount, int completedCount) {
+            this.activeCount = activeCount;
+            this.pausedCount = pausedCount;
+            this.completedCount = completedCount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1973999550;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains information about a message draft.
      */
     public static class DraftMessage extends Object {
@@ -12020,6 +12133,68 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 766337656;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a file added to file download list.
+     */
+    public static class FileDownload extends Object {
+        /**
+         * File identifier.
+         */
+        public int fileId;
+        /**
+         * The message with the file.
+         */
+        public Message message;
+        /**
+         * Point in time (Unix timestamp) when the file was added to the download list.
+         */
+        public int addDate;
+        /**
+         * Point in time (Unix timestamp) when the file downloading was completed; 0 if the file downloading isn't completed.
+         */
+        public int completeDate;
+        /**
+         * True, if downloading of the file is paused.
+         */
+        public boolean isPaused;
+
+        /**
+         * Describes a file added to file download list.
+         */
+        public FileDownload() {
+        }
+
+        /**
+         * Describes a file added to file download list.
+         *
+         * @param fileId File identifier.
+         * @param message The message with the file.
+         * @param addDate Point in time (Unix timestamp) when the file was added to the download list.
+         * @param completeDate Point in time (Unix timestamp) when the file downloading was completed; 0 if the file downloading isn't completed.
+         * @param isPaused True, if downloading of the file is paused.
+         */
+        public FileDownload(int fileId, Message message, int addDate, int completeDate, boolean isPaused) {
+            this.fileId = fileId;
+            this.message = message;
+            this.addDate = addDate;
+            this.completeDate = completeDate;
+            this.isPaused = isPaused;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2092100780;
 
         /**
          * @return this.CONSTRUCTOR
@@ -12547,11 +12722,61 @@ public class TdApi {
     }
 
     /**
+     * Contains a list of downloaded files, found by a search.
+     */
+    public static class FoundFileDownloads extends Object {
+        /**
+         * Total number of suitable files, ignoring offset.
+         */
+        public DownloadedFileCounts totalCounts;
+        /**
+         * The list of files.
+         */
+        public FileDownload[] files;
+        /**
+         * The offset for the next request. If empty, there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Contains a list of downloaded files, found by a search.
+         */
+        public FoundFileDownloads() {
+        }
+
+        /**
+         * Contains a list of downloaded files, found by a search.
+         *
+         * @param totalCounts Total number of suitable files, ignoring offset.
+         * @param files The list of files.
+         * @param nextOffset The offset for the next request. If empty, there are no more results.
+         */
+        public FoundFileDownloads(DownloadedFileCounts totalCounts, FileDownload[] files, String nextOffset) {
+            this.totalCounts = totalCounts;
+            this.files = files;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1395890392;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains a list of messages found by a search.
      */
     public static class FoundMessages extends Object {
         /**
-         * Approximate total count of messages found; -1 if unknown.
+         * Approximate total number of messages found; -1 if unknown.
          */
         public int totalCount;
         /**
@@ -12572,7 +12797,7 @@ public class TdApi {
         /**
          * Contains a list of messages found by a search.
          *
-         * @param totalCount Approximate total count of messages found; -1 if unknown.
+         * @param totalCount Approximate total number of messages found; -1 if unknown.
          * @param messages List of messages.
          * @param nextOffset The offset for the next request. If empty, there are no more results.
          */
@@ -12783,6 +13008,10 @@ public class TdApi {
          */
         public boolean isActive;
         /**
+         * True, if the chat is an RTMP stream instead of an ordinary video chat.
+         */
+        public boolean isRtmpStream;
+        /**
          * True, if the call is joined.
          */
         public boolean isJoined;
@@ -12798,6 +13027,10 @@ public class TdApi {
          * Number of participants in the group call.
          */
         public int participantCount;
+        /**
+         * True, if group call participants, which are muted, aren't returned in participant list.
+         */
+        public boolean hasHiddenListeners;
         /**
          * True, if all group call participants are loaded.
          */
@@ -12853,10 +13086,12 @@ public class TdApi {
          * @param scheduledStartDate Point in time (Unix timestamp) when the group call is supposed to be started by an administrator; 0 if it is already active or was ended.
          * @param enabledStartNotification True, if the group call is scheduled and the current user will receive a notification when the group call will start.
          * @param isActive True, if the call is active.
+         * @param isRtmpStream True, if the chat is an RTMP stream instead of an ordinary video chat.
          * @param isJoined True, if the call is joined.
          * @param needRejoin True, if user was kicked from the call because of network loss and the call needs to be rejoined.
          * @param canBeManaged True, if the current user can manage the group call.
          * @param participantCount Number of participants in the group call.
+         * @param hasHiddenListeners True, if group call participants, which are muted, aren't returned in participant list.
          * @param loadedAllParticipants True, if all group call participants are loaded.
          * @param recentSpeakers At most 3 recently speaking users in the group call.
          * @param isMyVideoEnabled True, if the current user's video is enabled.
@@ -12868,16 +13103,18 @@ public class TdApi {
          * @param isVideoRecorded True, if a video file is being recorded for the call.
          * @param duration Call duration, in seconds; for ended calls only.
          */
-        public GroupCall(int id, String title, int scheduledStartDate, boolean enabledStartNotification, boolean isActive, boolean isJoined, boolean needRejoin, boolean canBeManaged, int participantCount, boolean loadedAllParticipants, GroupCallRecentSpeaker[] recentSpeakers, boolean isMyVideoEnabled, boolean isMyVideoPaused, boolean canEnableVideo, boolean muteNewParticipants, boolean canToggleMuteNewParticipants, int recordDuration, boolean isVideoRecorded, int duration) {
+        public GroupCall(int id, String title, int scheduledStartDate, boolean enabledStartNotification, boolean isActive, boolean isRtmpStream, boolean isJoined, boolean needRejoin, boolean canBeManaged, int participantCount, boolean hasHiddenListeners, boolean loadedAllParticipants, GroupCallRecentSpeaker[] recentSpeakers, boolean isMyVideoEnabled, boolean isMyVideoPaused, boolean canEnableVideo, boolean muteNewParticipants, boolean canToggleMuteNewParticipants, int recordDuration, boolean isVideoRecorded, int duration) {
             this.id = id;
             this.title = title;
             this.scheduledStartDate = scheduledStartDate;
             this.enabledStartNotification = enabledStartNotification;
             this.isActive = isActive;
+            this.isRtmpStream = isRtmpStream;
             this.isJoined = isJoined;
             this.needRejoin = needRejoin;
             this.canBeManaged = canBeManaged;
             this.participantCount = participantCount;
+            this.hasHiddenListeners = hasHiddenListeners;
             this.loadedAllParticipants = loadedAllParticipants;
             this.recentSpeakers = recentSpeakers;
             this.isMyVideoEnabled = isMyVideoEnabled;
@@ -12893,7 +13130,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1548892209;
+        public static final int CONSTRUCTOR = -123443355;
 
         /**
          * @return this.CONSTRUCTOR
@@ -13166,6 +13403,94 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1819519436;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes an available stream in a group call.
+     */
+    public static class GroupCallStream extends Object {
+        /**
+         * Identifier of an audio/video channel.
+         */
+        public int channelId;
+        /**
+         * Scale of segment durations in the stream. The duration is 1000/(2**scale) milliseconds.
+         */
+        public int scale;
+        /**
+         * Point in time when the stream currently ends; Unix timestamp in milliseconds.
+         */
+        public long timeOffset;
+
+        /**
+         * Describes an available stream in a group call.
+         */
+        public GroupCallStream() {
+        }
+
+        /**
+         * Describes an available stream in a group call.
+         *
+         * @param channelId Identifier of an audio/video channel.
+         * @param scale Scale of segment durations in the stream. The duration is 1000/(2**scale) milliseconds.
+         * @param timeOffset Point in time when the stream currently ends; Unix timestamp in milliseconds.
+         */
+        public GroupCallStream(int channelId, int scale, long timeOffset) {
+            this.channelId = channelId;
+            this.scale = scale;
+            this.timeOffset = timeOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -264564795;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of group call streams.
+     */
+    public static class GroupCallStreams extends Object {
+        /**
+         * A list of group call streams.
+         */
+        public GroupCallStream[] streams;
+
+        /**
+         * Represents a list of group call streams.
+         */
+        public GroupCallStreams() {
+        }
+
+        /**
+         * Represents a list of group call streams.
+         *
+         * @param streams A list of group call streams.
+         */
+        public GroupCallStreams(GroupCallStream[] streams) {
+            this.streams = streams;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1032959578;
 
         /**
          * @return this.CONSTRUCTOR
@@ -18442,6 +18767,7 @@ public class TdApi {
             InternalLinkTypeThemeSettings.CONSTRUCTOR,
             InternalLinkTypeUnknownDeepLink.CONSTRUCTOR,
             InternalLinkTypeUnsupportedProxy.CONSTRUCTOR,
+            InternalLinkTypeUserPhoneNumber.CONSTRUCTOR,
             InternalLinkTypeVideoChat.CONSTRUCTOR
         })
         public @interface Constructors {}
@@ -19304,7 +19630,45 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGoupCall with the given invite hash to process the link.
+     * The link is a link to a user by its phone number. Call searchUserByPhoneNumber with the given phone number to process the link.
+     */
+    public static class InternalLinkTypeUserPhoneNumber extends InternalLinkType {
+        /**
+         * Phone number of the user.
+         */
+        public String phoneNumber;
+
+        /**
+         * The link is a link to a user by its phone number. Call searchUserByPhoneNumber with the given phone number to process the link.
+         */
+        public InternalLinkTypeUserPhoneNumber() {
+        }
+
+        /**
+         * The link is a link to a user by its phone number. Call searchUserByPhoneNumber with the given phone number to process the link.
+         *
+         * @param phoneNumber Phone number of the user.
+         */
+        public InternalLinkTypeUserPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1955751319;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGroupCall with the given invite hash to process the link.
      */
     public static class InternalLinkTypeVideoChat extends InternalLinkType {
         /**
@@ -19321,13 +19685,13 @@ public class TdApi {
         public boolean isLiveStream;
 
         /**
-         * The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGoupCall with the given invite hash to process the link.
+         * The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGroupCall with the given invite hash to process the link.
          */
         public InternalLinkTypeVideoChat() {
         }
 
         /**
-         * The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGoupCall with the given invite hash to process the link.
+         * The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGroupCall with the given invite hash to process the link.
          *
          * @param chatUsername Username of the chat with the video chat.
          * @param inviteHash If non-empty, invite hash to be used to join the video chat without being muted by administrators.
@@ -24125,7 +24489,7 @@ public class TdApi {
      */
     public static class MessagePositions extends Object {
         /**
-         * Total count of messages found.
+         * Total number of messages found.
          */
         public int totalCount;
         /**
@@ -24142,7 +24506,7 @@ public class TdApi {
         /**
          * Contains a list of message positions.
          *
-         * @param totalCount Total count of messages found.
+         * @param totalCount Total number of messages found.
          * @param positions List of message positions.
          */
         public MessagePositions(int totalCount, MessagePosition[] positions) {
@@ -24522,7 +24886,7 @@ public class TdApi {
      */
     public static class MessageSenders extends Object {
         /**
-         * Approximate total count of messages senders found.
+         * Approximate total number of messages senders found.
          */
         public int totalCount;
         /**
@@ -24539,7 +24903,7 @@ public class TdApi {
         /**
          * Represents a list of message senders.
          *
-         * @param totalCount Approximate total count of messages senders found.
+         * @param totalCount Approximate total number of messages senders found.
          * @param senders List of message senders.
          */
         public MessageSenders(int totalCount, MessageSender[] senders) {
@@ -24779,7 +25143,7 @@ public class TdApi {
      */
     public static class Messages extends Object {
         /**
-         * Approximate total count of messages found.
+         * Approximate total number of messages found.
          */
         public int totalCount;
         /**
@@ -24796,7 +25160,7 @@ public class TdApi {
         /**
          * Contains a list of messages.
          *
-         * @param totalCount Approximate total count of messages found.
+         * @param totalCount Approximate total number of messages found.
          * @param messages List of messages; messages may be null.
          */
         public Messages(int totalCount, Message[] messages) {
@@ -32139,7 +32503,7 @@ public class TdApi {
      */
     public static class RemoteFile extends Object {
         /**
-         * Remote file identifier; may be empty. Can be used by the current user across application restarts or even from other devices. Uniquely identifies a file, but a file can have a lot of different valid identifiers. If the ID starts with &quot;http://&quot; or &quot;https://&quot;, it represents the HTTP URL of the file. TDLib is currently unable to download files if only their URL is known. If downloadFile is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the application with the HTTP URL in the originalPath and &quot;#url#&quot; as the conversion string. Application must generate the file by downloading it to the specified location.
+         * Remote file identifier; may be empty. Can be used by the current user across application restarts or even from other devices. Uniquely identifies a file, but a file can have a lot of different valid identifiers. If the ID starts with &quot;http://&quot; or &quot;https://&quot;, it represents the HTTP URL of the file. TDLib is currently unable to download files if only their URL is known. If downloadFile/addFileToDownloads is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the application with the HTTP URL in the originalPath and &quot;#url#&quot; as the conversion string. Application must generate the file by downloading it to the specified location.
          */
         public String id;
         /**
@@ -32168,7 +32532,7 @@ public class TdApi {
         /**
          * Represents a remote file.
          *
-         * @param id Remote file identifier; may be empty. Can be used by the current user across application restarts or even from other devices. Uniquely identifies a file, but a file can have a lot of different valid identifiers. If the ID starts with &quot;http://&quot; or &quot;https://&quot;, it represents the HTTP URL of the file. TDLib is currently unable to download files if only their URL is known. If downloadFile is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the application with the HTTP URL in the originalPath and &quot;#url#&quot; as the conversion string. Application must generate the file by downloading it to the specified location.
+         * @param id Remote file identifier; may be empty. Can be used by the current user across application restarts or even from other devices. Uniquely identifies a file, but a file can have a lot of different valid identifiers. If the ID starts with &quot;http://&quot; or &quot;https://&quot;, it represents the HTTP URL of the file. TDLib is currently unable to download files if only their URL is known. If downloadFile/addFileToDownloads is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the application with the HTTP URL in the originalPath and &quot;#url#&quot; as the conversion string. Application must generate the file by downloading it to the specified location.
          * @param uniqueId Unique file identifier; may be empty if unknown. The unique file identifier which is the same for the same file even for different users and is persistent over time.
          * @param isUploadingActive True, if the file is currently being uploaded (or a remote copy is being generated by some other means).
          * @param isUploadingCompleted True, if a remote copy is fully available.
@@ -33253,6 +33617,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1647457821;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents an RTMP url.
+     */
+    public static class RtmpUrl extends Object {
+        /**
+         * The URL.
+         */
+        public String url;
+        /**
+         * Stream key.
+         */
+        public String streamKey;
+
+        /**
+         * Represents an RTMP url.
+         */
+        public RtmpUrl() {
+        }
+
+        /**
+         * Represents an RTMP url.
+         *
+         * @param url The URL.
+         * @param streamKey Stream key.
+         */
+        public RtmpUrl(String url, String streamKey) {
+            this.url = url;
+            this.streamKey = streamKey;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1009302613;
 
         /**
          * @return this.CONSTRUCTOR
@@ -36443,7 +36851,7 @@ public class TdApi {
          */
         public FormattedText text;
         /**
-         * The minimum age of a user to be able to accept the terms; 0 if any.
+         * The minimum age of a user to be able to accept the terms; 0 if age isn't restricted.
          */
         public int minUserAge;
         /**
@@ -36461,7 +36869,7 @@ public class TdApi {
          * Contains Telegram terms of service.
          *
          * @param text Text of the terms of service.
-         * @param minUserAge The minimum age of a user to be able to accept the terms; 0 if any.
+         * @param minUserAge The minimum age of a user to be able to accept the terms; 0 if age isn't restricted.
          * @param showPopup True, if a blocking popup with terms of service must be shown to the user.
          */
         public TermsOfService(FormattedText text, int minUserAge, boolean showPopup) {
@@ -38157,6 +38565,10 @@ public class TdApi {
             UpdateFile.CONSTRUCTOR,
             UpdateFileGenerationStart.CONSTRUCTOR,
             UpdateFileGenerationStop.CONSTRUCTOR,
+            UpdateFileDownloads.CONSTRUCTOR,
+            UpdateFileAddedToDownloads.CONSTRUCTOR,
+            UpdateFileDownload.CONSTRUCTOR,
+            UpdateFileRemovedFromDownloads.CONSTRUCTOR,
             UpdateCall.CONSTRUCTOR,
             UpdateGroupCall.CONSTRUCTOR,
             UpdateGroupCallParticipant.CONSTRUCTOR,
@@ -40875,6 +41287,200 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1894449685;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The state of the file download list has changed.
+     */
+    public static class UpdateFileDownloads extends Update {
+        /**
+         * Total size of files in the file download list, in bytes.
+         */
+        public long totalSize;
+        /**
+         * Total number of files in the file download list.
+         */
+        public int totalCount;
+        /**
+         * Total downloaded size of files in the file download list, in bytes.
+         */
+        public long downloadedSize;
+
+        /**
+         * The state of the file download list has changed.
+         */
+        public UpdateFileDownloads() {
+        }
+
+        /**
+         * The state of the file download list has changed.
+         *
+         * @param totalSize Total size of files in the file download list, in bytes.
+         * @param totalCount Total number of files in the file download list.
+         * @param downloadedSize Total downloaded size of files in the file download list, in bytes.
+         */
+        public UpdateFileDownloads(long totalSize, int totalCount, long downloadedSize) {
+            this.totalSize = totalSize;
+            this.totalCount = totalCount;
+            this.downloadedSize = downloadedSize;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -389213497;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A file was added to the file download list. This update is sent only after file download list is loaded for the first time.
+     */
+    public static class UpdateFileAddedToDownloads extends Update {
+        /**
+         * The added file download.
+         */
+        public FileDownload fileDownload;
+        /**
+         * New number of being downloaded and recently downloaded files found.
+         */
+        public DownloadedFileCounts counts;
+
+        /**
+         * A file was added to the file download list. This update is sent only after file download list is loaded for the first time.
+         */
+        public UpdateFileAddedToDownloads() {
+        }
+
+        /**
+         * A file was added to the file download list. This update is sent only after file download list is loaded for the first time.
+         *
+         * @param fileDownload The added file download.
+         * @param counts New number of being downloaded and recently downloaded files found.
+         */
+        public UpdateFileAddedToDownloads(FileDownload fileDownload, DownloadedFileCounts counts) {
+            this.fileDownload = fileDownload;
+            this.counts = counts;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1609929242;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A file download was changed. This update is sent only after file download list is loaded for the first time.
+     */
+    public static class UpdateFileDownload extends Update {
+        /**
+         * File identifier.
+         */
+        public int fileId;
+        /**
+         * Point in time (Unix timestamp) when the file downloading was completed; 0 if the file downloading isn't completed.
+         */
+        public int completeDate;
+        /**
+         * True, if downloading of the file is paused.
+         */
+        public boolean isPaused;
+        /**
+         * New number of being downloaded and recently downloaded files found.
+         */
+        public DownloadedFileCounts counts;
+
+        /**
+         * A file download was changed. This update is sent only after file download list is loaded for the first time.
+         */
+        public UpdateFileDownload() {
+        }
+
+        /**
+         * A file download was changed. This update is sent only after file download list is loaded for the first time.
+         *
+         * @param fileId File identifier.
+         * @param completeDate Point in time (Unix timestamp) when the file downloading was completed; 0 if the file downloading isn't completed.
+         * @param isPaused True, if downloading of the file is paused.
+         * @param counts New number of being downloaded and recently downloaded files found.
+         */
+        public UpdateFileDownload(int fileId, int completeDate, boolean isPaused, DownloadedFileCounts counts) {
+            this.fileId = fileId;
+            this.completeDate = completeDate;
+            this.isPaused = isPaused;
+            this.counts = counts;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 875529162;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A file was removed from the file download list. This update is sent only after file download list is loaded for the first time.
+     */
+    public static class UpdateFileRemovedFromDownloads extends Update {
+        /**
+         * File identifier.
+         */
+        public int fileId;
+        /**
+         * New number of being downloaded and recently downloaded files found.
+         */
+        public DownloadedFileCounts counts;
+
+        /**
+         * A file was removed from the file download list. This update is sent only after file download list is loaded for the first time.
+         */
+        public UpdateFileRemovedFromDownloads() {
+        }
+
+        /**
+         * A file was removed from the file download list. This update is sent only after file download list is loaded for the first time.
+         *
+         * @param fileId File identifier.
+         * @param counts New number of being downloaded and recently downloaded files found.
+         */
+        public UpdateFileRemovedFromDownloads(int fileId, DownloadedFileCounts counts) {
+            this.fileId = fileId;
+            this.counts = counts;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1853625576;
 
         /**
          * @return this.CONSTRUCTOR
@@ -43827,7 +44433,7 @@ public class TdApi {
      */
     public static class Users extends Object {
         /**
-         * Approximate total count of users found.
+         * Approximate total number of users found.
          */
         public int totalCount;
         /**
@@ -43844,7 +44450,7 @@ public class TdApi {
         /**
          * Represents a list of users.
          *
-         * @param totalCount Approximate total count of users found.
+         * @param totalCount Approximate total number of users found.
          * @param userIds A list of user identifiers.
          */
         public Users(int totalCount, long[] userIds) {
@@ -44829,7 +45435,7 @@ public class TdApi {
      */
     public static class AddContact extends Function {
         /**
-         * The contact to add or edit; phone number can be empty and needs to be specified only if known, vCard is ignored.
+         * The contact to add or edit; phone number may be empty and needs to be specified only if known, vCard is ignored.
          */
         public Contact contact;
         /**
@@ -44850,7 +45456,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param contact The contact to add or edit; phone number can be empty and needs to be specified only if known, vCard is ignored.
+         * @param contact The contact to add or edit; phone number may be empty and needs to be specified only if known, vCard is ignored.
          * @param sharePhoneNumber True, if the new contact needs to be allowed to see current user's phone number. A corresponding rule to userPrivacySettingShowPhoneNumber will be added if needed. Use the field userFullInfo.needPhoneNumberPrivacyException to check whether the current user needs to be asked to share their phone number.
          */
         public AddContact(Contact contact, boolean sharePhoneNumber) {
@@ -44950,6 +45556,68 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 324504799;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Adds a file from a message to the list of file downloads. Download progress and completion of the download will be notified through updateFile updates. If message database is used, the list of file downloads is persistent across application restarts. The downloading is independent from download using downloadFile, i.e. it continues if downloadFile is canceled or is used to download a part of the file.
+     *
+     * <p> Returns {@link File File} </p>
+     */
+    public static class AddFileToDownloads extends Function {
+        /**
+         * Identifier of the file to download.
+         */
+        public int fileId;
+        /**
+         * Chat identifier of the message with the file.
+         */
+        public long chatId;
+        /**
+         * Message identifier.
+         */
+        public long messageId;
+        /**
+         * Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile/addFileToDownloads was called will be downloaded first.
+         */
+        public int priority;
+
+        /**
+         * Default constructor for a function, which adds a file from a message to the list of file downloads. Download progress and completion of the download will be notified through updateFile updates. If message database is used, the list of file downloads is persistent across application restarts. The downloading is independent from download using downloadFile, i.e. it continues if downloadFile is canceled or is used to download a part of the file.
+         *
+         * <p> Returns {@link File File} </p>
+         */
+        public AddFileToDownloads() {
+        }
+
+        /**
+         * Creates a function, which adds a file from a message to the list of file downloads. Download progress and completion of the download will be notified through updateFile updates. If message database is used, the list of file downloads is persistent across application restarts. The downloading is independent from download using downloadFile, i.e. it continues if downloadFile is canceled or is used to download a part of the file.
+         *
+         * <p> Returns {@link File File} </p>
+         *
+         * @param fileId Identifier of the file to download.
+         * @param chatId Chat identifier of the message with the file.
+         * @param messageId Message identifier.
+         * @param priority Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile/addFileToDownloads was called will be downloaded first.
+         */
+        public AddFileToDownloads(int fileId, long chatId, long messageId, int priority) {
+            this.fileId = fileId;
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.priority = priority;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 867533751;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47835,6 +48503,10 @@ public class TdApi {
          * Point in time (Unix timestamp) when the group call is supposed to be started by an administrator; 0 to start the video chat immediately. The date must be at least 10 seconds and at most 8 days in the future.
          */
         public int startDate;
+        /**
+         * True, if the chat will be an RTMP stream instead of an ordinary video chat; requires creator privileges.
+         */
+        public boolean isRtmpStream;
 
         /**
          * Default constructor for a function, which creates a video chat (a group call bound to a chat). Available only for basic groups, supergroups and channels; requires canManageVideoChats rights.
@@ -47852,17 +48524,19 @@ public class TdApi {
          * @param chatId Chat identifier, in which the video chat will be created.
          * @param title Group call title; if empty, chat title will be used.
          * @param startDate Point in time (Unix timestamp) when the group call is supposed to be started by an administrator; 0 to start the video chat immediately. The date must be at least 10 seconds and at most 8 days in the future.
+         * @param isRtmpStream True, if the chat will be an RTMP stream instead of an ordinary video chat; requires creator privileges.
          */
-        public CreateVideoChat(long chatId, String title, int startDate) {
+        public CreateVideoChat(long chatId, String title, int startDate, boolean isRtmpStream) {
             this.chatId = chatId;
             this.title = title;
             this.startDate = startDate;
+            this.isRtmpStream = isRtmpStream;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -917641210;
+        public static final int CONSTRUCTOR = 2124715405;
 
         /**
          * @return this.CONSTRUCTOR
@@ -48917,7 +49591,7 @@ public class TdApi {
          */
         public int fileId;
         /**
-         * Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile was called will be downloaded first.
+         * Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile/addFileToDownloads was called will be downloaded first.
          */
         public int priority;
         /**
@@ -48947,7 +49621,7 @@ public class TdApi {
          * <p> Returns {@link File File} </p>
          *
          * @param fileId Identifier of the file to download.
-         * @param priority Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile was called will be downloaded first.
+         * @param priority Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile/addFileToDownloads was called will be downloaded first.
          * @param offset The starting position from which the file needs to be downloaded.
          * @param limit Number of bytes which need to be downloaded starting from the &quot;offset&quot; position before the download will automatically be canceled; use 0 to download without a limit.
          * @param synchronous If false, this request returns file state just after the download has been started. If true, this request returns file state only after the download has succeeded, has failed, has been canceled or a new downloadFile request with different offset/limit parameters was sent.
@@ -53093,6 +53767,50 @@ public class TdApi {
     }
 
     /**
+     * Returns information about available group call streams.
+     *
+     * <p> Returns {@link GroupCallStreams GroupCallStreams} </p>
+     */
+    public static class GetGroupCallStreams extends Function {
+        /**
+         * Group call identifier.
+         */
+        public int groupCallId;
+
+        /**
+         * Default constructor for a function, which returns information about available group call streams.
+         *
+         * <p> Returns {@link GroupCallStreams GroupCallStreams} </p>
+         */
+        public GetGroupCallStreams() {
+        }
+
+        /**
+         * Creates a function, which returns information about available group call streams.
+         *
+         * <p> Returns {@link GroupCallStreams GroupCallStreams} </p>
+         *
+         * @param groupCallId Group call identifier.
+         */
+        public GetGroupCallStreams(int groupCallId) {
+            this.groupCallId = groupCallId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1619226268;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns a list of common group chats with a given user. Chats are sorted by their type and creation date.
      *
      * <p> Returns {@link Chats Chats} </p>
@@ -55978,14 +56696,14 @@ public class TdApi {
     }
 
     /**
-     * Returns saved order info, if any.
+     * Returns saved order info. Returns a 404 error if there is no saved order info.
      *
      * <p> Returns {@link OrderInfo OrderInfo} </p>
      */
     public static class GetSavedOrderInfo extends Function {
 
         /**
-         * Default constructor for a function, which returns saved order info, if any.
+         * Default constructor for a function, which returns saved order info. Returns a 404 error if there is no saved order info.
          *
          * <p> Returns {@link OrderInfo OrderInfo} </p>
          */
@@ -57069,6 +57787,50 @@ public class TdApi {
     }
 
     /**
+     * Returns RTMP URL for streaming to the chat; requires creator privileges.
+     *
+     * <p> Returns {@link RtmpUrl RtmpUrl} </p>
+     */
+    public static class GetVideoChatRtmpUrl extends Function {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which returns RTMP URL for streaming to the chat; requires creator privileges.
+         *
+         * <p> Returns {@link RtmpUrl RtmpUrl} </p>
+         */
+        public GetVideoChatRtmpUrl() {
+        }
+
+        /**
+         * Creates a function, which returns RTMP URL for streaming to the chat; requires creator privileges.
+         *
+         * <p> Returns {@link RtmpUrl RtmpUrl} </p>
+         *
+         * @param chatId Chat identifier.
+         */
+        public GetVideoChatRtmpUrl(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1210784543;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns an instant view version of a web page if available. Returns a 404 error if the web page has no instant view page.
      *
      * <p> Returns {@link WebPageInstantView WebPageInstantView} </p>
@@ -57850,7 +58612,7 @@ public class TdApi {
          */
         public int ttl;
         /**
-         * Limit on the total count of files after deletion. Pass -1 to use the default limit.
+         * Limit on the total number of files after deletion. Pass -1 to use the default limit.
          */
         public int count;
         /**
@@ -57893,7 +58655,7 @@ public class TdApi {
          *
          * @param size Limit on the total size of files after deletion, in bytes. Pass -1 to use the default limit.
          * @param ttl Limit on the time that has passed since the last time a file was accessed (or creation time for some filesystems). Pass -1 to use the default limit.
-         * @param count Limit on the total count of files after deletion. Pass -1 to use the default limit.
+         * @param count Limit on the total number of files after deletion. Pass -1 to use the default limit.
          * @param immunityDelay The amount of time after the creation of a file during which it can't be deleted, in seconds. Pass -1 to use the default value.
          * @param fileTypes If non-empty, only files with the given types are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted.
          * @param chatIds If non-empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos).
@@ -58142,7 +58904,7 @@ public class TdApi {
          */
         public long userId;
         /**
-         * True, if the request is approved. Otherwise the request is declived.
+         * True, if the request is approved. Otherwise the request is declined.
          */
         public boolean approve;
 
@@ -58161,7 +58923,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param userId Identifier of the user that sent the request.
-         * @param approve True, if the request is approved. Otherwise the request is declived.
+         * @param approve True, if the request is approved. Otherwise the request is declined.
          */
         public ProcessChatJoinRequest(long chatId, long userId, boolean approve) {
             this.chatId = chatId;
@@ -58198,7 +58960,7 @@ public class TdApi {
          */
         public String inviteLink;
         /**
-         * True, if the requests are approved. Otherwise the requests are declived.
+         * True, if the requests are approved. Otherwise the requests are declined.
          */
         public boolean approve;
 
@@ -58217,7 +58979,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param inviteLink Invite link for which to process join requests. If empty, all join requests will be processed. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
-         * @param approve True, if the requests are approved. Otherwise the requests are declived.
+         * @param approve True, if the requests are approved. Otherwise the requests are declined.
          */
         public ProcessChatJoinRequests(long chatId, String inviteLink, boolean approve) {
             this.chatId = chatId;
@@ -58640,6 +59402,62 @@ public class TdApi {
     }
 
     /**
+     * Removes all files from the file download list.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class RemoveAllFilesFromDownloads extends Function {
+        /**
+         * Pass true to remove only active downloads, including paused.
+         */
+        public boolean onlyActive;
+        /**
+         * Pass true to remove only completed downloads.
+         */
+        public boolean onlyCompleted;
+        /**
+         * Pass true if the files need to be deleted from the TDLib file cache.
+         */
+        public boolean deleteFromCache;
+
+        /**
+         * Default constructor for a function, which removes all files from the file download list.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public RemoveAllFilesFromDownloads() {
+        }
+
+        /**
+         * Creates a function, which removes all files from the file download list.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param onlyActive Pass true to remove only active downloads, including paused.
+         * @param onlyCompleted Pass true to remove only completed downloads.
+         * @param deleteFromCache Pass true if the files need to be deleted from the TDLib file cache.
+         */
+        public RemoveAllFilesFromDownloads(boolean onlyActive, boolean onlyCompleted, boolean deleteFromCache) {
+            this.onlyActive = onlyActive;
+            this.onlyCompleted = onlyCompleted;
+            this.deleteFromCache = deleteFromCache;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1186433402;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Removes background from the list of installed backgrounds.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -58805,6 +59623,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1152945264;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Removes a file from the file download list.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class RemoveFileFromDownloads extends Function {
+        /**
+         * Identifier of the downloaded file.
+         */
+        public int fileId;
+        /**
+         * Pass true if the file needs to be deleted from the TDLib file cache.
+         */
+        public boolean deleteFromCache;
+
+        /**
+         * Default constructor for a function, which removes a file from the file download list.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public RemoveFileFromDownloads() {
+        }
+
+        /**
+         * Creates a function, which removes a file from the file download list.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param fileId Identifier of the downloaded file.
+         * @param deleteFromCache Pass true if the file needs to be deleted from the TDLib file cache.
+         */
+        public RemoveFileFromDownloads(int fileId, boolean deleteFromCache) {
+            this.fileId = fileId;
+            this.deleteFromCache = deleteFromCache;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1460060142;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59374,6 +60242,50 @@ public class TdApi {
     }
 
     /**
+     * Replaces the current RTMP URL for streaming to the chat; requires creator privileges.
+     *
+     * <p> Returns {@link RtmpUrl RtmpUrl} </p>
+     */
+    public static class ReplaceVideoChatRtmpUrl extends Function {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which replaces the current RTMP URL for streaming to the chat; requires creator privileges.
+         *
+         * <p> Returns {@link RtmpUrl RtmpUrl} </p>
+         */
+        public ReplaceVideoChatRtmpUrl() {
+        }
+
+        /**
+         * Creates a function, which replaces the current RTMP URL for streaming to the chat; requires creator privileges.
+         *
+         * <p> Returns {@link RtmpUrl RtmpUrl} </p>
+         *
+         * @param chatId Chat identifier.
+         */
+        public ReplaceVideoChatRtmpUrl(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 558862304;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.canBeReported.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -59384,7 +60296,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Identifiers of reported messages, if any.
+         * Identifiers of reported messages; may be empty to report the whole chat.
          */
         public long[] messageIds;
         /**
@@ -59410,7 +60322,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Chat identifier.
-         * @param messageIds Identifiers of reported messages, if any.
+         * @param messageIds Identifiers of reported messages; may be empty to report the whole chat.
          * @param reason The reason for reporting the chat.
          * @param text Additional report details; 0-1024 characters.
          */
@@ -60688,6 +61600,74 @@ public class TdApi {
     }
 
     /**
+     * Searches for files in the file download list or recently downloaded files from the list.
+     *
+     * <p> Returns {@link FoundFileDownloads FoundFileDownloads} </p>
+     */
+    public static class SearchFileDownloads extends Function {
+        /**
+         * Query to search for; may be empty to return all downloaded files.
+         */
+        public String query;
+        /**
+         * Pass true to search only for active downloads, including paused.
+         */
+        public boolean onlyActive;
+        /**
+         * Pass true to search only for completed downloads.
+         */
+        public boolean onlyCompleted;
+        /**
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of files to be returned.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which searches for files in the file download list or recently downloaded files from the list.
+         *
+         * <p> Returns {@link FoundFileDownloads FoundFileDownloads} </p>
+         */
+        public SearchFileDownloads() {
+        }
+
+        /**
+         * Creates a function, which searches for files in the file download list or recently downloaded files from the list.
+         *
+         * <p> Returns {@link FoundFileDownloads FoundFileDownloads} </p>
+         *
+         * @param query Query to search for; may be empty to return all downloaded files.
+         * @param onlyActive Pass true to search only for active downloads, including paused.
+         * @param onlyCompleted Pass true to search only for completed downloads.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of files to be returned.
+         */
+        public SearchFileDownloads(String query, boolean onlyActive, boolean onlyCompleted, String offset, int limit) {
+            this.query = query;
+            this.onlyActive = onlyActive;
+            this.onlyCompleted = onlyCompleted;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 706611286;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Searches for recently used hashtags by their prefix.
      *
      * <p> Returns {@link Hashtags Hashtags} </p>
@@ -60875,6 +61855,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -225214062;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Searches for outgoing messages with content of the type messageDocument in all chats except secret chats. Returns the results in reverse chronological order.
+     *
+     * <p> Returns {@link FoundMessages FoundMessages} </p>
+     */
+    public static class SearchOutgoingDocumentMessages extends Function {
+        /**
+         * Query to search for in document file name and message caption.
+         */
+        public String query;
+        /**
+         * The maximum number of messages to be returned; up to 100.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which searches for outgoing messages with content of the type messageDocument in all chats except secret chats. Returns the results in reverse chronological order.
+         *
+         * <p> Returns {@link FoundMessages FoundMessages} </p>
+         */
+        public SearchOutgoingDocumentMessages() {
+        }
+
+        /**
+         * Creates a function, which searches for outgoing messages with content of the type messageDocument in all chats except secret chats. Returns the results in reverse chronological order.
+         *
+         * <p> Returns {@link FoundMessages FoundMessages} </p>
+         *
+         * @param query Query to search for in document file name and message caption.
+         * @param limit The maximum number of messages to be returned; up to 100.
+         */
+        public SearchOutgoingDocumentMessages(String query, int limit) {
+            this.query = query;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1071397762;
 
         /**
          * @return this.CONSTRUCTOR
@@ -61169,6 +62199,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1555771203;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Searches a user by their phone number.
+     *
+     * <p> Returns {@link User User} </p>
+     */
+    public static class SearchUserByPhoneNumber extends Function {
+        /**
+         * Phone number to search for.
+         */
+        public String phoneNumber;
+
+        /**
+         * Default constructor for a function, which searches a user by their phone number.
+         *
+         * <p> Returns {@link User User} </p>
+         */
+        public SearchUserByPhoneNumber() {
+        }
+
+        /**
+         * Creates a function, which searches a user by their phone number.
+         *
+         * <p> Returns {@link User User} </p>
+         *
+         * @param phoneNumber Phone number to search for.
+         */
+        public SearchUserByPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1562236142;
 
         /**
          * @return this.CONSTRUCTOR
@@ -61771,6 +62845,10 @@ public class TdApi {
          * Contents of messages to be sent. At most 10 messages can be added to an album.
          */
         public InputMessageContent[] inputMessageContents;
+        /**
+         * If true, messages will not be sent and instead fake messages will be returned.
+         */
+        public boolean onlyPreview;
 
         /**
          * Default constructor for a function, which sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
@@ -61790,19 +62868,21 @@ public class TdApi {
          * @param replyToMessageId Identifier of a message to reply to or 0.
          * @param options Options to be used to send the messages; pass null to use default options.
          * @param inputMessageContents Contents of messages to be sent. At most 10 messages can be added to an album.
+         * @param onlyPreview If true, messages will not be sent and instead fake messages will be returned.
          */
-        public SendMessageAlbum(long chatId, long messageThreadId, long replyToMessageId, MessageSendOptions options, InputMessageContent[] inputMessageContents) {
+        public SendMessageAlbum(long chatId, long messageThreadId, long replyToMessageId, MessageSendOptions options, InputMessageContent[] inputMessageContents, boolean onlyPreview) {
             this.chatId = chatId;
             this.messageThreadId = messageThreadId;
             this.replyToMessageId = replyToMessageId;
             this.options = options;
             this.inputMessageContents = inputMessageContents;
+            this.onlyPreview = onlyPreview;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 983360432;
+        public static final int CONSTRUCTOR = -1639797862;
 
         /**
          * @return this.CONSTRUCTOR
@@ -62398,7 +63478,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * New list of reactions, available in the chat. All reactions must be active and order of the reactions must be the same as in updateReactions.
+         * New list of reactions, available in the chat. All reactions must be active.
          */
         public String[] availableReactions;
 
@@ -62416,7 +63496,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Identifier of the chat.
-         * @param availableReactions New list of reactions, available in the chat. All reactions must be active and order of the reactions must be the same as in updateReactions.
+         * @param availableReactions New list of reactions, available in the chat. All reactions must be active.
          */
         public SetChatAvailableReactions(long chatId, String[] availableReactions) {
             this.chatId = chatId;
@@ -63950,7 +65030,7 @@ public class TdApi {
          */
         public long messageId;
         /**
-         * Text representation of the new chosen reaction. Can be an empty string or the currently chosen reaction to remove the reaction.
+         * Text representation of the new chosen reaction. Can be an empty string or the currently chosen non-big reaction to remove the reaction.
          */
         public String reaction;
         /**
@@ -63973,7 +65053,7 @@ public class TdApi {
          *
          * @param chatId Identifier of the chat to which the message belongs.
          * @param messageId Identifier of the message.
-         * @param reaction Text representation of the new chosen reaction. Can be an empty string or the currently chosen reaction to remove the reaction.
+         * @param reaction Text representation of the new chosen reaction. Can be an empty string or the currently chosen non-big reaction to remove the reaction.
          * @param isBig True, if the reaction is added with a big animation.
          */
         public SetMessageReaction(long chatId, long messageId, String reaction, boolean isBig) {
@@ -65869,6 +66949,50 @@ public class TdApi {
     }
 
     /**
+     * Changes pause state of all files in the file download list.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ToggleAllDownloadsArePaused extends Function {
+        /**
+         * True, if the downloads are paused.
+         */
+        public boolean arePaused;
+
+        /**
+         * Default constructor for a function, which changes pause state of all files in the file download list.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ToggleAllDownloadsArePaused() {
+        }
+
+        /**
+         * Creates a function, which changes pause state of all files in the file download list.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param arePaused True, if the downloads are paused.
+         */
+        public ToggleAllDownloadsArePaused(boolean arePaused) {
+            this.arePaused = arePaused;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1251512322;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes the value of the default disableNotification parameter, used when a message is sent to a chat.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -66019,7 +67143,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the pinned state of a chat. There can be up to GetOption(&quot;pinned_chat_count_max&quot;)/GetOption(&quot;pinned_archived_chat_count_max&quot;) pinned non-secret chats and the same number of secret chats in the main/arhive chat list.
+     * Changes the pinned state of a chat. There can be up to GetOption(&quot;pinned_chat_count_max&quot;)/GetOption(&quot;pinned_archived_chat_count_max&quot;) pinned non-secret chats and the same number of secret chats in the main/archive chat list.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -66038,7 +67162,7 @@ public class TdApi {
         public boolean isPinned;
 
         /**
-         * Default constructor for a function, which changes the pinned state of a chat. There can be up to GetOption(&quot;pinned_chat_count_max&quot;)/GetOption(&quot;pinned_archived_chat_count_max&quot;) pinned non-secret chats and the same number of secret chats in the main/arhive chat list.
+         * Default constructor for a function, which changes the pinned state of a chat. There can be up to GetOption(&quot;pinned_chat_count_max&quot;)/GetOption(&quot;pinned_archived_chat_count_max&quot;) pinned non-secret chats and the same number of secret chats in the main/archive chat list.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -66046,7 +67170,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the pinned state of a chat. There can be up to GetOption(&quot;pinned_chat_count_max&quot;)/GetOption(&quot;pinned_archived_chat_count_max&quot;) pinned non-secret chats and the same number of secret chats in the main/arhive chat list.
+         * Creates a function, which changes the pinned state of a chat. There can be up to GetOption(&quot;pinned_chat_count_max&quot;)/GetOption(&quot;pinned_archived_chat_count_max&quot;) pinned non-secret chats and the same number of secret chats in the main/archive chat list.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -66064,6 +67188,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1485429186;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes pause state of a file in the file download list.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ToggleDownloadIsPaused extends Function {
+        /**
+         * Identifier of the downloaded file.
+         */
+        public int fileId;
+        /**
+         * Pass true if the download is paused.
+         */
+        public boolean isPaused;
+
+        /**
+         * Default constructor for a function, which changes pause state of a file in the file download list.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ToggleDownloadIsPaused() {
+        }
+
+        /**
+         * Creates a function, which changes pause state of a file in the file download list.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param fileId Identifier of the downloaded file.
+         * @param isPaused Pass true if the download is paused.
+         */
+        public ToggleDownloadIsPaused(int fileId, boolean isPaused) {
+            this.fileId = fileId;
+            this.isPaused = isPaused;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -947493099;
 
         /**
          * @return this.CONSTRUCTOR
