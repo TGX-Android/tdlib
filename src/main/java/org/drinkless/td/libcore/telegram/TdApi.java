@@ -1,10 +1,10 @@
 package org.drinkless.td.libcore.telegram;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -26214,9 +26214,9 @@ public class TdApi {
          */
         public int date;
         /**
-         * Identifier of the notification sound to be played; 0 if sound is disabled.
+         * True, if the notification was explicitly sent without sound.
          */
-        public long soundId;
+        public boolean isSilent;
         /**
          * Notification type.
          */
@@ -26233,20 +26233,20 @@ public class TdApi {
          *
          * @param id Unique persistent identifier of this notification.
          * @param date Notification date.
-         * @param soundId Identifier of the notification sound to be played; 0 if sound is disabled.
+         * @param isSilent True, if the notification was explicitly sent without sound.
          * @param type Notification type.
          */
-        public Notification(int id, int date, long soundId, NotificationType type) {
+        public Notification(int id, int date, boolean isSilent, NotificationType type) {
             this.id = id;
             this.date = date;
-            this.soundId = soundId;
+            this.isSilent = isSilent;
             this.type = type;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2114315370;
+        public static final int CONSTRUCTOR = 788743120;
 
         /**
          * @return this.CONSTRUCTOR
@@ -35185,6 +35185,10 @@ public class TdApi {
          */
         public boolean canAcceptCalls;
         /**
+         * Session type based on the system and application version, which can be used to display a corresponding icon.
+         */
+        public SessionType type;
+        /**
          * Telegram API identifier, as provided by the application.
          */
         public int apiId;
@@ -35247,6 +35251,7 @@ public class TdApi {
          * @param isPasswordPending True, if a password is needed to complete authorization of the session.
          * @param canAcceptSecretChats True, if incoming secret chats can be accepted by the session.
          * @param canAcceptCalls True, if incoming calls can be accepted by the session.
+         * @param type Session type based on the system and application version, which can be used to display a corresponding icon.
          * @param apiId Telegram API identifier, as provided by the application.
          * @param applicationName Name of the application, as provided by the application.
          * @param applicationVersion The version of the application, as provided by the application.
@@ -35260,12 +35265,13 @@ public class TdApi {
          * @param country A two-letter country code for the country from which the session was created, based on the IP address.
          * @param region Region code from which the session was created, based on the IP address.
          */
-        public Session(long id, boolean isCurrent, boolean isPasswordPending, boolean canAcceptSecretChats, boolean canAcceptCalls, int apiId, String applicationName, String applicationVersion, boolean isOfficialApplication, String deviceModel, String platform, String systemVersion, int logInDate, int lastActiveDate, String ip, String country, String region) {
+        public Session(long id, boolean isCurrent, boolean isPasswordPending, boolean canAcceptSecretChats, boolean canAcceptCalls, SessionType type, int apiId, String applicationName, String applicationVersion, boolean isOfficialApplication, String deviceModel, String platform, String systemVersion, int logInDate, int lastActiveDate, String ip, String country, String region) {
             this.id = id;
             this.isCurrent = isCurrent;
             this.isPasswordPending = isPasswordPending;
             this.canAcceptSecretChats = canAcceptSecretChats;
             this.canAcceptCalls = canAcceptCalls;
+            this.type = type;
             this.apiId = apiId;
             this.applicationName = applicationName;
             this.applicationVersion = applicationVersion;
@@ -35283,7 +35289,467 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1068672887;
+        public static final int CONSTRUCTOR = -1961323642;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Represents the type of a session.
+     */
+    public abstract static class SessionType extends Object {
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            SessionTypeAndroid.CONSTRUCTOR,
+            SessionTypeApple.CONSTRUCTOR,
+            SessionTypeBrave.CONSTRUCTOR,
+            SessionTypeChrome.CONSTRUCTOR,
+            SessionTypeEdge.CONSTRUCTOR,
+            SessionTypeFirefox.CONSTRUCTOR,
+            SessionTypeIpad.CONSTRUCTOR,
+            SessionTypeIphone.CONSTRUCTOR,
+            SessionTypeLinux.CONSTRUCTOR,
+            SessionTypeMac.CONSTRUCTOR,
+            SessionTypeOpera.CONSTRUCTOR,
+            SessionTypeSafari.CONSTRUCTOR,
+            SessionTypeUbuntu.CONSTRUCTOR,
+            SessionTypeUnknown.CONSTRUCTOR,
+            SessionTypeVivaldi.CONSTRUCTOR,
+            SessionTypeWindows.CONSTRUCTOR,
+            SessionTypeXbox.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+    }
+
+    /**
+     * The session is running on an Android device.
+     */
+    public static class SessionTypeAndroid extends SessionType {
+
+        /**
+         * The session is running on an Android device.
+         */
+        public SessionTypeAndroid() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2071764840;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on a generic Apple device.
+     */
+    public static class SessionTypeApple extends SessionType {
+
+        /**
+         * The session is running on a generic Apple device.
+         */
+        public SessionTypeApple() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1818635701;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on the Brave browser.
+     */
+    public static class SessionTypeBrave extends SessionType {
+
+        /**
+         * The session is running on the Brave browser.
+         */
+        public SessionTypeBrave() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1216812563;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on the Chrome browser.
+     */
+    public static class SessionTypeChrome extends SessionType {
+
+        /**
+         * The session is running on the Chrome browser.
+         */
+        public SessionTypeChrome() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1573464425;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on the Edge browser.
+     */
+    public static class SessionTypeEdge extends SessionType {
+
+        /**
+         * The session is running on the Edge browser.
+         */
+        public SessionTypeEdge() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -538916005;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on the Firefox browser.
+     */
+    public static class SessionTypeFirefox extends SessionType {
+
+        /**
+         * The session is running on the Firefox browser.
+         */
+        public SessionTypeFirefox() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2122579364;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on an iPad device.
+     */
+    public static class SessionTypeIpad extends SessionType {
+
+        /**
+         * The session is running on an iPad device.
+         */
+        public SessionTypeIpad() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1294647023;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on an iPhone device.
+     */
+    public static class SessionTypeIphone extends SessionType {
+
+        /**
+         * The session is running on an iPhone device.
+         */
+        public SessionTypeIphone() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 97616573;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on a Linux device.
+     */
+    public static class SessionTypeLinux extends SessionType {
+
+        /**
+         * The session is running on a Linux device.
+         */
+        public SessionTypeLinux() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1487422871;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on a Mac device.
+     */
+    public static class SessionTypeMac extends SessionType {
+
+        /**
+         * The session is running on a Mac device.
+         */
+        public SessionTypeMac() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -612250975;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on the Opera browser.
+     */
+    public static class SessionTypeOpera extends SessionType {
+
+        /**
+         * The session is running on the Opera browser.
+         */
+        public SessionTypeOpera() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1463673734;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on the Safari browser.
+     */
+    public static class SessionTypeSafari extends SessionType {
+
+        /**
+         * The session is running on the Safari browser.
+         */
+        public SessionTypeSafari() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 710646873;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on an Ubuntu device.
+     */
+    public static class SessionTypeUbuntu extends SessionType {
+
+        /**
+         * The session is running on an Ubuntu device.
+         */
+        public SessionTypeUbuntu() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1569680069;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on an unknown type of device.
+     */
+    public static class SessionTypeUnknown extends SessionType {
+
+        /**
+         * The session is running on an unknown type of device.
+         */
+        public SessionTypeUnknown() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 233926704;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on the Vivaldi browser.
+     */
+    public static class SessionTypeVivaldi extends SessionType {
+
+        /**
+         * The session is running on the Vivaldi browser.
+         */
+        public SessionTypeVivaldi() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1120503279;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on a Windows device.
+     */
+    public static class SessionTypeWindows extends SessionType {
+
+        /**
+         * The session is running on a Windows device.
+         */
+        public SessionTypeWindows() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1676512600;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is running on an Xbox console.
+     */
+    public static class SessionTypeXbox extends SessionType {
+
+        /**
+         * The session is running on an Xbox console.
+         */
+        public SessionTypeXbox() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1856216492;
 
         /**
          * @return this.CONSTRUCTOR
