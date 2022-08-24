@@ -65,7 +65,7 @@ public class TdApi {
             CanTransferOwnership.CONSTRUCTOR,
             CancelDownloadFile.CONSTRUCTOR,
             CancelPasswordReset.CONSTRUCTOR,
-            CancelUploadFile.CONSTRUCTOR,
+            CancelPreliminaryUploadFile.CONSTRUCTOR,
             ChangeImportedContacts.CONSTRUCTOR,
             ChangePhoneNumber.CONSTRUCTOR,
             ChangeStickerSet.CONSTRUCTOR,
@@ -158,7 +158,6 @@ public class TdApi {
             GetAccountTtl.CONSTRUCTOR,
             GetActiveLiveLocationMessages.CONSTRUCTOR,
             GetActiveSessions.CONSTRUCTOR,
-            GetAllAnimatedEmojis.CONSTRUCTOR,
             GetAllPassportElements.CONSTRUCTOR,
             GetAnimatedEmoji.CONSTRUCTOR,
             GetApplicationConfig.CONSTRUCTOR,
@@ -207,6 +206,7 @@ public class TdApi {
             GetCountryCode.CONSTRUCTOR,
             GetCreatedPublicChats.CONSTRUCTOR,
             GetCurrentState.CONSTRUCTOR,
+            GetCustomEmojiStickers.CONSTRUCTOR,
             GetDatabaseStatistics.CONSTRUCTOR,
             GetDeepLinkInfo.CONSTRUCTOR,
             GetEmojiSuggestionsUrl.CONSTRUCTOR,
@@ -275,6 +275,7 @@ public class TdApi {
             GetPremiumFeatures.CONSTRUCTOR,
             GetPremiumLimit.CONSTRUCTOR,
             GetPremiumState.CONSTRUCTOR,
+            GetPremiumStickerExamples.CONSTRUCTOR,
             GetPremiumStickers.CONSTRUCTOR,
             GetProxies.CONSTRUCTOR,
             GetProxyLink.CONSTRUCTOR,
@@ -340,6 +341,7 @@ public class TdApi {
             ParseTextEntities.CONSTRUCTOR,
             PinChatMessage.CONSTRUCTOR,
             PingProxy.CONSTRUCTOR,
+            PreliminaryUploadFile.CONSTRUCTOR,
             ProcessChatJoinRequest.CONSTRUCTOR,
             ProcessChatJoinRequests.CONSTRUCTOR,
             ProcessPushNotification.CONSTRUCTOR,
@@ -539,7 +541,6 @@ public class TdApi {
             UnpinAllChatMessages.CONSTRUCTOR,
             UnpinChatMessage.CONSTRUCTOR,
             UpgradeBasicGroupChatToSupergroupChat.CONSTRUCTOR,
-            UploadFile.CONSTRUCTOR,
             UploadStickerFile.CONSTRUCTOR,
             ValidateOrderInfo.CONSTRUCTOR,
             ViewMessages.CONSTRUCTOR,
@@ -812,34 +813,34 @@ public class TdApi {
     }
 
     /**
-     * Describes an animated representation of an emoji.
+     * Describes an animated or custom representation of an emoji.
      */
     public static class AnimatedEmoji extends Object {
         /**
-         * Animated sticker for the emoji.
+         * Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker is a custom emoji, it can have arbitrary format different from stickerFormatTgs.
          */
-        public Sticker sticker;
+        @Nullable public Sticker sticker;
         /**
          * Emoji modifier fitzpatrick type; 0-6; 0 if none.
          */
         public int fitzpatrickType;
         /**
-         * File containing the sound to be played when the animated emoji is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
+         * File containing the sound to be played when the sticker is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
          */
         @Nullable public File sound;
 
         /**
-         * Describes an animated representation of an emoji.
+         * Describes an animated or custom representation of an emoji.
          */
         public AnimatedEmoji() {
         }
 
         /**
-         * Describes an animated representation of an emoji.
+         * Describes an animated or custom representation of an emoji.
          *
-         * @param sticker Animated sticker for the emoji.
+         * @param sticker Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker is a custom emoji, it can have arbitrary format different from stickerFormatTgs.
          * @param fitzpatrickType Emoji modifier fitzpatrick type; 0-6; 0 if none.
-         * @param sound File containing the sound to be played when the animated emoji is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
+         * @param sound File containing the sound to be played when the sticker is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
          */
         public AnimatedEmoji(Sticker sticker, int fitzpatrickType, File sound) {
             this.sticker = sticker;
@@ -1186,9 +1187,13 @@ public class TdApi {
          */
         @Nullable public Minithumbnail albumCoverMinithumbnail;
         /**
-         * The thumbnail of the album cover in JPEG format; as defined by the sender. The full size thumbnail is supposed to be extracted from the downloaded file; may be null.
+         * The thumbnail of the album cover in JPEG format; as defined by the sender. The full size thumbnail is supposed to be extracted from the downloaded audio file; may be null.
          */
         @Nullable public Thumbnail albumCoverThumbnail;
+        /**
+         * Album cover variants to use if the downloaded audio file contains no album cover. Provided thumbnail dimensions are approximate.
+         */
+        public Thumbnail[] externalAlbumCovers;
         /**
          * File containing the audio.
          */
@@ -1209,10 +1214,11 @@ public class TdApi {
          * @param fileName Original name of the file; as defined by the sender.
          * @param mimeType The MIME type of the file; as defined by the sender.
          * @param albumCoverMinithumbnail The minithumbnail of the album cover; may be null.
-         * @param albumCoverThumbnail The thumbnail of the album cover in JPEG format; as defined by the sender. The full size thumbnail is supposed to be extracted from the downloaded file; may be null.
+         * @param albumCoverThumbnail The thumbnail of the album cover in JPEG format; as defined by the sender. The full size thumbnail is supposed to be extracted from the downloaded audio file; may be null.
+         * @param externalAlbumCovers Album cover variants to use if the downloaded audio file contains no album cover. Provided thumbnail dimensions are approximate.
          * @param audio File containing the audio.
          */
-        public Audio(int duration, String title, String performer, String fileName, String mimeType, Minithumbnail albumCoverMinithumbnail, Thumbnail albumCoverThumbnail, File audio) {
+        public Audio(int duration, String title, String performer, String fileName, String mimeType, Minithumbnail albumCoverMinithumbnail, Thumbnail albumCoverThumbnail, Thumbnail[] externalAlbumCovers, File audio) {
             this.duration = duration;
             this.title = title;
             this.performer = performer;
@@ -1220,13 +1226,14 @@ public class TdApi {
             this.mimeType = mimeType;
             this.albumCoverMinithumbnail = albumCoverMinithumbnail;
             this.albumCoverThumbnail = albumCoverThumbnail;
+            this.externalAlbumCovers = externalAlbumCovers;
             this.audio = audio;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1179334690;
+        public static final int CONSTRUCTOR = -166398841;
 
         /**
          * @return this.CONSTRUCTOR
@@ -1744,7 +1751,7 @@ public class TdApi {
     }
 
     /**
-     * The user has been authorized, but needs to enter a password to start using the application.
+     * The user has been authorized, but needs to enter a 2-step verification password to start using the application.
      */
     public static class AuthorizationStateWaitPassword extends AuthorizationState {
         /**
@@ -1761,13 +1768,13 @@ public class TdApi {
         public String recoveryEmailAddressPattern;
 
         /**
-         * The user has been authorized, but needs to enter a password to start using the application.
+         * The user has been authorized, but needs to enter a 2-step verification password to start using the application.
          */
         public AuthorizationStateWaitPassword() {
         }
 
         /**
-         * The user has been authorized, but needs to enter a password to start using the application.
+         * The user has been authorized, but needs to enter a 2-step verification password to start using the application.
          *
          * @param passwordHint Hint for the password; may be empty.
          * @param hasRecoveryEmailAddress True, if a recovery email address has been set up.
@@ -4330,7 +4337,7 @@ public class TdApi {
      */
     public static class CallbackQueryPayloadDataWithPassword extends CallbackQueryPayload {
         /**
-         * The password for the current user.
+         * The 2-step verification password for the current user.
          */
         public String password;
         /**
@@ -4347,7 +4354,7 @@ public class TdApi {
         /**
          * The payload for a callback button requiring password.
          *
-         * @param password The password for the current user.
+         * @param password The 2-step verification password for the current user.
          * @param data Data that was attached to the callback button.
          */
         public CallbackQueryPayloadDataWithPassword(String password, byte[] data) {
@@ -14557,7 +14564,7 @@ public class TdApi {
     }
 
     /**
-     * A button that asks for password of the current user and then sends a callback query to a bot.
+     * A button that asks for the 2-step verification password of the current user and then sends a callback query to a bot.
      */
     public static class InlineKeyboardButtonTypeCallbackWithPassword extends InlineKeyboardButtonType {
         /**
@@ -14566,13 +14573,13 @@ public class TdApi {
         public byte[] data;
 
         /**
-         * A button that asks for password of the current user and then sends a callback query to a bot.
+         * A button that asks for the 2-step verification password of the current user and then sends a callback query to a bot.
          */
         public InlineKeyboardButtonTypeCallbackWithPassword() {
         }
 
         /**
-         * A button that asks for password of the current user and then sends a callback query to a bot.
+         * A button that asks for the 2-step verification password of the current user and then sends a callback query to a bot.
          *
          * @param data Data to be sent to the bot via a callback query.
          */
@@ -17251,7 +17258,7 @@ public class TdApi {
      */
     public static class InputMessageText extends InputMessageContent {
         /**
-         * Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
+         * Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
          */
         public FormattedText text;
         /**
@@ -17272,7 +17279,7 @@ public class TdApi {
         /**
          * A text message.
          *
-         * @param text Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
+         * @param text Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually.
          * @param disableWebPagePreview True, if rich web page previews for URLs in the message text must be disabled.
          * @param clearDraft True, if a chat message draft must be deleted.
          */
@@ -19283,9 +19290,13 @@ public class TdApi {
          */
         public String emojis;
         /**
-         * Sticker type.
+         * Sticker format.
          */
-        public StickerType type;
+        public StickerFormat format;
+        /**
+         * Position where the mask is placed; pass null if not specified.
+         */
+        public MaskPosition maskPosition;
 
         /**
          * A sticker to be added to a sticker set.
@@ -19298,18 +19309,20 @@ public class TdApi {
          *
          * @param sticker File with the sticker; must fit in a 512x512 square. For WEBP stickers and masks the file must be in PNG format, which will be converted to WEBP server-side. Otherwise, the file must be local or uploaded within a week. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
          * @param emojis Emojis corresponding to the sticker.
-         * @param type Sticker type.
+         * @param format Sticker format.
+         * @param maskPosition Position where the mask is placed; pass null if not specified.
          */
-        public InputSticker(InputFile sticker, String emojis, StickerType type) {
+        public InputSticker(InputFile sticker, String emojis, StickerFormat format, MaskPosition maskPosition) {
             this.sticker = sticker;
             this.emojis = emojis;
-            this.type = type;
+            this.format = format;
+            this.maskPosition = maskPosition;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 878376494;
+        public static final int CONSTRUCTOR = -1692915280;
 
         /**
          * @return this.CONSTRUCTOR
@@ -19400,6 +19413,7 @@ public class TdApi {
             InternalLinkTypeProxy.CONSTRUCTOR,
             InternalLinkTypePublicChat.CONSTRUCTOR,
             InternalLinkTypeQrCodeAuthentication.CONSTRUCTOR,
+            InternalLinkTypeRestorePurchases.CONSTRUCTOR,
             InternalLinkTypeSettings.CONSTRUCTOR,
             InternalLinkTypeStickerSet.CONSTRUCTOR,
             InternalLinkTypeTheme.CONSTRUCTOR,
@@ -20301,6 +20315,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1089332956;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link forces restore of App Store purchases when opened. For official iOS application only.
+     */
+    public static class InternalLinkTypeRestorePurchases extends InternalLinkType {
+
+        /**
+         * The link forces restore of App Store purchases when opened. For official iOS application only.
+         */
+        public InternalLinkTypeRestorePurchases() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 606090371;
 
         /**
          * @return this.CONSTRUCTOR
@@ -22317,7 +22356,7 @@ public class TdApi {
          */
         public boolean canGetStatistics;
         /**
-         * True, if information about the message thread is available through getMessageThread.
+         * True, if information about the message thread is available through getMessageThread and getMessageThreadHistory.
          */
         public boolean canGetMessageThread;
         /**
@@ -22428,7 +22467,7 @@ public class TdApi {
          * @param canBeDeletedForAllUsers True, if the message can be deleted for all users.
          * @param canGetAddedReactions True, if the list of added reactions is available through getMessageAddedReactions.
          * @param canGetStatistics True, if the message statistics are available through getMessageStatistics.
-         * @param canGetMessageThread True, if information about the message thread is available through getMessageThread.
+         * @param canGetMessageThread True, if information about the message thread is available through getMessageThread and getMessageThreadHistory.
          * @param canGetViewers True, if chat members already viewed the message can be received through getMessageViewers.
          * @param canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description through getMessageLink.
          * @param hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
@@ -22642,6 +22681,7 @@ public class TdApi {
             MessageGameScore.CONSTRUCTOR,
             MessagePaymentSuccessful.CONSTRUCTOR,
             MessagePaymentSuccessfulBot.CONSTRUCTOR,
+            MessageGiftedPremium.CONSTRUCTOR,
             MessageContactRegistered.CONSTRUCTOR,
             MessageWebsiteConnected.CONSTRUCTOR,
             MessageWebAppDataSent.CONSTRUCTOR,
@@ -24525,6 +24565,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1759592121;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Telegram Premium was gifted to the user.
+     */
+    public static class MessageGiftedPremium extends MessageContent {
+        /**
+         * Currency for the paid amount.
+         */
+        public String currency;
+        /**
+         * The paid amount, in the smallest units of the currency.
+         */
+        public long amount;
+        /**
+         * Number of month the Telegram Premium subscription will be active.
+         */
+        public int monthCount;
+        /**
+         * A sticker to be shown in the message; may be null if unknown.
+         */
+        @Nullable public Sticker sticker;
+
+        /**
+         * Telegram Premium was gifted to the user.
+         */
+        public MessageGiftedPremium() {
+        }
+
+        /**
+         * Telegram Premium was gifted to the user.
+         *
+         * @param currency Currency for the paid amount.
+         * @param amount The paid amount, in the smallest units of the currency.
+         * @param monthCount Number of month the Telegram Premium subscription will be active.
+         * @param sticker A sticker to be shown in the message; may be null if unknown.
+         */
+        public MessageGiftedPremium(String currency, long amount, int monthCount, Sticker sticker) {
+            this.currency = currency;
+            this.amount = amount;
+            this.monthCount = monthCount;
+            this.sticker = sticker;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1580804249;
 
         /**
          * @return this.CONSTRUCTOR
@@ -30726,7 +30822,7 @@ public class TdApi {
          */
         @Nullable public EmailAddressAuthenticationCodeInfo recoveryEmailAddressCodeInfo;
         /**
-         * If not 0, point in time (Unix timestamp) after which the password can be reset immediately using resetPassword.
+         * If not 0, point in time (Unix timestamp) after which the 2-step verification password can be reset immediately using resetPassword.
          */
         public int pendingResetDate;
 
@@ -30744,7 +30840,7 @@ public class TdApi {
          * @param hasRecoveryEmailAddress True, if a recovery email is set.
          * @param hasPassportData True, if some Telegram Passport elements were saved.
          * @param recoveryEmailAddressCodeInfo Information about the recovery email address to which the confirmation email was sent; may be null.
-         * @param pendingResetDate If not 0, point in time (Unix timestamp) after which the password can be reset immediately using resetPassword.
+         * @param pendingResetDate If not 0, point in time (Unix timestamp) after which the 2-step verification password can be reset immediately using resetPassword.
          */
         public PasswordState(boolean hasPassword, String passwordHint, boolean hasRecoveryEmailAddress, boolean hasPassportData, EmailAddressAuthenticationCodeInfo recoveryEmailAddressCodeInfo, int pendingResetDate) {
             this.hasPassword = hasPassword;
@@ -30794,19 +30890,23 @@ public class TdApi {
          */
         public PaymentProvider paymentProvider;
         /**
+         * The list of additional payment options.
+         */
+        public PaymentOption[] additionalPaymentOptions;
+        /**
          * Saved server-side order information; may be null.
          */
         @Nullable public OrderInfo savedOrderInfo;
         /**
-         * Information about saved card credentials; may be null.
+         * The list of saved payment credentials.
          */
-        @Nullable public SavedCredentials savedCredentials;
+        public SavedCredentials[] savedCredentials;
         /**
          * True, if the user can choose to save credentials.
          */
         public boolean canSaveCredentials;
         /**
-         * True, if the user will be able to save credentials protected by a password they set up.
+         * True, if the user will be able to save credentials, if sets up a 2-step verification password.
          */
         public boolean needPassword;
         /**
@@ -30836,20 +30936,22 @@ public class TdApi {
          * @param sellerBotUserId User identifier of the seller bot.
          * @param paymentProviderUserId User identifier of the payment provider bot.
          * @param paymentProvider Information about the payment provider.
+         * @param additionalPaymentOptions The list of additional payment options.
          * @param savedOrderInfo Saved server-side order information; may be null.
-         * @param savedCredentials Information about saved card credentials; may be null.
+         * @param savedCredentials The list of saved payment credentials.
          * @param canSaveCredentials True, if the user can choose to save credentials.
-         * @param needPassword True, if the user will be able to save credentials protected by a password they set up.
+         * @param needPassword True, if the user will be able to save credentials, if sets up a 2-step verification password.
          * @param productTitle Product title.
          * @param productDescription Product description.
          * @param productPhoto Product photo; may be null.
          */
-        public PaymentForm(long id, Invoice invoice, long sellerBotUserId, long paymentProviderUserId, PaymentProvider paymentProvider, OrderInfo savedOrderInfo, SavedCredentials savedCredentials, boolean canSaveCredentials, boolean needPassword, String productTitle, FormattedText productDescription, Photo productPhoto) {
+        public PaymentForm(long id, Invoice invoice, long sellerBotUserId, long paymentProviderUserId, PaymentProvider paymentProvider, PaymentOption[] additionalPaymentOptions, OrderInfo savedOrderInfo, SavedCredentials[] savedCredentials, boolean canSaveCredentials, boolean needPassword, String productTitle, FormattedText productDescription, Photo productPhoto) {
             this.id = id;
             this.invoice = invoice;
             this.sellerBotUserId = sellerBotUserId;
             this.paymentProviderUserId = paymentProviderUserId;
             this.paymentProvider = paymentProvider;
+            this.additionalPaymentOptions = additionalPaymentOptions;
             this.savedOrderInfo = savedOrderInfo;
             this.savedCredentials = savedCredentials;
             this.canSaveCredentials = canSaveCredentials;
@@ -30862,7 +30964,51 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2120909129;
+        public static final int CONSTRUCTOR = -1468471378;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes an additional payment option.
+     */
+    public static class PaymentOption extends Object {
+        /**
+         * Title for the payment option.
+         */
+        public String title;
+        /**
+         * Payment form URL to be opened in a web view.
+         */
+        public String url;
+
+        /**
+         * Describes an additional payment option.
+         */
+        public PaymentOption() {
+        }
+
+        /**
+         * Describes an additional payment option.
+         *
+         * @param title Title for the payment option.
+         * @param url Payment form URL to be opened in a web view.
+         */
+        public PaymentOption(String title, String url) {
+            this.title = title;
+            this.url = url;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -294020965;
 
         /**
          * @return this.CONSTRUCTOR
@@ -31842,6 +31988,7 @@ public class TdApi {
             PremiumFeatureDisabledAds.CONSTRUCTOR,
             PremiumFeatureUniqueReactions.CONSTRUCTOR,
             PremiumFeatureUniqueStickers.CONSTRUCTOR,
+            PremiumFeatureCustomEmoji.CONSTRUCTOR,
             PremiumFeatureAdvancedChatManagement.CONSTRUCTOR,
             PremiumFeatureProfileBadge.CONSTRUCTOR,
             PremiumFeatureAnimatedProfilePhoto.CONSTRUCTOR,
@@ -32022,6 +32169,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2101773312;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Allowed to use custom emoji stickers in message texts and captions.
+     */
+    public static class PremiumFeatureCustomEmoji extends PremiumFeature {
+
+        /**
+         * Allowed to use custom emoji stickers in message texts and captions.
+         */
+        public PremiumFeatureCustomEmoji() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1332599628;
 
         /**
          * @return this.CONSTRUCTOR
@@ -32216,6 +32388,74 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1875162172;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes an option for gifting Telegram Premium to a user.
+     */
+    public static class PremiumGiftOption extends Object {
+        /**
+         * ISO 4217 currency code for Telegram Premium subscription payment.
+         */
+        public String currency;
+        /**
+         * The amount to pay, in the smallest units of the currency.
+         */
+        public long amount;
+        /**
+         * The discount associated with this gift option, as a percentage.
+         */
+        public int discountPercentage;
+        /**
+         * Number of month the Telegram Premium subscription will be active.
+         */
+        public int monthCount;
+        /**
+         * Identifier of the store product associated with the option.
+         */
+        public String storeProductId;
+        /**
+         * An internal link to be opened for gifting Telegram Premium to the user if store payment isn't possible; may be null if direct payment isn't available.
+         */
+        @Nullable public InternalLinkType paymentLink;
+
+        /**
+         * Describes an option for gifting Telegram Premium to a user.
+         */
+        public PremiumGiftOption() {
+        }
+
+        /**
+         * Describes an option for gifting Telegram Premium to a user.
+         *
+         * @param currency ISO 4217 currency code for Telegram Premium subscription payment.
+         * @param amount The amount to pay, in the smallest units of the currency.
+         * @param discountPercentage The discount associated with this gift option, as a percentage.
+         * @param monthCount Number of month the Telegram Premium subscription will be active.
+         * @param storeProductId Identifier of the store product associated with the option.
+         * @param paymentLink An internal link to be opened for gifting Telegram Premium to the user if store payment isn't possible; may be null if direct payment isn't available.
+         */
+        public PremiumGiftOption(String currency, long amount, int discountPercentage, int monthCount, String storeProductId, InternalLinkType paymentLink) {
+            this.currency = currency;
+            this.amount = amount;
+            this.discountPercentage = discountPercentage;
+            this.monthCount = monthCount;
+            this.storeProductId = storeProductId;
+            this.paymentLink = paymentLink;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2008809959;
 
         /**
          * @return this.CONSTRUCTOR
@@ -35849,7 +36089,7 @@ public class TdApi {
     }
 
     /**
-     * Contains information about saved card credentials.
+     * Contains information about saved payment credentials.
      */
     public static class SavedCredentials extends Object {
         /**
@@ -35862,13 +36102,13 @@ public class TdApi {
         public String title;
 
         /**
-         * Contains information about saved card credentials.
+         * Contains information about saved payment credentials.
          */
         public SavedCredentials() {
         }
 
         /**
-         * Contains information about saved card credentials.
+         * Contains information about saved payment credentials.
          *
          * @param id Unique identifier of the saved credentials.
          * @param title Title of the saved credentials.
@@ -36477,7 +36717,7 @@ public class TdApi {
          */
         public byte[] keyHash;
         /**
-         * Secret chat layer; determines features supported by the chat partner's application. Nested text entities and underline and strikethrough entities are supported if the layer &gt;= 101, files bigger than 2000MB are supported if the layer &gt;= 143.
+         * Secret chat layer; determines features supported by the chat partner's application. Nested text entities and underline and strikethrough entities are supported if the layer &gt;= 101, files bigger than 2000MB are supported if the layer &gt;= 143, spoiler and custom emoji text entities are supported if the layer &gt;= 144.
          */
         public int layer;
 
@@ -36495,7 +36735,7 @@ public class TdApi {
          * @param state State of the secret chat.
          * @param isOutbound True, if the chat was created by the current user; otherwise false.
          * @param keyHash Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9. The pixels must be used to make a 12x12 square image filled from left to right, top to bottom. Alternatively, the first 32 bytes of the hash can be converted to the hexadecimal format and printed as 32 2-digit hex numbers.
-         * @param layer Secret chat layer; determines features supported by the chat partner's application. Nested text entities and underline and strikethrough entities are supported if the layer &gt;= 101, files bigger than 2000MB are supported if the layer &gt;= 143.
+         * @param layer Secret chat layer; determines features supported by the chat partner's application. Nested text entities and underline and strikethrough entities are supported if the layer &gt;= 101, files bigger than 2000MB are supported if the layer &gt;= 143, spoiler and custom emoji text entities are supported if the layer &gt;= 144.
          */
         public SecretChat(int id, long userId, SecretChatState state, boolean isOutbound, byte[] keyHash, int layer) {
             this.id = id;
@@ -36667,7 +36907,7 @@ public class TdApi {
          */
         public boolean isCurrent;
         /**
-         * True, if a password is needed to complete authorization of the session.
+         * True, if a 2-step verification password is needed to complete authorization of the session.
          */
         public boolean isPasswordPending;
         /**
@@ -36742,7 +36982,7 @@ public class TdApi {
          *
          * @param id Session identifier.
          * @param isCurrent True, if this session is the current session.
-         * @param isPasswordPending True, if a password is needed to complete authorization of the session.
+         * @param isPasswordPending True, if a 2-step verification password is needed to complete authorization of the session.
          * @param canAcceptSecretChats True, if incoming secret chats can be accepted by the session.
          * @param canAcceptCalls True, if incoming calls can be accepted by the session.
          * @param type Session type based on the system and application version, which can be used to display a corresponding icon.
@@ -37349,6 +37589,141 @@ public class TdApi {
     }
 
     /**
+     * This class is an abstract base class.
+     * Describes result of speech recognition in a voice note.
+     */
+    public abstract static class SpeechRecognitionResult extends Object {
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            SpeechRecognitionResultPending.CONSTRUCTOR,
+            SpeechRecognitionResultText.CONSTRUCTOR,
+            SpeechRecognitionResultError.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+    }
+
+    /**
+     * The speech recognition is ongoing.
+     */
+    public static class SpeechRecognitionResultPending extends SpeechRecognitionResult {
+        /**
+         * Partially recognized text.
+         */
+        public String partialText;
+
+        /**
+         * The speech recognition is ongoing.
+         */
+        public SpeechRecognitionResultPending() {
+        }
+
+        /**
+         * The speech recognition is ongoing.
+         *
+         * @param partialText Partially recognized text.
+         */
+        public SpeechRecognitionResultPending(String partialText) {
+            this.partialText = partialText;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1631810048;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The speech recognition successfully finished.
+     */
+    public static class SpeechRecognitionResultText extends SpeechRecognitionResult {
+        /**
+         * Recognized text.
+         */
+        public String text;
+
+        /**
+         * The speech recognition successfully finished.
+         */
+        public SpeechRecognitionResultText() {
+        }
+
+        /**
+         * The speech recognition successfully finished.
+         *
+         * @param text Recognized text.
+         */
+        public SpeechRecognitionResultText(String text) {
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2132377123;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The speech recognition failed.
+     */
+    public static class SpeechRecognitionResultError extends SpeechRecognitionResult {
+        /**
+         * Received error.
+         */
+        public Error error;
+
+        /**
+         * The speech recognition failed.
+         */
+        public SpeechRecognitionResultError() {
+        }
+
+        /**
+         * The speech recognition failed.
+         *
+         * @param error Received error.
+         */
+        public SpeechRecognitionResultError(Error error) {
+            this.error = error;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 164774908;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes a sponsored message.
      */
     public static class SponsoredMessage extends Object {
@@ -37628,9 +38003,21 @@ public class TdApi {
          */
         public String emoji;
         /**
+         * Sticker format.
+         */
+        public StickerFormat format;
+        /**
          * Sticker type.
          */
         public StickerType type;
+        /**
+         * Position where the mask is placed; may be null even the sticker is a mask.
+         */
+        @Nullable public MaskPosition maskPosition;
+        /**
+         * Identifier of the emoji if the sticker is a custom emoji.
+         */
+        public long customEmojiId;
         /**
          * Sticker's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
          */
@@ -37640,7 +38027,11 @@ public class TdApi {
          */
         @Nullable public Thumbnail thumbnail;
         /**
-         * Premium animation of the sticker; may be null. If present, only Premium users can send the sticker.
+         * True, if only Premium users can use the sticker.
+         */
+        public boolean isPremium;
+        /**
+         * Premium animation of the sticker; may be null.
          */
         @Nullable public File premiumAnimation;
         /**
@@ -37661,20 +38052,28 @@ public class TdApi {
          * @param width Sticker width; as defined by the sender.
          * @param height Sticker height; as defined by the sender.
          * @param emoji Emoji corresponding to the sticker.
+         * @param format Sticker format.
          * @param type Sticker type.
+         * @param maskPosition Position where the mask is placed; may be null even the sticker is a mask.
+         * @param customEmojiId Identifier of the emoji if the sticker is a custom emoji.
          * @param outline Sticker's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
          * @param thumbnail Sticker thumbnail in WEBP or JPEG format; may be null.
-         * @param premiumAnimation Premium animation of the sticker; may be null. If present, only Premium users can send the sticker.
+         * @param isPremium True, if only Premium users can use the sticker.
+         * @param premiumAnimation Premium animation of the sticker; may be null.
          * @param sticker File containing the sticker.
          */
-        public Sticker(long setId, int width, int height, String emoji, StickerType type, ClosedVectorPath[] outline, Thumbnail thumbnail, File premiumAnimation, File sticker) {
+        public Sticker(long setId, int width, int height, String emoji, StickerFormat format, StickerType type, MaskPosition maskPosition, long customEmojiId, ClosedVectorPath[] outline, Thumbnail thumbnail, boolean isPremium, File premiumAnimation, File sticker) {
             this.setId = setId;
             this.width = width;
             this.height = height;
             this.emoji = emoji;
+            this.format = format;
             this.type = type;
+            this.maskPosition = maskPosition;
+            this.customEmojiId = customEmojiId;
             this.outline = outline;
             this.thumbnail = thumbnail;
+            this.isPremium = isPremium;
             this.premiumAnimation = premiumAnimation;
             this.sticker = sticker;
         }
@@ -37682,7 +38081,103 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1889146496;
+        public static final int CONSTRUCTOR = -1108220879;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes format of a sticker.
+     */
+    public abstract static class StickerFormat extends Object {
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            StickerFormatWebp.CONSTRUCTOR,
+            StickerFormatTgs.CONSTRUCTOR,
+            StickerFormatWebm.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+    }
+
+    /**
+     * The sticker is an image in WEBP format.
+     */
+    public static class StickerFormatWebp extends StickerFormat {
+
+        /**
+         * The sticker is an image in WEBP format.
+         */
+        public StickerFormatWebp() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2123043040;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The sticker is an animation in TGS format.
+     */
+    public static class StickerFormatTgs extends StickerFormat {
+
+        /**
+         * The sticker is an animation in TGS format.
+         */
+        public StickerFormatTgs() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1614588662;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The sticker is a video in WEBM format.
+     */
+    public static class StickerFormatWebm extends StickerFormat {
+
+        /**
+         * The sticker is a video in WEBM format.
+         */
+        public StickerFormatWebm() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2070162097;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37730,6 +38225,10 @@ public class TdApi {
          */
         public boolean isOfficial;
         /**
+         * Format of the stickers in the set.
+         */
+        public StickerFormat stickerFormat;
+        /**
          * Type of the stickers in the set.
          */
         public StickerType stickerType;
@@ -37763,12 +38262,13 @@ public class TdApi {
          * @param isInstalled True, if the sticker set has been installed by the current user.
          * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
          * @param isOfficial True, if the sticker set is official.
+         * @param stickerFormat Format of the stickers in the set.
          * @param stickerType Type of the stickers in the set.
          * @param isViewed True for already viewed trending sticker sets.
          * @param stickers List of stickers in this set.
          * @param emojis A list of emoji corresponding to the stickers in the same order. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object.
          */
-        public StickerSet(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerType stickerType, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
+        public StickerSet(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerFormat stickerFormat, StickerType stickerType, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
             this.id = id;
             this.title = title;
             this.name = name;
@@ -37777,6 +38277,7 @@ public class TdApi {
             this.isInstalled = isInstalled;
             this.isArchived = isArchived;
             this.isOfficial = isOfficial;
+            this.stickerFormat = stickerFormat;
             this.stickerType = stickerType;
             this.isViewed = isViewed;
             this.stickers = stickers;
@@ -37786,7 +38287,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1816236758;
+        public static final int CONSTRUCTOR = 1899632064;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37834,6 +38335,10 @@ public class TdApi {
          */
         public boolean isOfficial;
         /**
+         * Format of the stickers in the set.
+         */
+        public StickerFormat stickerFormat;
+        /**
          * Type of the stickers in the set.
          */
         public StickerType stickerType;
@@ -37867,12 +38372,13 @@ public class TdApi {
          * @param isInstalled True, if the sticker set has been installed by the current user.
          * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
          * @param isOfficial True, if the sticker set is official.
+         * @param stickerFormat Format of the stickers in the set.
          * @param stickerType Type of the stickers in the set.
          * @param isViewed True for already viewed trending sticker sets.
          * @param size Total number of stickers in the set.
          * @param covers Up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full sticker set needs to be requested.
          */
-        public StickerSetInfo(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerType stickerType, boolean isViewed, int size, Sticker[] covers) {
+        public StickerSetInfo(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerFormat stickerFormat, StickerType stickerType, boolean isViewed, int size, Sticker[] covers) {
             this.id = id;
             this.title = title;
             this.name = name;
@@ -37881,6 +38387,7 @@ public class TdApi {
             this.isInstalled = isInstalled;
             this.isArchived = isArchived;
             this.isOfficial = isOfficial;
+            this.stickerFormat = stickerFormat;
             this.stickerType = stickerType;
             this.isViewed = isViewed;
             this.size = size;
@@ -37890,7 +38397,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1207538697;
+        public static final int CONSTRUCTOR = 745543121;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37952,10 +38459,9 @@ public class TdApi {
     public abstract static class StickerType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            StickerTypeStatic.CONSTRUCTOR,
-            StickerTypeAnimated.CONSTRUCTOR,
-            StickerTypeVideo.CONSTRUCTOR,
-            StickerTypeMask.CONSTRUCTOR
+            StickerTypeRegular.CONSTRUCTOR,
+            StickerTypeMask.CONSTRUCTOR,
+            StickerTypeCustomEmoji.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -37968,70 +38474,20 @@ public class TdApi {
     }
 
     /**
-     * The sticker is an image in WEBP format.
+     * The sticker is a regular sticker.
      */
-    public static class StickerTypeStatic extends StickerType {
+    public static class StickerTypeRegular extends StickerType {
 
         /**
-         * The sticker is an image in WEBP format.
+         * The sticker is a regular sticker.
          */
-        public StickerTypeStatic() {
+        public StickerTypeRegular() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1804483793;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The sticker is an animation in TGS format.
-     */
-    public static class StickerTypeAnimated extends StickerType {
-
-        /**
-         * The sticker is an animation in TGS format.
-         */
-        public StickerTypeAnimated() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1763255981;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The sticker is a video in WEBM format.
-     */
-    public static class StickerTypeVideo extends StickerType {
-
-        /**
-         * The sticker is a video in WEBM format.
-         */
-        public StickerTypeVideo() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 522366836;
+        public static final int CONSTRUCTOR = 56345973;
 
         /**
          * @return this.CONSTRUCTOR
@@ -38046,10 +38502,6 @@ public class TdApi {
      * The sticker is a mask in WEBP format to be placed on photos or videos.
      */
     public static class StickerTypeMask extends StickerType {
-        /**
-         * Position where the mask is placed; may be null.
-         */
-        @Nullable public MaskPosition maskPosition;
 
         /**
          * The sticker is a mask in WEBP format to be placed on photos or videos.
@@ -38058,18 +38510,34 @@ public class TdApi {
         }
 
         /**
-         * The sticker is a mask in WEBP format to be placed on photos or videos.
-         *
-         * @param maskPosition Position where the mask is placed; may be null.
+         * Identifier uniquely determining type of the object.
          */
-        public StickerTypeMask(MaskPosition maskPosition) {
-            this.maskPosition = maskPosition;
+        public static final int CONSTRUCTOR = -1765394796;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The sticker is a custom emoji to be used inside message text and caption.
+     */
+    public static class StickerTypeCustomEmoji extends StickerType {
+
+        /**
+         * The sticker is a custom emoji to be used inside message text and caption.
+         */
+        public StickerTypeCustomEmoji() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -839756573;
+        public static final int CONSTRUCTOR = -120752249;
 
         /**
          * @return this.CONSTRUCTOR
@@ -38326,6 +38794,114 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -884922271;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes a purpose of an in-store payment.
+     */
+    public abstract static class StorePaymentPurpose extends Object {
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            StorePaymentPurposePremiumSubscription.CONSTRUCTOR,
+            StorePaymentPurposeGiftedPremium.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+    }
+
+    /**
+     * The user subscribed to Telegram Premium.
+     */
+    public static class StorePaymentPurposePremiumSubscription extends StorePaymentPurpose {
+        /**
+         * Pass true if this is a restore of a Telegram Premium purchase; only for App Store.
+         */
+        public boolean isRestore;
+
+        /**
+         * The user subscribed to Telegram Premium.
+         */
+        public StorePaymentPurposePremiumSubscription() {
+        }
+
+        /**
+         * The user subscribed to Telegram Premium.
+         *
+         * @param isRestore Pass true if this is a restore of a Telegram Premium purchase; only for App Store.
+         */
+        public StorePaymentPurposePremiumSubscription(boolean isRestore) {
+            this.isRestore = isRestore;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1497906096;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user gifted Telegram Premium to another user.
+     */
+    public static class StorePaymentPurposeGiftedPremium extends StorePaymentPurpose {
+        /**
+         * Identifier of the user for which Premium was gifted.
+         */
+        public long userId;
+        /**
+         * ISO 4217 currency code of the payment currency.
+         */
+        public String currency;
+        /**
+         * Paid amount, in the smallest units of the currency.
+         */
+        public long amount;
+
+        /**
+         * The user gifted Telegram Premium to another user.
+         */
+        public StorePaymentPurposeGiftedPremium() {
+        }
+
+        /**
+         * The user gifted Telegram Premium to another user.
+         *
+         * @param userId Identifier of the user for which Premium was gifted.
+         * @param currency ISO 4217 currency code of the payment currency.
+         * @param amount Paid amount, in the smallest units of the currency.
+         */
+        public StorePaymentPurposeGiftedPremium(long userId, String currency, long amount) {
+            this.userId = userId;
+            this.currency = currency;
+            this.amount = amount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1916846289;
 
         /**
          * @return this.CONSTRUCTOR
@@ -40154,6 +40730,7 @@ public class TdApi {
             TextEntityTypePreCode.CONSTRUCTOR,
             TextEntityTypeTextUrl.CONSTRUCTOR,
             TextEntityTypeMentionName.CONSTRUCTOR,
+            TextEntityTypeCustomEmoji.CONSTRUCTOR,
             TextEntityTypeMediaTimestamp.CONSTRUCTOR
         })
         public @interface Constructors {}
@@ -40467,12 +41044,12 @@ public class TdApi {
     }
 
     /**
-     * A spoiler text. Not supported in secret chats.
+     * A spoiler text.
      */
     public static class TextEntityTypeSpoiler extends TextEntityType {
 
         /**
-         * A spoiler text. Not supported in secret chats.
+         * A spoiler text.
          */
         public TextEntityTypeSpoiler() {
         }
@@ -40645,6 +41222,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1570974289;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A custom emoji. The text behind a custom emoji must be an emoji. Only premium users can use premium custom emoji.
+     */
+    public static class TextEntityTypeCustomEmoji extends TextEntityType {
+        /**
+         * Unique identifier of the custom emoji.
+         */
+        public long customEmojiId;
+
+        /**
+         * A custom emoji. The text behind a custom emoji must be an emoji. Only premium users can use premium custom emoji.
+         */
+        public TextEntityTypeCustomEmoji() {
+        }
+
+        /**
+         * A custom emoji. The text behind a custom emoji must be an emoji. Only premium users can use premium custom emoji.
+         *
+         * @param customEmojiId Unique identifier of the custom emoji.
+         */
+        public TextEntityTypeCustomEmoji(long customEmojiId) {
+            this.customEmojiId = customEmojiId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1724820677;
 
         /**
          * @return this.CONSTRUCTOR
@@ -44882,9 +45497,9 @@ public class TdApi {
      */
     public static class UpdateInstalledStickerSets extends Update {
         /**
-         * True, if the list of installed mask sticker sets was updated.
+         * Type of the affected stickers.
          */
-        public boolean isMasks;
+        public StickerType stickerType;
         /**
          * The new list of installed ordinary sticker sets.
          */
@@ -44899,18 +45514,18 @@ public class TdApi {
         /**
          * The list of installed sticker sets was updated.
          *
-         * @param isMasks True, if the list of installed mask sticker sets was updated.
+         * @param stickerType Type of the affected stickers.
          * @param stickerSetIds The new list of installed ordinary sticker sets.
          */
-        public UpdateInstalledStickerSets(boolean isMasks, long[] stickerSetIds) {
-            this.isMasks = isMasks;
+        public UpdateInstalledStickerSets(StickerType stickerType, long[] stickerSetIds) {
+            this.stickerType = stickerType;
             this.stickerSetIds = stickerSetIds;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1125575977;
+        public static final int CONSTRUCTOR = -1735084182;
 
         /**
          * @return this.CONSTRUCTOR
@@ -44926,6 +45541,10 @@ public class TdApi {
      */
     public static class UpdateTrendingStickerSets extends Update {
         /**
+         * Type of the affected stickers.
+         */
+        public StickerType stickerType;
+        /**
          * The prefix of the list of trending sticker sets with the newest trending sticker sets.
          */
         public TrendingStickerSets stickerSets;
@@ -44939,16 +45558,18 @@ public class TdApi {
         /**
          * The list of trending sticker sets was updated or some of them were viewed.
          *
+         * @param stickerType Type of the affected stickers.
          * @param stickerSets The prefix of the list of trending sticker sets with the newest trending sticker sets.
          */
-        public UpdateTrendingStickerSets(TrendingStickerSets stickerSets) {
+        public UpdateTrendingStickerSets(StickerType stickerType, TrendingStickerSets stickerSets) {
+            this.stickerType = stickerType;
             this.stickerSets = stickerSets;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 506689868;
+        public static final int CONSTRUCTOR = 1266307239;
 
         /**
          * @return this.CONSTRUCTOR
@@ -46556,6 +47177,10 @@ public class TdApi {
          */
         public boolean hasPrivateForwards;
         /**
+         * True, if voice and video notes can't be sent or forwarded to the user.
+         */
+        public boolean hasRestrictedVoiceAndVideoNoteMessages;
+        /**
          * True, if the current user needs to explicitly allow to share their phone number with the user when the method addContact is used.
          */
         public boolean needPhoneNumberPrivacyException;
@@ -46563,6 +47188,10 @@ public class TdApi {
          * A short user bio; may be null for bots.
          */
         @Nullable public FormattedText bio;
+        /**
+         * The list of available options for gifting Telegram Premium to the user.
+         */
+        public PremiumGiftOption[] premiumGiftOptions;
         /**
          * Number of group chats where both the other user and the current user are a member; 0 for the current user.
          */
@@ -46587,20 +47216,24 @@ public class TdApi {
          * @param supportsVideoCalls True, if a video call can be created with the user.
          * @param hasPrivateCalls True, if the user can't be called due to their privacy settings.
          * @param hasPrivateForwards True, if the user can't be linked in forwarded messages due to their privacy settings.
+         * @param hasRestrictedVoiceAndVideoNoteMessages True, if voice and video notes can't be sent or forwarded to the user.
          * @param needPhoneNumberPrivacyException True, if the current user needs to explicitly allow to share their phone number with the user when the method addContact is used.
          * @param bio A short user bio; may be null for bots.
+         * @param premiumGiftOptions The list of available options for gifting Telegram Premium to the user.
          * @param groupInCommonCount Number of group chats where both the other user and the current user are a member; 0 for the current user.
          * @param botInfo For bots, information about the bot; may be null.
          */
-        public UserFullInfo(ChatPhoto photo, boolean isBlocked, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean hasPrivateForwards, boolean needPhoneNumberPrivacyException, FormattedText bio, int groupInCommonCount, BotInfo botInfo) {
+        public UserFullInfo(ChatPhoto photo, boolean isBlocked, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean hasPrivateForwards, boolean hasRestrictedVoiceAndVideoNoteMessages, boolean needPhoneNumberPrivacyException, FormattedText bio, PremiumGiftOption[] premiumGiftOptions, int groupInCommonCount, BotInfo botInfo) {
             this.photo = photo;
             this.isBlocked = isBlocked;
             this.canBeCalled = canBeCalled;
             this.supportsVideoCalls = supportsVideoCalls;
             this.hasPrivateCalls = hasPrivateCalls;
             this.hasPrivateForwards = hasPrivateForwards;
+            this.hasRestrictedVoiceAndVideoNoteMessages = hasRestrictedVoiceAndVideoNoteMessages;
             this.needPhoneNumberPrivacyException = needPhoneNumberPrivacyException;
             this.bio = bio;
+            this.premiumGiftOptions = premiumGiftOptions;
             this.groupInCommonCount = groupInCommonCount;
             this.botInfo = botInfo;
         }
@@ -46608,7 +47241,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -675219095;
+        public static final int CONSTRUCTOR = -589103907;
 
         /**
          * @return this.CONSTRUCTOR
@@ -46633,7 +47266,8 @@ public class TdApi {
             UserPrivacySettingAllowChatInvites.CONSTRUCTOR,
             UserPrivacySettingAllowCalls.CONSTRUCTOR,
             UserPrivacySettingAllowPeerToPeerCalls.CONSTRUCTOR,
-            UserPrivacySettingAllowFindingByPhoneNumber.CONSTRUCTOR
+            UserPrivacySettingAllowFindingByPhoneNumber.CONSTRUCTOR,
+            UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -46835,6 +47469,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1846645423;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A privacy setting for managing whether the user can receive voice and video messages in private chats.
+     */
+    public static class UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages extends UserPrivacySetting {
+
+        /**
+         * A privacy setting for managing whether the user can receive voice and video messages in private chats.
+         */
+        public UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 338112060;
 
         /**
          * @return this.CONSTRUCTOR
@@ -48011,13 +48670,9 @@ public class TdApi {
          */
         public String mimeType;
         /**
-         * True, if speech recognition is completed; Premium users only.
+         * Result of speech recognition in the voice note; may be null.
          */
-        public boolean isRecognized;
-        /**
-         * Recognized text of the voice note; Premium users only. Call recognizeSpeech to get recognized text of the voice note.
-         */
-        public String recognizedText;
+        @Nullable public SpeechRecognitionResult speechRecognitionResult;
         /**
          * File containing the voice note.
          */
@@ -48035,23 +48690,21 @@ public class TdApi {
          * @param duration Duration of the voice note, in seconds; as defined by the sender.
          * @param waveform A waveform representation of the voice note in 5-bit format.
          * @param mimeType MIME type of the file; as defined by the sender.
-         * @param isRecognized True, if speech recognition is completed; Premium users only.
-         * @param recognizedText Recognized text of the voice note; Premium users only. Call recognizeSpeech to get recognized text of the voice note.
+         * @param speechRecognitionResult Result of speech recognition in the voice note; may be null.
          * @param voice File containing the voice note.
          */
-        public VoiceNote(int duration, byte[] waveform, String mimeType, boolean isRecognized, String recognizedText, File voice) {
+        public VoiceNote(int duration, byte[] waveform, String mimeType, SpeechRecognitionResult speechRecognitionResult, File voice) {
             this.duration = duration;
             this.waveform = waveform;
             this.mimeType = mimeType;
-            this.isRecognized = isRecognized;
-            this.recognizedText = recognizedText;
+            this.speechRecognitionResult = speechRecognitionResult;
             this.voice = voice;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 20629272;
+        public static final int CONSTRUCTOR = -1175302923;
 
         /**
          * @return this.CONSTRUCTOR
@@ -48677,7 +49330,7 @@ public class TdApi {
     }
 
     /**
-     * Adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list.
+     * Adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to favorite stickers.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -48688,7 +49341,7 @@ public class TdApi {
         public InputFile sticker;
 
         /**
-         * Default constructor for a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list.
+         * Default constructor for a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to favorite stickers.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -48696,7 +49349,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list.
+         * Creates a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to favorite stickers.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -49007,7 +49660,7 @@ public class TdApi {
     }
 
     /**
-     * Manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list.
+     * Manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to recent stickers.
      *
      * <p> Returns {@link Stickers Stickers} </p>
      */
@@ -49022,7 +49675,7 @@ public class TdApi {
         public InputFile sticker;
 
         /**
-         * Default constructor for a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list.
+         * Default constructor for a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to recent stickers.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          */
@@ -49030,7 +49683,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list.
+         * Creates a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to recent stickers.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          *
@@ -49599,7 +50252,7 @@ public class TdApi {
     }
 
     /**
-     * Informs server about a Telegram Premium purchase through App Store. For official applications only.
+     * Informs server about a purchase through App Store. For official applications only.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -49609,12 +50262,12 @@ public class TdApi {
          */
         public byte[] receipt;
         /**
-         * Pass true if this is a restore of a Telegram Premium purchase.
+         * Transaction purpose.
          */
-        public boolean isRestore;
+        public StorePaymentPurpose purpose;
 
         /**
-         * Default constructor for a function, which informs server about a Telegram Premium purchase through App Store. For official applications only.
+         * Default constructor for a function, which informs server about a purchase through App Store. For official applications only.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -49622,22 +50275,22 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which informs server about a Telegram Premium purchase through App Store. For official applications only.
+         * Creates a function, which informs server about a purchase through App Store. For official applications only.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param receipt App Store receipt.
-         * @param isRestore Pass true if this is a restore of a Telegram Premium purchase.
+         * @param purpose Transaction purpose.
          */
-        public AssignAppStoreTransaction(byte[] receipt, boolean isRestore) {
+        public AssignAppStoreTransaction(byte[] receipt, StorePaymentPurpose purpose) {
             this.receipt = receipt;
-            this.isRestore = isRestore;
+            this.purpose = purpose;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1460996225;
+        public static final int CONSTRUCTOR = -2030892112;
 
         /**
          * @return this.CONSTRUCTOR
@@ -49649,18 +50302,30 @@ public class TdApi {
     }
 
     /**
-     * Informs server about a Telegram Premium purchase through Google Play. For official applications only.
+     * Informs server about a purchase through Google Play. For official applications only.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class AssignGooglePlayTransaction extends Function<Ok> {
         /**
+         * Application package name.
+         */
+        public String packageName;
+        /**
+         * Identifier of the purchased store product.
+         */
+        public String storeProductId;
+        /**
          * Google Play purchase token.
          */
         public String purchaseToken;
+        /**
+         * Transaction purpose.
+         */
+        public StorePaymentPurpose purpose;
 
         /**
-         * Default constructor for a function, which informs server about a Telegram Premium purchase through Google Play. For official applications only.
+         * Default constructor for a function, which informs server about a purchase through Google Play. For official applications only.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -49668,20 +50333,26 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which informs server about a Telegram Premium purchase through Google Play. For official applications only.
+         * Creates a function, which informs server about a purchase through Google Play. For official applications only.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
+         * @param packageName Application package name.
+         * @param storeProductId Identifier of the purchased store product.
          * @param purchaseToken Google Play purchase token.
+         * @param purpose Transaction purpose.
          */
-        public AssignGooglePlayTransaction(String purchaseToken) {
+        public AssignGooglePlayTransaction(String packageName, String storeProductId, String purchaseToken, StorePaymentPurpose purpose) {
+            this.packageName = packageName;
+            this.storeProductId = storeProductId;
             this.purchaseToken = purchaseToken;
+            this.purpose = purpose;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1375483965;
+        public static final int CONSTRUCTOR = -1992704860;
 
         /**
          * @return this.CONSTRUCTOR
@@ -49822,6 +50493,10 @@ public class TdApi {
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class CanPurchasePremium extends Function<Ok> {
+        /**
+         * Transaction purpose.
+         */
+        public StorePaymentPurpose purpose;
 
         /**
          * Default constructor for a function, which checks whether Telegram Premium purchase is possible. Must be called before in-store Premium purchase.
@@ -49832,9 +50507,20 @@ public class TdApi {
         }
 
         /**
+         * Creates a function, which checks whether Telegram Premium purchase is possible. Must be called before in-store Premium purchase.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param purpose Transaction purpose.
+         */
+        public CanPurchasePremium(StorePaymentPurpose purpose) {
+            this.purpose = purpose;
+        }
+
+        /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1049427073;
+        public static final int CONSTRUCTOR = -371319616;
 
         /**
          * @return this.CONSTRUCTOR
@@ -49954,39 +50640,39 @@ public class TdApi {
     }
 
     /**
-     * Stops the uploading of a file. Supported only for files uploaded by using uploadFile. For other files the behavior is undefined.
+     * Stops the preliminary uploading of a file. Supported only for files uploaded by using preliminaryUploadFile. For other files the behavior is undefined.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
-    public static class CancelUploadFile extends Function<Ok> {
+    public static class CancelPreliminaryUploadFile extends Function<Ok> {
         /**
          * Identifier of the file to stop uploading.
          */
         public int fileId;
 
         /**
-         * Default constructor for a function, which stops the uploading of a file. Supported only for files uploaded by using uploadFile. For other files the behavior is undefined.
+         * Default constructor for a function, which stops the preliminary uploading of a file. Supported only for files uploaded by using preliminaryUploadFile. For other files the behavior is undefined.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
-        public CancelUploadFile() {
+        public CancelPreliminaryUploadFile() {
         }
 
         /**
-         * Creates a function, which stops the uploading of a file. Supported only for files uploaded by using uploadFile. For other files the behavior is undefined.
+         * Creates a function, which stops the preliminary uploading of a file. Supported only for files uploaded by using preliminaryUploadFile. For other files the behavior is undefined.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param fileId Identifier of the file to stop uploading.
          */
-        public CancelUploadFile(int fileId) {
+        public CancelPreliminaryUploadFile(int fileId) {
             this.fileId = fileId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1623539600;
+        public static final int CONSTRUCTOR = 823412414;
 
         /**
          * @return this.CONSTRUCTOR
@@ -50236,18 +50922,18 @@ public class TdApi {
     }
 
     /**
-     * Checks the authentication password for correctness. Works only when the current authorization state is authorizationStateWaitPassword.
+     * Checks the 2-step verification password for correctness. Works only when the current authorization state is authorizationStateWaitPassword.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class CheckAuthenticationPassword extends Function<Ok> {
         /**
-         * The password to check.
+         * The 2-step verification password to check.
          */
         public String password;
 
         /**
-         * Default constructor for a function, which checks the authentication password for correctness. Works only when the current authorization state is authorizationStateWaitPassword.
+         * Default constructor for a function, which checks the 2-step verification password for correctness. Works only when the current authorization state is authorizationStateWaitPassword.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -50255,11 +50941,11 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which checks the authentication password for correctness. Works only when the current authorization state is authorizationStateWaitPassword.
+         * Creates a function, which checks the 2-step verification password for correctness. Works only when the current authorization state is authorizationStateWaitPassword.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param password The password to check.
+         * @param password The 2-step verification password to check.
          */
         public CheckAuthenticationPassword(String password) {
             this.password = password;
@@ -50280,7 +50966,7 @@ public class TdApi {
     }
 
     /**
-     * Checks whether a password recovery code sent to an email address is valid. Works only when the current authorization state is authorizationStateWaitPassword.
+     * Checks whether a 2-step verification password recovery code sent to an email address is valid. Works only when the current authorization state is authorizationStateWaitPassword.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -50291,7 +50977,7 @@ public class TdApi {
         public String recoveryCode;
 
         /**
-         * Default constructor for a function, which checks whether a password recovery code sent to an email address is valid. Works only when the current authorization state is authorizationStateWaitPassword.
+         * Default constructor for a function, which checks whether a 2-step verification password recovery code sent to an email address is valid. Works only when the current authorization state is authorizationStateWaitPassword.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -50299,7 +50985,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which checks whether a password recovery code sent to an email address is valid. Works only when the current authorization state is authorizationStateWaitPassword.
+         * Creates a function, which checks whether a 2-step verification password recovery code sent to an email address is valid. Works only when the current authorization state is authorizationStateWaitPassword.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -51662,6 +52348,10 @@ public class TdApi {
          */
         public String name;
         /**
+         * Type of the stickers in the set.
+         */
+        public StickerType stickerType;
+        /**
          * List of stickers to be added to the set; must be non-empty. All stickers must have the same format. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
          */
         public InputSticker[] stickers;
@@ -51686,13 +52376,15 @@ public class TdApi {
          * @param userId Sticker set owner; ignored for regular users.
          * @param title Sticker set title; 1-64 characters.
          * @param name Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive) for bots; 1-64 characters.
+         * @param stickerType Type of the stickers in the set.
          * @param stickers List of stickers to be added to the set; must be non-empty. All stickers must have the same format. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
          * @param source Source of the sticker set; may be empty if unknown.
          */
-        public CreateNewStickerSet(long userId, String title, String name, InputSticker[] stickers, String source) {
+        public CreateNewStickerSet(long userId, String title, String name, StickerType stickerType, InputSticker[] stickers, String source) {
             this.userId = userId;
             this.title = title;
             this.name = name;
+            this.stickerType = stickerType;
             this.stickers = stickers;
             this.source = source;
         }
@@ -51700,7 +52392,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1682292738;
+        public static final int CONSTRUCTOR = 1424129402;
 
         /**
          * @return this.CONSTRUCTOR
@@ -51930,7 +52622,7 @@ public class TdApi {
      */
     public static class CreateTemporaryPassword extends Function<TemporaryPasswordState> {
         /**
-         * Persistent user password.
+         * The 2-step verification password of the current user.
          */
         public String password;
         /**
@@ -51951,7 +52643,7 @@ public class TdApi {
          *
          * <p> Returns {@link TemporaryPasswordState TemporaryPasswordState} </p>
          *
-         * @param password Persistent user password.
+         * @param password The 2-step verification password of the current user.
          * @param validFor Time during which the temporary password will be valid, in seconds; must be between 60 and 86400.
          */
         public CreateTemporaryPassword(String password, int validFor) {
@@ -52045,6 +52737,10 @@ public class TdApi {
          * The reason why the account was deleted; optional.
          */
         public String reason;
+        /**
+         * The 2-step verification password of the current user. If not specified, account deletion can be canceled within one week.
+         */
+        public String password;
 
         /**
          * Default constructor for a function, which deletes the account of the current user, deleting all information associated with the user from the server. The phone number of the account can be used to create a new account. Can be called before authorization when the current authorization state is authorizationStateWaitPassword.
@@ -52060,15 +52756,17 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param reason The reason why the account was deleted; optional.
+         * @param password The 2-step verification password of the current user. If not specified, account deletion can be canceled within one week.
          */
-        public DeleteAccount(String reason) {
+        public DeleteAccount(String reason, String password) {
             this.reason = reason;
+            this.password = password;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1203056508;
+        public static final int CONSTRUCTOR = 1395816134;
 
         /**
          * @return this.CONSTRUCTOR
@@ -54424,42 +55122,13 @@ public class TdApi {
     }
 
     /**
-     * Returns all emojis, which has a corresponding animated emoji.
-     *
-     * <p> Returns {@link Emojis Emojis} </p>
-     */
-    public static class GetAllAnimatedEmojis extends Function<Emojis> {
-
-        /**
-         * Default constructor for a function, which returns all emojis, which has a corresponding animated emoji.
-         *
-         * <p> Returns {@link Emojis Emojis} </p>
-         */
-        public GetAllAnimatedEmojis() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -771098704;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Returns all available Telegram Passport elements.
      *
      * <p> Returns {@link PassportElements PassportElements} </p>
      */
     public static class GetAllPassportElements extends Function<PassportElements> {
         /**
-         * Password of the current user.
+         * The 2-step verification password of the current user.
          */
         public String password;
 
@@ -54476,7 +55145,7 @@ public class TdApi {
          *
          * <p> Returns {@link PassportElements PassportElements} </p>
          *
-         * @param password Password of the current user.
+         * @param password The 2-step verification password of the current user.
          */
         public GetAllPassportElements(String password) {
             this.password = password;
@@ -54605,9 +55274,9 @@ public class TdApi {
      */
     public static class GetArchivedStickerSets extends Function<StickerSets> {
         /**
-         * Pass true to return mask stickers sets; pass false to return ordinary sticker sets.
+         * Type of the sticker sets to return.
          */
-        public boolean isMasks;
+        public StickerType stickerType;
         /**
          * Identifier of the sticker set from which to return the result.
          */
@@ -54630,12 +55299,12 @@ public class TdApi {
          *
          * <p> Returns {@link StickerSets StickerSets} </p>
          *
-         * @param isMasks Pass true to return mask stickers sets; pass false to return ordinary sticker sets.
+         * @param stickerType Type of the sticker sets to return.
          * @param offsetStickerSetId Identifier of the sticker set from which to return the result.
          * @param limit The maximum number of sticker sets to return; up to 100.
          */
-        public GetArchivedStickerSets(boolean isMasks, long offsetStickerSetId, int limit) {
-            this.isMasks = isMasks;
+        public GetArchivedStickerSets(StickerType stickerType, long offsetStickerSetId, int limit) {
+            this.stickerType = stickerType;
             this.offsetStickerSetId = offsetStickerSetId;
             this.limit = limit;
         }
@@ -54643,7 +55312,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1996943238;
+        public static final int CONSTRUCTOR = 1001931341;
 
         /**
          * @return this.CONSTRUCTOR
@@ -55321,7 +55990,7 @@ public class TdApi {
     }
 
     /**
-     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i. e., in order of decreasing eventId).
+     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
      *
      * <p> Returns {@link ChatEvents ChatEvents} </p>
      */
@@ -55352,7 +56021,7 @@ public class TdApi {
         public long[] userIds;
 
         /**
-         * Default constructor for a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i. e., in order of decreasing eventId).
+         * Default constructor for a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
          *
          * <p> Returns {@link ChatEvents ChatEvents} </p>
          */
@@ -55360,7 +56029,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i. e., in order of decreasing eventId).
+         * Creates a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
          *
          * <p> Returns {@link ChatEvents ChatEvents} </p>
          *
@@ -56688,6 +57357,50 @@ public class TdApi {
     }
 
     /**
+     * Returns list of custom emoji stickers by their identifiers. Stickers are returned in arbitrary order. Only found stickers are returned.
+     *
+     * <p> Returns {@link Stickers Stickers} </p>
+     */
+    public static class GetCustomEmojiStickers extends Function<Stickers> {
+        /**
+         * Identifiers of custom emoji stickers. At most 200 custom emoji stickers can be received simultaneously.
+         */
+        public long[] customEmojiIds;
+
+        /**
+         * Default constructor for a function, which returns list of custom emoji stickers by their identifiers. Stickers are returned in arbitrary order. Only found stickers are returned.
+         *
+         * <p> Returns {@link Stickers Stickers} </p>
+         */
+        public GetCustomEmojiStickers() {
+        }
+
+        /**
+         * Creates a function, which returns list of custom emoji stickers by their identifiers. Stickers are returned in arbitrary order. Only found stickers are returned.
+         *
+         * <p> Returns {@link Stickers Stickers} </p>
+         *
+         * @param customEmojiIds Identifiers of custom emoji stickers. At most 200 custom emoji stickers can be received simultaneously.
+         */
+        public GetCustomEmojiStickers(long[] customEmojiIds) {
+            this.customEmojiIds = customEmojiIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2127427955;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns database statistics.
      *
      * <p> Returns {@link DatabaseStatistics DatabaseStatistics} </p>
@@ -57610,9 +58323,9 @@ public class TdApi {
      */
     public static class GetInstalledStickerSets extends Function<StickerSets> {
         /**
-         * Pass true to return mask sticker sets; pass false to return ordinary sticker sets.
+         * Type of the sticker sets to return.
          */
-        public boolean isMasks;
+        public StickerType stickerType;
 
         /**
          * Default constructor for a function, which returns a list of installed sticker sets.
@@ -57627,16 +58340,16 @@ public class TdApi {
          *
          * <p> Returns {@link StickerSets StickerSets} </p>
          *
-         * @param isMasks Pass true to return mask sticker sets; pass false to return ordinary sticker sets.
+         * @param stickerType Type of the sticker sets to return.
          */
-        public GetInstalledStickerSets(boolean isMasks) {
-            this.isMasks = isMasks;
+        public GetInstalledStickerSets(StickerType stickerType) {
+            this.stickerType = stickerType;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1214523749;
+        public static final int CONSTRUCTOR = 1630467830;
 
         /**
          * @return this.CONSTRUCTOR
@@ -58538,7 +59251,7 @@ public class TdApi {
     }
 
     /**
-     * Returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message. The method will return Premium reactions, even the current user has no Premium subscription.
+     * Returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message.
      *
      * <p> Returns {@link AvailableReactions AvailableReactions} </p>
      */
@@ -58553,7 +59266,7 @@ public class TdApi {
         public long messageId;
 
         /**
-         * Default constructor for a function, which returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message. The method will return Premium reactions, even the current user has no Premium subscription.
+         * Default constructor for a function, which returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message.
          *
          * <p> Returns {@link AvailableReactions AvailableReactions} </p>
          */
@@ -58561,7 +59274,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message. The method will return Premium reactions, even the current user has no Premium subscription.
+         * Creates a function, which returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message.
          *
          * <p> Returns {@link AvailableReactions AvailableReactions} </p>
          *
@@ -59390,7 +60103,7 @@ public class TdApi {
          */
         public int autorizationFormId;
         /**
-         * Password of the current user.
+         * The 2-step verification password of the current user.
          */
         public String password;
 
@@ -59408,7 +60121,7 @@ public class TdApi {
          * <p> Returns {@link PassportElementsWithErrors PassportElementsWithErrors} </p>
          *
          * @param autorizationFormId Authorization form identifier.
-         * @param password Password of the current user.
+         * @param password The 2-step verification password of the current user.
          */
         public GetPassportAuthorizationFormAvailableElements(int autorizationFormId, String password) {
             this.autorizationFormId = autorizationFormId;
@@ -59440,7 +60153,7 @@ public class TdApi {
          */
         public PassportElementType type;
         /**
-         * Password of the current user.
+         * The 2-step verification password of the current user.
          */
         public String password;
 
@@ -59458,7 +60171,7 @@ public class TdApi {
          * <p> Returns {@link PassportElement PassportElement} </p>
          *
          * @param type Telegram Passport element type.
-         * @param password Password of the current user.
+         * @param password The 2-step verification password of the current user.
          */
         public GetPassportElement(PassportElementType type, String password) {
             this.type = type;
@@ -59936,10 +60649,43 @@ public class TdApi {
      *
      * <p> Returns {@link Stickers Stickers} </p>
      */
-    public static class GetPremiumStickers extends Function<Stickers> {
+    public static class GetPremiumStickerExamples extends Function<Stickers> {
 
         /**
          * Default constructor for a function, which returns examples of premium stickers for demonstration purposes.
+         *
+         * <p> Returns {@link Stickers Stickers} </p>
+         */
+        public GetPremiumStickerExamples() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1399442328;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns premium stickers from regular sticker sets.
+     *
+     * <p> Returns {@link Stickers Stickers} </p>
+     */
+    public static class GetPremiumStickers extends Function<Stickers> {
+        /**
+         * The maximum number of stickers to be returned; 0-100.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns premium stickers from regular sticker sets.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          */
@@ -59947,9 +60693,20 @@ public class TdApi {
         }
 
         /**
+         * Creates a function, which returns premium stickers from regular sticker sets.
+         *
+         * <p> Returns {@link Stickers Stickers} </p>
+         *
+         * @param limit The maximum number of stickers to be returned; 0-100.
+         */
+        public GetPremiumStickers(int limit) {
+            this.limit = limit;
+        }
+
+        /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 144882082;
+        public static final int CONSTRUCTOR = -280950192;
 
         /**
          * @return this.CONSTRUCTOR
@@ -60274,7 +61031,7 @@ public class TdApi {
      */
     public static class GetRecoveryEmailAddress extends Function<RecoveryEmailAddress> {
         /**
-         * The password for the current user.
+         * The 2-step verification password for the current user.
          */
         public String password;
 
@@ -60291,7 +61048,7 @@ public class TdApi {
          *
          * <p> Returns {@link RecoveryEmailAddress RecoveryEmailAddress} </p>
          *
-         * @param password The password for the current user.
+         * @param password The 2-step verification password for the current user.
          */
         public GetRecoveryEmailAddress(String password) {
             this.password = password;
@@ -60775,11 +61532,15 @@ public class TdApi {
     }
 
     /**
-     * Returns stickers from the installed sticker sets that correspond to a given emoji. If the emoji is non-empty, favorite and recently used stickers may also be returned.
+     * Returns stickers from the installed sticker sets that correspond to a given emoji. If the emoji is non-empty, then favorite, recently used or trending stickers may also be returned.
      *
      * <p> Returns {@link Stickers Stickers} </p>
      */
     public static class GetStickers extends Function<Stickers> {
+        /**
+         * Type of the sticker sets to return.
+         */
+        public StickerType stickerType;
         /**
          * String representation of emoji. If empty, returns all known installed stickers.
          */
@@ -60788,9 +61549,13 @@ public class TdApi {
          * The maximum number of stickers to be returned.
          */
         public int limit;
+        /**
+         * Chat identifier for which to return stickers. Available custom emoji may be different for different chats.
+         */
+        public long chatId;
 
         /**
-         * Default constructor for a function, which returns stickers from the installed sticker sets that correspond to a given emoji. If the emoji is non-empty, favorite and recently used stickers may also be returned.
+         * Default constructor for a function, which returns stickers from the installed sticker sets that correspond to a given emoji. If the emoji is non-empty, then favorite, recently used or trending stickers may also be returned.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          */
@@ -60798,22 +61563,26 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns stickers from the installed sticker sets that correspond to a given emoji. If the emoji is non-empty, favorite and recently used stickers may also be returned.
+         * Creates a function, which returns stickers from the installed sticker sets that correspond to a given emoji. If the emoji is non-empty, then favorite, recently used or trending stickers may also be returned.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          *
+         * @param stickerType Type of the sticker sets to return.
          * @param emoji String representation of emoji. If empty, returns all known installed stickers.
          * @param limit The maximum number of stickers to be returned.
+         * @param chatId Chat identifier for which to return stickers. Available custom emoji may be different for different chats.
          */
-        public GetStickers(String emoji, int limit) {
+        public GetStickers(StickerType stickerType, String emoji, int limit, long chatId) {
+            this.stickerType = stickerType;
             this.emoji = emoji;
             this.limit = limit;
+            this.chatId = chatId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1594919556;
+        public static final int CONSTRUCTOR = 430950994;
 
         /**
          * @return this.CONSTRUCTOR
@@ -61373,6 +62142,10 @@ public class TdApi {
      */
     public static class GetTrendingStickerSets extends Function<TrendingStickerSets> {
         /**
+         * Type of the sticker sets to return.
+         */
+        public StickerType stickerType;
+        /**
          * The offset from which to return the sticker sets; must be non-negative.
          */
         public int offset;
@@ -61394,10 +62167,12 @@ public class TdApi {
          *
          * <p> Returns {@link TrendingStickerSets TrendingStickerSets} </p>
          *
+         * @param stickerType Type of the sticker sets to return.
          * @param offset The offset from which to return the sticker sets; must be non-negative.
          * @param limit The maximum number of sticker sets to be returned; up to 100. For optimal performance, the number of returned sticker sets is chosen by TDLib and can be smaller than the specified limit, even if the end of the list has not been reached.
          */
-        public GetTrendingStickerSets(int offset, int limit) {
+        public GetTrendingStickerSets(StickerType stickerType, int offset, int limit) {
+            this.stickerType = stickerType;
             this.offset = offset;
             this.limit = limit;
         }
@@ -61405,7 +62180,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1916355369;
+        public static final int CONSTRUCTOR = -531085986;
 
         /**
          * @return this.CONSTRUCTOR
@@ -62720,7 +63495,7 @@ public class TdApi {
     }
 
     /**
-     * Parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+     * Parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
      *
      * <p> Returns {@link FormattedText FormattedText} </p>
      */
@@ -62735,7 +63510,7 @@ public class TdApi {
         public TextParseMode parseMode;
 
         /**
-         * Default constructor for a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+         * Default constructor for a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
          *
          * <p> Returns {@link FormattedText FormattedText} </p>
          */
@@ -62743,7 +63518,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+         * Creates a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
          *
          * <p> Returns {@link FormattedText FormattedText} </p>
          *
@@ -62865,6 +63640,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -979681103;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
+     *
+     * <p> Returns {@link File File} </p>
+     */
+    public static class PreliminaryUploadFile extends Function<File> {
+        /**
+         * File to upload.
+         */
+        public InputFile file;
+        /**
+         * File type; pass null if unknown.
+         */
+        public FileType fileType;
+        /**
+         * Priority of the upload (1-32). The higher the priority, the earlier the file will be uploaded. If the priorities of two files are equal, then the first one for which preliminaryUploadFile was called will be uploaded first.
+         */
+        public int priority;
+
+        /**
+         * Default constructor for a function, which preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
+         *
+         * <p> Returns {@link File File} </p>
+         */
+        public PreliminaryUploadFile() {
+        }
+
+        /**
+         * Creates a function, which preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
+         *
+         * <p> Returns {@link File File} </p>
+         *
+         * @param file File to upload.
+         * @param fileType File type; pass null if unknown.
+         * @param priority Priority of the upload (1-32). The higher the priority, the earlier the file will be uploaded. If the priorities of two files are equal, then the first one for which preliminaryUploadFile was called will be uploaded first.
+         */
+        public PreliminaryUploadFile(InputFile file, FileType fileType, int priority) {
+            this.file = file;
+            this.fileType = fileType;
+            this.priority = priority;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1894239129;
 
         /**
          * @return this.CONSTRUCTOR
@@ -63282,7 +64113,7 @@ public class TdApi {
     }
 
     /**
-     * Recovers the password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
+     * Recovers the 2-step verification password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -63292,7 +64123,7 @@ public class TdApi {
          */
         public String recoveryCode;
         /**
-         * New password of the user; may be empty to remove the password.
+         * New 2-step verification password of the user; may be empty to remove the password.
          */
         public String newPassword;
         /**
@@ -63301,7 +64132,7 @@ public class TdApi {
         public String newHint;
 
         /**
-         * Default constructor for a function, which recovers the password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
+         * Default constructor for a function, which recovers the 2-step verification password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -63309,12 +64140,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which recovers the password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
+         * Creates a function, which recovers the 2-step verification password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param recoveryCode Recovery code to check.
-         * @param newPassword New password of the user; may be empty to remove the password.
+         * @param newPassword New 2-step verification password of the user; may be empty to remove the password.
          * @param newHint New password hint; may be empty.
          */
         public RecoverAuthenticationPassword(String recoveryCode, String newPassword, String newHint) {
@@ -63348,7 +64179,7 @@ public class TdApi {
          */
         public String recoveryCode;
         /**
-         * New password of the user; may be empty to remove the password.
+         * New 2-step verification password of the user; may be empty to remove the password.
          */
         public String newPassword;
         /**
@@ -63370,7 +64201,7 @@ public class TdApi {
          * <p> Returns {@link PasswordState PasswordState} </p>
          *
          * @param recoveryCode Recovery code to check.
-         * @param newPassword New password of the user; may be empty to remove the password.
+         * @param newPassword New 2-step verification password of the user; may be empty to remove the password.
          * @param newHint New password hint; may be empty.
          */
         public RecoverPassword(String recoveryCode, String newPassword, String newHint) {
@@ -64296,9 +65127,9 @@ public class TdApi {
      */
     public static class ReorderInstalledStickerSets extends Function<Ok> {
         /**
-         * Pass true to change the order of mask sticker sets; pass false to change the order of ordinary sticker sets.
+         * Type of the sticker sets to reorder.
          */
-        public boolean isMasks;
+        public StickerType stickerType;
         /**
          * Identifiers of installed sticker sets in the new correct order.
          */
@@ -64317,18 +65148,18 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param isMasks Pass true to change the order of mask sticker sets; pass false to change the order of ordinary sticker sets.
+         * @param stickerType Type of the sticker sets to reorder.
          * @param stickerSetIds Identifiers of installed sticker sets in the new correct order.
          */
-        public ReorderInstalledStickerSets(boolean isMasks, long[] stickerSetIds) {
-            this.isMasks = isMasks;
+        public ReorderInstalledStickerSets(StickerType stickerType, long[] stickerSetIds) {
+            this.stickerType = stickerType;
             this.stickerSetIds = stickerSetIds;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1114537563;
+        public static final int CONSTRUCTOR = 1074928158;
 
         /**
          * @return this.CONSTRUCTOR
@@ -64602,14 +65433,14 @@ public class TdApi {
     }
 
     /**
-     * Requests to send a password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
+     * Requests to send a 2-step verification password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class RequestAuthenticationPasswordRecovery extends Function<Ok> {
 
         /**
-         * Default constructor for a function, which requests to send a password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
+         * Default constructor for a function, which requests to send a 2-step verification password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -65238,7 +66069,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+     * Searches for call messages. Returns the results in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -65257,7 +66088,7 @@ public class TdApi {
         public boolean onlyMissed;
 
         /**
-         * Default constructor for a function, which searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+         * Default constructor for a function, which searches for call messages. Returns the results in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -65265,7 +66096,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+         * Creates a function, which searches for call messages. Returns the results in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -65866,9 +66697,9 @@ public class TdApi {
      */
     public static class SearchInstalledStickerSets extends Function<StickerSets> {
         /**
-         * Pass true to return mask sticker sets; pass false to return ordinary sticker sets.
+         * Type of the sticker sets to search for.
          */
-        public boolean isMasks;
+        public StickerType stickerType;
         /**
          * Query to search for.
          */
@@ -65891,12 +66722,12 @@ public class TdApi {
          *
          * <p> Returns {@link StickerSets StickerSets} </p>
          *
-         * @param isMasks Pass true to return mask sticker sets; pass false to return ordinary sticker sets.
+         * @param stickerType Type of the sticker sets to search for.
          * @param query Query to search for.
          * @param limit The maximum number of sticker sets to return.
          */
-        public SearchInstalledStickerSets(boolean isMasks, String query, int limit) {
-            this.isMasks = isMasks;
+        public SearchInstalledStickerSets(StickerType stickerType, String query, int limit) {
+            this.stickerType = stickerType;
             this.query = query;
             this.limit = limit;
         }
@@ -65904,7 +66735,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 681171344;
+        public static final int CONSTRUCTOR = 2120122276;
 
         /**
          * @return this.CONSTRUCTOR
@@ -66312,7 +67143,7 @@ public class TdApi {
          */
         public String emoji;
         /**
-         * The maximum number of stickers to be returned.
+         * The maximum number of stickers to be returned; 0-100.
          */
         public int limit;
 
@@ -66330,7 +67161,7 @@ public class TdApi {
          * <p> Returns {@link Stickers Stickers} </p>
          *
          * @param emoji String representation of emoji; must be non-empty.
-         * @param limit The maximum number of stickers to be returned.
+         * @param limit The maximum number of stickers to be returned; 0-100.
          */
         public SearchStickers(String emoji, int limit) {
             this.emoji = emoji;
@@ -68182,7 +69013,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * New notification settings for the chat. If the chat is muted for more than 1 week, it is considered to be muted forever.
+         * New notification settings for the chat. If the chat is muted for more than 366 days, it is considered to be muted forever.
          */
         public ChatNotificationSettings notificationSettings;
 
@@ -68200,7 +69031,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Chat identifier.
-         * @param notificationSettings New notification settings for the chat. If the chat is muted for more than 1 week, it is considered to be muted forever.
+         * @param notificationSettings New notification settings for the chat. If the chat is muted for more than 366 days, it is considered to be muted forever.
          */
         public SetChatNotificationSettings(long chatId, ChatNotificationSettings notificationSettings) {
             this.chatId = chatId;
@@ -69612,7 +70443,7 @@ public class TdApi {
          */
         public InputPassportElement element;
         /**
-         * Password of the current user.
+         * The 2-step verification password of the current user.
          */
         public String password;
 
@@ -69630,7 +70461,7 @@ public class TdApi {
          * <p> Returns {@link PassportElement PassportElement} </p>
          *
          * @param element Input Telegram Passport element.
-         * @param password Password of the current user.
+         * @param password The 2-step verification password of the current user.
          */
         public SetPassportElement(InputPassportElement element, String password) {
             this.element = element;
@@ -69702,17 +70533,17 @@ public class TdApi {
     }
 
     /**
-     * Changes the password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
+     * Changes the 2-step verification password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
      *
      * <p> Returns {@link PasswordState PasswordState} </p>
      */
     public static class SetPassword extends Function<PasswordState> {
         /**
-         * Previous password of the user.
+         * Previous 2-step verification password of the user.
          */
         public String oldPassword;
         /**
-         * New password of the user; may be empty to remove the password.
+         * New 2-step verification password of the user; may be empty to remove the password.
          */
         public String newPassword;
         /**
@@ -69729,7 +70560,7 @@ public class TdApi {
         public String newRecoveryEmailAddress;
 
         /**
-         * Default constructor for a function, which changes the password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
+         * Default constructor for a function, which changes the 2-step verification password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
          *
          * <p> Returns {@link PasswordState PasswordState} </p>
          */
@@ -69737,12 +70568,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
+         * Creates a function, which changes the 2-step verification password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed.
          *
          * <p> Returns {@link PasswordState PasswordState} </p>
          *
-         * @param oldPassword Previous password of the user.
-         * @param newPassword New password of the user; may be empty to remove the password.
+         * @param oldPassword Previous 2-step verification password of the user.
+         * @param newPassword New 2-step verification password of the user; may be empty to remove the password.
          * @param newHint New password hint; may be empty.
          * @param setRecoveryEmailAddress Pass true to change also the recovery email address.
          * @param newRecoveryEmailAddress New recovery email address; may be empty.
@@ -69926,7 +70757,7 @@ public class TdApi {
      */
     public static class SetRecoveryEmailAddress extends Function<PasswordState> {
         /**
-         * Password of the current user.
+         * The 2-step verification password of the current user.
          */
         public String password;
         /**
@@ -69947,7 +70778,7 @@ public class TdApi {
          *
          * <p> Returns {@link PasswordState PasswordState} </p>
          *
-         * @param password Password of the current user.
+         * @param password The 2-step verification password of the current user.
          * @param newRecoveryEmailAddress New recovery email address.
          */
         public SetRecoveryEmailAddress(String password, String newRecoveryEmailAddress) {
@@ -72449,7 +73280,7 @@ public class TdApi {
          */
         public long userId;
         /**
-         * The password of the current user.
+         * The 2-step verification password of the current user.
          */
         public String password;
 
@@ -72468,7 +73299,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param userId Identifier of the user to which transfer the ownership. The ownership can't be transferred to a bot or to a deleted user.
-         * @param password The password of the current user.
+         * @param password The 2-step verification password of the current user.
          */
         public TransferChatOwnership(long chatId, long userId, String password) {
             this.chatId = chatId;
@@ -72674,62 +73505,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 300488122;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Asynchronously uploads a file to the cloud without sending it in a message. updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
-     *
-     * <p> Returns {@link File File} </p>
-     */
-    public static class UploadFile extends Function<File> {
-        /**
-         * File to upload.
-         */
-        public InputFile file;
-        /**
-         * File type; pass null if unknown.
-         */
-        public FileType fileType;
-        /**
-         * Priority of the upload (1-32). The higher the priority, the earlier the file will be uploaded. If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first.
-         */
-        public int priority;
-
-        /**
-         * Default constructor for a function, which asynchronously uploads a file to the cloud without sending it in a message. updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
-         *
-         * <p> Returns {@link File File} </p>
-         */
-        public UploadFile() {
-        }
-
-        /**
-         * Creates a function, which asynchronously uploads a file to the cloud without sending it in a message. updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
-         *
-         * <p> Returns {@link File File} </p>
-         *
-         * @param file File to upload.
-         * @param fileType File type; pass null if unknown.
-         * @param priority Priority of the upload (1-32). The higher the priority, the earlier the file will be uploaded. If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first.
-         */
-        public UploadFile(InputFile file, FileType fileType, int priority) {
-            this.file = file;
-            this.fileType = fileType;
-            this.priority = priority;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -745597786;
 
         /**
          * @return this.CONSTRUCTOR
