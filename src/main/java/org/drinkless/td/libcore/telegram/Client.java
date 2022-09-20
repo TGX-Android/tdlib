@@ -65,7 +65,7 @@ public final class Client implements Runnable {
      *                         defaultExceptionHandler will be called.
      * @throws NullPointerException if query is null.
      */
-    public void send(TdApi.Function query, ResultHandler resultHandler, ExceptionHandler exceptionHandler) {
+    public void send(TdApi.Function<?> query, ResultHandler resultHandler, ExceptionHandler exceptionHandler) {
         if (query == null) {
             throw new NullPointerException("query is null");
         }
@@ -96,7 +96,7 @@ public final class Client implements Runnable {
      *                      defaultExceptionHandler will be called.
      * @throws NullPointerException if query is null.
      */
-    public void send(TdApi.Function query, ResultHandler resultHandler) {
+    public void send(TdApi.Function<?> query, ResultHandler resultHandler) {
         send(query, resultHandler, null);
     }
 
@@ -107,7 +107,7 @@ public final class Client implements Runnable {
      * @return request result.
      * @throws NullPointerException if query is null.
      */
-    public static TdApi.Object execute(TdApi.Function query) {
+    public static TdApi.Object execute(TdApi.Function<?> query) {
         if (query == null) {
             throw new NullPointerException("query is null");
         }
@@ -158,7 +158,7 @@ public final class Client implements Runnable {
      * @param count   Number of times to repeat the query.
      * @throws NullPointerException if query is null.
      */
-    public void bench(TdApi.Function query, ResultHandler handler, int count) {
+    public void bench(TdApi.Function<?> query, ResultHandler handler, int count) {
         if (query == null) {
             throw new NullPointerException("query is null");
         }
@@ -281,7 +281,7 @@ public final class Client implements Runnable {
         return clientCount.get();
     }
 
-    private String buildLostPromiseError (@Nullable TdApi.Function query, long queryTime, TdApi.Error error) {
+    private String buildLostPromiseError (@Nullable TdApi.Function<?> query, long queryTime, TdApi.Error error) {
         StringBuilder b = new StringBuilder("#").append(error.code).append(": ").append(error.message).append(" (").append(clientCount.get()).append(")");
         if (isDebug)
             b.append(" (debug)");
@@ -324,12 +324,19 @@ public final class Client implements Runnable {
                     processExternalError();
                     return;
                 }
-
-                throw new ClientError("TDLib fatal error (" + clientCount.get() + "): " + errorMessage);
+                if (isLayerError) {
+                    processLayerError();
+                    return;
+                }
+                throw new ClientLogicError(errorMessage, getClientCount(), false);
             }
 
             private void processExternalError() {
-                throw new ExternalClientError("Fatal error (" + clientCount.get() + "): " + errorMessage);
+                throw new ExternalClientError(errorMessage, getClientCount(), false);
+            }
+
+            private void processLayerError() {
+                throw new LostPromiseError(errorMessage, getClientCount(), false);
             }
         }
 
@@ -361,15 +368,40 @@ public final class Client implements Runnable {
           message.contains("I/O error");
     }
 
-    private static final class ClientError extends RuntimeException {
-        private ClientError (String message) {
-            super(message);
+    @Keep
+    public static final class ClientLogicError extends ClientError {
+        public ClientLogicError (String message, long clientCount, boolean stripPotentiallyPrivateData) {
+            super("TDLib error", message, clientCount, stripPotentiallyPrivateData);
+        }
+
+        @Override
+        protected ClientError stripPotentiallyPrivateData () {
+            return new ClientLogicError(message, clientCount, true);
         }
     }
 
-    private static final class ExternalClientError extends RuntimeException {
-        public ExternalClientError (String message) {
-            super(message);
+    @Keep
+    public static final class LostPromiseError extends ClientError {
+        public LostPromiseError (String message, long clientCount, boolean stripPotentiallyPrivateData) {
+            super("Lost promise", message, clientCount, stripPotentiallyPrivateData);
+        }
+
+        @Override
+        protected ClientError stripPotentiallyPrivateData () {
+            // do not attempt to strip anything
+            return this;
+        }
+    }
+
+    @Keep
+    private static final class ExternalClientError extends ClientError {
+        public ExternalClientError (String message, long clientCount, boolean stripPotentiallyPrivateData) {
+            super("External error", message, clientCount, stripPotentiallyPrivateData);
+        }
+
+        @Override
+        protected ClientError stripPotentiallyPrivateData () {
+            return new ExternalClientError(message, clientCount, true);
         }
     }
 
@@ -394,12 +426,12 @@ public final class Client implements Runnable {
     private final TdApi.Object[] events = new TdApi.Object[MAX_EVENTS];
 
     private static class Handler {
-        final TdApi.Function query;
+        final TdApi.Function<?> query;
         final long queryTime;
         final ResultHandler resultHandler;
         final ExceptionHandler exceptionHandler;
 
-        Handler (TdApi.Function query, ResultHandler resultHandler, ExceptionHandler exceptionHandler) {
+        Handler (TdApi.Function<?> query, ResultHandler resultHandler, ExceptionHandler exceptionHandler) {
             this.query = query;
             this.queryTime = query != null ? SystemClock.uptimeMillis() : -1;
             this.resultHandler = resultHandler;
@@ -455,7 +487,7 @@ public final class Client implements Runnable {
         handleResult(object, handler.query, handler.queryTime, handler.resultHandler, handler.exceptionHandler);
     }
 
-    private void handleResult (TdApi.Object object, @Nullable TdApi.Function query, long queryTime, ResultHandler resultHandler, ExceptionHandler exceptionHandler) {
+    private void handleResult (TdApi.Object object, @Nullable TdApi.Function<?> query, long queryTime, ResultHandler resultHandler, ExceptionHandler exceptionHandler) {
         if (resultHandler == null) {
             return;
         }
