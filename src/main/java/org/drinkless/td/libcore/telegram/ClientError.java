@@ -86,7 +86,8 @@ public abstract class ClientError extends RuntimeException {
             case 5: break; // [!Td]
           }*/
           if (tagCount == 3) {
-            String fileName = message.substring(tagStart + 1, tagEnd - 1);
+            // Extract everything between `[` and `]`
+            String fileName = message.substring(tagStart + 1, tagEnd);
             int splitIndex = fileName.indexOf(':');
             int lineNumber = 0;
             if (splitIndex != -1) {
@@ -99,7 +100,7 @@ public abstract class ClientError extends RuntimeException {
             if (fileName.matches("^[A-Za-z_0-9.]+[^.]$")) {
               splitIndex = fileName.indexOf('.');
               String declaringClass = fileName.substring(0, splitIndex);
-              return new StackTraceElement("libtdjni." + declaringClass, "internal", fileName, lineNumber);
+              return new StackTraceElement("libtdjni.so", declaringClass, declaringClass + ".java", lineNumber);
             }
             return null;
           }
