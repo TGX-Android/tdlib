@@ -2396,7 +2396,7 @@ public class TdApi {
          */
         public int bottomColor;
         /**
-         * Clockwise rotation angle of the gradient, in degrees; 0-359. Must be always divisible by 45.
+         * Clockwise rotation angle of the gradient, in degrees; 0-359. Must always be divisible by 45.
          */
         public int rotationAngle;
 
@@ -2411,7 +2411,7 @@ public class TdApi {
          *
          * @param topColor A top color of the background in the RGB24 format.
          * @param bottomColor A bottom color of the background in the RGB24 format.
-         * @param rotationAngle Clockwise rotation angle of the gradient, in degrees; 0-359. Must be always divisible by 45.
+         * @param rotationAngle Clockwise rotation angle of the gradient, in degrees; 0-359. Must always be divisible by 45.
          */
         public BackgroundFillGradient(int topColor, int bottomColor, int rotationAngle) {
             this.topColor = topColor;
@@ -13927,7 +13927,7 @@ public class TdApi {
          */
         public String text;
         /**
-         * Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline, Strikethrough, and Spoiler entities can contain and to be contained in all other entities. All other entities can't contain each other.
+         * Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline, Strikethrough, and Spoiler entities can contain and can be part of any other entities. All other entities can't contain each other.
          */
         public TextEntity[] entities;
 
@@ -13941,7 +13941,7 @@ public class TdApi {
          * A text with some entities.
          *
          * @param text The text.
-         * @param entities Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline, Strikethrough, and Spoiler entities can contain and to be contained in all other entities. All other entities can't contain each other.
+         * @param entities Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline, Strikethrough, and Spoiler entities can contain and can be part of any other entities. All other entities can't contain each other.
          */
         public FormattedText(String text, TextEntity[] entities) {
             this.text = text;
@@ -18250,7 +18250,7 @@ public class TdApi {
          */
         public InputThumbnail thumbnail;
         /**
-         * If true, automatic file type detection will be disabled and the document will be always sent as file. Always true for files sent to secret chats.
+         * If true, automatic file type detection will be disabled and the document will always be sent as file. Always true for files sent to secret chats.
          */
         public boolean disableContentTypeDetection;
         /**
@@ -18269,7 +18269,7 @@ public class TdApi {
          *
          * @param document Document to be sent.
          * @param thumbnail Document thumbnail; pass null to skip thumbnail uploading.
-         * @param disableContentTypeDetection If true, automatic file type detection will be disabled and the document will be always sent as file. Always true for files sent to secret chats.
+         * @param disableContentTypeDetection If true, automatic file type detection will be disabled and the document will always be sent as file. Always true for files sent to secret chats.
          * @param caption Document caption; pass null to use an empty caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
          */
         public InputMessageDocument(InputFile document, InputThumbnail thumbnail, boolean disableContentTypeDetection, FormattedText caption) {
@@ -40469,7 +40469,7 @@ public class TdApi {
          */
         public int date;
         /**
-         * Status of the current user in the supergroup or channel; custom title will be always empty.
+         * Status of the current user in the supergroup or channel; custom title will always be empty.
          */
         public ChatMemberStatus status;
         /**
@@ -40537,7 +40537,7 @@ public class TdApi {
          * @param id Supergroup or channel identifier.
          * @param username Username of the supergroup or channel; empty for private supergroups or channels.
          * @param date Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
-         * @param status Status of the current user in the supergroup or channel; custom title will be always empty.
+         * @param status Status of the current user in the supergroup or channel; custom title will always be empty.
          * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules.
          * @param hasLinkedChat True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
          * @param hasLocation True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup.
@@ -63745,7 +63745,7 @@ public class TdApi {
     }
 
     /**
-     * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text. Can be called synchronously.
+     * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously.
      *
      * <p> Returns {@link TextEntities TextEntities} </p>
      */
@@ -63756,7 +63756,7 @@ public class TdApi {
         public String text;
 
         /**
-         * Default constructor for a function, which returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text. Can be called synchronously.
+         * Default constructor for a function, which returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously.
          *
          * <p> Returns {@link TextEntities TextEntities} </p>
          */
@@ -63764,7 +63764,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text. Can be called synchronously.
+         * Creates a function, which returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously.
          *
          * <p> Returns {@link TextEntities TextEntities} </p>
          *
@@ -65327,7 +65327,7 @@ public class TdApi {
     }
 
     /**
-     * Parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+     * Parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities from a marked-up text. Can be called synchronously.
      *
      * <p> Returns {@link FormattedText FormattedText} </p>
      */
@@ -65342,7 +65342,7 @@ public class TdApi {
         public TextParseMode parseMode;
 
         /**
-         * Default constructor for a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+         * Default constructor for a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities from a marked-up text. Can be called synchronously.
          *
          * <p> Returns {@link FormattedText FormattedText} </p>
          */
@@ -65350,7 +65350,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously.
+         * Creates a function, which parses Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode, TextUrl and MentionName entities from a marked-up text. Can be called synchronously.
          *
          * <p> Returns {@link FormattedText FormattedText} </p>
          *
