@@ -706,6 +706,10 @@ public class TdApi {
          * Identifier of the chat member, applied the reaction.
          */
         public MessageSender senderId;
+        /**
+         * Point in time (Unix timestamp) when the reaction was added.
+         */
+        public int date;
 
         /**
          * Represents a reaction applied to a message.
@@ -718,16 +722,18 @@ public class TdApi {
          *
          * @param type Type of the reaction.
          * @param senderId Identifier of the chat member, applied the reaction.
+         * @param date Point in time (Unix timestamp) when the reaction was added.
          */
-        public AddedReaction(ReactionType type, MessageSender senderId) {
+        public AddedReaction(ReactionType type, MessageSender senderId, int date) {
             this.type = type;
             this.senderId = senderId;
+            this.date = date;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1130587313;
+        public static final int CONSTRUCTOR = 1666271766;
 
         /**
          * @return this.CONSTRUCTOR
