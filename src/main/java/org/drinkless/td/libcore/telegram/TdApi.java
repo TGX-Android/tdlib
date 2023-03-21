@@ -441,6 +441,7 @@ public class TdApi {
             ResendPhoneNumberVerificationCode.CONSTRUCTOR,
             ResendRecoveryEmailAddressCode.CONSTRUCTOR,
             ResetAllNotificationSettings.CONSTRUCTOR,
+            ResetAuthenticationEmailAddress.CONSTRUCTOR,
             ResetBackgrounds.CONSTRUCTOR,
             ResetNetworkStatistics.CONSTRUCTOR,
             ResetPassword.CONSTRUCTOR,
@@ -1738,7 +1739,7 @@ public class TdApi {
      */
     public static class AuthenticationCodeTypeFirebaseIos extends AuthenticationCodeType {
         /**
-         * Receipt of successful applikation token validation to compare with receipt from push notification.
+         * Receipt of successful application token validation to compare with receipt from push notification.
          */
         public String receipt;
         /**
@@ -1759,7 +1760,7 @@ public class TdApi {
         /**
          * An authentication code is delivered via Firebase Authentication to the official iOS application.
          *
-         * @param receipt Receipt of successful applikation token validation to compare with receipt from push notification.
+         * @param receipt Receipt of successful application token validation to compare with receipt from push notification.
          * @param pushTimeout Time after the next authentication method is supposed to be used if verification push notification isn't received, in seconds.
          * @param length Length of the code.
          */
@@ -1929,9 +1930,9 @@ public class TdApi {
          */
         public EmailAddressAuthenticationCodeInfo codeInfo;
         /**
-         * Point in time (Unix timestamp) when the user will be able to authorize with a code sent to the user's phone number; 0 if unknown.
+         * Reset state of the email address; may be null if the email address can't be reset.
          */
-        public int nextPhoneNumberAuthorizationDate;
+        @Nullable public EmailAddressResetState emailAddressResetState;
 
         /**
          * TDLib needs the user's authentication code sent to an email address to authorize. Call checkAuthenticationEmailCode to provide the code.
@@ -1945,19 +1946,19 @@ public class TdApi {
          * @param allowAppleId True, if authorization through Apple ID is allowed.
          * @param allowGoogleId True, if authorization through Google ID is allowed.
          * @param codeInfo Information about the sent authentication code.
-         * @param nextPhoneNumberAuthorizationDate Point in time (Unix timestamp) when the user will be able to authorize with a code sent to the user's phone number; 0 if unknown.
+         * @param emailAddressResetState Reset state of the email address; may be null if the email address can't be reset.
          */
-        public AuthorizationStateWaitEmailCode(boolean allowAppleId, boolean allowGoogleId, EmailAddressAuthenticationCodeInfo codeInfo, int nextPhoneNumberAuthorizationDate) {
+        public AuthorizationStateWaitEmailCode(boolean allowAppleId, boolean allowGoogleId, EmailAddressAuthenticationCodeInfo codeInfo, EmailAddressResetState emailAddressResetState) {
             this.allowAppleId = allowAppleId;
             this.allowGoogleId = allowGoogleId;
             this.codeInfo = codeInfo;
-            this.nextPhoneNumberAuthorizationDate = nextPhoneNumberAuthorizationDate;
+            this.emailAddressResetState = emailAddressResetState;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 174262505;
+        public static final int CONSTRUCTOR = -1868627365;
 
         /**
          * @return this.CONSTRUCTOR
@@ -13989,6 +13990,107 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1151066659;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes reset state of a email address.
+     */
+    public abstract static class EmailAddressResetState extends Object {
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            EmailAddressResetStateAvailable.CONSTRUCTOR,
+            EmailAddressResetStatePending.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public EmailAddressResetState() {
+        }
+    }
+
+    /**
+     * Email address can be reset after the given period. Call resetAuthenticationEmailAddress to reset it and allow the user to authorize with a code sent to the user's phone number.
+     */
+    public static class EmailAddressResetStateAvailable extends EmailAddressResetState {
+        /**
+         * Time required to wait before the email address can be reset; 0 if the user is subscribed to Telegram Premium.
+         */
+        public int waitPeriod;
+
+        /**
+         * Email address can be reset after the given period. Call resetAuthenticationEmailAddress to reset it and allow the user to authorize with a code sent to the user's phone number.
+         */
+        public EmailAddressResetStateAvailable() {
+        }
+
+        /**
+         * Email address can be reset after the given period. Call resetAuthenticationEmailAddress to reset it and allow the user to authorize with a code sent to the user's phone number.
+         *
+         * @param waitPeriod Time required to wait before the email address can be reset; 0 if the user is subscribed to Telegram Premium.
+         */
+        public EmailAddressResetStateAvailable(int waitPeriod) {
+            this.waitPeriod = waitPeriod;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1917177600;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Email address reset has already been requested. Call resetAuthenticationEmailAddress to try to reset it immediately.
+     */
+    public static class EmailAddressResetStatePending extends EmailAddressResetState {
+        /**
+         * Left time before the email address will be reset, in seconds. updateAuthorizationState is not sent when this field changes.
+         */
+        public int resetIn;
+
+        /**
+         * Email address reset has already been requested. Call resetAuthenticationEmailAddress to try to reset it immediately.
+         */
+        public EmailAddressResetStatePending() {
+        }
+
+        /**
+         * Email address reset has already been requested. Call resetAuthenticationEmailAddress to try to reset it immediately.
+         *
+         * @param resetIn Left time before the email address will be reset, in seconds. updateAuthorizationState is not sent when this field changes.
+         */
+        public EmailAddressResetStatePending(int resetIn) {
+            this.resetIn = resetIn;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1885966805;
 
         /**
          * @return this.CONSTRUCTOR
@@ -72900,6 +73002,35 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -174020359;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Resets the login email address. May return an error with a message &quot;TASK_ALREADY_EXISTS&quot; if reset is still pending. Works only when the current authorization state is authorizationStateWaitEmailCode and authorizationState.canResetEmailAddress == true.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ResetAuthenticationEmailAddress extends Function<Ok> {
+
+        /**
+         * Default constructor for a function, which resets the login email address. May return an error with a message &quot;TASK_ALREADY_EXISTS&quot; if reset is still pending. Works only when the current authorization state is authorizationStateWaitEmailCode and authorizationState.canResetEmailAddress == true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ResetAuthenticationEmailAddress() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -415075796;
 
         /**
          * @return this.CONSTRUCTOR
