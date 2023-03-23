@@ -347,6 +347,7 @@ public class TdApi {
             GetSupergroup.CONSTRUCTOR,
             GetSupergroupFullInfo.CONSTRUCTOR,
             GetSupergroupMembers.CONSTRUCTOR,
+            GetSupportName.CONSTRUCTOR,
             GetSupportUser.CONSTRUCTOR,
             GetTemporaryPasswordState.CONSTRUCTOR,
             GetTextEntities.CONSTRUCTOR,
@@ -68580,6 +68581,35 @@ public class TdApi {
     }
 
     /**
+     * Returns localized name of the Telegram support user; for Telegram support only.
+     *
+     * <p> Returns {@link Text Text} </p>
+     */
+    public static class GetSupportName extends Function<Text> {
+
+        /**
+         * Default constructor for a function, which returns localized name of the Telegram support user; for Telegram support only.
+         *
+         * <p> Returns {@link Text Text} </p>
+         */
+        public GetSupportName() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1302205794;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns a user that can be contacted to get support.
      *
      * <p> Returns {@link User User} </p>
@@ -70125,7 +70155,7 @@ public class TdApi {
      */
     public static class OpenWebApp extends Function<WebAppInfo> {
         /**
-         * Identifier of the chat in which the Web App is opened.
+         * Identifier of the chat in which the Web App is opened. The Web App can't be opened in secret chats.
          */
         public long chatId;
         /**
@@ -70166,7 +70196,7 @@ public class TdApi {
          *
          * <p> Returns {@link WebAppInfo WebAppInfo} </p>
          *
-         * @param chatId Identifier of the chat in which the Web App is opened.
+         * @param chatId Identifier of the chat in which the Web App is opened. The Web App can't be opened in secret chats.
          * @param botUserId Identifier of the bot, providing the Web App.
          * @param url The URL from an inlineKeyboardButtonTypeWebApp button, a botMenuButton button, or an internalLinkTypeAttachmentMenuBot link, or an empty string otherwise.
          * @param theme Preferred Web App theme; pass null to use the default theme.
