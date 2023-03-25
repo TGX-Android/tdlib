@@ -1490,7 +1490,7 @@ public class TdApi {
     }
 
     /**
-     * An authentication code is delivered via an SMS message to the specified phone number.
+     * An authentication code is delivered via an SMS message to the specified phone number; applications may not receive this type of code.
      */
     public static class AuthenticationCodeTypeSms extends AuthenticationCodeType {
         /**
@@ -1499,13 +1499,13 @@ public class TdApi {
         public int length;
 
         /**
-         * An authentication code is delivered via an SMS message to the specified phone number.
+         * An authentication code is delivered via an SMS message to the specified phone number; applications may not receive this type of code.
          */
         public AuthenticationCodeTypeSms() {
         }
 
         /**
-         * An authentication code is delivered via an SMS message to the specified phone number.
+         * An authentication code is delivered via an SMS message to the specified phone number; applications may not receive this type of code.
          *
          * @param length Length of the code.
          */
@@ -14065,7 +14065,7 @@ public class TdApi {
     }
 
     /**
-     * Email address reset has already been requested. Call resetAuthenticationEmailAddress to try to reset it immediately.
+     * Email address reset has already been requested. Call resetAuthenticationEmailAddress to check whether immediate reset is possible.
      */
     public static class EmailAddressResetStatePending extends EmailAddressResetState {
         /**
@@ -14074,13 +14074,13 @@ public class TdApi {
         public int resetIn;
 
         /**
-         * Email address reset has already been requested. Call resetAuthenticationEmailAddress to try to reset it immediately.
+         * Email address reset has already been requested. Call resetAuthenticationEmailAddress to check whether immediate reset is possible.
          */
         public EmailAddressResetStatePending() {
         }
 
         /**
-         * Email address reset has already been requested. Call resetAuthenticationEmailAddress to try to reset it immediately.
+         * Email address reset has already been requested. Call resetAuthenticationEmailAddress to check whether immediate reset is possible.
          *
          * @param resetIn Left time before the email address will be reset, in seconds. updateAuthorizationState is not sent when this field changes.
          */
@@ -50846,7 +50846,7 @@ public class TdApi {
          */
         public String languagePackId;
         /**
-         * List of changed language pack strings.
+         * List of changed language pack strings; empty if all strings have changed.
          */
         public LanguagePackString[] strings;
 
@@ -50861,7 +50861,7 @@ public class TdApi {
          *
          * @param localizationTarget Localization target to which the language pack belongs.
          * @param languagePackId Identifier of the updated language pack.
-         * @param strings List of changed language pack strings.
+         * @param strings List of changed language pack strings; empty if all strings have changed.
          */
         public UpdateLanguagePackStrings(String localizationTarget, String languagePackId, LanguagePackString[] strings) {
             this.localizationTarget = localizationTarget;
@@ -54486,7 +54486,7 @@ public class TdApi {
     }
 
     /**
-     * Adds server-provided application changelog as messages to the chat 777000 (Telegram); for official applications only.
+     * Adds server-provided application changelog as messages to the chat 777000 (Telegram); for official applications only. Returns a 404 error if nothing changed.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -54497,7 +54497,7 @@ public class TdApi {
         public String previousApplicationVersion;
 
         /**
-         * Default constructor for a function, which adds server-provided application changelog as messages to the chat 777000 (Telegram); for official applications only.
+         * Default constructor for a function, which adds server-provided application changelog as messages to the chat 777000 (Telegram); for official applications only. Returns a 404 error if nothing changed.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -54505,7 +54505,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds server-provided application changelog as messages to the chat 777000 (Telegram); for official applications only.
+         * Creates a function, which adds server-provided application changelog as messages to the chat 777000 (Telegram); for official applications only. Returns a 404 error if nothing changed.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -78031,7 +78031,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the login email address of the user. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
+     * Changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
      *
      * <p> Returns {@link EmailAddressAuthenticationCodeInfo EmailAddressAuthenticationCodeInfo} </p>
      */
@@ -78042,7 +78042,7 @@ public class TdApi {
         public String newLoginEmailAddress;
 
         /**
-         * Default constructor for a function, which changes the login email address of the user. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
+         * Default constructor for a function, which changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
          *
          * <p> Returns {@link EmailAddressAuthenticationCodeInfo EmailAddressAuthenticationCodeInfo} </p>
          */
@@ -78050,7 +78050,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the login email address of the user. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
+         * Creates a function, which changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
          *
          * <p> Returns {@link EmailAddressAuthenticationCodeInfo EmailAddressAuthenticationCodeInfo} </p>
          *
@@ -82684,11 +82684,11 @@ public class TdApi {
          */
         public long[] messageIds;
         /**
-         * Source of the message view.
+         * Source of the message view; pass null to guess the source based on chat open state.
          */
         public MessageSource source;
         /**
-         * Pass true to mark as read the specified messages even the chat is closed; pass null to guess the source based on chat open state.
+         * Pass true to mark as read the specified messages even the chat is closed.
          */
         public boolean forceRead;
 
@@ -82707,8 +82707,8 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param messageIds The identifiers of the messages being viewed.
-         * @param source Source of the message view.
-         * @param forceRead Pass true to mark as read the specified messages even the chat is closed; pass null to guess the source based on chat open state.
+         * @param source Source of the message view; pass null to guess the source based on chat open state.
+         * @param forceRead Pass true to mark as read the specified messages even the chat is closed.
          */
         public ViewMessages(long chatId, long[] messageIds, MessageSource source, boolean forceRead) {
             this.chatId = chatId;
