@@ -42,6 +42,8 @@ public class TdApi {
 
     /**
      * This class is a base class for all TDLib interface function-classes.
+     *
+     * @param <R> The object type that is returned by the function
      */
     public abstract static class Function<R extends Object> extends Object {
         @Retention(RetentionPolicy.SOURCE)
@@ -49,6 +51,7 @@ public class TdApi {
             AcceptCall.CONSTRUCTOR,
             AcceptTermsOfService.CONSTRUCTOR,
             AddApplicationChangelog.CONSTRUCTOR,
+            AddChatFolderByInviteLink.CONSTRUCTOR,
             AddChatMember.CONSTRUCTOR,
             AddChatMembers.CONSTRUCTOR,
             AddChatToList.CONSTRUCTOR,
@@ -90,6 +93,7 @@ public class TdApi {
             CheckAuthenticationPassword.CONSTRUCTOR,
             CheckAuthenticationPasswordRecoveryCode.CONSTRUCTOR,
             CheckChangePhoneNumberCode.CONSTRUCTOR,
+            CheckChatFolderInviteLink.CONSTRUCTOR,
             CheckChatInviteLink.CONSTRUCTOR,
             CheckChatUsername.CONSTRUCTOR,
             CheckCreatedPublicChatsLimit.CONSTRUCTOR,
@@ -117,7 +121,8 @@ public class TdApi {
             ConfirmQrCodeAuthentication.CONSTRUCTOR,
             CreateBasicGroupChat.CONSTRUCTOR,
             CreateCall.CONSTRUCTOR,
-            CreateChatFilter.CONSTRUCTOR,
+            CreateChatFolder.CONSTRUCTOR,
+            CreateChatFolderInviteLink.CONSTRUCTOR,
             CreateChatInviteLink.CONSTRUCTOR,
             CreateForumTopic.CONSTRUCTOR,
             CreateInvoiceLink.CONSTRUCTOR,
@@ -134,7 +139,8 @@ public class TdApi {
             DeleteAllCallMessages.CONSTRUCTOR,
             DeleteAllRevokedChatInviteLinks.CONSTRUCTOR,
             DeleteChat.CONSTRUCTOR,
-            DeleteChatFilter.CONSTRUCTOR,
+            DeleteChatFolder.CONSTRUCTOR,
+            DeleteChatFolderInviteLink.CONSTRUCTOR,
             DeleteChatHistory.CONSTRUCTOR,
             DeleteChatMessagesByDate.CONSTRUCTOR,
             DeleteChatMessagesBySender.CONSTRUCTOR,
@@ -157,7 +163,8 @@ public class TdApi {
             DisconnectAllWebsites.CONSTRUCTOR,
             DisconnectWebsite.CONSTRUCTOR,
             DownloadFile.CONSTRUCTOR,
-            EditChatFilter.CONSTRUCTOR,
+            EditChatFolder.CONSTRUCTOR,
+            EditChatFolderInviteLink.CONSTRUCTOR,
             EditChatInviteLink.CONSTRUCTOR,
             EditCustomLanguagePackInfo.CONSTRUCTOR,
             EditForumTopic.CONSTRUCTOR,
@@ -200,14 +207,18 @@ public class TdApi {
             GetBlockedMessageSenders.CONSTRUCTOR,
             GetBotInfoDescription.CONSTRUCTOR,
             GetBotInfoShortDescription.CONSTRUCTOR,
+            GetBotName.CONSTRUCTOR,
             GetCallbackQueryAnswer.CONSTRUCTOR,
             GetCallbackQueryMessage.CONSTRUCTOR,
             GetChat.CONSTRUCTOR,
             GetChatAdministrators.CONSTRUCTOR,
             GetChatAvailableMessageSenders.CONSTRUCTOR,
             GetChatEventLog.CONSTRUCTOR,
-            GetChatFilter.CONSTRUCTOR,
-            GetChatFilterDefaultIconName.CONSTRUCTOR,
+            GetChatFolder.CONSTRUCTOR,
+            GetChatFolderChatsToLeave.CONSTRUCTOR,
+            GetChatFolderDefaultIconName.CONSTRUCTOR,
+            GetChatFolderInviteLinks.CONSTRUCTOR,
+            GetChatFolderNewChats.CONSTRUCTOR,
             GetChatHistory.CONSTRUCTOR,
             GetChatInviteLink.CONSTRUCTOR,
             GetChatInviteLinkCounts.CONSTRUCTOR,
@@ -227,6 +238,7 @@ public class TdApi {
             GetChatSponsoredMessages.CONSTRUCTOR,
             GetChatStatistics.CONSTRUCTOR,
             GetChats.CONSTRUCTOR,
+            GetChatsForChatFolderInviteLink.CONSTRUCTOR,
             GetCommands.CONSTRUCTOR,
             GetConnectedWebsites.CONSTRUCTOR,
             GetContacts.CONSTRUCTOR,
@@ -325,7 +337,7 @@ public class TdApi {
             GetRecentStickers.CONSTRUCTOR,
             GetRecentlyOpenedChats.CONSTRUCTOR,
             GetRecentlyVisitedTMeUrls.CONSTRUCTOR,
-            GetRecommendedChatFilters.CONSTRUCTOR,
+            GetRecommendedChatFolders.CONSTRUCTOR,
             GetRecoveryEmailAddress.CONSTRUCTOR,
             GetRemoteFile.CONSTRUCTOR,
             GetRepliedMessage.CONSTRUCTOR,
@@ -388,6 +400,7 @@ public class TdApi {
             PinChatMessage.CONSTRUCTOR,
             PingProxy.CONSTRUCTOR,
             PreliminaryUploadFile.CONSTRUCTOR,
+            ProcessChatFolderNewChats.CONSTRUCTOR,
             ProcessChatJoinRequest.CONSTRUCTOR,
             ProcessChatJoinRequests.CONSTRUCTOR,
             ProcessPushNotification.CONSTRUCTOR,
@@ -396,6 +409,7 @@ public class TdApi {
             ReadAllChatReactions.CONSTRUCTOR,
             ReadAllMessageThreadMentions.CONSTRUCTOR,
             ReadAllMessageThreadReactions.CONSTRUCTOR,
+            ReadChatList.CONSTRUCTOR,
             ReadFilePart.CONSTRUCTOR,
             RecognizeSpeech.CONSTRUCTOR,
             RecoverAuthenticationPassword.CONSTRUCTOR,
@@ -419,8 +433,9 @@ public class TdApi {
             RemoveSavedNotificationSound.CONSTRUCTOR,
             RemoveStickerFromSet.CONSTRUCTOR,
             RemoveTopChat.CONSTRUCTOR,
+            ReorderActiveBotUsernames.CONSTRUCTOR,
             ReorderActiveUsernames.CONSTRUCTOR,
-            ReorderChatFilters.CONSTRUCTOR,
+            ReorderChatFolders.CONSTRUCTOR,
             ReorderInstalledStickerSets.CONSTRUCTOR,
             ReorderSupergroupActiveUsernames.CONSTRUCTOR,
             ReplacePrimaryChatInviteLink.CONSTRUCTOR,
@@ -501,8 +516,11 @@ public class TdApi {
             SetBio.CONSTRUCTOR,
             SetBotInfoDescription.CONSTRUCTOR,
             SetBotInfoShortDescription.CONSTRUCTOR,
+            SetBotName.CONSTRUCTOR,
+            SetBotProfilePhoto.CONSTRUCTOR,
             SetBotUpdatesStatus.CONSTRUCTOR,
             SetChatAvailableReactions.CONSTRUCTOR,
+            SetChatBackground.CONSTRUCTOR,
             SetChatClientData.CONSTRUCTOR,
             SetChatDescription.CONSTRUCTOR,
             SetChatDiscussionGroup.CONSTRUCTOR,
@@ -593,6 +611,7 @@ public class TdApi {
             TestUseUpdate.CONSTRUCTOR,
             ToggleAllDownloadsArePaused.CONSTRUCTOR,
             ToggleBotIsAddedToAttachmentMenu.CONSTRUCTOR,
+            ToggleBotUsernameIsActive.CONSTRUCTOR,
             ToggleChatDefaultDisableNotification.CONSTRUCTOR,
             ToggleChatHasProtectedContent.CONSTRUCTOR,
             ToggleChatIsMarkedAsUnread.CONSTRUCTOR,
@@ -1821,12 +1840,12 @@ public class TdApi {
     }
 
     /**
-     * Initializetion parameters are needed. Call setTdlibParameters to provide them.
+     * Initialization parameters are needed. Call setTdlibParameters to provide them.
      */
     public static class AuthorizationStateWaitTdlibParameters extends AuthorizationState {
 
         /**
-         * Initializetion parameters are needed. Call setTdlibParameters to provide them.
+         * Initialization parameters are needed. Call setTdlibParameters to provide them.
          */
         public AuthorizationStateWaitTdlibParameters() {
         }
@@ -3736,6 +3755,22 @@ public class TdApi {
          * Default administrator rights for adding the bot to channels; may be null.
          */
         @Nullable public ChatAdministratorRights defaultChannelAdministratorRights;
+        /**
+         * The internal link, which can be used to edit bot commands; may be null.
+         */
+        @Nullable public InternalLinkType editCommandsLink;
+        /**
+         * The internal link, which can be used to edit bot description; may be null.
+         */
+        @Nullable public InternalLinkType editDescriptionLink;
+        /**
+         * The internal link, which can be used to edit the photo or animation shown in the chat with the bot if the chat is empty; may be null.
+         */
+        @Nullable public InternalLinkType editDescriptionMediaLink;
+        /**
+         * The internal link, which can be used to edit bot settings; may be null.
+         */
+        @Nullable public InternalLinkType editSettingsLink;
 
         /**
          * Contains information about a bot.
@@ -3754,8 +3789,12 @@ public class TdApi {
          * @param commands List of the bot commands.
          * @param defaultGroupAdministratorRights Default administrator rights for adding the bot to basic group and supergroup chats; may be null.
          * @param defaultChannelAdministratorRights Default administrator rights for adding the bot to channels; may be null.
+         * @param editCommandsLink The internal link, which can be used to edit bot commands; may be null.
+         * @param editDescriptionLink The internal link, which can be used to edit bot description; may be null.
+         * @param editDescriptionMediaLink The internal link, which can be used to edit the photo or animation shown in the chat with the bot if the chat is empty; may be null.
+         * @param editSettingsLink The internal link, which can be used to edit bot settings; may be null.
          */
-        public BotInfo(String shortDescription, String description, Photo photo, Animation animation, BotMenuButton menuButton, BotCommand[] commands, ChatAdministratorRights defaultGroupAdministratorRights, ChatAdministratorRights defaultChannelAdministratorRights) {
+        public BotInfo(String shortDescription, String description, Photo photo, Animation animation, BotMenuButton menuButton, BotCommand[] commands, ChatAdministratorRights defaultGroupAdministratorRights, ChatAdministratorRights defaultChannelAdministratorRights, InternalLinkType editCommandsLink, InternalLinkType editDescriptionLink, InternalLinkType editDescriptionMediaLink, InternalLinkType editSettingsLink) {
             this.shortDescription = shortDescription;
             this.description = description;
             this.photo = photo;
@@ -3764,12 +3803,16 @@ public class TdApi {
             this.commands = commands;
             this.defaultGroupAdministratorRights = defaultGroupAdministratorRights;
             this.defaultChannelAdministratorRights = defaultChannelAdministratorRights;
+            this.editCommandsLink = editCommandsLink;
+            this.editDescriptionLink = editDescriptionLink;
+            this.editDescriptionMediaLink = editDescriptionMediaLink;
+            this.editSettingsLink = editSettingsLink;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1795389795;
+        public static final int CONSTRUCTOR = -1472546735;
 
         /**
          * @return this.CONSTRUCTOR
@@ -5322,6 +5365,10 @@ public class TdApi {
          */
         public int messageAutoDeleteTime;
         /**
+         * Background set for the chat; may be null if none.
+         */
+        @Nullable public ChatBackground background;
+        /**
          * If non-empty, name of a theme, set for the chat.
          */
         public String themeName;
@@ -5384,6 +5431,7 @@ public class TdApi {
          * @param notificationSettings Notification settings for the chat.
          * @param availableReactions Types of reaction, available in the chat.
          * @param messageAutoDeleteTime Current message auto-delete or self-destruct timer setting for the chat, in seconds; 0 if disabled. Self-destruct timer in secret chats starts after the message or its content is viewed. Auto-delete timer in other chats starts from the send date.
+         * @param background Background set for the chat; may be null if none.
          * @param themeName If non-empty, name of a theme, set for the chat.
          * @param actionBar Information about actions which must be possible to do through the chat action bar; may be null.
          * @param videoChat Information about video chat of the chat.
@@ -5392,7 +5440,7 @@ public class TdApi {
          * @param draftMessage A draft of a message in the chat; may be null.
          * @param clientData Application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used.
          */
-        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, boolean hasProtectedContent, boolean isTranslatable, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, int unreadReactionCount, ChatNotificationSettings notificationSettings, ChatAvailableReactions availableReactions, int messageAutoDeleteTime, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
+        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, boolean hasProtectedContent, boolean isTranslatable, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, int unreadReactionCount, ChatNotificationSettings notificationSettings, ChatAvailableReactions availableReactions, int messageAutoDeleteTime, ChatBackground background, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
             this.id = id;
             this.type = type;
             this.title = title;
@@ -5418,6 +5466,7 @@ public class TdApi {
             this.notificationSettings = notificationSettings;
             this.availableReactions = availableReactions;
             this.messageAutoDeleteTime = messageAutoDeleteTime;
+            this.background = background;
             this.themeName = themeName;
             this.actionBar = actionBar;
             this.videoChat = videoChat;
@@ -5430,7 +5479,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 422283746;
+        public static final int CONSTRUCTOR = 356800780;
 
         /**
          * @return this.CONSTRUCTOR
@@ -6475,6 +6524,50 @@ public class TdApi {
     }
 
     /**
+     * Describes a background set for a specific chat.
+     */
+    public static class ChatBackground extends Object {
+        /**
+         * The background.
+         */
+        public Background background;
+        /**
+         * Dimming of the background in dark themes, as a percentage; 0-100.
+         */
+        public int darkThemeDimming;
+
+        /**
+         * Describes a background set for a specific chat.
+         */
+        public ChatBackground() {
+        }
+
+        /**
+         * Describes a background set for a specific chat.
+         *
+         * @param background The background.
+         * @param darkThemeDimming Dimming of the background in dark themes, as a percentage; 0-100.
+         */
+        public ChatBackground(Background background, int darkThemeDimming) {
+            this.background = background;
+            this.darkThemeDimming = darkThemeDimming;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1653152104;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Represents a chat event.
      */
     public static class ChatEvent extends Object {
@@ -6832,6 +6925,10 @@ public class TdApi {
          * Invite link used to join the chat.
          */
         public ChatInviteLink inviteLink;
+        /**
+         * True, if the user has joined the chat using an invite link for a chat folder.
+         */
+        public boolean viaChatFolderInviteLink;
 
         /**
          * A new member joined the chat via an invite link.
@@ -6843,15 +6940,17 @@ public class TdApi {
          * A new member joined the chat via an invite link.
          *
          * @param inviteLink Invite link used to join the chat.
+         * @param viaChatFolderInviteLink True, if the user has joined the chat using an invite link for a chat folder.
          */
-        public ChatEventMemberJoinedByInviteLink(ChatInviteLink inviteLink) {
+        public ChatEventMemberJoinedByInviteLink(ChatInviteLink inviteLink, boolean viaChatFolderInviteLink) {
             this.inviteLink = inviteLink;
+            this.viaChatFolderInviteLink = viaChatFolderInviteLink;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -253307459;
+        public static final int CONSTRUCTOR = -1445536390;
 
         /**
          * @return this.CONSTRUCTOR
@@ -8542,27 +8641,31 @@ public class TdApi {
     }
 
     /**
-     * Represents a filter of user chats.
+     * Represents a folder for user chats.
      */
-    public static class ChatFilter extends Object {
+    public static class ChatFolder extends Object {
         /**
-         * The title of the filter; 1-12 characters without line feeds.
+         * The title of the folder; 1-12 characters without line feeds.
          */
         public String title;
         /**
-         * The chosen icon name for short filter representation. If non-empty, must be one of &quot;All&quot;, &quot;Unread&quot;, &quot;Unmuted&quot;, &quot;Bots&quot;, &quot;Channels&quot;, &quot;Groups&quot;, &quot;Private&quot;, &quot;Custom&quot;, &quot;Setup&quot;, &quot;Cat&quot;, &quot;Crown&quot;, &quot;Favorite&quot;, &quot;Flower&quot;, &quot;Game&quot;, &quot;Home&quot;, &quot;Love&quot;, &quot;Mask&quot;, &quot;Party&quot;, &quot;Sport&quot;, &quot;Study&quot;, &quot;Trade&quot;, &quot;Travel&quot;, &quot;Work&quot;, &quot;Airplane&quot;, &quot;Book&quot;, &quot;Light&quot;, &quot;Like&quot;, &quot;Money&quot;, &quot;Note&quot;, &quot;Palette&quot;. If empty, use getChatFilterDefaultIconName to get default icon name for the filter.
+         * The chosen icon for the chat folder; may be null. If null, use getChatFolderDefaultIconName to get default icon name for the folder.
          */
-        public String iconName;
+        @Nullable public ChatFolderIcon icon;
         /**
-         * The chat identifiers of pinned chats in the filtered chat list. There can be up to getOption(&quot;chat_filter_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+         * True, if at least one link has been created for the folder.
+         */
+        public boolean isShareable;
+        /**
+         * The chat identifiers of pinned chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
          */
         public long[] pinnedChatIds;
         /**
-         * The chat identifiers of always included chats in the filtered chat list. There can be up to getOption(&quot;chat_filter_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+         * The chat identifiers of always included chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
          */
         public long[] includedChatIds;
         /**
-         * The chat identifiers of always excluded chats in the filtered chat list. There can be up to getOption(&quot;chat_filter_chosen_chat_count_max&quot;) always excluded non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+         * The chat identifiers of always excluded chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) always excluded non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
          */
         public long[] excludedChatIds;
         /**
@@ -8599,19 +8702,20 @@ public class TdApi {
         public boolean includeChannels;
 
         /**
-         * Represents a filter of user chats.
+         * Represents a folder for user chats.
          */
-        public ChatFilter() {
+        public ChatFolder() {
         }
 
         /**
-         * Represents a filter of user chats.
+         * Represents a folder for user chats.
          *
-         * @param title The title of the filter; 1-12 characters without line feeds.
-         * @param iconName The chosen icon name for short filter representation. If non-empty, must be one of &quot;All&quot;, &quot;Unread&quot;, &quot;Unmuted&quot;, &quot;Bots&quot;, &quot;Channels&quot;, &quot;Groups&quot;, &quot;Private&quot;, &quot;Custom&quot;, &quot;Setup&quot;, &quot;Cat&quot;, &quot;Crown&quot;, &quot;Favorite&quot;, &quot;Flower&quot;, &quot;Game&quot;, &quot;Home&quot;, &quot;Love&quot;, &quot;Mask&quot;, &quot;Party&quot;, &quot;Sport&quot;, &quot;Study&quot;, &quot;Trade&quot;, &quot;Travel&quot;, &quot;Work&quot;, &quot;Airplane&quot;, &quot;Book&quot;, &quot;Light&quot;, &quot;Like&quot;, &quot;Money&quot;, &quot;Note&quot;, &quot;Palette&quot;. If empty, use getChatFilterDefaultIconName to get default icon name for the filter.
-         * @param pinnedChatIds The chat identifiers of pinned chats in the filtered chat list. There can be up to getOption(&quot;chat_filter_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
-         * @param includedChatIds The chat identifiers of always included chats in the filtered chat list. There can be up to getOption(&quot;chat_filter_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
-         * @param excludedChatIds The chat identifiers of always excluded chats in the filtered chat list. There can be up to getOption(&quot;chat_filter_chosen_chat_count_max&quot;) always excluded non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+         * @param title The title of the folder; 1-12 characters without line feeds.
+         * @param icon The chosen icon for the chat folder; may be null. If null, use getChatFolderDefaultIconName to get default icon name for the folder.
+         * @param isShareable True, if at least one link has been created for the folder.
+         * @param pinnedChatIds The chat identifiers of pinned chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+         * @param includedChatIds The chat identifiers of always included chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
+         * @param excludedChatIds The chat identifiers of always excluded chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) always excluded non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
          * @param excludeMuted True, if muted chats need to be excluded.
          * @param excludeRead True, if read chats need to be excluded.
          * @param excludeArchived True, if archived chats need to be excluded.
@@ -8621,9 +8725,10 @@ public class TdApi {
          * @param includeGroups True, if basic groups and supergroups need to be included.
          * @param includeChannels True, if channels need to be included.
          */
-        public ChatFilter(String title, String iconName, long[] pinnedChatIds, long[] includedChatIds, long[] excludedChatIds, boolean excludeMuted, boolean excludeRead, boolean excludeArchived, boolean includeContacts, boolean includeNonContacts, boolean includeBots, boolean includeGroups, boolean includeChannels) {
+        public ChatFolder(String title, ChatFolderIcon icon, boolean isShareable, long[] pinnedChatIds, long[] includedChatIds, long[] excludedChatIds, boolean excludeMuted, boolean excludeRead, boolean excludeArchived, boolean includeContacts, boolean includeNonContacts, boolean includeBots, boolean includeGroups, boolean includeChannels) {
             this.title = title;
-            this.iconName = iconName;
+            this.icon = icon;
+            this.isShareable = isShareable;
             this.pinnedChatIds = pinnedChatIds;
             this.includedChatIds = includedChatIds;
             this.excludedChatIds = excludedChatIds;
@@ -8640,7 +8745,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -664815123;
+        public static final int CONSTRUCTOR = -459081051;
 
         /**
          * @return this.CONSTRUCTOR
@@ -8652,45 +8757,227 @@ public class TdApi {
     }
 
     /**
-     * Contains basic information about a chat filter.
+     * Represents an icon for a chat folder.
      */
-    public static class ChatFilterInfo extends Object {
+    public static class ChatFolderIcon extends Object {
         /**
-         * Unique chat filter identifier.
+         * The chosen icon name for short folder representation; one of &quot;All&quot;, &quot;Unread&quot;, &quot;Unmuted&quot;, &quot;Bots&quot;, &quot;Channels&quot;, &quot;Groups&quot;, &quot;Private&quot;, &quot;Custom&quot;, &quot;Setup&quot;, &quot;Cat&quot;, &quot;Crown&quot;, &quot;Favorite&quot;, &quot;Flower&quot;, &quot;Game&quot;, &quot;Home&quot;, &quot;Love&quot;, &quot;Mask&quot;, &quot;Party&quot;, &quot;Sport&quot;, &quot;Study&quot;, &quot;Trade&quot;, &quot;Travel&quot;, &quot;Work&quot;, &quot;Airplane&quot;, &quot;Book&quot;, &quot;Light&quot;, &quot;Like&quot;, &quot;Money&quot;, &quot;Note&quot;, &quot;Palette&quot;.
          */
-        public int id;
-        /**
-         * The title of the filter; 1-12 characters without line feeds.
-         */
-        public String title;
-        /**
-         * The chosen or default icon name for short filter representation. One of &quot;All&quot;, &quot;Unread&quot;, &quot;Unmuted&quot;, &quot;Bots&quot;, &quot;Channels&quot;, &quot;Groups&quot;, &quot;Private&quot;, &quot;Custom&quot;, &quot;Setup&quot;, &quot;Cat&quot;, &quot;Crown&quot;, &quot;Favorite&quot;, &quot;Flower&quot;, &quot;Game&quot;, &quot;Home&quot;, &quot;Love&quot;, &quot;Mask&quot;, &quot;Party&quot;, &quot;Sport&quot;, &quot;Study&quot;, &quot;Trade&quot;, &quot;Travel&quot;, &quot;Work&quot;, &quot;Airplane&quot;, &quot;Book&quot;, &quot;Light&quot;, &quot;Like&quot;, &quot;Money&quot;, &quot;Note&quot;, &quot;Palette&quot;.
-         */
-        public String iconName;
+        public String name;
 
         /**
-         * Contains basic information about a chat filter.
+         * Represents an icon for a chat folder.
          */
-        public ChatFilterInfo() {
+        public ChatFolderIcon() {
         }
 
         /**
-         * Contains basic information about a chat filter.
+         * Represents an icon for a chat folder.
          *
-         * @param id Unique chat filter identifier.
-         * @param title The title of the filter; 1-12 characters without line feeds.
-         * @param iconName The chosen or default icon name for short filter representation. One of &quot;All&quot;, &quot;Unread&quot;, &quot;Unmuted&quot;, &quot;Bots&quot;, &quot;Channels&quot;, &quot;Groups&quot;, &quot;Private&quot;, &quot;Custom&quot;, &quot;Setup&quot;, &quot;Cat&quot;, &quot;Crown&quot;, &quot;Favorite&quot;, &quot;Flower&quot;, &quot;Game&quot;, &quot;Home&quot;, &quot;Love&quot;, &quot;Mask&quot;, &quot;Party&quot;, &quot;Sport&quot;, &quot;Study&quot;, &quot;Trade&quot;, &quot;Travel&quot;, &quot;Work&quot;, &quot;Airplane&quot;, &quot;Book&quot;, &quot;Light&quot;, &quot;Like&quot;, &quot;Money&quot;, &quot;Note&quot;, &quot;Palette&quot;.
+         * @param name The chosen icon name for short folder representation; one of &quot;All&quot;, &quot;Unread&quot;, &quot;Unmuted&quot;, &quot;Bots&quot;, &quot;Channels&quot;, &quot;Groups&quot;, &quot;Private&quot;, &quot;Custom&quot;, &quot;Setup&quot;, &quot;Cat&quot;, &quot;Crown&quot;, &quot;Favorite&quot;, &quot;Flower&quot;, &quot;Game&quot;, &quot;Home&quot;, &quot;Love&quot;, &quot;Mask&quot;, &quot;Party&quot;, &quot;Sport&quot;, &quot;Study&quot;, &quot;Trade&quot;, &quot;Travel&quot;, &quot;Work&quot;, &quot;Airplane&quot;, &quot;Book&quot;, &quot;Light&quot;, &quot;Like&quot;, &quot;Money&quot;, &quot;Note&quot;, &quot;Palette&quot;.
          */
-        public ChatFilterInfo(int id, String title, String iconName) {
-            this.id = id;
-            this.title = title;
-            this.iconName = iconName;
+        public ChatFolderIcon(String name) {
+            this.name = name;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -943721165;
+        public static final int CONSTRUCTOR = -146104090;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains basic information about a chat folder.
+     */
+    public static class ChatFolderInfo extends Object {
+        /**
+         * Unique chat folder identifier.
+         */
+        public int id;
+        /**
+         * The title of the folder; 1-12 characters without line feeds.
+         */
+        public String title;
+        /**
+         * The chosen or default icon for the chat folder.
+         */
+        public ChatFolderIcon icon;
+        /**
+         * True, if the chat folder has invite links created by the current user.
+         */
+        public boolean hasMyInviteLinks;
+
+        /**
+         * Contains basic information about a chat folder.
+         */
+        public ChatFolderInfo() {
+        }
+
+        /**
+         * Contains basic information about a chat folder.
+         *
+         * @param id Unique chat folder identifier.
+         * @param title The title of the folder; 1-12 characters without line feeds.
+         * @param icon The chosen or default icon for the chat folder.
+         * @param hasMyInviteLinks True, if the chat folder has invite links created by the current user.
+         */
+        public ChatFolderInfo(int id, String title, ChatFolderIcon icon, boolean hasMyInviteLinks) {
+            this.id = id;
+            this.title = title;
+            this.icon = icon;
+            this.hasMyInviteLinks = hasMyInviteLinks;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 336032325;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a chat folder invite link.
+     */
+    public static class ChatFolderInviteLink extends Object {
+        /**
+         * The chat folder invite link.
+         */
+        public String inviteLink;
+        /**
+         * Name of the link.
+         */
+        public String name;
+        /**
+         * Identifiers of chats, included in the link.
+         */
+        public long[] chatIds;
+
+        /**
+         * Contains a chat folder invite link.
+         */
+        public ChatFolderInviteLink() {
+        }
+
+        /**
+         * Contains a chat folder invite link.
+         *
+         * @param inviteLink The chat folder invite link.
+         * @param name Name of the link.
+         * @param chatIds Identifiers of chats, included in the link.
+         */
+        public ChatFolderInviteLink(String inviteLink, String name, long[] chatIds) {
+            this.inviteLink = inviteLink;
+            this.name = name;
+            this.chatIds = chatIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 493969661;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about an invite link to a chat folder.
+     */
+    public static class ChatFolderInviteLinkInfo extends Object {
+        /**
+         * Basic information about the chat folder; chat folder identifier will be 0 if the user didn't have the chat folder yet.
+         */
+        public ChatFolderInfo chatFolderInfo;
+        /**
+         * Identifiers of the chats from the link, which aren't added to the folder yet.
+         */
+        public long[] missingChatIds;
+        /**
+         * Identifiers of the chats from the link, which are added to the folder already.
+         */
+        public long[] addedChatIds;
+
+        /**
+         * Contains information about an invite link to a chat folder.
+         */
+        public ChatFolderInviteLinkInfo() {
+        }
+
+        /**
+         * Contains information about an invite link to a chat folder.
+         *
+         * @param chatFolderInfo Basic information about the chat folder; chat folder identifier will be 0 if the user didn't have the chat folder yet.
+         * @param missingChatIds Identifiers of the chats from the link, which aren't added to the folder yet.
+         * @param addedChatIds Identifiers of the chats from the link, which are added to the folder already.
+         */
+        public ChatFolderInviteLinkInfo(ChatFolderInfo chatFolderInfo, long[] missingChatIds, long[] addedChatIds) {
+            this.chatFolderInfo = chatFolderInfo;
+            this.missingChatIds = missingChatIds;
+            this.addedChatIds = addedChatIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1119450395;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of chat folder invite links.
+     */
+    public static class ChatFolderInviteLinks extends Object {
+        /**
+         * List of the invite links.
+         */
+        public ChatFolderInviteLink[] inviteLinks;
+
+        /**
+         * Represents a list of chat folder invite links.
+         */
+        public ChatFolderInviteLinks() {
+        }
+
+        /**
+         * Represents a list of chat folder invite links.
+         *
+         * @param inviteLinks List of the invite links.
+         */
+        public ChatFolderInviteLinks(ChatFolderInviteLink[] inviteLinks) {
+            this.inviteLinks = inviteLinks;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1853351525;
 
         /**
          * @return this.CONSTRUCTOR
@@ -8998,6 +9285,10 @@ public class TdApi {
          */
         public int joinedChatDate;
         /**
+         * True, if the user has joined the chat using an invite link for a chat folder.
+         */
+        public boolean viaChatFolderInviteLink;
+        /**
          * User identifier of the chat administrator, approved user join request.
          */
         public long approverUserId;
@@ -9013,18 +9304,20 @@ public class TdApi {
          *
          * @param userId User identifier.
          * @param joinedChatDate Point in time (Unix timestamp) when the user joined the chat.
+         * @param viaChatFolderInviteLink True, if the user has joined the chat using an invite link for a chat folder.
          * @param approverUserId User identifier of the chat administrator, approved user join request.
          */
-        public ChatInviteLinkMember(long userId, int joinedChatDate, long approverUserId) {
+        public ChatInviteLinkMember(long userId, int joinedChatDate, boolean viaChatFolderInviteLink, long approverUserId) {
             this.userId = userId;
             this.joinedChatDate = joinedChatDate;
+            this.viaChatFolderInviteLink = viaChatFolderInviteLink;
             this.approverUserId = approverUserId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1409060582;
+        public static final int CONSTRUCTOR = 29156795;
 
         /**
          * @return this.CONSTRUCTOR
@@ -9270,7 +9563,7 @@ public class TdApi {
         @IntDef({
             ChatListMain.CONSTRUCTOR,
             ChatListArchive.CONSTRUCTOR,
-            ChatListFilter.CONSTRUCTOR
+            ChatListFolder.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -9338,33 +9631,33 @@ public class TdApi {
     }
 
     /**
-     * A list of chats belonging to a chat filter.
+     * A list of chats added to a chat folder.
      */
-    public static class ChatListFilter extends ChatList {
+    public static class ChatListFolder extends ChatList {
         /**
-         * Chat filter identifier.
+         * Chat folder identifier.
          */
-        public int chatFilterId;
+        public int chatFolderId;
 
         /**
-         * A list of chats belonging to a chat filter.
+         * A list of chats added to a chat folder.
          */
-        public ChatListFilter() {
+        public ChatListFolder() {
         }
 
         /**
-         * A list of chats belonging to a chat filter.
+         * A list of chats added to a chat folder.
          *
-         * @param chatFilterId Chat filter identifier.
+         * @param chatFolderId Chat folder identifier.
          */
-        public ChatListFilter(int chatFilterId) {
-            this.chatFilterId = chatFilterId;
+        public ChatListFolder(int chatFolderId) {
+            this.chatFolderId = chatFolderId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2022707655;
+        public static final int CONSTRUCTOR = 385760856;
 
         /**
          * @return this.CONSTRUCTOR
@@ -10169,7 +10462,7 @@ public class TdApi {
     }
 
     /**
-     * Contains information about notification settings for a chat or a froum topic.
+     * Contains information about notification settings for a chat or a forum topic.
      */
     public static class ChatNotificationSettings extends Object {
         /**
@@ -10214,13 +10507,13 @@ public class TdApi {
         public boolean disableMentionNotifications;
 
         /**
-         * Contains information about notification settings for a chat or a froum topic.
+         * Contains information about notification settings for a chat or a forum topic.
          */
         public ChatNotificationSettings() {
         }
 
         /**
-         * Contains information about notification settings for a chat or a froum topic.
+         * Contains information about notification settings for a chat or a forum topic.
          *
          * @param useDefaultMuteFor If true, muteFor is ignored and the value for the relevant type of chat or the forum chat is used instead.
          * @param muteFor Time left before notifications will be unmuted, in seconds.
@@ -17289,9 +17582,9 @@ public class TdApi {
          */
         public String query;
         /**
-         * True, if the inline query must be sent from the current chat.
+         * Target chat from which to send the inline query.
          */
-        public boolean inCurrentChat;
+        public TargetChat targetChat;
 
         /**
          * A button that forces an inline query to the bot to be inserted in the input field.
@@ -17303,17 +17596,17 @@ public class TdApi {
          * A button that forces an inline query to the bot to be inserted in the input field.
          *
          * @param query Inline query to be sent to the bot.
-         * @param inCurrentChat True, if the inline query must be sent from the current chat.
+         * @param targetChat Target chat from which to send the inline query.
          */
-        public InlineKeyboardButtonTypeSwitchInline(String query, boolean inCurrentChat) {
+        public InlineKeyboardButtonTypeSwitchInline(String query, TargetChat targetChat) {
             this.query = query;
-            this.inCurrentChat = inCurrentChat;
+            this.targetChat = targetChat;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2035563307;
+        public static final int CONSTRUCTOR = 544906485;
 
         /**
          * @return this.CONSTRUCTOR
@@ -18255,7 +18548,8 @@ public class TdApi {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
             InputBackgroundLocal.CONSTRUCTOR,
-            InputBackgroundRemote.CONSTRUCTOR
+            InputBackgroundRemote.CONSTRUCTOR,
+            InputBackgroundPrevious.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -18338,6 +18632,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -274976231;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A background previously set in the chat; for chat backgrounds only.
+     */
+    public static class InputBackgroundPrevious extends InputBackground {
+        /**
+         * Identifier of the message with the background.
+         */
+        public long messageId;
+
+        /**
+         * A background previously set in the chat; for chat backgrounds only.
+         */
+        public InputBackgroundPrevious() {
+        }
+
+        /**
+         * A background previously set in the chat; for chat backgrounds only.
+         *
+         * @param messageId Identifier of the message with the background.
+         */
+        public InputBackgroundPrevious(long messageId) {
+            this.messageId = messageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -351905954;
 
         /**
          * @return this.CONSTRUCTOR
@@ -22304,10 +22636,11 @@ public class TdApi {
             InternalLinkTypeBotStart.CONSTRUCTOR,
             InternalLinkTypeBotStartInGroup.CONSTRUCTOR,
             InternalLinkTypeChangePhoneNumber.CONSTRUCTOR,
+            InternalLinkTypeChatFolderInvite.CONSTRUCTOR,
+            InternalLinkTypeChatFolderSettings.CONSTRUCTOR,
             InternalLinkTypeChatInvite.CONSTRUCTOR,
             InternalLinkTypeDefaultMessageAutoDeleteTimerSettings.CONSTRUCTOR,
             InternalLinkTypeEditProfileSettings.CONSTRUCTOR,
-            InternalLinkTypeFilterSettings.CONSTRUCTOR,
             InternalLinkTypeGame.CONSTRUCTOR,
             InternalLinkTypeInstantView.CONSTRUCTOR,
             InternalLinkTypeInvoice.CONSTRUCTOR,
@@ -22670,6 +23003,69 @@ public class TdApi {
     }
 
     /**
+     * The link is an invite link to a chat folder. Call checkChatFolderInviteLink with the given invite link to process the link.
+     */
+    public static class InternalLinkTypeChatFolderInvite extends InternalLinkType {
+        /**
+         * Internal representation of the invite link.
+         */
+        public String inviteLink;
+
+        /**
+         * The link is an invite link to a chat folder. Call checkChatFolderInviteLink with the given invite link to process the link.
+         */
+        public InternalLinkTypeChatFolderInvite() {
+        }
+
+        /**
+         * The link is an invite link to a chat folder. Call checkChatFolderInviteLink with the given invite link to process the link.
+         *
+         * @param inviteLink Internal representation of the invite link.
+         */
+        public InternalLinkTypeChatFolderInvite(String inviteLink) {
+            this.inviteLink = inviteLink;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1984804546;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to the folder section of the app settings.
+     */
+    public static class InternalLinkTypeChatFolderSettings extends InternalLinkType {
+
+        /**
+         * The link is a link to the folder section of the app settings.
+         */
+        public InternalLinkTypeChatFolderSettings() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1073805988;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * The link is a chat invite link. Call checkChatInviteLink with the given invite link to process the link.
      */
     public static class InternalLinkTypeChatInvite extends InternalLinkType {
@@ -22747,31 +23143,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1022472090;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The link is a link to the filter section of the app settings.
-     */
-    public static class InternalLinkTypeFilterSettings extends InternalLinkType {
-
-        /**
-         * The link is a link to the filter section of the app settings.
-         */
-        public InternalLinkTypeFilterSettings() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1501632411;
 
         /**
          * @return this.CONSTRUCTOR
@@ -26021,6 +26392,7 @@ public class TdApi {
             MessageChatUpgradeFrom.CONSTRUCTOR,
             MessagePinMessage.CONSTRUCTOR,
             MessageScreenshotTaken.CONSTRUCTOR,
+            MessageChatSetBackground.CONSTRUCTOR,
             MessageChatSetTheme.CONSTRUCTOR,
             MessageChatSetMessageAutoDeleteTime.CONSTRUCTOR,
             MessageForumTopicCreated.CONSTRUCTOR,
@@ -27635,6 +28007,50 @@ public class TdApi {
     }
 
     /**
+     * A new background was set in the chat.
+     */
+    public static class MessageChatSetBackground extends MessageContent {
+        /**
+         * Identifier of the message with a previously set same background; 0 if none. Can be an identifier of a deleted message.
+         */
+        public long oldBackgroundMessageId;
+        /**
+         * The new background.
+         */
+        public ChatBackground background;
+
+        /**
+         * A new background was set in the chat.
+         */
+        public MessageChatSetBackground() {
+        }
+
+        /**
+         * A new background was set in the chat.
+         *
+         * @param oldBackgroundMessageId Identifier of the message with a previously set same background; 0 if none. Can be an identifier of a deleted message.
+         * @param background The new background.
+         */
+        public MessageChatSetBackground(long oldBackgroundMessageId, ChatBackground background) {
+            this.oldBackgroundMessageId = oldBackgroundMessageId;
+            this.background = background;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2122213583;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * A theme in the chat has been changed.
      */
     public static class MessageChatSetTheme extends MessageContent {
@@ -28177,6 +28593,10 @@ public class TdApi {
      */
     public static class MessageGiftedPremium extends MessageContent {
         /**
+         * The identifier of a user that gifted Telegram Premium; 0 if the gift was anonymous.
+         */
+        public long gifterUserId;
+        /**
          * Currency for the paid amount.
          */
         public String currency;
@@ -28184,6 +28604,14 @@ public class TdApi {
          * The paid amount, in the smallest units of the currency.
          */
         public long amount;
+        /**
+         * Cryptocurrency used to pay for the gift; may be empty if none.
+         */
+        public String cryptocurrency;
+        /**
+         * The paid amount, in the smallest units of the cryptocurrency.
+         */
+        public long cryptocurrencyAmount;
         /**
          * Number of month the Telegram Premium subscription will be active.
          */
@@ -28202,14 +28630,20 @@ public class TdApi {
         /**
          * Telegram Premium was gifted to the user.
          *
+         * @param gifterUserId The identifier of a user that gifted Telegram Premium; 0 if the gift was anonymous.
          * @param currency Currency for the paid amount.
          * @param amount The paid amount, in the smallest units of the currency.
+         * @param cryptocurrency Cryptocurrency used to pay for the gift; may be empty if none.
+         * @param cryptocurrencyAmount The paid amount, in the smallest units of the cryptocurrency.
          * @param monthCount Number of month the Telegram Premium subscription will be active.
          * @param sticker A sticker to be shown in the message; may be null if unknown.
          */
-        public MessageGiftedPremium(String currency, long amount, int monthCount, Sticker sticker) {
+        public MessageGiftedPremium(long gifterUserId, String currency, long amount, String cryptocurrency, long cryptocurrencyAmount, int monthCount, Sticker sticker) {
+            this.gifterUserId = gifterUserId;
             this.currency = currency;
             this.amount = amount;
+            this.cryptocurrency = cryptocurrency;
+            this.cryptocurrencyAmount = cryptocurrencyAmount;
             this.monthCount = monthCount;
             this.sticker = sticker;
         }
@@ -28217,7 +28651,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1580804249;
+        public static final int CONSTRUCTOR = 126688522;
 
         /**
          * @return this.CONSTRUCTOR
@@ -28464,7 +28898,7 @@ public class TdApi {
          */
         public String buttonText;
         /**
-         * Received data.
+         * The data.
          */
         public String data;
 
@@ -28478,7 +28912,7 @@ public class TdApi {
          * Data from a Web App has been received; for bots only.
          *
          * @param buttonText Text of the keyboardButtonTypeWebApp button, which opened the Web App.
-         * @param data Received data.
+         * @param data The data.
          */
         public MessageWebAppDataReceived(String buttonText, String data) {
             this.buttonText = buttonText;
@@ -28884,7 +29318,7 @@ public class TdApi {
     }
 
     /**
-     * The media is unuspported.
+     * The media is unsupported.
      */
     public static class MessageExtendedMediaUnsupported extends MessageExtendedMedia {
         /**
@@ -28893,13 +29327,13 @@ public class TdApi {
         public FormattedText caption;
 
         /**
-         * The media is unuspported.
+         * The media is unsupported.
          */
         public MessageExtendedMediaUnsupported() {
         }
 
         /**
-         * The media is unuspported.
+         * The media is unsupported.
          *
          * @param caption Media caption.
          */
@@ -36753,12 +37187,12 @@ public class TdApi {
     }
 
     /**
-     * Allowed to set a premium appllication icons.
+     * Allowed to set a premium application icons.
      */
     public static class PremiumFeatureAppIcons extends PremiumFeature {
 
         /**
-         * Allowed to set a premium appllication icons.
+         * Allowed to set a premium application icons.
          */
         public PremiumFeatureAppIcons() {
         }
@@ -36958,11 +37392,13 @@ public class TdApi {
             PremiumLimitTypeCreatedPublicChatCount.CONSTRUCTOR,
             PremiumLimitTypeSavedAnimationCount.CONSTRUCTOR,
             PremiumLimitTypeFavoriteStickerCount.CONSTRUCTOR,
-            PremiumLimitTypeChatFilterCount.CONSTRUCTOR,
-            PremiumLimitTypeChatFilterChosenChatCount.CONSTRUCTOR,
+            PremiumLimitTypeChatFolderCount.CONSTRUCTOR,
+            PremiumLimitTypeChatFolderChosenChatCount.CONSTRUCTOR,
             PremiumLimitTypePinnedArchivedChatCount.CONSTRUCTOR,
             PremiumLimitTypeCaptionLength.CONSTRUCTOR,
-            PremiumLimitTypeBioLength.CONSTRUCTOR
+            PremiumLimitTypeBioLength.CONSTRUCTOR,
+            PremiumLimitTypeChatFolderInviteLinkCount.CONSTRUCTOR,
+            PremiumLimitTypeShareableChatFolderCount.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -37105,20 +37541,20 @@ public class TdApi {
     }
 
     /**
-     * The maximum number of chat filters.
+     * The maximum number of chat folders.
      */
-    public static class PremiumLimitTypeChatFilterCount extends PremiumLimitType {
+    public static class PremiumLimitTypeChatFolderCount extends PremiumLimitType {
 
         /**
-         * The maximum number of chat filters.
+         * The maximum number of chat folders.
          */
-        public PremiumLimitTypeChatFilterCount() {
+        public PremiumLimitTypeChatFolderCount() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -644517214;
+        public static final int CONSTRUCTOR = 377489774;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37130,20 +37566,20 @@ public class TdApi {
     }
 
     /**
-     * The maximum number of pinned and always included, or always excluded chats in a chat filter.
+     * The maximum number of pinned and always included, or always excluded chats in a chat folder.
      */
-    public static class PremiumLimitTypeChatFilterChosenChatCount extends PremiumLimitType {
+    public static class PremiumLimitTypeChatFolderChosenChatCount extends PremiumLimitType {
 
         /**
-         * The maximum number of pinned and always included, or always excluded chats in a chat filter.
+         * The maximum number of pinned and always included, or always excluded chats in a chat folder.
          */
-        public PremiumLimitTypeChatFilterChosenChatCount() {
+        public PremiumLimitTypeChatFolderChosenChatCount() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2057969759;
+        public static final int CONSTRUCTOR = 1691435861;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37219,6 +37655,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1146976765;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The maximum number of invite links for a chat folder.
+     */
+    public static class PremiumLimitTypeChatFolderInviteLinkCount extends PremiumLimitType {
+
+        /**
+         * The maximum number of invite links for a chat folder.
+         */
+        public PremiumLimitTypeChatFolderInviteLinkCount() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -128702950;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The maximum number of added shareable chat folders.
+     */
+    public static class PremiumLimitTypeShareableChatFolderCount extends PremiumLimitType {
+
+        /**
+         * The maximum number of added shareable chat folders.
+         */
+        public PremiumLimitTypeShareableChatFolderCount() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1612625095;
 
         /**
          * @return this.CONSTRUCTOR
@@ -38005,6 +38491,7 @@ public class TdApi {
             PushMessageContentChatAddMembers.CONSTRUCTOR,
             PushMessageContentChatChangePhoto.CONSTRUCTOR,
             PushMessageContentChatChangeTitle.CONSTRUCTOR,
+            PushMessageContentChatSetBackground.CONSTRUCTOR,
             PushMessageContentChatSetTheme.CONSTRUCTOR,
             PushMessageContentChatDeleteMember.CONSTRUCTOR,
             PushMessageContentChatJoinByLink.CONSTRUCTOR,
@@ -38964,6 +39451,44 @@ public class TdApi {
     }
 
     /**
+     * A chat background was edited.
+     */
+    public static class PushMessageContentChatSetBackground extends PushMessageContent {
+        /**
+         * True, if the set background is the same as the background of the current user.
+         */
+        public boolean isSame;
+
+        /**
+         * A chat background was edited.
+         */
+        public PushMessageContentChatSetBackground() {
+        }
+
+        /**
+         * A chat background was edited.
+         *
+         * @param isSame True, if the set background is the same as the background of the current user.
+         */
+        public PushMessageContentChatSetBackground(boolean isSame) {
+            this.isSame = isSame;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1490331933;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * A chat theme was edited.
      */
     public static class PushMessageContentChatSetTheme extends PushMessageContent {
@@ -39404,39 +39929,39 @@ public class TdApi {
     }
 
     /**
-     * Describes a recommended chat filter.
+     * Describes a recommended chat folder.
      */
-    public static class RecommendedChatFilter extends Object {
+    public static class RecommendedChatFolder extends Object {
         /**
-         * The chat filter.
+         * The chat folder.
          */
-        public ChatFilter filter;
+        public ChatFolder folder;
         /**
-         * Chat filter description.
+         * Chat folder description.
          */
         public String description;
 
         /**
-         * Describes a recommended chat filter.
+         * Describes a recommended chat folder.
          */
-        public RecommendedChatFilter() {
+        public RecommendedChatFolder() {
         }
 
         /**
-         * Describes a recommended chat filter.
+         * Describes a recommended chat folder.
          *
-         * @param filter The chat filter.
-         * @param description Chat filter description.
+         * @param folder The chat folder.
+         * @param description Chat folder description.
          */
-        public RecommendedChatFilter(ChatFilter filter, String description) {
-            this.filter = filter;
+        public RecommendedChatFolder(ChatFolder folder, String description) {
+            this.folder = folder;
             this.description = description;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 36048610;
+        public static final int CONSTRUCTOR = -2116569930;
 
         /**
          * @return this.CONSTRUCTOR
@@ -39448,33 +39973,33 @@ public class TdApi {
     }
 
     /**
-     * Contains a list of recommended chat filters.
+     * Contains a list of recommended chat folders.
      */
-    public static class RecommendedChatFilters extends Object {
+    public static class RecommendedChatFolders extends Object {
         /**
-         * List of recommended chat filters.
+         * List of recommended chat folders.
          */
-        public RecommendedChatFilter[] chatFilters;
+        public RecommendedChatFolder[] chatFolders;
 
         /**
-         * Contains a list of recommended chat filters.
+         * Contains a list of recommended chat folders.
          */
-        public RecommendedChatFilters() {
+        public RecommendedChatFolders() {
         }
 
         /**
-         * Contains a list of recommended chat filters.
+         * Contains a list of recommended chat folders.
          *
-         * @param chatFilters List of recommended chat filters.
+         * @param chatFolders List of recommended chat folders.
          */
-        public RecommendedChatFilters(RecommendedChatFilter[] chatFilters) {
-            this.chatFilters = chatFilters;
+        public RecommendedChatFolders(RecommendedChatFolder[] chatFolders) {
+            this.chatFolders = chatFolders;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -263416880;
+        public static final int CONSTRUCTOR = -739217656;
 
         /**
          * @return this.CONSTRUCTOR
@@ -42389,7 +42914,7 @@ public class TdApi {
      */
     public static class SpeechRecognitionResultError extends SpeechRecognitionResult {
         /**
-         * Received error.
+         * Recognition error.
          */
         public Error error;
 
@@ -42402,7 +42927,7 @@ public class TdApi {
         /**
          * The speech recognition failed.
          *
-         * @param error Received error.
+         * @param error Recognition error.
          */
         public SpeechRecognitionResultError(Error error) {
             this.error = error;
@@ -42757,7 +43282,7 @@ public class TdApi {
          */
         public long id;
         /**
-         * The identifier of the sticker set to which the sticker belongs; 0 if none.
+         * Identifier of the sticker set to which the sticker belongs; 0 if none.
          */
         public long setId;
         /**
@@ -42803,7 +43328,7 @@ public class TdApi {
          * Describes a sticker.
          *
          * @param id Unique sticker identifier within the set; 0 if none.
-         * @param setId The identifier of the sticker set to which the sticker belongs; 0 if none.
+         * @param setId Identifier of the sticker set to which the sticker belongs; 0 if none.
          * @param width Sticker width; as defined by the sender.
          * @param height Sticker height; as defined by the sender.
          * @param emoji Emoji corresponding to the sticker.
@@ -44105,7 +44630,7 @@ public class TdApi {
          */
         public ChatMemberStatus status;
         /**
-         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules.
+         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, getUserPrivacySettingRules, or in chatFolderInviteLinkInfo.missingChatIds.
          */
         public int memberCount;
         /**
@@ -44174,7 +44699,7 @@ public class TdApi {
          * @param usernames Usernames of the supergroup or channel; may be null.
          * @param date Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
          * @param status Status of the current user in the supergroup or channel; custom title will always be empty.
-         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules.
+         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, getUserPrivacySettingRules, or in chatFolderInviteLinkInfo.missingChatIds.
          * @param hasLinkedChat True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
          * @param hasLocation True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup.
          * @param signMessages True, if messages sent to the channel need to contain information about the sender. This field is only applicable to channels.
@@ -47034,6 +47559,7 @@ public class TdApi {
             UpdateChatNotificationSettings.CONSTRUCTOR,
             UpdateChatPendingJoinRequests.CONSTRUCTOR,
             UpdateChatReplyMarkup.CONSTRUCTOR,
+            UpdateChatBackground.CONSTRUCTOR,
             UpdateChatTheme.CONSTRUCTOR,
             UpdateChatUnreadMentionCount.CONSTRUCTOR,
             UpdateChatUnreadReactionCount.CONSTRUCTOR,
@@ -47044,7 +47570,7 @@ public class TdApi {
             UpdateChatIsMarkedAsUnread.CONSTRUCTOR,
             UpdateChatIsBlocked.CONSTRUCTOR,
             UpdateChatHasScheduledMessages.CONSTRUCTOR,
-            UpdateChatFilters.CONSTRUCTOR,
+            UpdateChatFolders.CONSTRUCTOR,
             UpdateChatOnlineMemberCount.CONSTRUCTOR,
             UpdateForumTopicInfo.CONSTRUCTOR,
             UpdateScopeNotificationSettings.CONSTRUCTOR,
@@ -48466,6 +48992,50 @@ public class TdApi {
     }
 
     /**
+     * The chat background was changed.
+     */
+    public static class UpdateChatBackground extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The new chat background; may be null if background was reset to default.
+         */
+        @Nullable public ChatBackground background;
+
+        /**
+         * The chat background was changed.
+         */
+        public UpdateChatBackground() {
+        }
+
+        /**
+         * The chat background was changed.
+         *
+         * @param chatId Chat identifier.
+         * @param background The new chat background; may be null if background was reset to default.
+         */
+        public UpdateChatBackground(long chatId, ChatBackground background) {
+            this.chatId = chatId;
+            this.background = background;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -6473549;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * The chat theme was changed.
      */
     public static class UpdateChatTheme extends Update {
@@ -48906,39 +49476,39 @@ public class TdApi {
     }
 
     /**
-     * The list of chat filters or a chat filter has changed.
+     * The list of chat folders or a chat folder has changed.
      */
-    public static class UpdateChatFilters extends Update {
+    public static class UpdateChatFolders extends Update {
         /**
-         * The new list of chat filters.
+         * The new list of chat folders.
          */
-        public ChatFilterInfo[] chatFilters;
+        public ChatFolderInfo[] chatFolders;
         /**
-         * Position of the main chat list among chat filters, 0-based.
+         * Position of the main chat list among chat folders, 0-based.
          */
         public int mainChatListPosition;
 
         /**
-         * The list of chat filters or a chat filter has changed.
+         * The list of chat folders or a chat folder has changed.
          */
-        public UpdateChatFilters() {
+        public UpdateChatFolders() {
         }
 
         /**
-         * The list of chat filters or a chat filter has changed.
+         * The list of chat folders or a chat folder has changed.
          *
-         * @param chatFilters The new list of chat filters.
-         * @param mainChatListPosition Position of the main chat list among chat filters, 0-based.
+         * @param chatFolders The new list of chat folders.
+         * @param mainChatListPosition Position of the main chat list among chat folders, 0-based.
          */
-        public UpdateChatFilters(ChatFilterInfo[] chatFilters, int mainChatListPosition) {
-            this.chatFilters = chatFilters;
+        public UpdateChatFolders(ChatFolderInfo[] chatFolders, int mainChatListPosition) {
+            this.chatFolders = chatFolders;
             this.mainChatListPosition = mainChatListPosition;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 81316953;
+        public static final int CONSTRUCTOR = 1892046525;
 
         /**
          * @return this.CONSTRUCTOR
@@ -52006,6 +52576,10 @@ public class TdApi {
          */
         @Nullable public ChatInviteLink inviteLink;
         /**
+         * True, if the user has joined the chat using an invite link for a chat folder.
+         */
+        public boolean viaChatFolderInviteLink;
+        /**
          * Previous chat member.
          */
         public ChatMember oldChatMember;
@@ -52027,14 +52601,16 @@ public class TdApi {
          * @param actorUserId Identifier of the user, changing the rights.
          * @param date Point in time (Unix timestamp) when the user rights was changed.
          * @param inviteLink If user has joined the chat using an invite link, the invite link; may be null.
+         * @param viaChatFolderInviteLink True, if the user has joined the chat using an invite link for a chat folder.
          * @param oldChatMember Previous chat member.
          * @param newChatMember New chat member.
          */
-        public UpdateChatMember(long chatId, long actorUserId, int date, ChatInviteLink inviteLink, ChatMember oldChatMember, ChatMember newChatMember) {
+        public UpdateChatMember(long chatId, long actorUserId, int date, ChatInviteLink inviteLink, boolean viaChatFolderInviteLink, ChatMember oldChatMember, ChatMember newChatMember) {
             this.chatId = chatId;
             this.actorUserId = actorUserId;
             this.date = date;
             this.inviteLink = inviteLink;
+            this.viaChatFolderInviteLink = viaChatFolderInviteLink;
             this.oldChatMember = oldChatMember;
             this.newChatMember = newChatMember;
         }
@@ -52042,7 +52618,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2027989165;
+        public static final int CONSTRUCTOR = 1610670748;
 
         /**
          * @return this.CONSTRUCTOR
@@ -53374,6 +53950,10 @@ public class TdApi {
      */
     public static class UserTypeBot extends UserType {
         /**
+         * True, if the bot is owned by the current user and can be edited using the methods toggleBotUsernameIsActive, reorderBotActiveUsernames, setBotProfilePhoto, setBotName, setBotInfoDescription, and setBotInfoShortDescription.
+         */
+        public boolean canBeEdited;
+        /**
          * True, if the bot can be invited to basic group and supergroup chats.
          */
         public boolean canJoinGroups;
@@ -53407,6 +53987,7 @@ public class TdApi {
         /**
          * A bot (see https://core.telegram.org/bots).
          *
+         * @param canBeEdited True, if the bot is owned by the current user and can be edited using the methods toggleBotUsernameIsActive, reorderBotActiveUsernames, setBotProfilePhoto, setBotName, setBotInfoDescription, and setBotInfoShortDescription.
          * @param canJoinGroups True, if the bot can be invited to basic group and supergroup chats.
          * @param canReadAllGroupMessages True, if the bot can read all messages in basic group or supergroup chats and not just those addressed to the bot. In private and channel chats a bot can always read all messages.
          * @param isInline True, if the bot supports inline queries.
@@ -53414,7 +53995,8 @@ public class TdApi {
          * @param needLocation True, if the location of the user is expected to be sent with every inline query to this bot.
          * @param canBeAddedToAttachmentMenu True, if the bot can be added to attachment menu.
          */
-        public UserTypeBot(boolean canJoinGroups, boolean canReadAllGroupMessages, boolean isInline, String inlineQueryPlaceholder, boolean needLocation, boolean canBeAddedToAttachmentMenu) {
+        public UserTypeBot(boolean canBeEdited, boolean canJoinGroups, boolean canReadAllGroupMessages, boolean isInline, String inlineQueryPlaceholder, boolean needLocation, boolean canBeAddedToAttachmentMenu) {
+            this.canBeEdited = canBeEdited;
             this.canJoinGroups = canJoinGroups;
             this.canReadAllGroupMessages = canReadAllGroupMessages;
             this.isInline = isInline;
@@ -53426,7 +54008,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -970625144;
+        public static final int CONSTRUCTOR = -109451376;
 
         /**
          * @return this.CONSTRUCTOR
@@ -53467,15 +54049,15 @@ public class TdApi {
      */
     public static class Usernames extends Object {
         /**
-         * List of active usernames; the first one must be shown as the primary username. The order of active usernames can be changed with reorderActiveUsernames or reorderSupergroupActiveUsernames.
+         * List of active usernames; the first one must be shown as the primary username. The order of active usernames can be changed with reorderActiveUsernames, reorderBotActiveUsernames or reorderSupergroupActiveUsernames.
          */
         public String[] activeUsernames;
         /**
-         * List of currently disabled usernames; the username can be activated with toggleUsernameIsActive/toggleSupergroupUsernameIsActive.
+         * List of currently disabled usernames; the username can be activated with toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive.
          */
         public String[] disabledUsernames;
         /**
-         * The active username, which can be changed with setUsername/setSupergroupUsername.
+         * The active username, which can be changed with setUsername or setSupergroupUsername.
          */
         public String editableUsername;
 
@@ -53488,9 +54070,9 @@ public class TdApi {
         /**
          * Describes usernames assigned to a user, a supergroup, or a channel.
          *
-         * @param activeUsernames List of active usernames; the first one must be shown as the primary username. The order of active usernames can be changed with reorderActiveUsernames or reorderSupergroupActiveUsernames.
-         * @param disabledUsernames List of currently disabled usernames; the username can be activated with toggleUsernameIsActive/toggleSupergroupUsernameIsActive.
-         * @param editableUsername The active username, which can be changed with setUsername/setSupergroupUsername.
+         * @param activeUsernames List of active usernames; the first one must be shown as the primary username. The order of active usernames can be changed with reorderActiveUsernames, reorderBotActiveUsernames or reorderSupergroupActiveUsernames.
+         * @param disabledUsernames List of currently disabled usernames; the username can be activated with toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive.
+         * @param editableUsername The active username, which can be changed with setUsername or setSupergroupUsername.
          */
         public Usernames(String[] activeUsernames, String[] disabledUsernames, String editableUsername) {
             this.activeUsernames = activeUsernames;
@@ -54519,6 +55101,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1946976311;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Adds a chat folder by an invite link.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class AddChatFolderByInviteLink extends Function<Ok> {
+        /**
+         * Invite link for the chat folder.
+         */
+        public String inviteLink;
+        /**
+         * Identifiers of the chats added to the chat folder. The chats are automatically joined if they aren't joined yet.
+         */
+        public long[] chatIds;
+
+        /**
+         * Default constructor for a function, which adds a chat folder by an invite link.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public AddChatFolderByInviteLink() {
+        }
+
+        /**
+         * Creates a function, which adds a chat folder by an invite link.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param inviteLink Invite link for the chat folder.
+         * @param chatIds Identifiers of the chats added to the chat folder. The chats are automatically joined if they aren't joined yet.
+         */
+        public AddChatFolderByInviteLink(String inviteLink, long[] chatIds) {
+            this.inviteLink = inviteLink;
+            this.chatIds = chatIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -858593816;
 
         /**
          * @return this.CONSTRUCTOR
@@ -56610,6 +57242,50 @@ public class TdApi {
     }
 
     /**
+     * Checks the validity of an invite link for a chat folder and returns information about the corresponding chat folder.
+     *
+     * <p> Returns {@link ChatFolderInviteLinkInfo ChatFolderInviteLinkInfo} </p>
+     */
+    public static class CheckChatFolderInviteLink extends Function<ChatFolderInviteLinkInfo> {
+        /**
+         * Invite link to be checked.
+         */
+        public String inviteLink;
+
+        /**
+         * Default constructor for a function, which checks the validity of an invite link for a chat folder and returns information about the corresponding chat folder.
+         *
+         * <p> Returns {@link ChatFolderInviteLinkInfo ChatFolderInviteLinkInfo} </p>
+         */
+        public CheckChatFolderInviteLink() {
+        }
+
+        /**
+         * Creates a function, which checks the validity of an invite link for a chat folder and returns information about the corresponding chat folder.
+         *
+         * <p> Returns {@link ChatFolderInviteLinkInfo ChatFolderInviteLinkInfo} </p>
+         *
+         * @param inviteLink Invite link to be checked.
+         */
+        public CheckChatFolderInviteLink(String inviteLink) {
+            this.inviteLink = inviteLink;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 522557851;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Checks the validity of an invite link for a chat and returns information about the corresponding chat.
      *
      * <p> Returns {@link ChatInviteLinkInfo ChatInviteLinkInfo} </p>
@@ -57723,39 +58399,95 @@ public class TdApi {
     }
 
     /**
-     * Creates new chat filter. Returns information about the created chat filter. There can be up to getOption(&quot;chat_filter_count_max&quot;) chat filters, but the limit can be increased with Telegram Premium.
+     * Creates new chat folder. Returns information about the created chat folder. There can be up to getOption(&quot;chat_folder_count_max&quot;) chat folders, but the limit can be increased with Telegram Premium.
      *
-     * <p> Returns {@link ChatFilterInfo ChatFilterInfo} </p>
+     * <p> Returns {@link ChatFolderInfo ChatFolderInfo} </p>
      */
-    public static class CreateChatFilter extends Function<ChatFilterInfo> {
+    public static class CreateChatFolder extends Function<ChatFolderInfo> {
         /**
-         * Chat filter.
+         * The new chat folder.
          */
-        public ChatFilter filter;
+        public ChatFolder folder;
 
         /**
-         * Default constructor for a function, which creates new chat filter. Returns information about the created chat filter. There can be up to getOption(&quot;chat_filter_count_max&quot;) chat filters, but the limit can be increased with Telegram Premium.
+         * Default constructor for a function, which creates new chat folder. Returns information about the created chat folder. There can be up to getOption(&quot;chat_folder_count_max&quot;) chat folders, but the limit can be increased with Telegram Premium.
          *
-         * <p> Returns {@link ChatFilterInfo ChatFilterInfo} </p>
+         * <p> Returns {@link ChatFolderInfo ChatFolderInfo} </p>
          */
-        public CreateChatFilter() {
+        public CreateChatFolder() {
         }
 
         /**
-         * Creates a function, which creates new chat filter. Returns information about the created chat filter. There can be up to getOption(&quot;chat_filter_count_max&quot;) chat filters, but the limit can be increased with Telegram Premium.
+         * Creates a function, which creates new chat folder. Returns information about the created chat folder. There can be up to getOption(&quot;chat_folder_count_max&quot;) chat folders, but the limit can be increased with Telegram Premium.
          *
-         * <p> Returns {@link ChatFilterInfo ChatFilterInfo} </p>
+         * <p> Returns {@link ChatFolderInfo ChatFolderInfo} </p>
          *
-         * @param filter Chat filter.
+         * @param folder The new chat folder.
          */
-        public CreateChatFilter(ChatFilter filter) {
-            this.filter = filter;
+        public CreateChatFolder(ChatFolder folder) {
+            this.folder = folder;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 49065126;
+        public static final int CONSTRUCTOR = 1015399680;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Creates a new invite link for a chat folder. A link can be created for a chat folder if it has only pinned and included chats.
+     *
+     * <p> Returns {@link ChatFolderInviteLink ChatFolderInviteLink} </p>
+     */
+    public static class CreateChatFolderInviteLink extends Function<ChatFolderInviteLink> {
+        /**
+         * Chat folder identifier.
+         */
+        public int chatFolderId;
+        /**
+         * Name of the link; 0-32 characters.
+         */
+        public String name;
+        /**
+         * Identifiers of chats to be accessible by the invite link. Use getChatsForChatFolderInviteLink to get suitable chats. Basic groups will be automatically converted to supergroups before link creation.
+         */
+        public long[] chatIds;
+
+        /**
+         * Default constructor for a function, which creates a new invite link for a chat folder. A link can be created for a chat folder if it has only pinned and included chats.
+         *
+         * <p> Returns {@link ChatFolderInviteLink ChatFolderInviteLink} </p>
+         */
+        public CreateChatFolderInviteLink() {
+        }
+
+        /**
+         * Creates a function, which creates a new invite link for a chat folder. A link can be created for a chat folder if it has only pinned and included chats.
+         *
+         * <p> Returns {@link ChatFolderInviteLink ChatFolderInviteLink} </p>
+         *
+         * @param chatFolderId Chat folder identifier.
+         * @param name Name of the link; 0-32 characters.
+         * @param chatIds Identifiers of chats to be accessible by the invite link. Use getChatsForChatFolderInviteLink to get suitable chats. Basic groups will be automatically converted to supergroups before link creation.
+         */
+        public CreateChatFolderInviteLink(int chatFolderId, String name, long[] chatIds) {
+            this.chatFolderId = chatFolderId;
+            this.name = name;
+            this.chatIds = chatIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2037911099;
 
         /**
          * @return this.CONSTRUCTOR
@@ -58645,39 +59377,95 @@ public class TdApi {
     }
 
     /**
-     * Deletes existing chat filter.
+     * Deletes existing chat folder.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
-    public static class DeleteChatFilter extends Function<Ok> {
+    public static class DeleteChatFolder extends Function<Ok> {
         /**
-         * Chat filter identifier.
+         * Chat folder identifier.
          */
-        public int chatFilterId;
+        public int chatFolderId;
+        /**
+         * Identifiers of the chats to leave. The chats must be pinned or always included in the folder.
+         */
+        public long[] leaveChatIds;
 
         /**
-         * Default constructor for a function, which deletes existing chat filter.
+         * Default constructor for a function, which deletes existing chat folder.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
-        public DeleteChatFilter() {
+        public DeleteChatFolder() {
         }
 
         /**
-         * Creates a function, which deletes existing chat filter.
+         * Creates a function, which deletes existing chat folder.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatFilterId Chat filter identifier.
+         * @param chatFolderId Chat folder identifier.
+         * @param leaveChatIds Identifiers of the chats to leave. The chats must be pinned or always included in the folder.
          */
-        public DeleteChatFilter(int chatFilterId) {
-            this.chatFilterId = chatFilterId;
+        public DeleteChatFolder(int chatFolderId, long[] leaveChatIds) {
+            this.chatFolderId = chatFolderId;
+            this.leaveChatIds = leaveChatIds;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -523220877;
+        public static final int CONSTRUCTOR = -1956364551;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Deletes an invite link for a chat folder.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteChatFolderInviteLink extends Function<Ok> {
+        /**
+         * Chat folder identifier.
+         */
+        public int chatFolderId;
+        /**
+         * Invite link to be deleted.
+         */
+        public String inviteLink;
+
+        /**
+         * Default constructor for a function, which deletes an invite link for a chat folder.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteChatFolderInviteLink() {
+        }
+
+        /**
+         * Creates a function, which deletes an invite link for a chat folder.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatFolderId Chat folder identifier.
+         * @param inviteLink Invite link to be deleted.
+         */
+        public DeleteChatFolderInviteLink(int chatFolderId, String inviteLink) {
+            this.chatFolderId = chatFolderId;
+            this.inviteLink = inviteLink;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -930057858;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59702,45 +60490,107 @@ public class TdApi {
     }
 
     /**
-     * Edits existing chat filter. Returns information about the edited chat filter.
+     * Edits existing chat folder. Returns information about the edited chat folder.
      *
-     * <p> Returns {@link ChatFilterInfo ChatFilterInfo} </p>
+     * <p> Returns {@link ChatFolderInfo ChatFolderInfo} </p>
      */
-    public static class EditChatFilter extends Function<ChatFilterInfo> {
+    public static class EditChatFolder extends Function<ChatFolderInfo> {
         /**
-         * Chat filter identifier.
+         * Chat folder identifier.
          */
-        public int chatFilterId;
+        public int chatFolderId;
         /**
-         * The edited chat filter.
+         * The edited chat folder.
          */
-        public ChatFilter filter;
+        public ChatFolder folder;
 
         /**
-         * Default constructor for a function, which edits existing chat filter. Returns information about the edited chat filter.
+         * Default constructor for a function, which edits existing chat folder. Returns information about the edited chat folder.
          *
-         * <p> Returns {@link ChatFilterInfo ChatFilterInfo} </p>
+         * <p> Returns {@link ChatFolderInfo ChatFolderInfo} </p>
          */
-        public EditChatFilter() {
+        public EditChatFolder() {
         }
 
         /**
-         * Creates a function, which edits existing chat filter. Returns information about the edited chat filter.
+         * Creates a function, which edits existing chat folder. Returns information about the edited chat folder.
          *
-         * <p> Returns {@link ChatFilterInfo ChatFilterInfo} </p>
+         * <p> Returns {@link ChatFolderInfo ChatFolderInfo} </p>
          *
-         * @param chatFilterId Chat filter identifier.
-         * @param filter The edited chat filter.
+         * @param chatFolderId Chat folder identifier.
+         * @param folder The edited chat folder.
          */
-        public EditChatFilter(int chatFilterId, ChatFilter filter) {
-            this.chatFilterId = chatFilterId;
-            this.filter = filter;
+        public EditChatFolder(int chatFolderId, ChatFolder folder) {
+            this.chatFolderId = chatFolderId;
+            this.folder = folder;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1674793086;
+        public static final int CONSTRUCTOR = 53672754;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Edits an invite link for a chat folder.
+     *
+     * <p> Returns {@link ChatFolderInviteLink ChatFolderInviteLink} </p>
+     */
+    public static class EditChatFolderInviteLink extends Function<ChatFolderInviteLink> {
+        /**
+         * Chat folder identifier.
+         */
+        public int chatFolderId;
+        /**
+         * Invite link to be edited.
+         */
+        public String inviteLink;
+        /**
+         * New name of the link; 0-32 characters.
+         */
+        public String name;
+        /**
+         * New identifiers of chats to be accessible by the invite link. Use getChatsForChatFolderInviteLink to get suitable chats. Basic groups will be automatically converted to supergroups before link editing.
+         */
+        public long[] chatIds;
+
+        /**
+         * Default constructor for a function, which edits an invite link for a chat folder.
+         *
+         * <p> Returns {@link ChatFolderInviteLink ChatFolderInviteLink} </p>
+         */
+        public EditChatFolderInviteLink() {
+        }
+
+        /**
+         * Creates a function, which edits an invite link for a chat folder.
+         *
+         * <p> Returns {@link ChatFolderInviteLink ChatFolderInviteLink} </p>
+         *
+         * @param chatFolderId Chat folder identifier.
+         * @param inviteLink Invite link to be edited.
+         * @param name New name of the link; 0-32 characters.
+         * @param chatIds New identifiers of chats to be accessible by the invite link. Use getChatsForChatFolderInviteLink to get suitable chats. Basic groups will be automatically converted to supergroups before link editing.
+         */
+        public EditChatFolderInviteLink(int chatFolderId, String inviteLink, String name, long[] chatIds) {
+            this.chatFolderId = chatFolderId;
+            this.inviteLink = inviteLink;
+            this.name = name;
+            this.chatIds = chatIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2141872095;
 
         /**
          * @return this.CONSTRUCTOR
@@ -61716,18 +62566,22 @@ public class TdApi {
     }
 
     /**
-     * Returns the text shown in the chat with the bot if the chat is empty in the given language; bots only.
+     * Returns the text shown in the chat with a bot if the chat is empty in the given language. Can be called only if userTypeBot.canBeEdited == true.
      *
      * <p> Returns {@link Text Text} </p>
      */
     public static class GetBotInfoDescription extends Function<Text> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
         /**
          * A two-letter ISO 639-1 language code or an empty string.
          */
         public String languageCode;
 
         /**
-         * Default constructor for a function, which returns the text shown in the chat with the bot if the chat is empty in the given language; bots only.
+         * Default constructor for a function, which returns the text shown in the chat with a bot if the chat is empty in the given language. Can be called only if userTypeBot.canBeEdited == true.
          *
          * <p> Returns {@link Text Text} </p>
          */
@@ -61735,20 +62589,22 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns the text shown in the chat with the bot if the chat is empty in the given language; bots only.
+         * Creates a function, which returns the text shown in the chat with a bot if the chat is empty in the given language. Can be called only if userTypeBot.canBeEdited == true.
          *
          * <p> Returns {@link Text Text} </p>
          *
+         * @param botUserId Identifier of the target bot.
          * @param languageCode A two-letter ISO 639-1 language code or an empty string.
          */
-        public GetBotInfoDescription(String languageCode) {
+        public GetBotInfoDescription(long botUserId, String languageCode) {
+            this.botUserId = botUserId;
             this.languageCode = languageCode;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 972961972;
+        public static final int CONSTRUCTOR = -762841035;
 
         /**
          * @return this.CONSTRUCTOR
@@ -61760,18 +62616,22 @@ public class TdApi {
     }
 
     /**
-     * Returns the text shown on the bot's profile page and sent together with the link when users share the bot in the given language; bots only.
+     * Returns the text shown on a bot's profile page and sent together with the link when users share the bot in the given language. Can be called only if userTypeBot.canBeEdited == true.
      *
      * <p> Returns {@link Text Text} </p>
      */
     public static class GetBotInfoShortDescription extends Function<Text> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
         /**
          * A two-letter ISO 639-1 language code or an empty string.
          */
         public String languageCode;
 
         /**
-         * Default constructor for a function, which returns the text shown on the bot's profile page and sent together with the link when users share the bot in the given language; bots only.
+         * Default constructor for a function, which returns the text shown on a bot's profile page and sent together with the link when users share the bot in the given language. Can be called only if userTypeBot.canBeEdited == true.
          *
          * <p> Returns {@link Text Text} </p>
          */
@@ -61779,20 +62639,72 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns the text shown on the bot's profile page and sent together with the link when users share the bot in the given language; bots only.
+         * Creates a function, which returns the text shown on a bot's profile page and sent together with the link when users share the bot in the given language. Can be called only if userTypeBot.canBeEdited == true.
          *
          * <p> Returns {@link Text Text} </p>
          *
+         * @param botUserId Identifier of the target bot.
          * @param languageCode A two-letter ISO 639-1 language code or an empty string.
          */
-        public GetBotInfoShortDescription(String languageCode) {
+        public GetBotInfoShortDescription(long botUserId, String languageCode) {
+            this.botUserId = botUserId;
             this.languageCode = languageCode;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1630278027;
+        public static final int CONSTRUCTOR = 1243358740;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the name of a bot in the given language. Can be called only if userTypeBot.canBeEdited == true.
+     *
+     * <p> Returns {@link Text Text} </p>
+     */
+    public static class GetBotName extends Function<Text> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * A two-letter ISO 639-1 language code or an empty string.
+         */
+        public String languageCode;
+
+        /**
+         * Default constructor for a function, which returns the name of a bot in the given language. Can be called only if userTypeBot.canBeEdited == true.
+         *
+         * <p> Returns {@link Text Text} </p>
+         */
+        public GetBotName() {
+        }
+
+        /**
+         * Creates a function, which returns the name of a bot in the given language. Can be called only if userTypeBot.canBeEdited == true.
+         *
+         * <p> Returns {@link Text Text} </p>
+         *
+         * @param botUserId Identifier of the target bot.
+         * @param languageCode A two-letter ISO 639-1 language code or an empty string.
+         */
+        public GetBotName(long botUserId, String languageCode) {
+            this.botUserId = botUserId;
+            this.languageCode = languageCode;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1707118036;
 
         /**
          * @return this.CONSTRUCTOR
@@ -62122,39 +63034,39 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a chat filter by its identifier.
+     * Returns information about a chat folder by its identifier.
      *
-     * <p> Returns {@link ChatFilter ChatFilter} </p>
+     * <p> Returns {@link ChatFolder ChatFolder} </p>
      */
-    public static class GetChatFilter extends Function<ChatFilter> {
+    public static class GetChatFolder extends Function<ChatFolder> {
         /**
-         * Chat filter identifier.
+         * Chat folder identifier.
          */
-        public int chatFilterId;
+        public int chatFolderId;
 
         /**
-         * Default constructor for a function, which returns information about a chat filter by its identifier.
+         * Default constructor for a function, which returns information about a chat folder by its identifier.
          *
-         * <p> Returns {@link ChatFilter ChatFilter} </p>
+         * <p> Returns {@link ChatFolder ChatFolder} </p>
          */
-        public GetChatFilter() {
+        public GetChatFolder() {
         }
 
         /**
-         * Creates a function, which returns information about a chat filter by its identifier.
+         * Creates a function, which returns information about a chat folder by its identifier.
          *
-         * <p> Returns {@link ChatFilter ChatFilter} </p>
+         * <p> Returns {@link ChatFolder ChatFolder} </p>
          *
-         * @param chatFilterId Chat filter identifier.
+         * @param chatFolderId Chat folder identifier.
          */
-        public GetChatFilter(int chatFilterId) {
-            this.chatFilterId = chatFilterId;
+        public GetChatFolder(int chatFolderId) {
+            this.chatFolderId = chatFolderId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1826317803;
+        public static final int CONSTRUCTOR = 92809880;
 
         /**
          * @return this.CONSTRUCTOR
@@ -62166,39 +63078,171 @@ public class TdApi {
     }
 
     /**
-     * Returns default icon name for a filter. Can be called synchronously.
+     * Returns identifiers of pinned or always included chats from a chat folder, which are suggested to be left when the chat folder is deleted.
      *
-     * <p> Returns {@link Text Text} </p>
+     * <p> Returns {@link Chats Chats} </p>
      */
-    public static class GetChatFilterDefaultIconName extends Function<Text> {
+    public static class GetChatFolderChatsToLeave extends Function<Chats> {
         /**
-         * Chat filter.
+         * Chat folder identifier.
          */
-        public ChatFilter filter;
+        public int chatFolderId;
 
         /**
-         * Default constructor for a function, which returns default icon name for a filter. Can be called synchronously.
+         * Default constructor for a function, which returns identifiers of pinned or always included chats from a chat folder, which are suggested to be left when the chat folder is deleted.
          *
-         * <p> Returns {@link Text Text} </p>
+         * <p> Returns {@link Chats Chats} </p>
          */
-        public GetChatFilterDefaultIconName() {
+        public GetChatFolderChatsToLeave() {
         }
 
         /**
-         * Creates a function, which returns default icon name for a filter. Can be called synchronously.
+         * Creates a function, which returns identifiers of pinned or always included chats from a chat folder, which are suggested to be left when the chat folder is deleted.
          *
-         * <p> Returns {@link Text Text} </p>
+         * <p> Returns {@link Chats Chats} </p>
          *
-         * @param filter Chat filter.
+         * @param chatFolderId Chat folder identifier.
          */
-        public GetChatFilterDefaultIconName(ChatFilter filter) {
-            this.filter = filter;
+        public GetChatFolderChatsToLeave(int chatFolderId) {
+            this.chatFolderId = chatFolderId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1339828680;
+        public static final int CONSTRUCTOR = -1916672337;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns default icon name for a folder. Can be called synchronously.
+     *
+     * <p> Returns {@link ChatFolderIcon ChatFolderIcon} </p>
+     */
+    public static class GetChatFolderDefaultIconName extends Function<ChatFolderIcon> {
+        /**
+         * Chat folder.
+         */
+        public ChatFolder folder;
+
+        /**
+         * Default constructor for a function, which returns default icon name for a folder. Can be called synchronously.
+         *
+         * <p> Returns {@link ChatFolderIcon ChatFolderIcon} </p>
+         */
+        public GetChatFolderDefaultIconName() {
+        }
+
+        /**
+         * Creates a function, which returns default icon name for a folder. Can be called synchronously.
+         *
+         * <p> Returns {@link ChatFolderIcon ChatFolderIcon} </p>
+         *
+         * @param folder Chat folder.
+         */
+        public GetChatFolderDefaultIconName(ChatFolder folder) {
+            this.folder = folder;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 754425959;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns invite links created by the current user for a shareable chat folder.
+     *
+     * <p> Returns {@link ChatFolderInviteLinks ChatFolderInviteLinks} </p>
+     */
+    public static class GetChatFolderInviteLinks extends Function<ChatFolderInviteLinks> {
+        /**
+         * Chat folder identifier.
+         */
+        public int chatFolderId;
+
+        /**
+         * Default constructor for a function, which returns invite links created by the current user for a shareable chat folder.
+         *
+         * <p> Returns {@link ChatFolderInviteLinks ChatFolderInviteLinks} </p>
+         */
+        public GetChatFolderInviteLinks() {
+        }
+
+        /**
+         * Creates a function, which returns invite links created by the current user for a shareable chat folder.
+         *
+         * <p> Returns {@link ChatFolderInviteLinks ChatFolderInviteLinks} </p>
+         *
+         * @param chatFolderId Chat folder identifier.
+         */
+        public GetChatFolderInviteLinks(int chatFolderId) {
+            this.chatFolderId = chatFolderId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 329079776;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns new chats added to a shareable chat folder by its owner. The method must be called at most once in getOption(&quot;chat_folder_new_chats_update_period&quot;) for the given chat folder.
+     *
+     * <p> Returns {@link Chats Chats} </p>
+     */
+    public static class GetChatFolderNewChats extends Function<Chats> {
+        /**
+         * Chat folder identifier.
+         */
+        public int chatFolderId;
+
+        /**
+         * Default constructor for a function, which returns new chats added to a shareable chat folder by its owner. The method must be called at most once in getOption(&quot;chat_folder_new_chats_update_period&quot;) for the given chat folder.
+         *
+         * <p> Returns {@link Chats Chats} </p>
+         */
+        public GetChatFolderNewChats() {
+        }
+
+        /**
+         * Creates a function, which returns new chats added to a shareable chat folder by its owner. The method must be called at most once in getOption(&quot;chat_folder_new_chats_update_period&quot;) for the given chat folder.
+         *
+         * <p> Returns {@link Chats Chats} </p>
+         *
+         * @param chatFolderId Chat folder identifier.
+         */
+        public GetChatFolderNewChats(int chatFolderId) {
+            this.chatFolderId = chatFolderId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2123181260;
 
         /**
          * @return this.CONSTRUCTOR
@@ -63227,6 +64271,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -972768574;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns identifiers of chats from a chat folder, suitable for adding to a chat folder invite link.
+     *
+     * <p> Returns {@link Chats Chats} </p>
+     */
+    public static class GetChatsForChatFolderInviteLink extends Function<Chats> {
+        /**
+         * Chat folder identifier.
+         */
+        public int chatFolderId;
+
+        /**
+         * Default constructor for a function, which returns identifiers of chats from a chat folder, suitable for adding to a chat folder invite link.
+         *
+         * <p> Returns {@link Chats Chats} </p>
+         */
+        public GetChatsForChatFolderInviteLink() {
+        }
+
+        /**
+         * Creates a function, which returns identifiers of chats from a chat folder, suitable for adding to a chat folder invite link.
+         *
+         * <p> Returns {@link Chats Chats} </p>
+         *
+         * @param chatFolderId Chat folder identifier.
+         */
+        public GetChatsForChatFolderInviteLink(int chatFolderId) {
+            this.chatFolderId = chatFolderId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1873561929;
 
         /**
          * @return this.CONSTRUCTOR
@@ -64811,7 +65899,7 @@ public class TdApi {
      */
     public static class GetInlineQueryResults extends Function<InlineQueryResults> {
         /**
-         * The identifier of the target bot.
+         * Identifier of the target bot.
          */
         public long botUserId;
         /**
@@ -64844,7 +65932,7 @@ public class TdApi {
          *
          * <p> Returns {@link InlineQueryResults InlineQueryResults} </p>
          *
-         * @param botUserId The identifier of the target bot.
+         * @param botUserId Identifier of the target bot.
          * @param chatId Identifier of the chat where the query was sent.
          * @param userLocation Location of the user; pass null if unknown or the bot doesn't need user's location.
          * @param query Text of the query.
@@ -67637,24 +68725,24 @@ public class TdApi {
     }
 
     /**
-     * Returns recommended chat filters for the current user.
+     * Returns recommended chat folders for the current user.
      *
-     * <p> Returns {@link RecommendedChatFilters RecommendedChatFilters} </p>
+     * <p> Returns {@link RecommendedChatFolders RecommendedChatFolders} </p>
      */
-    public static class GetRecommendedChatFilters extends Function<RecommendedChatFilters> {
+    public static class GetRecommendedChatFolders extends Function<RecommendedChatFolders> {
 
         /**
-         * Default constructor for a function, which returns recommended chat filters for the current user.
+         * Default constructor for a function, which returns recommended chat folders for the current user.
          *
-         * <p> Returns {@link RecommendedChatFilters RecommendedChatFilters} </p>
+         * <p> Returns {@link RecommendedChatFolders RecommendedChatFolders} </p>
          */
-        public GetRecommendedChatFilters() {
+        public GetRecommendedChatFolders() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -779390746;
+        public static final int CONSTRUCTOR = -145540217;
 
         /**
          * @return this.CONSTRUCTOR
@@ -67760,7 +68848,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, and topic messages without replied message respectively.
+     * Returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
      *
      * <p> Returns {@link Message Message} </p>
      */
@@ -67775,7 +68863,7 @@ public class TdApi {
         public long messageId;
 
         /**
-         * Default constructor for a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, and topic messages without replied message respectively.
+         * Default constructor for a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
          *
          * <p> Returns {@link Message Message} </p>
          */
@@ -67783,7 +68871,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, and topic messages without replied message respectively.
+         * Creates a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
          *
          * <p> Returns {@link Message Message} </p>
          *
@@ -68674,7 +69762,7 @@ public class TdApi {
      */
     public static class GetTextEntities extends Function<TextEntities> {
         /**
-         * The text in which to look for entites.
+         * The text in which to look for entities.
          */
         public String text;
 
@@ -68691,7 +69779,7 @@ public class TdApi {
          *
          * <p> Returns {@link TextEntities TextEntities} </p>
          *
-         * @param text The text in which to look for entites.
+         * @param text The text in which to look for entities.
          */
         public GetTextEntities(String text) {
             this.text = text;
@@ -70577,6 +71665,56 @@ public class TdApi {
     }
 
     /**
+     * Process new chats added to a shareable chat folder by its owner.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ProcessChatFolderNewChats extends Function<Ok> {
+        /**
+         * Chat folder identifier.
+         */
+        public int chatFolderId;
+        /**
+         * Identifiers of the new chats, which are added to the chat folder. The chats are automatically joined if they aren't joined yet.
+         */
+        public long[] addedChatIds;
+
+        /**
+         * Default constructor for a function, which process new chats added to a shareable chat folder by its owner.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ProcessChatFolderNewChats() {
+        }
+
+        /**
+         * Creates a function, which process new chats added to a shareable chat folder by its owner.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatFolderId Chat folder identifier.
+         * @param addedChatIds Identifiers of the new chats, which are added to the chat folder. The chats are automatically joined if they aren't joined yet.
+         */
+        public ProcessChatFolderNewChats(int chatFolderId, long[] addedChatIds) {
+            this.chatFolderId = chatFolderId;
+            this.addedChatIds = addedChatIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1498280672;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Handles a pending join request in a chat.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -70966,6 +72104,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -792975554;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Traverse all chats in a chat list and marks all messages in the chats as read.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ReadChatList extends Function<Ok> {
+        /**
+         * Chat list in which to mark all chats as read.
+         */
+        public ChatList chatList;
+
+        /**
+         * Default constructor for a function, which traverse all chats in a chat list and marks all messages in the chats as read.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ReadChatList() {
+        }
+
+        /**
+         * Creates a function, which traverse all chats in a chat list and marks all messages in the chats as read.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatList Chat list in which to mark all chats as read.
+         */
+        public ReadChatList(ChatList chatList) {
+            this.chatList = chatList;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1117480790;
 
         /**
          * @return this.CONSTRUCTOR
@@ -72097,6 +73279,56 @@ public class TdApi {
     }
 
     /**
+     * Changes order of active usernames of a bot. Can be called only if userTypeBot.canBeEdited == true.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ReorderActiveBotUsernames extends Function<Ok> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * The new order of active usernames. All currently active usernames must be specified.
+         */
+        public String[] usernames;
+
+        /**
+         * Default constructor for a function, which changes order of active usernames of a bot. Can be called only if userTypeBot.canBeEdited == true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ReorderActiveBotUsernames() {
+        }
+
+        /**
+         * Creates a function, which changes order of active usernames of a bot. Can be called only if userTypeBot.canBeEdited == true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param botUserId Identifier of the target bot.
+         * @param usernames The new order of active usernames. All currently active usernames must be specified.
+         */
+        public ReorderActiveBotUsernames(long botUserId, String[] usernames) {
+            this.botUserId = botUserId;
+            this.usernames = usernames;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1801166592;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes order of active usernames of the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -72141,45 +73373,45 @@ public class TdApi {
     }
 
     /**
-     * Changes the order of chat filters.
+     * Changes the order of chat folders.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
-    public static class ReorderChatFilters extends Function<Ok> {
+    public static class ReorderChatFolders extends Function<Ok> {
         /**
-         * Identifiers of chat filters in the new correct order.
+         * Identifiers of chat folders in the new correct order.
          */
-        public int[] chatFilterIds;
+        public int[] chatFolderIds;
         /**
-         * Position of the main chat list among chat filters, 0-based. Can be non-zero only for Premium users.
+         * Position of the main chat list among chat folders, 0-based. Can be non-zero only for Premium users.
          */
         public int mainChatListPosition;
 
         /**
-         * Default constructor for a function, which changes the order of chat filters.
+         * Default constructor for a function, which changes the order of chat folders.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
-        public ReorderChatFilters() {
+        public ReorderChatFolders() {
         }
 
         /**
-         * Creates a function, which changes the order of chat filters.
+         * Creates a function, which changes the order of chat folders.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatFilterIds Identifiers of chat filters in the new correct order.
-         * @param mainChatListPosition Position of the main chat list among chat filters, 0-based. Can be non-zero only for Premium users.
+         * @param chatFolderIds Identifiers of chat folders in the new correct order.
+         * @param mainChatListPosition Position of the main chat list among chat folders, 0-based. Can be non-zero only for Premium users.
          */
-        public ReorderChatFilters(int[] chatFilterIds, int mainChatListPosition) {
-            this.chatFilterIds = chatFilterIds;
+        public ReorderChatFolders(int[] chatFolderIds, int mainChatListPosition) {
+            this.chatFolderIds = chatFolderIds;
             this.mainChatListPosition = mainChatListPosition;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1805801313;
+        public static final int CONSTRUCTOR = 1665299546;
 
         /**
          * @return this.CONSTRUCTOR
@@ -75577,7 +76809,7 @@ public class TdApi {
          */
         public String buttonText;
         /**
-         * Received data.
+         * The data.
          */
         public String data;
 
@@ -75596,7 +76828,7 @@ public class TdApi {
          *
          * @param botUserId Identifier of the target bot.
          * @param buttonText Text of the keyboardButtonTypeWebApp button, which opened the Web App.
-         * @param data Received data.
+         * @param data The data.
          */
         public SendWebAppData(long botUserId, String buttonText, String data) {
             this.botUserId = botUserId;
@@ -75907,7 +77139,7 @@ public class TdApi {
      */
     public static class SetBackground extends Function<Background> {
         /**
-         * The input background to use; pass null to create a new filled backgrounds or to remove the current background.
+         * The input background to use; pass null to create a new filled background or to remove the current background.
          */
         public InputBackground background;
         /**
@@ -75932,7 +77164,7 @@ public class TdApi {
          *
          * <p> Returns {@link Background Background} </p>
          *
-         * @param background The input background to use; pass null to create a new filled backgrounds or to remove the current background.
+         * @param background The input background to use; pass null to create a new filled background or to remove the current background.
          * @param type Background type; pass null to use the default type of the remote background or to remove the current background.
          * @param forDarkTheme Pass true if the background is changed for a dark theme.
          */
@@ -76001,13 +77233,17 @@ public class TdApi {
     }
 
     /**
-     * Sets the text shown in the chat with the bot if the chat is empty; bots only.
+     * Sets the text shown in the chat with a bot if the chat is empty. Can be called only if userTypeBot.canBeEdited == true.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class SetBotInfoDescription extends Function<Ok> {
         /**
-         * A two-letter ISO 639-1 language code. If empty, the description will be shown to all users, for which language there are no dedicated description.
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * A two-letter ISO 639-1 language code. If empty, the description will be shown to all users for whose languages there is no dedicated description.
          */
         public String languageCode;
         /**
@@ -76016,7 +77252,7 @@ public class TdApi {
         public String description;
 
         /**
-         * Default constructor for a function, which sets the text shown in the chat with the bot if the chat is empty; bots only.
+         * Default constructor for a function, which sets the text shown in the chat with a bot if the chat is empty. Can be called only if userTypeBot.canBeEdited == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -76024,14 +77260,16 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sets the text shown in the chat with the bot if the chat is empty; bots only.
+         * Creates a function, which sets the text shown in the chat with a bot if the chat is empty. Can be called only if userTypeBot.canBeEdited == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param languageCode A two-letter ISO 639-1 language code. If empty, the description will be shown to all users, for which language there are no dedicated description.
+         * @param botUserId Identifier of the target bot.
+         * @param languageCode A two-letter ISO 639-1 language code. If empty, the description will be shown to all users for whose languages there is no dedicated description.
          * @param description New bot's description on the specified language.
          */
-        public SetBotInfoDescription(String languageCode, String description) {
+        public SetBotInfoDescription(long botUserId, String languageCode, String description) {
+            this.botUserId = botUserId;
             this.languageCode = languageCode;
             this.description = description;
         }
@@ -76039,7 +77277,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -62948343;
+        public static final int CONSTRUCTOR = 693574984;
 
         /**
          * @return this.CONSTRUCTOR
@@ -76051,13 +77289,17 @@ public class TdApi {
     }
 
     /**
-     * Sets the text shown on the bot's profile page and sent together with the link when users share the bot; bots only.
+     * Sets the text shown on a bot's profile page and sent together with the link when users share the bot. Can be called only if userTypeBot.canBeEdited == true.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class SetBotInfoShortDescription extends Function<Ok> {
         /**
-         * A two-letter ISO 639-1 language code. If empty, the short description will be shown to all users, for which language there are no dedicated description.
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * A two-letter ISO 639-1 language code. If empty, the short description will be shown to all users for whose languages there is no dedicated description.
          */
         public String languageCode;
         /**
@@ -76066,7 +77308,7 @@ public class TdApi {
         public String shortDescription;
 
         /**
-         * Default constructor for a function, which sets the text shown on the bot's profile page and sent together with the link when users share the bot; bots only.
+         * Default constructor for a function, which sets the text shown on a bot's profile page and sent together with the link when users share the bot. Can be called only if userTypeBot.canBeEdited == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -76074,14 +77316,16 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sets the text shown on the bot's profile page and sent together with the link when users share the bot; bots only.
+         * Creates a function, which sets the text shown on a bot's profile page and sent together with the link when users share the bot. Can be called only if userTypeBot.canBeEdited == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param languageCode A two-letter ISO 639-1 language code. If empty, the short description will be shown to all users, for which language there are no dedicated description.
+         * @param botUserId Identifier of the target bot.
+         * @param languageCode A two-letter ISO 639-1 language code. If empty, the short description will be shown to all users for whose languages there is no dedicated description.
          * @param shortDescription New bot's short description on the specified language.
          */
-        public SetBotInfoShortDescription(String languageCode, String shortDescription) {
+        public SetBotInfoShortDescription(long botUserId, String languageCode, String shortDescription) {
+            this.botUserId = botUserId;
             this.languageCode = languageCode;
             this.shortDescription = shortDescription;
         }
@@ -76089,7 +77333,113 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2109633335;
+        public static final int CONSTRUCTOR = 982956771;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Sets the name of a bot. Can be called only if userTypeBot.canBeEdited == true.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBotName extends Function<Ok> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose languages there is no dedicated name.
+         */
+        public String languageCode;
+        /**
+         * New bot's name on the specified language; 0-64 characters; must be non-empty if language code is empty.
+         */
+        public String name;
+
+        /**
+         * Default constructor for a function, which sets the name of a bot. Can be called only if userTypeBot.canBeEdited == true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBotName() {
+        }
+
+        /**
+         * Creates a function, which sets the name of a bot. Can be called only if userTypeBot.canBeEdited == true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param botUserId Identifier of the target bot.
+         * @param languageCode A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose languages there is no dedicated name.
+         * @param name New bot's name on the specified language; 0-64 characters; must be non-empty if language code is empty.
+         */
+        public SetBotName(long botUserId, String languageCode, String name) {
+            this.botUserId = botUserId;
+            this.languageCode = languageCode;
+            this.name = name;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -761922959;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes a profile photo for a bot.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBotProfilePhoto extends Function<Ok> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * Profile photo to set; pass null to delete the chat photo.
+         */
+        public InputChatPhoto photo;
+
+        /**
+         * Default constructor for a function, which changes a profile photo for a bot.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBotProfilePhoto() {
+        }
+
+        /**
+         * Creates a function, which changes a profile photo for a bot.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param botUserId Identifier of the target bot.
+         * @param photo Profile photo to set; pass null to delete the chat photo.
+         */
+        public SetBotProfilePhoto(long botUserId, InputChatPhoto photo) {
+            this.botUserId = botUserId;
+            this.photo = photo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1115272346;
 
         /**
          * @return this.CONSTRUCTOR
@@ -76190,6 +77540,68 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 267075078;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the background in a specific chat. Supported only in private and secret chats with non-deleted users.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetChatBackground extends Function<Ok> {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The input background to use; pass null to create a new filled background or to remove the current background.
+         */
+        public InputBackground background;
+        /**
+         * Background type; pass null to remove the current background.
+         */
+        public BackgroundType type;
+        /**
+         * Dimming of the background in dark themes, as a percentage; 0-100.
+         */
+        public int darkThemeDimming;
+
+        /**
+         * Default constructor for a function, which changes the background in a specific chat. Supported only in private and secret chats with non-deleted users.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetChatBackground() {
+        }
+
+        /**
+         * Creates a function, which changes the background in a specific chat. Supported only in private and secret chats with non-deleted users.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Chat identifier.
+         * @param background The input background to use; pass null to create a new filled background or to remove the current background.
+         * @param type Background type; pass null to remove the current background.
+         * @param darkThemeDimming Dimming of the background in dark themes, as a percentage; 0-100.
+         */
+        public SetChatBackground(long chatId, InputBackground background, BackgroundType type, int darkThemeDimming) {
+            this.chatId = chatId;
+            this.background = background;
+            this.type = type;
+            this.darkThemeDimming = darkThemeDimming;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1027545896;
 
         /**
          * @return this.CONSTRUCTOR
@@ -80728,6 +82140,62 @@ public class TdApi {
     }
 
     /**
+     * Changes active state for a username of a bot. The editable username can't be disabled. May return an error with a message &quot;USERNAMES_ACTIVE_TOO_MUCH&quot; if the maximum number of active usernames has been reached. Can be called only if userTypeBot.canBeEdited == true.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ToggleBotUsernameIsActive extends Function<Ok> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * The username to change.
+         */
+        public String username;
+        /**
+         * Pass true to activate the username; pass false to disable it.
+         */
+        public boolean isActive;
+
+        /**
+         * Default constructor for a function, which changes active state for a username of a bot. The editable username can't be disabled. May return an error with a message &quot;USERNAMES_ACTIVE_TOO_MUCH&quot; if the maximum number of active usernames has been reached. Can be called only if userTypeBot.canBeEdited == true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ToggleBotUsernameIsActive() {
+        }
+
+        /**
+         * Creates a function, which changes active state for a username of a bot. The editable username can't be disabled. May return an error with a message &quot;USERNAMES_ACTIVE_TOO_MUCH&quot; if the maximum number of active usernames has been reached. Can be called only if userTypeBot.canBeEdited == true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param botUserId Identifier of the target bot.
+         * @param username The username to change.
+         * @param isActive Pass true to activate the username; pass false to disable it.
+         */
+        public ToggleBotUsernameIsActive(long botUserId, String username, boolean isActive) {
+            this.botUserId = botUserId;
+            this.username = username;
+            this.isActive = isActive;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2036569097;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes the value of the default disableNotification parameter, used when a message is sent to a chat.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -80934,7 +82402,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the tranlatable state of a chat; for Telegram Premium users only.
+     * Changes the translatable state of a chat; for Telegram Premium users only.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -80949,7 +82417,7 @@ public class TdApi {
         public boolean isTranslatable;
 
         /**
-         * Default constructor for a function, which changes the tranlatable state of a chat; for Telegram Premium users only.
+         * Default constructor for a function, which changes the translatable state of a chat; for Telegram Premium users only.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -80957,7 +82425,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the tranlatable state of a chat; for Telegram Premium users only.
+         * Creates a function, which changes the translatable state of a chat; for Telegram Premium users only.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -81668,7 +83136,7 @@ public class TdApi {
          */
         public long sessionId;
         /**
-         * Pass true to allow accepring secret chats by the session; pass false otherwise.
+         * Pass true to allow accepting secret chats by the session; pass false otherwise.
          */
         public boolean canAcceptSecretChats;
 
@@ -81686,7 +83154,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param sessionId Session identifier.
-         * @param canAcceptSecretChats Pass true to allow accepring secret chats by the session; pass false otherwise.
+         * @param canAcceptSecretChats Pass true to allow accepting secret chats by the session; pass false otherwise.
          */
         public ToggleSessionCanAcceptSecretChats(long sessionId, boolean canAcceptSecretChats) {
             this.sessionId = sessionId;
