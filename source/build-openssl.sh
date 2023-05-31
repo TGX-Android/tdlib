@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-OPENSSL_SOURCE_DIR=${1:-openssl}
-OPENSSL_INSTALL_DIR=${2:-build/openssl}
-OPENSSL_OPTIONS=${3:-shared}
+OPENSSL_FLAVOR=${1:-shared}
+OPENSSL_SOURCE_DIR=${2:-openssl}
+OPENSSL_INSTALL_DIR=${3:-build/openssl}
 
 source "$(pwd)/setup.sh" || exit 1
 ANDROID_NDK_VERSION="$NDK_VERSION"
@@ -53,13 +53,13 @@ fi
 
 for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
   if [[ $ABI == "x86" ]] ; then
-    ./Configure android-x86 $OPENSSL_OPTIONS -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
+    ./Configure android-x86 $OPENSSL_FLAVOR -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
   elif [[ $ABI == "x86_64" ]] ; then
-    ./Configure android-x86_64 $OPENSSL_OPTIONS -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+    ./Configure android-x86_64 $OPENSSL_FLAVOR -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
   elif [[ $ABI == "armeabi-v7a" ]] ; then
-    ./Configure android-arm $OPENSSL_OPTIONS -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 -D__ARM_MAX_ARCH__=8 || exit 1
+    ./Configure android-arm $OPENSSL_FLAVOR -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 -D__ARM_MAX_ARCH__=8 || exit 1
   elif [[ $ABI == "arm64-v8a" ]] ; then
-    ./Configure android-arm64 $OPENSSL_OPTIONS -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+    ./Configure android-arm64 $OPENSSL_FLAVOR -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
   fi
 
   sed -i.bak 's/-O3/-O3 -ffunction-sections -fdata-sections/g' Makefile || exit 1
