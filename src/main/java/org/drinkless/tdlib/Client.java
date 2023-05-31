@@ -109,15 +109,24 @@ public final class Client {
     public static Client create(ResultHandler updateHandler, ExceptionHandler updateExceptionHandler, ExceptionHandler defaultExceptionHandler) {
         Client client = new Client(updateHandler, updateExceptionHandler, defaultExceptionHandler);
         synchronized (responseReceiver) {
-            if (!responseReceiver.isRun) {
-                responseReceiver.isRun = true;
-
+            if (responseReceiver.thread == null) {
                 Thread receiverThread = new Thread(responseReceiver, "TDLib thread");
+                responseReceiver.thread = receiverThread;
                 receiverThread.setDaemon(true);
                 receiverThread.start();
             }
         }
         return client;
+    }
+
+    public static Thread getResponseReceiverThread () {
+      synchronized (responseReceiver) {
+        return responseReceiver.thread;
+      }
+    }
+
+    public static long getClientCount () {
+      return clientCount.get();
     }
 
     /**
@@ -132,7 +141,7 @@ public final class Client {
     }
 
     private static class ResponseReceiver implements Runnable {
-        public boolean isRun = false;
+        public Thread thread = null;
 
         @Override
         public void run() {
