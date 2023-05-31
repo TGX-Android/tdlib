@@ -69,7 +69,7 @@ for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
 
   echo "Copying to $OPENSSL_INSTALL_DIR/$ABI"
   mkdir -p $OPENSSL_INSTALL_DIR/$ABI/lib/ || exit 1
-  ((test -f libcrypto.a && test -f libssl.so && cp libcrypto.so libssl.so $OPENSSL_INSTALL_DIR/$ABI/lib/) || (test -f libssl.a && test -f libcrypto.a && cp libcrypto.a libssl.a $OPENSSL_INSTALL_DIR/$ABI/lib/)) || exit 1
+  ((test -f libcrypto.so && test -f libssl.so && cp libcrypto.so libssl.so $OPENSSL_INSTALL_DIR/$ABI/lib/) || (test -f libssl.a && test -f libcrypto.a && cp libcrypto.a libssl.a $OPENSSL_INSTALL_DIR/$ABI/lib/)) || exit 1
   cp -r include $OPENSSL_INSTALL_DIR/$ABI/ || exit 1
 
   echo "Built OpenSSL for $ABI: $OPENSSL_INSTALL_DIR/$ABI"
