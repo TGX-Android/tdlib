@@ -1,0 +1,6 @@
+[submodule "source/td"]
+	path = source/td
+	url = https://github.com/tdlib/td
+[submodule "source/openssl"]
+	path = source/openssl
+	url = https://github.com/openssl/openssl
