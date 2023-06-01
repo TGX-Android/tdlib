@@ -20,7 +20,7 @@ OPENSSL_INSTALL_DIR="$(cd "$(dirname -- "$OPENSSL_INSTALL_DIR")" >/dev/null; pwd
 # Delete System.loadLibrary("tdjni")
 pushd "$TDLIB_INSTALL_DIR/tdlib/java/org/drinkless/tdlib" > /dev/null || exit 1
 sed -i".bak" -E '/ {4}static {/,+7d' TdApi.java || exit 1
-sed -i".bak" -E '/ {4}static {/,+7d' Client.java || exit 1
+# sed -i".bak" -E '/ {4}static {/,+7d' Client.java || exit 1
 rm *.bak
 popd > /dev/null
 
@@ -29,6 +29,7 @@ rm -rf native-debug-symbols
 rm -rf ../native-debug-symbols
 unzip tdlib-debug.zip -d native-debug-symbols
 cd native-debug-symbols
+cp "$TDLIB_INSTALL_DIR/version.txt" .
 mv tdlib/libs/* .
 rm -rf tdlib
 rm */*.so
