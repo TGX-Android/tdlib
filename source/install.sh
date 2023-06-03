@@ -1,8 +1,14 @@
 #!/bin/bash
 set -e
 
-TDLIB_INSTALL_DIR=${1:-build/td}
-OPENSSL_INSTALL_DIR=${2:-build/openssl}
+SYMBOLS_INSTALL_DIR=${1:-build}
+TDLIB_INSTALL_DIR=${2:-build/td}
+OPENSSL_INSTALL_DIR=${3:-build/openssl}
+
+if [ ! -d "$SYMBOLS_INSTALL_DIR" ] ; then
+  echo "Error: directory \"$SYMBOLS_INSTALL_DIR\" doesn't exist. Specify existing directory for symbols"
+  exit 1
+fi
 
 if [ ! -d "$OPENSSL_INSTALL_DIR" ] ; then
   echo "Error: directory \"$OPENSSL_INSTALL_DIR\" doesn't exist. Run ./build-openssl.sh"
@@ -14,6 +20,7 @@ if [ ! -d "$TDLIB_INSTALL_DIR" ] ; then
   exit 1
 fi
 
+SYMBOLS_INSTALL_DIR="$(cd "$(dirname -- "$SYMBOLS_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$SYMBOLS_INSTALL_DIR")"
 TDLIB_INSTALL_DIR="$(cd "$(dirname -- "$TDLIB_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$TDLIB_INSTALL_DIR")"
 OPENSSL_INSTALL_DIR="$(cd "$(dirname -- "$OPENSSL_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$OPENSSL_INSTALL_DIR")"
 
@@ -38,7 +45,8 @@ for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
   mv "$ABI/libtdjni.so.debug" "$ABI/libtdjni.so.dbg"
 done
 cd ..
-mv native-debug-symbols ../.
+rm -rf "$SYMBOLS_INSTALL_DIR/native-debug-symbols"
+mv native-debug-symbols "$SYMBOLS_INSTALL_DIR/native-debug-symbols"
 
 popd > /dev/null
 
