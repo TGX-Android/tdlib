@@ -65,7 +65,7 @@ for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
   sed -i.bak 's/-O3/-O3 -ffunction-sections -fdata-sections/g' Makefile || exit 1
 
   make depend -s || exit 1
-  make -j4 -s || exit 1
+  make SHLIB_VERSION_NUMBER= SHLIB_EXT=.so -j4 -s || exit 1
 
   echo "Copying to $OPENSSL_INSTALL_DIR/$ABI"
   mkdir -p $OPENSSL_INSTALL_DIR/$ABI/lib/ || exit 1
@@ -73,7 +73,9 @@ for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
   cp -r include $OPENSSL_INSTALL_DIR/$ABI/ || exit 1
 
   echo "Built OpenSSL for $ABI: $OPENSSL_INSTALL_DIR/$ABI"
-  ls $OPENSSL_INSTALL_DIR/$ABI/
+  ls $OPENSSL_INSTALL_DIR/$ABI/lib
+  echo "Comparsion: "
+  ls
 
   make distclean || exit 1
 done
