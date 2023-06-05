@@ -1,6 +1,8 @@
 [submodule "source/td"]
 	path = source/td
 	url = https://github.com/tdlib/td
+	branch = master
 [submodule "source/openssl"]
 	path = source/openssl
 	url = https://github.com/openssl/openssl
+	branch = OpenSSL_1_1_1-stable
