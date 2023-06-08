@@ -15,5 +15,5 @@ dependencies {
 }
 
 android {
-  namespace = "org.drinkless.td.libcore"
+  namespace = "org.drinkless.tdlib"
 }
