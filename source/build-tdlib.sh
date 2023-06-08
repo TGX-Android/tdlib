@@ -45,6 +45,7 @@ OPENSSL_INSTALL_DIR="$(cd "$(dirname -- "$OPENSSL_INSTALL_DIR")" >/dev/null; pwd
 
 pushd "$TDLIB_SOURCE_DIR/example/android" > /dev/null || exit 1
 rm -rf build-native build-arm64-v8a build-armeabi-v7a build-x86_64 build-x86 tdlib
+sed -i.bak 's/cmake -DCMAKE_TOOLCHAIN_FILE/cmake -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--gc-sections,--icf=safe" -DCMAKE_TOOLCHAIN_FILE/g' build-tdlib.sh || exit 1
 ./build-tdlib.sh "$ANDROID_SDK_ROOT" "$NDK_VERSION" "$OPENSSL_INSTALL_DIR" "$ANDROID_STL" || exit 1
 popd > /dev/null
 
