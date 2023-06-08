@@ -10,10 +10,10 @@ if [ ! -d "$SYMBOLS_INSTALL_DIR" ] ; then
   exit 1
 fi
 
-if [ ! -d "$OPENSSL_INSTALL_DIR" ] ; then
-  echo "Error: directory \"$OPENSSL_INSTALL_DIR\" doesn't exist. Run ./build-openssl.sh"
-  exit 1
-fi
+#if [ ! -d "$OPENSSL_INSTALL_DIR" ] ; then
+#  echo "Error: directory \"$OPENSSL_INSTALL_DIR\" doesn't exist. Run ./build-openssl.sh"
+#  exit 1
+#fi
 
 if [ ! -d "$TDLIB_INSTALL_DIR" ] ; then
   echo "Error: directory \"$TDLIB_INSTALL_DIR\" doesn't exist. Run ./build-tdlib.sh"
@@ -22,7 +22,10 @@ fi
 
 SYMBOLS_INSTALL_DIR="$(cd "$(dirname -- "$SYMBOLS_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$SYMBOLS_INSTALL_DIR")"
 TDLIB_INSTALL_DIR="$(cd "$(dirname -- "$TDLIB_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$TDLIB_INSTALL_DIR")"
-OPENSSL_INSTALL_DIR="$(cd "$(dirname -- "$OPENSSL_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$OPENSSL_INSTALL_DIR")"
+
+if [ -e "$OPENSSL_INSTALL_DIR" ] ; then
+  OPENSSL_INSTALL_DIR="$(cd "$(dirname -- "$OPENSSL_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$OPENSSL_INSTALL_DIR")"
+fi
 
 # Delete System.loadLibrary("tdjni")
 pushd "$TDLIB_INSTALL_DIR/tdlib/java/org/drinkless/tdlib" > /dev/null || exit 1
@@ -59,8 +62,11 @@ popd > /dev/null
 
 pushd .. > /dev/null
 
-rm -rf openssl
-cp -R "$OPENSSL_INSTALL_DIR" ./openssl
+if [ -e "$OPENSSL_INSTALL_DIR" ] ; then
+  rm -rf openssl
+  cp -R "$OPENSSL_INSTALL_DIR" ./openssl
+fi
+
 rm -rf version.txt
 cp "$TDLIB_INSTALL_DIR/version.txt" .
 
