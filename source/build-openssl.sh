@@ -65,7 +65,7 @@ for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
   sed -i.bak 's/-O3/-O3 -ffunction-sections -fdata-sections/g' Makefile || exit 1
 
   make depend -s || exit 1
-  make -j4 -s || exit 1
+  make SHLIB_VERSION_NUMBER= SHLIB_EXT=x.so -j4 -s || exit 1
 
   echo "Copying to $OPENSSL_INSTALL_DIR/$ABI"
   mkdir -p $OPENSSL_INSTALL_DIR/$ABI/lib/ || exit 1
