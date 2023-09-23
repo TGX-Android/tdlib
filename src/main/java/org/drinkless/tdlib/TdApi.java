@@ -85,6 +85,8 @@ public class TdApi {
             AssignGooglePlayTransaction.CONSTRUCTOR,
             BanChatMember.CONSTRUCTOR,
             BlockMessageSenderFromReplies.CONSTRUCTOR,
+            BoostChat.CONSTRUCTOR,
+            CanBoostChat.CONSTRUCTOR,
             CanBotSendMessages.CONSTRUCTOR,
             CanPurchasePremium.CONSTRUCTOR,
             CanSendStory.CONSTRUCTOR,
@@ -209,7 +211,6 @@ public class TdApi {
             GetApplicationDownloadLink.CONSTRUCTOR,
             GetArchiveChatListSettings.CONSTRUCTOR,
             GetArchivedStickerSets.CONSTRUCTOR,
-            GetArchivedStories.CONSTRUCTOR,
             GetAttachedStickerSets.CONSTRUCTOR,
             GetAttachmentMenuBot.CONSTRUCTOR,
             GetAuthorizationState.CONSTRUCTOR,
@@ -229,7 +230,12 @@ public class TdApi {
             GetChat.CONSTRUCTOR,
             GetChatActiveStories.CONSTRUCTOR,
             GetChatAdministrators.CONSTRUCTOR,
+            GetChatArchivedStories.CONSTRUCTOR,
             GetChatAvailableMessageSenders.CONSTRUCTOR,
+            GetChatBoostLink.CONSTRUCTOR,
+            GetChatBoostLinkInfo.CONSTRUCTOR,
+            GetChatBoostStatus.CONSTRUCTOR,
+            GetChatBoosts.CONSTRUCTOR,
             GetChatEventLog.CONSTRUCTOR,
             GetChatFolder.CONSTRUCTOR,
             GetChatFolderChatCount.CONSTRUCTOR,
@@ -258,6 +264,7 @@ public class TdApi {
             GetChatStatistics.CONSTRUCTOR,
             GetChats.CONSTRUCTOR,
             GetChatsForChatFolderInviteLink.CONSTRUCTOR,
+            GetChatsToSendStories.CONSTRUCTOR,
             GetCloseFriends.CONSTRUCTOR,
             GetCommands.CONSTRUCTOR,
             GetConnectedWebsites.CONSTRUCTOR,
@@ -5354,7 +5361,215 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Represents result of checking whether the current user can send a story.
+     * Represents result of checking whether the current user can boost the specific chat.
+     */
+    public abstract static class CanBoostChatResult extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            CanBoostChatResultOk.CONSTRUCTOR,
+            CanBoostChatResultInvalidChat.CONSTRUCTOR,
+            CanBoostChatResultAlreadyBoosted.CONSTRUCTOR,
+            CanBoostChatResultPremiumNeeded.CONSTRUCTOR,
+            CanBoostChatResultPremiumSubscriptionNeeded.CONSTRUCTOR,
+            CanBoostChatResultWaitNeeded.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public CanBoostChatResult() {
+        }
+    }
+
+    /**
+     * The chat can be boosted.
+     */
+    public static class CanBoostChatResultOk extends CanBoostChatResult {
+        /**
+         * Identifier of the currently boosted chat from which boost will be removed; 0 if none.
+         */
+        public long currentlyBoostedChatId;
+
+        /**
+         * The chat can be boosted.
+         */
+        public CanBoostChatResultOk() {
+        }
+
+        /**
+         * The chat can be boosted.
+         *
+         * @param currentlyBoostedChatId Identifier of the currently boosted chat from which boost will be removed; 0 if none.
+         */
+        public CanBoostChatResultOk(long currentlyBoostedChatId) {
+            this.currentlyBoostedChatId = currentlyBoostedChatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 497105547;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat can't be boosted.
+     */
+    public static class CanBoostChatResultInvalidChat extends CanBoostChatResult {
+
+        /**
+         * The chat can't be boosted.
+         */
+        public CanBoostChatResultInvalidChat() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1028404840;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat is already boosted by the user.
+     */
+    public static class CanBoostChatResultAlreadyBoosted extends CanBoostChatResult {
+
+        /**
+         * The chat is already boosted by the user.
+         */
+        public CanBoostChatResultAlreadyBoosted() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1040263785;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user must subscribe to Telegram Premium to be able to boost chats.
+     */
+    public static class CanBoostChatResultPremiumNeeded extends CanBoostChatResult {
+
+        /**
+         * The user must subscribe to Telegram Premium to be able to boost chats.
+         */
+        public CanBoostChatResultPremiumNeeded() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 223039055;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user must have Telegram Premium subscription instead of a gifted Telegram Premium.
+     */
+    public static class CanBoostChatResultPremiumSubscriptionNeeded extends CanBoostChatResult {
+
+        /**
+         * The user must have Telegram Premium subscription instead of a gifted Telegram Premium.
+         */
+        public CanBoostChatResultPremiumSubscriptionNeeded() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1968231372;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user must wait the specified time before the boost can be moved to another chat.
+     */
+    public static class CanBoostChatResultWaitNeeded extends CanBoostChatResult {
+        /**
+         * Time left before the user can boost another chat.
+         */
+        public int retryAfter;
+
+        /**
+         * The user must wait the specified time before the boost can be moved to another chat.
+         */
+        public CanBoostChatResultWaitNeeded() {
+        }
+
+        /**
+         * The user must wait the specified time before the boost can be moved to another chat.
+         *
+         * @param retryAfter Time left before the user can boost another chat.
+         */
+        public CanBoostChatResultWaitNeeded(int retryAfter) {
+            this.retryAfter = retryAfter;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 876261034;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Represents result of checking whether the current user can send a story in the specific chat.
      */
     public abstract static class CanSendStoryResult extends Object {
         /**
@@ -5364,6 +5579,7 @@ public class TdApi {
         @IntDef({
             CanSendStoryResultOk.CONSTRUCTOR,
             CanSendStoryResultPremiumNeeded.CONSTRUCTOR,
+            CanSendStoryResultBoostNeeded.CONSTRUCTOR,
             CanSendStoryResultActiveStoryLimitExceeded.CONSTRUCTOR,
             CanSendStoryResultWeeklyLimitExceeded.CONSTRUCTOR,
             CanSendStoryResultMonthlyLimitExceeded.CONSTRUCTOR
@@ -5423,6 +5639,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1451220585;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The channel chat must be boosted first by Telegram Premium subscribers to post more stories. Call getChatBoostStatus to get current boost status of the chat.
+     */
+    public static class CanSendStoryResultBoostNeeded extends CanSendStoryResult {
+
+        /**
+         * The channel chat must be boosted first by Telegram Premium subscribers to post more stories. Call getChatBoostStatus to get current boost status of the chat.
+         */
+        public CanSendStoryResultBoostNeeded() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1637816017;
 
         /**
          * @return this.CONSTRUCTOR
@@ -6796,7 +7037,7 @@ public class TdApi {
      */
     public static class ChatAdministratorRights extends Object {
         /**
-         * True, if the administrator can get chat event log, get chat statistics, get message statistics in channels, get channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only.
+         * True, if the administrator can get chat event log, get chat statistics, get chat boosts in channels, get message statistics in channels, get channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only.
          */
         public boolean canManageChat;
         /**
@@ -6840,6 +7081,18 @@ public class TdApi {
          */
         public boolean canManageVideoChats;
         /**
+         * True, if the administrator can create new channel stories, or edit and delete posted stories; applicable to channels only.
+         */
+        public boolean canPostStories;
+        /**
+         * True, if the administrator can edit stories posted by other users, pin stories and access story archive; applicable to channels only.
+         */
+        public boolean canEditStories;
+        /**
+         * True, if the administrator can delete stories posted by other users; applicable to channels only.
+         */
+        public boolean canDeleteStories;
+        /**
          * True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only.
          */
         public boolean isAnonymous;
@@ -6853,7 +7106,7 @@ public class TdApi {
         /**
          * Describes rights of the administrator.
          *
-         * @param canManageChat True, if the administrator can get chat event log, get chat statistics, get message statistics in channels, get channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only.
+         * @param canManageChat True, if the administrator can get chat event log, get chat statistics, get chat boosts in channels, get message statistics in channels, get channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only.
          * @param canChangeInfo True, if the administrator can change the chat title, photo, and other settings.
          * @param canPostMessages True, if the administrator can create channel posts; applicable to channels only.
          * @param canEditMessages True, if the administrator can edit messages of other users and pin messages; applicable to channels only.
@@ -6864,9 +7117,12 @@ public class TdApi {
          * @param canManageTopics True, if the administrator can manage topics; applicable to forum supergroups only.
          * @param canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.
          * @param canManageVideoChats True, if the administrator can manage video chats.
+         * @param canPostStories True, if the administrator can create new channel stories, or edit and delete posted stories; applicable to channels only.
+         * @param canEditStories True, if the administrator can edit stories posted by other users, pin stories and access story archive; applicable to channels only.
+         * @param canDeleteStories True, if the administrator can delete stories posted by other users; applicable to channels only.
          * @param isAnonymous True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only.
          */
-        public ChatAdministratorRights(boolean canManageChat, boolean canChangeInfo, boolean canPostMessages, boolean canEditMessages, boolean canDeleteMessages, boolean canInviteUsers, boolean canRestrictMembers, boolean canPinMessages, boolean canManageTopics, boolean canPromoteMembers, boolean canManageVideoChats, boolean isAnonymous) {
+        public ChatAdministratorRights(boolean canManageChat, boolean canChangeInfo, boolean canPostMessages, boolean canEditMessages, boolean canDeleteMessages, boolean canInviteUsers, boolean canRestrictMembers, boolean canPinMessages, boolean canManageTopics, boolean canPromoteMembers, boolean canManageVideoChats, boolean canPostStories, boolean canEditStories, boolean canDeleteStories, boolean isAnonymous) {
             this.canManageChat = canManageChat;
             this.canChangeInfo = canChangeInfo;
             this.canPostMessages = canPostMessages;
@@ -6878,13 +7134,16 @@ public class TdApi {
             this.canManageTopics = canManageTopics;
             this.canPromoteMembers = canPromoteMembers;
             this.canManageVideoChats = canManageVideoChats;
+            this.canPostStories = canPostStories;
+            this.canEditStories = canEditStories;
+            this.canDeleteStories = canDeleteStories;
             this.isAnonymous = isAnonymous;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1384650041;
+        public static final int CONSTRUCTOR = 1599049796;
 
         /**
          * @return this.CONSTRUCTOR
@@ -7058,6 +7317,212 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1653152104;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a boost of a chat.
+     */
+    public static class ChatBoost extends Object {
+        /**
+         * Identifier of a user that boosted the chat.
+         */
+        public long userId;
+        /**
+         * Point in time (Unix timestamp) when the boost will automatically expire if the user will not prolongate their Telegram Premium subscription.
+         */
+        public int expirationDate;
+
+        /**
+         * Describes a boost of a chat.
+         */
+        public ChatBoost() {
+        }
+
+        /**
+         * Describes a boost of a chat.
+         *
+         * @param userId Identifier of a user that boosted the chat.
+         * @param expirationDate Point in time (Unix timestamp) when the boost will automatically expire if the user will not prolongate their Telegram Premium subscription.
+         */
+        public ChatBoost(long userId, int expirationDate) {
+            this.userId = userId;
+            this.expirationDate = expirationDate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1929208446;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains an HTTPS link to boost a chat.
+     */
+    public static class ChatBoostLink extends Object {
+        /**
+         * The link.
+         */
+        public String link;
+        /**
+         * True, if the link will work for non-members of the chat.
+         */
+        public boolean isPublic;
+
+        /**
+         * Contains an HTTPS link to boost a chat.
+         */
+        public ChatBoostLink() {
+        }
+
+        /**
+         * Contains an HTTPS link to boost a chat.
+         *
+         * @param link The link.
+         * @param isPublic True, if the link will work for non-members of the chat.
+         */
+        public ChatBoostLink(String link, boolean isPublic) {
+            this.link = link;
+            this.isPublic = isPublic;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1253999503;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about a link to boost a a chat.
+     */
+    public static class ChatBoostLinkInfo extends Object {
+        /**
+         * True, if the link will work for non-members of the chat.
+         */
+        public boolean isPublic;
+        /**
+         * Identifier of the chat to which the link points; 0 if the chat isn't found.
+         */
+        public long chatId;
+
+        /**
+         * Contains information about a link to boost a a chat.
+         */
+        public ChatBoostLinkInfo() {
+        }
+
+        /**
+         * Contains information about a link to boost a a chat.
+         *
+         * @param isPublic True, if the link will work for non-members of the chat.
+         * @param chatId Identifier of the chat to which the link points; 0 if the chat isn't found.
+         */
+        public ChatBoostLinkInfo(boolean isPublic, long chatId) {
+            this.isPublic = isPublic;
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -602785660;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes current boost status of a chat.
+     */
+    public static class ChatBoostStatus extends Object {
+        /**
+         * True, if the current user has already boosted the chat.
+         */
+        public boolean isBoosted;
+        /**
+         * Current boost level of the chat.
+         */
+        public int level;
+        /**
+         * The number of times the chat was boosted.
+         */
+        public int boostCount;
+        /**
+         * The number of boosts added to reach the current level.
+         */
+        public int currentLevelBoostCount;
+        /**
+         * The number of boosts needed to reach the next level; 0 if the next level isn't available.
+         */
+        public int nextLevelBoostCount;
+        /**
+         * Approximate number of Telegram Premium subscribers joined the chat; always 0 if the current user isn't an administrator in the chat.
+         */
+        public int premiumMemberCount;
+        /**
+         * A percentage of Telegram Premium subscribers joined the chat; always 0 if the current user isn't an administrator in the chat.
+         */
+        public double premiumMemberPercentage;
+
+        /**
+         * Describes current boost status of a chat.
+         */
+        public ChatBoostStatus() {
+        }
+
+        /**
+         * Describes current boost status of a chat.
+         *
+         * @param isBoosted True, if the current user has already boosted the chat.
+         * @param level Current boost level of the chat.
+         * @param boostCount The number of times the chat was boosted.
+         * @param currentLevelBoostCount The number of boosts added to reach the current level.
+         * @param nextLevelBoostCount The number of boosts needed to reach the next level; 0 if the next level isn't available.
+         * @param premiumMemberCount Approximate number of Telegram Premium subscribers joined the chat; always 0 if the current user isn't an administrator in the chat.
+         * @param premiumMemberPercentage A percentage of Telegram Premium subscribers joined the chat; always 0 if the current user isn't an administrator in the chat.
+         */
+        public ChatBoostStatus(boolean isBoosted, int level, int boostCount, int currentLevelBoostCount, int nextLevelBoostCount, int premiumMemberCount, double premiumMemberPercentage) {
+            this.isBoosted = isBoosted;
+            this.level = level;
+            this.boostCount = boostCount;
+            this.currentLevelBoostCount = currentLevelBoostCount;
+            this.nextLevelBoostCount = nextLevelBoostCount;
+            this.premiumMemberCount = premiumMemberCount;
+            this.premiumMemberPercentage = premiumMemberPercentage;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -848674937;
 
         /**
          * @return this.CONSTRUCTOR
@@ -16448,6 +16913,56 @@ public class TdApi {
     }
 
     /**
+     * Contains a list of boosts applied to a chat.
+     */
+    public static class FoundChatBoosts extends Object {
+        /**
+         * Total number of boosts applied to the chat.
+         */
+        public int totalCount;
+        /**
+         * List of boosts.
+         */
+        public ChatBoost[] boosts;
+        /**
+         * The offset for the next request. If empty, there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Contains a list of boosts applied to a chat.
+         */
+        public FoundChatBoosts() {
+        }
+
+        /**
+         * Contains a list of boosts applied to a chat.
+         *
+         * @param totalCount Total number of boosts applied to the chat.
+         * @param boosts List of boosts.
+         * @param nextOffset The offset for the next request. If empty, there are no more results.
+         */
+        public FoundChatBoosts(int totalCount, ChatBoost[] boosts, String nextOffset) {
+            this.totalCount = totalCount;
+            this.boosts = boosts;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 51457680;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains a list of messages found by a search in a given chat.
      */
     public static class FoundChatMessages extends Object {
@@ -23151,7 +23666,8 @@ public class TdApi {
         @IntDef({
             InputStoryAreaTypeLocation.CONSTRUCTOR,
             InputStoryAreaTypeFoundVenue.CONSTRUCTOR,
-            InputStoryAreaTypePreviousVenue.CONSTRUCTOR
+            InputStoryAreaTypePreviousVenue.CONSTRUCTOR,
+            InputStoryAreaTypeSuggestedReaction.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -23284,6 +23800,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1846693388;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An area pointing to a suggested reaction.
+     */
+    public static class InputStoryAreaTypeSuggestedReaction extends InputStoryAreaType {
+        /**
+         * Type of the reaction.
+         */
+        public ReactionType reactionType;
+        /**
+         * True, if reaction has a dark background.
+         */
+        public boolean isDark;
+        /**
+         * True, if reaction corner is flipped.
+         */
+        public boolean isFlipped;
+
+        /**
+         * An area pointing to a suggested reaction.
+         */
+        public InputStoryAreaTypeSuggestedReaction() {
+        }
+
+        /**
+         * An area pointing to a suggested reaction.
+         *
+         * @param reactionType Type of the reaction.
+         * @param isDark True, if reaction has a dark background.
+         * @param isFlipped True, if reaction corner is flipped.
+         */
+        public InputStoryAreaTypeSuggestedReaction(ReactionType reactionType, boolean isDark, boolean isFlipped) {
+            this.reactionType = reactionType;
+            this.isDark = isDark;
+            this.isFlipped = isFlipped;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2101826003;
 
         /**
          * @return this.CONSTRUCTOR
@@ -23528,6 +24094,7 @@ public class TdApi {
             InternalLinkTypeBotStart.CONSTRUCTOR,
             InternalLinkTypeBotStartInGroup.CONSTRUCTOR,
             InternalLinkTypeChangePhoneNumber.CONSTRUCTOR,
+            InternalLinkTypeChatBoost.CONSTRUCTOR,
             InternalLinkTypeChatFolderInvite.CONSTRUCTOR,
             InternalLinkTypeChatFolderSettings.CONSTRUCTOR,
             InternalLinkTypeChatInvite.CONSTRUCTOR,
@@ -23602,7 +24169,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given targetChat to open the chat. Then, call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then user needs to confirm adding the bot to attachment menu. If user confirms adding, then use toggleBotIsAddedToAttachmentMenu to add it. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL.
+     * The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given targetChat to open the chat. Then, call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then show a disclaimer about Mini Apps being a third-party apps, ask the user to accept their Terms of service and confirm adding the bot to side and attachment menu. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL.
      */
     public static class InternalLinkTypeAttachmentMenuBot extends InternalLinkType {
         /**
@@ -23619,13 +24186,13 @@ public class TdApi {
         public String url;
 
         /**
-         * The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given targetChat to open the chat. Then, call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then user needs to confirm adding the bot to attachment menu. If user confirms adding, then use toggleBotIsAddedToAttachmentMenu to add it. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL.
+         * The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given targetChat to open the chat. Then, call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then show a disclaimer about Mini Apps being a third-party apps, ask the user to accept their Terms of service and confirm adding the bot to side and attachment menu. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL.
          */
         public InternalLinkTypeAttachmentMenuBot() {
         }
 
         /**
-         * The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given targetChat to open the chat. Then, call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then user needs to confirm adding the bot to attachment menu. If user confirms adding, then use toggleBotIsAddedToAttachmentMenu to add it. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL.
+         * The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given targetChat to open the chat. Then, call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then show a disclaimer about Mini Apps being a third-party apps, ask the user to accept their Terms of service and confirm adding the bot to side and attachment menu. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL.
          *
          * @param targetChat Target chat to be opened.
          * @param botUsername Username of the bot.
@@ -23886,6 +24453,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -265856255;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to boost a Telegram chat. Call getChatBoostLinkInfo with the given URL to process the link. If the chat is found, then call getChatBoostStatus and canBoostChat to get the current boost status and check whether the chat can be boosted. If the user wants to boost the chat and the chat can be boosted, then call boostChat.
+     */
+    public static class InternalLinkTypeChatBoost extends InternalLinkType {
+        /**
+         * URL to be passed to getChatBoostLinkInfo.
+         */
+        public String url;
+
+        /**
+         * The link is a link to boost a Telegram chat. Call getChatBoostLinkInfo with the given URL to process the link. If the chat is found, then call getChatBoostStatus and canBoostChat to get the current boost status and check whether the chat can be boosted. If the user wants to boost the chat and the chat can be boosted, then call boostChat.
+         */
+        public InternalLinkTypeChatBoost() {
+        }
+
+        /**
+         * The link is a link to boost a Telegram chat. Call getChatBoostLinkInfo with the given URL to process the link. If the chat is found, then call getChatBoostStatus and canBoostChat to get the current boost status and check whether the chat can be boosted. If the user wants to boost the chat and the chat can be boosted, then call boostChat.
+         *
+         * @param url URL to be passed to getChatBoostLinkInfo.
+         */
+        public InternalLinkTypeChatBoost(String url) {
+            this.url = url;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -716571328;
 
         /**
          * @return this.CONSTRUCTOR
@@ -24651,7 +25256,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a bot, which can be installed to the side menu. Call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to side menu, then user needs to confirm adding the bot to side and attachment menu. If user confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the bot is added to attachment menu, then use getWebAppUrl with the given URL.
+     * The link is a link to a bot, which can be installed to the side menu. Call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to side menu, then show a disclaimer about Mini Apps being a third-party apps, ask the user to accept their Terms of service and confirm adding the bot to side and attachment menu. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the bot is added to side menu, then use getWebAppUrl with the given URL.
      */
     public static class InternalLinkTypeSideMenuBot extends InternalLinkType {
         /**
@@ -24664,13 +25269,13 @@ public class TdApi {
         public String url;
 
         /**
-         * The link is a link to a bot, which can be installed to the side menu. Call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to side menu, then user needs to confirm adding the bot to side and attachment menu. If user confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the bot is added to attachment menu, then use getWebAppUrl with the given URL.
+         * The link is a link to a bot, which can be installed to the side menu. Call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to side menu, then show a disclaimer about Mini Apps being a third-party apps, ask the user to accept their Terms of service and confirm adding the bot to side and attachment menu. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the bot is added to side menu, then use getWebAppUrl with the given URL.
          */
         public InternalLinkTypeSideMenuBot() {
         }
 
         /**
-         * The link is a link to a bot, which can be installed to the side menu. Call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to side menu, then user needs to confirm adding the bot to side and attachment menu. If user confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the bot is added to attachment menu, then use getWebAppUrl with the given URL.
+         * The link is a link to a bot, which can be installed to the side menu. Call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then, use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to side menu, then show a disclaimer about Mini Apps being a third-party apps, ask the user to accept their Terms of service and confirm adding the bot to side and attachment menu. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. If the bot is added to side menu, then use getWebAppUrl with the given URL.
          *
          * @param botUsername Username of the bot.
          * @param url URL to be passed to getWebAppUrl.
@@ -25035,7 +25640,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a mini-apps disclaimer instead of the dialog, and call toggleBotIsAddedToAttachmentMenu to add the bot to the menu before opening the Web App. If the user confirms, then call getWebAppLinkUrl and open the returned URL as a Web App.
+     * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being a third-party apps instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
      */
     public static class InternalLinkTypeWebApp extends InternalLinkType {
         /**
@@ -25052,13 +25657,13 @@ public class TdApi {
         public String startParameter;
 
         /**
-         * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a mini-apps disclaimer instead of the dialog, and call toggleBotIsAddedToAttachmentMenu to add the bot to the menu before opening the Web App. If the user confirms, then call getWebAppLinkUrl and open the returned URL as a Web App.
+         * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being a third-party apps instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
          */
         public InternalLinkTypeWebApp() {
         }
 
         /**
-         * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a mini-apps disclaimer instead of the dialog, and call toggleBotIsAddedToAttachmentMenu to add the bot to the menu before opening the Web App. If the user confirms, then call getWebAppLinkUrl and open the returned URL as a Web App.
+         * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being a third-party apps instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
          *
          * @param botUsername Username of the bot that owns the Web App.
          * @param webAppShortName Short name of the Web App.
@@ -25213,6 +25818,10 @@ public class TdApi {
          */
         public String recurringPaymentTermsOfServiceUrl;
         /**
+         * An HTTP URL with terms of service for non-recurring payments. If non-empty, then the user must accept the terms of service before allowed to pay.
+         */
+        public String termsOfServiceUrl;
+        /**
          * True, if the payment is a test payment.
          */
         public boolean isTest;
@@ -25259,6 +25868,7 @@ public class TdApi {
          * @param maxTipAmount The maximum allowed amount of tip in the smallest units of the currency.
          * @param suggestedTipAmounts Suggested amounts of tip in the smallest units of the currency.
          * @param recurringPaymentTermsOfServiceUrl An HTTP URL with terms of service for recurring payments. If non-empty, the invoice payment will result in recurring payments and the user must accept the terms of service before allowed to pay.
+         * @param termsOfServiceUrl An HTTP URL with terms of service for non-recurring payments. If non-empty, then the user must accept the terms of service before allowed to pay.
          * @param isTest True, if the payment is a test payment.
          * @param needName True, if the user's name is needed for payment.
          * @param needPhoneNumber True, if the user's phone number is needed for payment.
@@ -25268,12 +25878,13 @@ public class TdApi {
          * @param sendEmailAddressToProvider True, if the user's email address will be sent to the provider.
          * @param isFlexible True, if the total price depends on the shipping method.
          */
-        public Invoice(String currency, LabeledPricePart[] priceParts, long maxTipAmount, long[] suggestedTipAmounts, String recurringPaymentTermsOfServiceUrl, boolean isTest, boolean needName, boolean needPhoneNumber, boolean needEmailAddress, boolean needShippingAddress, boolean sendPhoneNumberToProvider, boolean sendEmailAddressToProvider, boolean isFlexible) {
+        public Invoice(String currency, LabeledPricePart[] priceParts, long maxTipAmount, long[] suggestedTipAmounts, String recurringPaymentTermsOfServiceUrl, String termsOfServiceUrl, boolean isTest, boolean needName, boolean needPhoneNumber, boolean needEmailAddress, boolean needShippingAddress, boolean sendPhoneNumberToProvider, boolean sendEmailAddressToProvider, boolean isFlexible) {
             this.currency = currency;
             this.priceParts = priceParts;
             this.maxTipAmount = maxTipAmount;
             this.suggestedTipAmounts = suggestedTipAmounts;
             this.recurringPaymentTermsOfServiceUrl = recurringPaymentTermsOfServiceUrl;
+            this.termsOfServiceUrl = termsOfServiceUrl;
             this.isTest = isTest;
             this.needName = needName;
             this.needPhoneNumber = needPhoneNumber;
@@ -25287,7 +25898,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1977205639;
+        public static final int CONSTRUCTOR = 1039926674;
 
         /**
          * @return this.CONSTRUCTOR
@@ -31912,13 +32523,9 @@ public class TdApi {
      */
     public static class MessageSendingStateFailed extends MessageSendingState {
         /**
-         * An error code; 0 if unknown.
+         * The cause of the message sending failure.
          */
-        public int errorCode;
-        /**
-         * Error message.
-         */
-        public String errorMessage;
+        public Error error;
         /**
          * True, if the message can be re-sent.
          */
@@ -31941,15 +32548,13 @@ public class TdApi {
         /**
          * The message failed to be sent.
          *
-         * @param errorCode An error code; 0 if unknown.
-         * @param errorMessage Error message.
+         * @param error The cause of the message sending failure.
          * @param canRetry True, if the message can be re-sent.
          * @param needAnotherSender True, if the message can be re-sent only on behalf of a different sender.
          * @param retryAfter Time left before the message can be re-sent, in seconds. No update is sent when this field changes.
          */
-        public MessageSendingStateFailed(int errorCode, String errorMessage, boolean canRetry, boolean needAnotherSender, double retryAfter) {
-            this.errorCode = errorCode;
-            this.errorMessage = errorMessage;
+        public MessageSendingStateFailed(Error error, boolean canRetry, boolean needAnotherSender, double retryAfter) {
+            this.error = error;
             this.canRetry = canRetry;
             this.needAnotherSender = needAnotherSender;
             this.retryAfter = retryAfter;
@@ -31958,7 +32563,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1741887228;
+        public static final int CONSTRUCTOR = -76172625;
 
         /**
          * @return this.CONSTRUCTOR
@@ -38558,7 +39163,8 @@ public class TdApi {
             PremiumFeatureForumTopicIcon.CONSTRUCTOR,
             PremiumFeatureAppIcons.CONSTRUCTOR,
             PremiumFeatureRealTimeChatTranslation.CONSTRUCTOR,
-            PremiumFeatureUpgradedStories.CONSTRUCTOR
+            PremiumFeatureUpgradedStories.CONSTRUCTOR,
+            PremiumFeatureChatBoost.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -38976,6 +39582,31 @@ public class TdApi {
     }
 
     /**
+     * The ability to boost chats.
+     */
+    public static class PremiumFeatureChatBoost extends PremiumFeature {
+
+        /**
+         * The ability to boost chats.
+         */
+        public PremiumFeatureChatBoost() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1576574747;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes a promotion animation for a Premium feature.
      */
     public static class PremiumFeaturePromotionAnimation extends Object {
@@ -39144,7 +39775,8 @@ public class TdApi {
             PremiumLimitTypeActiveStoryCount.CONSTRUCTOR,
             PremiumLimitTypeWeeklySentStoryCount.CONSTRUCTOR,
             PremiumLimitTypeMonthlySentStoryCount.CONSTRUCTOR,
-            PremiumLimitTypeStoryCaptionLength.CONSTRUCTOR
+            PremiumLimitTypeStoryCaptionLength.CONSTRUCTOR,
+            PremiumLimitTypeStorySuggestedReactionAreaCount.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -39551,6 +40183,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1093324030;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The maximum number of suggested reaction areas on a story.
+     */
+    public static class PremiumLimitTypeStorySuggestedReactionAreaCount extends PremiumLimitType {
+
+        /**
+         * The maximum number of suggested reaction areas on a story.
+         */
+        public PremiumLimitTypeStorySuggestedReactionAreaCount() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1170032633;
 
         /**
          * @return this.CONSTRUCTOR
@@ -39976,12 +40633,12 @@ public class TdApi {
     }
 
     /**
-     * User stories are displayed before stories of non-premium contacts.
+     * User stories are displayed before stories of non-premium contacts and channels.
      */
     public static class PremiumStoryFeaturePriorityOrder extends PremiumStoryFeature {
 
         /**
-         * User stories are displayed before stories of non-premium contacts.
+         * User stories are displayed before stories of non-premium contacts and channels.
          */
         public PremiumStoryFeaturePriorityOrder() {
         }
@@ -46876,6 +47533,14 @@ public class TdApi {
          */
         public boolean isVisibleOnlyForSelf;
         /**
+         * True, if the story can be deleted.
+         */
+        public boolean canBeDeleted;
+        /**
+         * True, if the story can be edited.
+         */
+        public boolean canBeEdited;
+        /**
          * True, if the story can be forwarded as a message. Otherwise, screenshots and saving of the story content must be also forbidden.
          */
         public boolean canBeForwarded;
@@ -46883,6 +47548,10 @@ public class TdApi {
          * True, if the story can be replied in the chat with the story sender.
          */
         public boolean canBeReplied;
+        /**
+         * True, if the story's isPinned value can be changed.
+         */
+        public boolean canToggleIsPinned;
         /**
          * True, if users viewed the story can be received through getStoryViewers.
          */
@@ -46933,8 +47602,11 @@ public class TdApi {
          * @param isEdited True, if the story was edited.
          * @param isPinned True, if the story is saved in the sender's profile and will be available there after expiration.
          * @param isVisibleOnlyForSelf True, if the story is visible only for the current user.
+         * @param canBeDeleted True, if the story can be deleted.
+         * @param canBeEdited True, if the story can be edited.
          * @param canBeForwarded True, if the story can be forwarded as a message. Otherwise, screenshots and saving of the story content must be also forbidden.
          * @param canBeReplied True, if the story can be replied in the chat with the story sender.
+         * @param canToggleIsPinned True, if the story's isPinned value can be changed.
          * @param canGetViewers True, if users viewed the story can be received through getStoryViewers.
          * @param hasExpiredViewers True, if users viewed the story can't be received, because the story has expired more than getOption(&quot;story_viewers_expiration_delay&quot;) seconds ago.
          * @param interactionInfo Information about interactions with the story; may be null if the story isn't owned or there were no interactions.
@@ -46944,7 +47616,7 @@ public class TdApi {
          * @param areas Clickable areas to be shown on the story content.
          * @param caption Caption of the story.
          */
-        public Story(int id, long senderChatId, int date, boolean isBeingSent, boolean isBeingEdited, boolean isEdited, boolean isPinned, boolean isVisibleOnlyForSelf, boolean canBeForwarded, boolean canBeReplied, boolean canGetViewers, boolean hasExpiredViewers, StoryInteractionInfo interactionInfo, ReactionType chosenReactionType, StoryPrivacySettings privacySettings, StoryContent content, StoryArea[] areas, FormattedText caption) {
+        public Story(int id, long senderChatId, int date, boolean isBeingSent, boolean isBeingEdited, boolean isEdited, boolean isPinned, boolean isVisibleOnlyForSelf, boolean canBeDeleted, boolean canBeEdited, boolean canBeForwarded, boolean canBeReplied, boolean canToggleIsPinned, boolean canGetViewers, boolean hasExpiredViewers, StoryInteractionInfo interactionInfo, ReactionType chosenReactionType, StoryPrivacySettings privacySettings, StoryContent content, StoryArea[] areas, FormattedText caption) {
             this.id = id;
             this.senderChatId = senderChatId;
             this.date = date;
@@ -46953,8 +47625,11 @@ public class TdApi {
             this.isEdited = isEdited;
             this.isPinned = isPinned;
             this.isVisibleOnlyForSelf = isVisibleOnlyForSelf;
+            this.canBeDeleted = canBeDeleted;
+            this.canBeEdited = canBeEdited;
             this.canBeForwarded = canBeForwarded;
             this.canBeReplied = canBeReplied;
+            this.canToggleIsPinned = canToggleIsPinned;
             this.canGetViewers = canGetViewers;
             this.hasExpiredViewers = hasExpiredViewers;
             this.interactionInfo = interactionInfo;
@@ -46968,7 +47643,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1807257120;
+        public static final int CONSTRUCTOR = 901434066;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47096,7 +47771,8 @@ public class TdApi {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
             StoryAreaTypeLocation.CONSTRUCTOR,
-            StoryAreaTypeVenue.CONSTRUCTOR
+            StoryAreaTypeVenue.CONSTRUCTOR,
+            StoryAreaTypeSuggestedReaction.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -47179,6 +47855,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 414076166;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An area pointing to a suggested reaction. App needs to show a clickable reaction on the area and call setStoryReaction when the are is clicked.
+     */
+    public static class StoryAreaTypeSuggestedReaction extends StoryAreaType {
+        /**
+         * Type of the reaction.
+         */
+        public ReactionType reactionType;
+        /**
+         * Number of times the reaction was added.
+         */
+        public int totalCount;
+        /**
+         * True, if reaction has a dark background.
+         */
+        public boolean isDark;
+        /**
+         * True, if reaction corner is flipped.
+         */
+        public boolean isFlipped;
+
+        /**
+         * An area pointing to a suggested reaction. App needs to show a clickable reaction on the area and call setStoryReaction when the are is clicked.
+         */
+        public StoryAreaTypeSuggestedReaction() {
+        }
+
+        /**
+         * An area pointing to a suggested reaction. App needs to show a clickable reaction on the area and call setStoryReaction when the are is clicked.
+         *
+         * @param reactionType Type of the reaction.
+         * @param totalCount Number of times the reaction was added.
+         * @param isDark True, if reaction has a dark background.
+         * @param isFlipped True, if reaction corner is flipped.
+         */
+        public StoryAreaTypeSuggestedReaction(ReactionType reactionType, int totalCount, boolean isDark, boolean isFlipped) {
+            this.reactionType = reactionType;
+            this.totalCount = totalCount;
+            this.isDark = isDark;
+            this.isFlipped = isFlipped;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -111177092;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47384,7 +48116,11 @@ public class TdApi {
          */
         public int viewCount;
         /**
-         * Number of reactions added to the story.
+         * Number of times the story was forwarded; 0 if none or unknown.
+         */
+        public int forwardCount;
+        /**
+         * Number of reactions added to the story; 0 if none or unknown.
          */
         public int reactionCount;
         /**
@@ -47402,11 +48138,13 @@ public class TdApi {
          * Contains information about interactions with a story.
          *
          * @param viewCount Number of times the story was viewed.
-         * @param reactionCount Number of reactions added to the story.
+         * @param forwardCount Number of times the story was forwarded; 0 if none or unknown.
+         * @param reactionCount Number of reactions added to the story; 0 if none or unknown.
          * @param recentViewerUserIds Identifiers of at most 3 recent viewers of the story.
          */
-        public StoryInteractionInfo(int viewCount, int reactionCount, long[] recentViewerUserIds) {
+        public StoryInteractionInfo(int viewCount, int forwardCount, int reactionCount, long[] recentViewerUserIds) {
             this.viewCount = viewCount;
+            this.forwardCount = forwardCount;
             this.reactionCount = reactionCount;
             this.recentViewerUserIds = recentViewerUserIds;
         }
@@ -47414,7 +48152,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1396789129;
+        public static final int CONSTRUCTOR = -846542065;
 
         /**
          * @return this.CONSTRUCTOR
@@ -48232,6 +48970,14 @@ public class TdApi {
          * True, if many users reported this supergroup or channel as a fake account.
          */
         public boolean isFake;
+        /**
+         * True, if the channel has non-expired stories available to the current user.
+         */
+        public boolean hasActiveStories;
+        /**
+         * True, if the channel has unread non-expired stories available to the current user.
+         */
+        public boolean hasUnreadActiveStories;
 
         /**
          * Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers.
@@ -48260,8 +49006,10 @@ public class TdApi {
          * @param restrictionReason If non-empty, contains a human-readable description of the reason why access to this supergroup or channel must be restricted.
          * @param isScam True, if many users reported this supergroup or channel as a scam.
          * @param isFake True, if many users reported this supergroup or channel as a fake account.
+         * @param hasActiveStories True, if the channel has non-expired stories available to the current user.
+         * @param hasUnreadActiveStories True, if the channel has unread non-expired stories available to the current user.
          */
-        public Supergroup(long id, Usernames usernames, int date, ChatMemberStatus status, int memberCount, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean joinToSendMessages, boolean joinByRequest, boolean isSlowModeEnabled, boolean isChannel, boolean isBroadcastGroup, boolean isForum, boolean isVerified, String restrictionReason, boolean isScam, boolean isFake) {
+        public Supergroup(long id, Usernames usernames, int date, ChatMemberStatus status, int memberCount, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean joinToSendMessages, boolean joinByRequest, boolean isSlowModeEnabled, boolean isChannel, boolean isBroadcastGroup, boolean isForum, boolean isVerified, String restrictionReason, boolean isScam, boolean isFake, boolean hasActiveStories, boolean hasUnreadActiveStories) {
             this.id = id;
             this.usernames = usernames;
             this.date = date;
@@ -48280,12 +49028,14 @@ public class TdApi {
             this.restrictionReason = restrictionReason;
             this.isScam = isScam;
             this.isFake = isFake;
+            this.hasActiveStories = hasActiveStories;
+            this.hasUnreadActiveStories = hasUnreadActiveStories;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2002240425;
+        public static final int CONSTRUCTOR = -1959742523;
 
         /**
          * @return this.CONSTRUCTOR
@@ -48373,6 +49123,10 @@ public class TdApi {
          */
         public boolean hasAggressiveAntiSpamEnabled;
         /**
+         * True, if the channel has pinned stories.
+         */
+        public boolean hasPinnedStories;
+        /**
          * Identifier of the supergroup sticker set; 0 if none.
          */
         public long stickerSetId;
@@ -48424,6 +49178,7 @@ public class TdApi {
          * @param canToggleAggressiveAntiSpam True, if aggressive anti-spam checks can be enabled or disabled in the supergroup.
          * @param isAllHistoryAvailable True, if new chat members will have access to old messages. In public, discussion, of forum groups and all channels, old messages are always available, so this option affects only private non-forum supergroups without a linked chat. The value of this field is only available to chat administrators.
          * @param hasAggressiveAntiSpamEnabled True, if aggressive anti-spam checks are enabled in the supergroup. The value of this field is only available to chat administrators.
+         * @param hasPinnedStories True, if the channel has pinned stories.
          * @param stickerSetId Identifier of the supergroup sticker set; 0 if none.
          * @param location Location to which the supergroup is connected; may be null if none.
          * @param inviteLink Primary invite link for the chat; may be null. For chat administrators with canInviteUsers right only.
@@ -48431,7 +49186,7 @@ public class TdApi {
          * @param upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
          * @param upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
          */
-        public SupergroupFullInfo(ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean hasHiddenMembers, boolean canHideMembers, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean canToggleAggressiveAntiSpam, boolean isAllHistoryAvailable, boolean hasAggressiveAntiSpamEnabled, long stickerSetId, ChatLocation location, ChatInviteLink inviteLink, BotCommands[] botCommands, long upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
+        public SupergroupFullInfo(ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean hasHiddenMembers, boolean canHideMembers, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean canToggleAggressiveAntiSpam, boolean isAllHistoryAvailable, boolean hasAggressiveAntiSpamEnabled, boolean hasPinnedStories, long stickerSetId, ChatLocation location, ChatInviteLink inviteLink, BotCommands[] botCommands, long upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
             this.photo = photo;
             this.description = description;
             this.memberCount = memberCount;
@@ -48450,6 +49205,7 @@ public class TdApi {
             this.canToggleAggressiveAntiSpam = canToggleAggressiveAntiSpam;
             this.isAllHistoryAvailable = isAllHistoryAvailable;
             this.hasAggressiveAntiSpamEnabled = hasAggressiveAntiSpamEnabled;
+            this.hasPinnedStories = hasPinnedStories;
             this.stickerSetId = stickerSetId;
             this.location = location;
             this.inviteLink = inviteLink;
@@ -48461,7 +49217,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 266702736;
+        public static final int CONSTRUCTOR = -993472804;
 
         /**
          * @return this.CONSTRUCTOR
@@ -51461,13 +52217,9 @@ public class TdApi {
          */
         public long oldMessageId;
         /**
-         * An error code.
+         * The cause of the message sending failure.
          */
-        public int errorCode;
-        /**
-         * Error message.
-         */
-        public String errorMessage;
+        public Error error;
 
         /**
          * A message failed to send. Be aware that some messages being sent can be irrecoverably deleted, in which case updateDeleteMessages will be received instead of this update.
@@ -51480,20 +52232,18 @@ public class TdApi {
          *
          * @param message The failed to send message.
          * @param oldMessageId The previous temporary message identifier.
-         * @param errorCode An error code.
-         * @param errorMessage Error message.
+         * @param error The cause of the message sending failure.
          */
-        public UpdateMessageSendFailed(Message message, long oldMessageId, int errorCode, String errorMessage) {
+        public UpdateMessageSendFailed(Message message, long oldMessageId, Error error) {
             this.message = message;
             this.oldMessageId = oldMessageId;
-            this.errorCode = errorCode;
-            this.errorMessage = errorMessage;
+            this.error = error;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1032335779;
+        public static final int CONSTRUCTOR = -635701017;
 
         /**
          * @return this.CONSTRUCTOR
@@ -54757,17 +55507,13 @@ public class TdApi {
          */
         public Story story;
         /**
-         * The cause of the failure; may be null if unknown.
+         * The cause of the story sending failure.
          */
-        @Nullable public CanSendStoryResult error;
+        public Error error;
         /**
-         * An error code.
+         * Type of the error; may be null if unknown.
          */
-        public int errorCode;
-        /**
-         * Error message.
-         */
-        public String errorMessage;
+        @Nullable public CanSendStoryResult errorType;
 
         /**
          * A story failed to send. If the story sending is canceled, then updateStoryDeleted will be received instead of this update.
@@ -54779,21 +55525,19 @@ public class TdApi {
          * A story failed to send. If the story sending is canceled, then updateStoryDeleted will be received instead of this update.
          *
          * @param story The failed to send story.
-         * @param error The cause of the failure; may be null if unknown.
-         * @param errorCode An error code.
-         * @param errorMessage Error message.
+         * @param error The cause of the story sending failure.
+         * @param errorType Type of the error; may be null if unknown.
          */
-        public UpdateStorySendFailed(Story story, CanSendStoryResult error, int errorCode, String errorMessage) {
+        public UpdateStorySendFailed(Story story, Error error, CanSendStoryResult errorType) {
             this.story = story;
             this.error = error;
-            this.errorCode = errorCode;
-            this.errorMessage = errorMessage;
+            this.errorType = errorType;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1142471842;
+        public static final int CONSTRUCTOR = -532221543;
 
         /**
          * @return this.CONSTRUCTOR
@@ -60757,6 +61501,94 @@ public class TdApi {
     }
 
     /**
+     * Boosts a chat.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class BoostChat extends Function<Ok> {
+        /**
+         * Identifier of the chat.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which boosts a chat.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public BoostChat() {
+        }
+
+        /**
+         * Creates a function, which boosts a chat.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the chat.
+         */
+        public BoostChat(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1311853613;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Checks whether the current user can boost a chat.
+     *
+     * <p> Returns {@link CanBoostChatResult CanBoostChatResult} </p>
+     */
+    public static class CanBoostChat extends Function<CanBoostChatResult> {
+        /**
+         * Identifier of the chat.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which checks whether the current user can boost a chat.
+         *
+         * <p> Returns {@link CanBoostChatResult CanBoostChatResult} </p>
+         */
+        public CanBoostChat() {
+        }
+
+        /**
+         * Creates a function, which checks whether the current user can boost a chat.
+         *
+         * <p> Returns {@link CanBoostChatResult CanBoostChatResult} </p>
+         *
+         * @param chatId Identifier of the chat.
+         */
+        public CanBoostChat(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2089914792;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Checks whether the specified bot can send messages to the user. Returns a 404 error if can't and the access can be granted by call to allowBotToSendMessages.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -60845,14 +61677,18 @@ public class TdApi {
     }
 
     /**
-     * Checks whether the current user can send a story.
+     * Checks whether the current user can send a story on behalf of a chat; requires canPostStories rights for channel chats.
      *
      * <p> Returns {@link CanSendStoryResult CanSendStoryResult} </p>
      */
     public static class CanSendStory extends Function<CanSendStoryResult> {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
 
         /**
-         * Default constructor for a function, which checks whether the current user can send a story.
+         * Default constructor for a function, which checks whether the current user can send a story on behalf of a chat; requires canPostStories rights for channel chats.
          *
          * <p> Returns {@link CanSendStoryResult CanSendStoryResult} </p>
          */
@@ -60860,9 +61696,20 @@ public class TdApi {
         }
 
         /**
+         * Creates a function, which checks whether the current user can send a story on behalf of a chat; requires canPostStories rights for channel chats.
+         *
+         * <p> Returns {@link CanSendStoryResult CanSendStoryResult} </p>
+         *
+         * @param chatId Chat identifier.
+         */
+        public CanSendStory(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -303744410;
+        public static final int CONSTRUCTOR = -1226825365;
 
         /**
          * @return this.CONSTRUCTOR
@@ -63225,7 +64072,7 @@ public class TdApi {
          */
         public int messageAutoDeleteTime;
         /**
-         * Pass true to create a supergroup for importing messages using importMessage.
+         * Pass true to create a supergroup for importing messages using importMessages.
          */
         public boolean forImport;
 
@@ -63248,7 +64095,7 @@ public class TdApi {
          * @param description Chat description; 0-255 characters.
          * @param location Chat location if a location-based supergroup is being created; pass null to create an ordinary supergroup chat.
          * @param messageAutoDeleteTime Message auto-delete time value, in seconds; must be from 0 up to 365 * 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically.
-         * @param forImport Pass true to create a supergroup for importing messages using importMessage.
+         * @param forImport Pass true to create a supergroup for importing messages using importMessages.
          */
         public CreateNewSupergroupChat(String title, boolean isForum, boolean isChannel, String description, ChatLocation location, int messageAutoDeleteTime, boolean forImport) {
             this.title = title;
@@ -64521,18 +65368,22 @@ public class TdApi {
     }
 
     /**
-     * Deletes a previously sent story.
+     * Deletes a previously sent story. Can be called only if story.canBeDeleted == true.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class DeleteStory extends Function<Ok> {
+        /**
+         * Identifier of the chat that posted the story.
+         */
+        public long storySenderChatId;
         /**
          * Identifier of the story to delete.
          */
         public int storyId;
 
         /**
-         * Default constructor for a function, which deletes a previously sent story.
+         * Default constructor for a function, which deletes a previously sent story. Can be called only if story.canBeDeleted == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -64540,20 +65391,22 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which deletes a previously sent story.
+         * Creates a function, which deletes a previously sent story. Can be called only if story.canBeDeleted == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
+         * @param storySenderChatId Identifier of the chat that posted the story.
          * @param storyId Identifier of the story to delete.
          */
-        public DeleteStory(int storyId) {
+        public DeleteStory(long storySenderChatId, int storyId) {
+            this.storySenderChatId = storySenderChatId;
             this.storyId = storyId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1647520262;
+        public static final int CONSTRUCTOR = -1623871722;
 
         /**
          * @return this.CONSTRUCTOR
@@ -65900,11 +66753,15 @@ public class TdApi {
     }
 
     /**
-     * Changes content and caption of a previously sent story.
+     * Changes content and caption of a story. Can be called only if story.canBeEdited == true.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class EditStory extends Function<Ok> {
+        /**
+         * Identifier of the chat that posted the story.
+         */
+        public long storySenderChatId;
         /**
          * Identifier of the story to edit.
          */
@@ -65923,7 +66780,7 @@ public class TdApi {
         public FormattedText caption;
 
         /**
-         * Default constructor for a function, which changes content and caption of a previously sent story.
+         * Default constructor for a function, which changes content and caption of a story. Can be called only if story.canBeEdited == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -65931,16 +66788,18 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes content and caption of a previously sent story.
+         * Creates a function, which changes content and caption of a story. Can be called only if story.canBeEdited == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
+         * @param storySenderChatId Identifier of the chat that posted the story.
          * @param storyId Identifier of the story to edit.
          * @param content New content of the story; pass null to keep the current content.
          * @param areas New clickable rectangle areas to be shown on the story media; pass null to keep the current areas. Areas can't be edited if story content isn't changed.
          * @param caption New story caption; pass null to keep the current caption.
          */
-        public EditStory(int storyId, InputStoryContent content, InputStoryAreas areas, FormattedText caption) {
+        public EditStory(long storySenderChatId, int storyId, InputStoryContent content, InputStoryAreas areas, FormattedText caption) {
+            this.storySenderChatId = storySenderChatId;
             this.storyId = storyId;
             this.content = content;
             this.areas = areas;
@@ -65950,7 +66809,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1439940986;
+        public static final int CONSTRUCTOR = 1584013745;
 
         /**
          * @return this.CONSTRUCTOR
@@ -66643,56 +67502,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1001931341;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns the list of all stories of the current user. The stories are returned in a reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
-     *
-     * <p> Returns {@link Stories Stories} </p>
-     */
-    public static class GetArchivedStories extends Function<Stories> {
-        /**
-         * Identifier of the story starting from which stories must be returned; use 0 to get results from the last story.
-         */
-        public int fromStoryId;
-        /**
-         * The maximum number of stories to be returned For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
-         */
-        public int limit;
-
-        /**
-         * Default constructor for a function, which returns the list of all stories of the current user. The stories are returned in a reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
-         *
-         * <p> Returns {@link Stories Stories} </p>
-         */
-        public GetArchivedStories() {
-        }
-
-        /**
-         * Creates a function, which returns the list of all stories of the current user. The stories are returned in a reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
-         *
-         * <p> Returns {@link Stories Stories} </p>
-         *
-         * @param fromStoryId Identifier of the story starting from which stories must be returned; use 0 to get results from the last story.
-         * @param limit The maximum number of stories to be returned For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
-         */
-        public GetArchivedStories(int fromStoryId, int limit) {
-            this.fromStoryId = fromStoryId;
-            this.limit = limit;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1787187175;
 
         /**
          * @return this.CONSTRUCTOR
@@ -67555,6 +68364,62 @@ public class TdApi {
     }
 
     /**
+     * Returns the list of all stories posted by the given chat; requires canEditStories rights for channel chats. The stories are returned in a reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+     *
+     * <p> Returns {@link Stories Stories} </p>
+     */
+    public static class GetChatArchivedStories extends Function<Stories> {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * Identifier of the story starting from which stories must be returned; use 0 to get results from the last story.
+         */
+        public int fromStoryId;
+        /**
+         * The maximum number of stories to be returned For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns the list of all stories posted by the given chat; requires canEditStories rights for channel chats. The stories are returned in a reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+         *
+         * <p> Returns {@link Stories Stories} </p>
+         */
+        public GetChatArchivedStories() {
+        }
+
+        /**
+         * Creates a function, which returns the list of all stories posted by the given chat; requires canEditStories rights for channel chats. The stories are returned in a reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+         *
+         * <p> Returns {@link Stories Stories} </p>
+         *
+         * @param chatId Chat identifier.
+         * @param fromStoryId Identifier of the story starting from which stories must be returned; use 0 to get results from the last story.
+         * @param limit The maximum number of stories to be returned For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
+         */
+        public GetChatArchivedStories(long chatId, int fromStoryId, int limit) {
+            this.chatId = chatId;
+            this.fromStoryId = fromStoryId;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1356950392;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns list of message sender identifiers, which can be used to send messages in a chat.
      *
      * <p> Returns {@link ChatMessageSenders ChatMessageSenders} </p>
@@ -67588,6 +68453,194 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1158670635;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns an HTTPS link to boost the specified channel chat.
+     *
+     * <p> Returns {@link ChatBoostLink ChatBoostLink} </p>
+     */
+    public static class GetChatBoostLink extends Function<ChatBoostLink> {
+        /**
+         * Identifier of the chat.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which returns an HTTPS link to boost the specified channel chat.
+         *
+         * <p> Returns {@link ChatBoostLink ChatBoostLink} </p>
+         */
+        public GetChatBoostLink() {
+        }
+
+        /**
+         * Creates a function, which returns an HTTPS link to boost the specified channel chat.
+         *
+         * <p> Returns {@link ChatBoostLink ChatBoostLink} </p>
+         *
+         * @param chatId Identifier of the chat.
+         */
+        public GetChatBoostLink(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1458662533;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns information about a link to boost a chat. Can be called for any internal link of the type internalLinkTypeChatBoost.
+     *
+     * <p> Returns {@link ChatBoostLinkInfo ChatBoostLinkInfo} </p>
+     */
+    public static class GetChatBoostLinkInfo extends Function<ChatBoostLinkInfo> {
+        /**
+         * The link to boost a chat.
+         */
+        public String url;
+
+        /**
+         * Default constructor for a function, which returns information about a link to boost a chat. Can be called for any internal link of the type internalLinkTypeChatBoost.
+         *
+         * <p> Returns {@link ChatBoostLinkInfo ChatBoostLinkInfo} </p>
+         */
+        public GetChatBoostLinkInfo() {
+        }
+
+        /**
+         * Creates a function, which returns information about a link to boost a chat. Can be called for any internal link of the type internalLinkTypeChatBoost.
+         *
+         * <p> Returns {@link ChatBoostLinkInfo ChatBoostLinkInfo} </p>
+         *
+         * @param url The link to boost a chat.
+         */
+        public GetChatBoostLinkInfo(String url) {
+            this.url = url;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 654068572;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the current boost status for a channel chat.
+     *
+     * <p> Returns {@link ChatBoostStatus ChatBoostStatus} </p>
+     */
+    public static class GetChatBoostStatus extends Function<ChatBoostStatus> {
+        /**
+         * Identifier of the channel chat.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which returns the current boost status for a channel chat.
+         *
+         * <p> Returns {@link ChatBoostStatus ChatBoostStatus} </p>
+         */
+        public GetChatBoostStatus() {
+        }
+
+        /**
+         * Creates a function, which returns the current boost status for a channel chat.
+         *
+         * <p> Returns {@link ChatBoostStatus ChatBoostStatus} </p>
+         *
+         * @param chatId Identifier of the channel chat.
+         */
+        public GetChatBoostStatus(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -810775857;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns list of boosts applied to a chat. The user must be an administrator in the channel chat to get the list of boosts.
+     *
+     * <p> Returns {@link FoundChatBoosts FoundChatBoosts} </p>
+     */
+    public static class GetChatBoosts extends Function<FoundChatBoosts> {
+        /**
+         * Identifier of the chat.
+         */
+        public long chatId;
+        /**
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of boosts to be returned; up to 100. For optimal performance, the number of returned boosts can be smaller than the specified limit.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns list of boosts applied to a chat. The user must be an administrator in the channel chat to get the list of boosts.
+         *
+         * <p> Returns {@link FoundChatBoosts FoundChatBoosts} </p>
+         */
+        public GetChatBoosts() {
+        }
+
+        /**
+         * Creates a function, which returns list of boosts applied to a chat. The user must be an administrator in the channel chat to get the list of boosts.
+         *
+         * <p> Returns {@link FoundChatBoosts FoundChatBoosts} </p>
+         *
+         * @param chatId Identifier of the chat.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of boosts to be returned; up to 100. For optimal performance, the number of returned boosts can be smaller than the specified limit.
+         */
+        public GetChatBoosts(long chatId, String offset, int limit) {
+            this.chatId = chatId;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -668325746;
 
         /**
          * @return this.CONSTRUCTOR
@@ -69054,6 +70107,35 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1873561929;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns channel chats in which the current user has the right to post stories. The chats must be rechecked with canSendStory before actually trying to post a story there.
+     *
+     * <p> Returns {@link Chats Chats} </p>
+     */
+    public static class GetChatsToSendStories extends Function<Chats> {
+
+        /**
+         * Default constructor for a function, which returns channel chats in which the current user has the right to post stories. The chats must be rechecked with canSendStory before actually trying to post a story there.
+         *
+         * <p> Returns {@link Chats Chats} </p>
+         */
+        public GetChatsToSendStories() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 586802084;
 
         /**
          * @return this.CONSTRUCTOR
@@ -72690,7 +73772,7 @@ public class TdApi {
     }
 
     /**
-     * Returns an invoice payment form. This method must be called when the user presses inlineKeyboardButtonBuy.
+     * Returns an invoice payment form. This method must be called when the user presses inline button of the type inlineKeyboardButtonTypeBuy.
      *
      * <p> Returns {@link PaymentForm PaymentForm} </p>
      */
@@ -72705,7 +73787,7 @@ public class TdApi {
         public ThemeParameters theme;
 
         /**
-         * Default constructor for a function, which returns an invoice payment form. This method must be called when the user presses inlineKeyboardButtonBuy.
+         * Default constructor for a function, which returns an invoice payment form. This method must be called when the user presses inline button of the type inlineKeyboardButtonTypeBuy.
          *
          * <p> Returns {@link PaymentForm PaymentForm} </p>
          */
@@ -72713,7 +73795,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an invoice payment form. This method must be called when the user presses inlineKeyboardButtonBuy.
+         * Creates a function, which returns an invoice payment form. This method must be called when the user presses inline button of the type inlineKeyboardButtonTypeBuy.
          *
          * <p> Returns {@link PaymentForm PaymentForm} </p>
          *
@@ -74293,7 +75375,7 @@ public class TdApi {
     }
 
     /**
-     * Returns viewers of a story. The method can be called if story.canGetViewers == true.
+     * Returns viewers of a story. The method can be called only for stories posted on behalf of the current user.
      *
      * <p> Returns {@link StoryViewers StoryViewers} </p>
      */
@@ -74324,7 +75406,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns viewers of a story. The method can be called if story.canGetViewers == true.
+         * Default constructor for a function, which returns viewers of a story. The method can be called only for stories posted on behalf of the current user.
          *
          * <p> Returns {@link StoryViewers StoryViewers} </p>
          */
@@ -74332,7 +75414,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns viewers of a story. The method can be called if story.canGetViewers == true.
+         * Creates a function, which returns viewers of a story. The method can be called only for stories posted on behalf of the current user.
          *
          * <p> Returns {@link StoryViewers StoryViewers} </p>
          *
@@ -75679,7 +76761,7 @@ public class TdApi {
     }
 
     /**
-     * Invites users to an active group call. Sends a service message of type messageInviteToGroupCall for video chats.
+     * Invites users to an active group call. Sends a service message of type messageInviteVideoChatParticipants for video chats.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -75694,7 +76776,7 @@ public class TdApi {
         public long[] userIds;
 
         /**
-         * Default constructor for a function, which invites users to an active group call. Sends a service message of type messageInviteToGroupCall for video chats.
+         * Default constructor for a function, which invites users to an active group call. Sends a service message of type messageInviteVideoChatParticipants for video chats.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -75702,7 +76784,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which invites users to an active group call. Sends a service message of type messageInviteToGroupCall for video chats.
+         * Creates a function, which invites users to an active group call. Sends a service message of type messageInviteVideoChatParticipants for video chats.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -81990,11 +83072,15 @@ public class TdApi {
     }
 
     /**
-     * Sends a new story. Returns a temporary story.
+     * Sends a new story to a chat; requires canPostStories rights for channel chats. Returns a temporary story.
      *
      * <p> Returns {@link Story Story} </p>
      */
     public static class SendStory extends Function<Story> {
+        /**
+         * Identifier of the chat that will post the story.
+         */
+        public long chatId;
         /**
          * Content of the story.
          */
@@ -82025,7 +83111,7 @@ public class TdApi {
         public boolean protectContent;
 
         /**
-         * Default constructor for a function, which sends a new story. Returns a temporary story.
+         * Default constructor for a function, which sends a new story to a chat; requires canPostStories rights for channel chats. Returns a temporary story.
          *
          * <p> Returns {@link Story Story} </p>
          */
@@ -82033,10 +83119,11 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sends a new story. Returns a temporary story.
+         * Creates a function, which sends a new story to a chat; requires canPostStories rights for channel chats. Returns a temporary story.
          *
          * <p> Returns {@link Story Story} </p>
          *
+         * @param chatId Identifier of the chat that will post the story.
          * @param content Content of the story.
          * @param areas Clickable rectangle areas to be shown on the story media; pass null if none.
          * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters.
@@ -82045,7 +83132,8 @@ public class TdApi {
          * @param isPinned Pass true to keep the story accessible after expiration.
          * @param protectContent Pass true if the content of the story must be protected from forwarding and screenshotting.
          */
-        public SendStory(InputStoryContent content, InputStoryAreas areas, FormattedText caption, StoryPrivacySettings privacySettings, int activePeriod, boolean isPinned, boolean protectContent) {
+        public SendStory(long chatId, InputStoryContent content, InputStoryAreas areas, FormattedText caption, StoryPrivacySettings privacySettings, int activePeriod, boolean isPinned, boolean protectContent) {
+            this.chatId = chatId;
             this.content = content;
             this.areas = areas;
             this.caption = caption;
@@ -82058,7 +83146,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1085929528;
+        public static final int CONSTRUCTOR = 87179940;
 
         /**
          * @return this.CONSTRUCTOR
@@ -85974,11 +87062,15 @@ public class TdApi {
     }
 
     /**
-     * Changes privacy settings of a previously sent story.
+     * Changes privacy settings of a story. Can be called only if story.canBeEdited == true.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class SetStoryPrivacySettings extends Function<Ok> {
+        /**
+         * Identifier of the chat that posted the story.
+         */
+        public long storySenderChatId;
         /**
          * Identifier of the story.
          */
@@ -85989,7 +87081,7 @@ public class TdApi {
         public StoryPrivacySettings privacySettings;
 
         /**
-         * Default constructor for a function, which changes privacy settings of a previously sent story.
+         * Default constructor for a function, which changes privacy settings of a story. Can be called only if story.canBeEdited == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -85997,14 +87089,16 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes privacy settings of a previously sent story.
+         * Creates a function, which changes privacy settings of a story. Can be called only if story.canBeEdited == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
+         * @param storySenderChatId Identifier of the chat that posted the story.
          * @param storyId Identifier of the story.
          * @param privacySettings The new privacy settigs for the story.
          */
-        public SetStoryPrivacySettings(int storyId, StoryPrivacySettings privacySettings) {
+        public SetStoryPrivacySettings(long storySenderChatId, int storyId, StoryPrivacySettings privacySettings) {
+            this.storySenderChatId = storySenderChatId;
             this.storyId = storyId;
             this.privacySettings = privacySettings;
         }
@@ -86012,7 +87106,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -655801550;
+        public static final int CONSTRUCTOR = 460084276;
 
         /**
          * @return this.CONSTRUCTOR
@@ -86906,7 +88000,7 @@ public class TdApi {
     }
 
     /**
-     * Stops a poll. A poll in a message can be stopped when the message has canBeEdited flag set.
+     * Stops a poll. A poll in a message can be stopped when the message has canBeEdited flag is set.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -86925,7 +88019,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
 
         /**
-         * Default constructor for a function, which stops a poll. A poll in a message can be stopped when the message has canBeEdited flag set.
+         * Default constructor for a function, which stops a poll. A poll in a message can be stopped when the message has canBeEdited flag is set.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -86933,7 +88027,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which stops a poll. A poll in a message can be stopped when the message has canBeEdited flag set.
+         * Creates a function, which stops a poll. A poll in a message can be stopped when the message has canBeEdited flag is set.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -88751,11 +89845,15 @@ public class TdApi {
     }
 
     /**
-     * Toggles whether a story is accessible after expiration.
+     * Toggles whether a story is accessible after expiration. Can be called only if story.canToggleIsPinned == true.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class ToggleStoryIsPinned extends Function<Ok> {
+        /**
+         * Identifier of the chat that posted the story.
+         */
+        public long storySenderChatId;
         /**
          * Identifier of the story.
          */
@@ -88766,7 +89864,7 @@ public class TdApi {
         public boolean isPinned;
 
         /**
-         * Default constructor for a function, which toggles whether a story is accessible after expiration.
+         * Default constructor for a function, which toggles whether a story is accessible after expiration. Can be called only if story.canToggleIsPinned == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -88774,14 +89872,16 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which toggles whether a story is accessible after expiration.
+         * Creates a function, which toggles whether a story is accessible after expiration. Can be called only if story.canToggleIsPinned == true.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
+         * @param storySenderChatId Identifier of the chat that posted the story.
          * @param storyId Identifier of the story.
          * @param isPinned Pass true to make the story accessible after expiration; pass false to make it private.
          */
-        public ToggleStoryIsPinned(int storyId, boolean isPinned) {
+        public ToggleStoryIsPinned(long storySenderChatId, int storyId, boolean isPinned) {
+            this.storySenderChatId = storySenderChatId;
             this.storyId = storyId;
             this.isPinned = isPinned;
         }
@@ -88789,7 +89889,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -545246727;
+        public static final int CONSTRUCTOR = -1265388786;
 
         /**
          * @return this.CONSTRUCTOR
