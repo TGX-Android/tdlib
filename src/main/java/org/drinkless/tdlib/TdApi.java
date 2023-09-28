@@ -11608,11 +11608,11 @@ public class TdApi {
          */
         public boolean canSendDocuments;
         /**
-         * True, if the user can send audio photos.
+         * True, if the user can send photos.
          */
         public boolean canSendPhotos;
         /**
-         * True, if the user can send audio videos.
+         * True, if the user can send videos.
          */
         public boolean canSendVideos;
         /**
@@ -11664,8 +11664,8 @@ public class TdApi {
          * @param canSendBasicMessages True, if the user can send text messages, contacts, invoices, locations, and venues.
          * @param canSendAudios True, if the user can send music files.
          * @param canSendDocuments True, if the user can send documents.
-         * @param canSendPhotos True, if the user can send audio photos.
-         * @param canSendVideos True, if the user can send audio videos.
+         * @param canSendPhotos True, if the user can send photos.
+         * @param canSendVideos True, if the user can send videos.
          * @param canSendVideoNotes True, if the user can send video notes.
          * @param canSendVoiceNotes True, if the user can send voice notes.
          * @param canSendPolls True, if the user can send polls.
@@ -12371,7 +12371,7 @@ public class TdApi {
          */
         public StatisticalValue meanShareCount;
         /**
-         * A percentage of users with enabled notifications for the chat.
+         * A percentage of users with enabled notifications for the chat; 0-100.
          */
         public double enabledNotificationsPercentage;
         /**
@@ -12428,7 +12428,7 @@ public class TdApi {
          * @param memberCount Number of members in the chat.
          * @param meanViewCount Mean number of times the recently sent messages was viewed.
          * @param meanShareCount Mean number of times the recently sent messages was shared.
-         * @param enabledNotificationsPercentage A percentage of users with enabled notifications for the chat.
+         * @param enabledNotificationsPercentage A percentage of users with enabled notifications for the chat; 0-100.
          * @param memberCountGraph A graph containing number of members in the chat.
          * @param joinGraph A graph containing number of members joined and left the chat.
          * @param muteGraph A graph containing number of members muted and unmuted the chat.
@@ -31679,7 +31679,7 @@ public class TdApi {
          */
         @Nullable public Message message;
         /**
-         * Timestamp from which the video/audio/video note/voice note playing must start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview.
+         * Timestamp from which the video/audio/video note/voice note/story playing must start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview.
          */
         public int mediaTimestamp;
         /**
@@ -31700,7 +31700,7 @@ public class TdApi {
          * @param chatId If found, identifier of the chat to which the link points, 0 otherwise.
          * @param messageThreadId If found, identifier of the message thread in which to open the message, or a forum topic to open if the message is missing.
          * @param message If found, the linked message; may be null.
-         * @param mediaTimestamp Timestamp from which the video/audio/video note/voice note playing must start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview.
+         * @param mediaTimestamp Timestamp from which the video/audio/video note/voice note/story playing must start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview.
          * @param forAlbum True, if the whole media album to which the message belongs is linked.
          */
         public MessageLinkInfo(boolean isPublic, long chatId, long messageThreadId, Message message, int mediaTimestamp, boolean forAlbum) {
@@ -51009,7 +51009,7 @@ public class TdApi {
      */
     public static class TextEntityTypeMediaTimestamp extends TextEntityType {
         /**
-         * Timestamp from which a video/audio/video note/voice note playing must start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message.
+         * Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message.
          */
         public int mediaTimestamp;
 
@@ -51022,7 +51022,7 @@ public class TdApi {
         /**
          * A media timestamp.
          *
-         * @param mediaTimestamp Timestamp from which a video/audio/video note/voice note playing must start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message.
+         * @param mediaTimestamp Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message.
          */
         public TextEntityTypeMediaTimestamp(int mediaTimestamp) {
             this.mediaTimestamp = mediaTimestamp;
@@ -73009,7 +73009,7 @@ public class TdApi {
          */
         public long messageId;
         /**
-         * If not 0, timestamp from which the video/audio/video note/voice note playing must start, in seconds. The media can be in the message content or in its web page preview.
+         * If not 0, timestamp from which the video/audio/video note/voice note/story playing must start, in seconds. The media can be in the message content or in its web page preview.
          */
         public int mediaTimestamp;
         /**
@@ -73036,7 +73036,7 @@ public class TdApi {
          *
          * @param chatId Identifier of the chat to which the message belongs.
          * @param messageId Identifier of the message.
-         * @param mediaTimestamp If not 0, timestamp from which the video/audio/video note/voice note playing must start, in seconds. The media can be in the message content or in its web page preview.
+         * @param mediaTimestamp If not 0, timestamp from which the video/audio/video note/voice note/story playing must start, in seconds. The media can be in the message content or in its web page preview.
          * @param forAlbum Pass true to create a link for the whole media album.
          * @param inMessageThread Pass true to create a link to the message as a channel post comment, in a message thread, or a forum topic.
          */
