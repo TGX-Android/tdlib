@@ -7037,7 +7037,7 @@ public class TdApi {
      */
     public static class ChatAdministratorRights extends Object {
         /**
-         * True, if the administrator can get chat event log, get chat statistics, get chat boosts in channels, get message statistics in channels, get channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only.
+         * True, if the administrator can get chat event log, get chat boosts in channels, get channel members, report supergroup spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only.
          */
         public boolean canManageChat;
         /**
@@ -7045,7 +7045,7 @@ public class TdApi {
          */
         public boolean canChangeInfo;
         /**
-         * True, if the administrator can create channel posts; applicable to channels only.
+         * True, if the administrator can create channel posts or view channel statistics; applicable to channels only.
          */
         public boolean canPostMessages;
         /**
@@ -7061,7 +7061,7 @@ public class TdApi {
          */
         public boolean canInviteUsers;
         /**
-         * True, if the administrator can restrict, ban, or unban chat members; always true for channels.
+         * True, if the administrator can restrict, ban, or unban chat members or view supergroup statistics; always true for channels.
          */
         public boolean canRestrictMembers;
         /**
@@ -7106,13 +7106,13 @@ public class TdApi {
         /**
          * Describes rights of the administrator.
          *
-         * @param canManageChat True, if the administrator can get chat event log, get chat statistics, get chat boosts in channels, get message statistics in channels, get channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only.
+         * @param canManageChat True, if the administrator can get chat event log, get chat boosts in channels, get channel members, report supergroup spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only.
          * @param canChangeInfo True, if the administrator can change the chat title, photo, and other settings.
-         * @param canPostMessages True, if the administrator can create channel posts; applicable to channels only.
+         * @param canPostMessages True, if the administrator can create channel posts or view channel statistics; applicable to channels only.
          * @param canEditMessages True, if the administrator can edit messages of other users and pin messages; applicable to channels only.
          * @param canDeleteMessages True, if the administrator can delete messages of other users.
          * @param canInviteUsers True, if the administrator can invite new users to the chat.
-         * @param canRestrictMembers True, if the administrator can restrict, ban, or unban chat members; always true for channels.
+         * @param canRestrictMembers True, if the administrator can restrict, ban, or unban chat members or view supergroup statistics; always true for channels.
          * @param canPinMessages True, if the administrator can pin messages; applicable to basic groups and supergroups only.
          * @param canManageTopics True, if the administrator can manage topics; applicable to forum supergroups only.
          * @param canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.
@@ -73157,7 +73157,7 @@ public class TdApi {
     }
 
     /**
-     * Returns forwarded copies of a channel message to different public channels. For optimal performance, the number of returned messages is chosen by TDLib.
+     * Returns forwarded copies of a channel message to different public channels. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link FoundMessages FoundMessages} </p>
      */
@@ -73180,7 +73180,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns forwarded copies of a channel message to different public channels. For optimal performance, the number of returned messages is chosen by TDLib.
+         * Default constructor for a function, which returns forwarded copies of a channel message to different public channels. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          */
@@ -73188,7 +73188,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns forwarded copies of a channel message to different public channels. For optimal performance, the number of returned messages is chosen by TDLib.
+         * Creates a function, which returns forwarded copies of a channel message to different public channels. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          *
