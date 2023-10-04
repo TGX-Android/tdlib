@@ -5,7 +5,6 @@ OPENSSL_SOURCE_DIR=${2:-openssl}
 OPENSSL_INSTALL_DIR=${3:-build/openssl}
 
 source "$(pwd)/setup.sh" || exit 1
-ANDROID_NDK_VERSION="$NDK_VERSION"
 
 if [ ! -d "$ANDROID_SDK_ROOT" ] ; then
   echo "Error: directory \"$ANDROID_SDK_ROOT\" doesn't exist. Run ./fetch-sdk.sh first, or provide a valid path to Android SDK."
@@ -32,26 +31,37 @@ pushd "$OPENSSL_SOURCE_DIR" > /dev/null
 # Make sure it's clean build
 make distclean > /dev/null 2>&1 || true
 
-export ANDROID_NDK_ROOT="$ANDROID_NDK" # for OpenSSL 3.0
-export ANDROID_NDK_HOME="$ANDROID_NDK" # for OpenSSL 1.1.1
+for ABI in x86 armeabi-v7a x86_64 arm64-v8a ; do
+  case ${ABI} in
+    arm64-v8a | x86_64)
+      ANDROID_NDK_VERSION=$ANDROID_NDK_VERSION_PRIMARY
+    ;;
+	  armeabi-v7a | x86)
+      ANDROID_NDK_VERSION=$ANDROID_NDK_VERSION_LEGACY
+    ;;
+  esac
 
-PATH="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/$HOST_ARCH/bin:$PATH"
+  ANDROID_NDK="$ANDROID_SDK_ROOT/ndk/$ANDROID_NDK_VERSION"
 
-if ! clang --help >/dev/null 2>&1 ; then
-  echo "Error: failed to run clang from Android NDK."
-  if [[ "$OS_NAME" == "linux" ]] ; then
-    echo "Prebuilt Android NDK binaries are linked against glibc, so glibc must be installed."
+  export ANDROID_NDK_ROOT="$ANDROID_NDK" # for OpenSSL 3.0
+  export ANDROID_NDK_HOME="$ANDROID_NDK" # for OpenSSL 1.1.1
+
+  PATH="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/$HOST_ARCH/bin:$PATH"
+
+  if ! clang --help >/dev/null 2>&1 ; then
+    echo "Error: failed to run clang from Android NDK."
+    if [[ "$OS_NAME" == "linux" ]] ; then
+      echo "Prebuilt Android NDK binaries are linked against glibc, so glibc must be installed."
+    fi
+    exit 1
   fi
-  exit 1
-fi
 
-ANDROID_API32=16
-ANDROID_API64=21
-if [[ ${ANDROID_NDK_VERSION%%.*} -ge 24 ]] ; then
-  ANDROID_API32=19
-fi
+  ANDROID_API32=16
+  ANDROID_API64=21
+  if [[ ${ANDROID_NDK_VERSION%%.*} -ge 24 ]] ; then
+    ANDROID_API32=19
+  fi
 
-for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
   if [[ $ABI == "x86" ]] ; then
     ./Configure android-x86 $OPENSSL_FLAVOR -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
   elif [[ $ABI == "x86_64" ]] ; then
@@ -75,7 +85,7 @@ for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
 
   popd
 
-  echo "Built OpenSSL for $ABI: $OPENSSL_INSTALL_DIR/$ABI"
+  echo "Built OpenSSL for $ABI with NDK $ANDROID_NDK_VERSION: $OPENSSL_INSTALL_DIR/$ABI"
   ls $OPENSSL_INSTALL_DIR/$ABI/lib
   echo "Comparsion: "
   ls
