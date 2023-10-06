@@ -7416,7 +7416,7 @@ public class TdApi {
     }
 
     /**
-     * Contains information about a link to boost a a chat.
+     * Contains information about a link to boost a chat.
      */
     public static class ChatBoostLinkInfo extends Object {
         /**
@@ -7429,13 +7429,13 @@ public class TdApi {
         public long chatId;
 
         /**
-         * Contains information about a link to boost a a chat.
+         * Contains information about a link to boost a chat.
          */
         public ChatBoostLinkInfo() {
         }
 
         /**
-         * Contains information about a link to boost a a chat.
+         * Contains information about a link to boost a chat.
          *
          * @param isPublic True, if the link will work for non-members of the chat.
          * @param chatId Identifier of the chat to which the link points; 0 if the chat isn't found.
