@@ -771,6 +771,10 @@ public class TdApi {
          */
         public MessageSender senderId;
         /**
+         * True, if the reaction was added by the current user.
+         */
+        public boolean isOutgoing;
+        /**
          * Point in time (Unix timestamp) when the reaction was added.
          */
         public int date;
@@ -786,18 +790,20 @@ public class TdApi {
          *
          * @param type Type of the reaction.
          * @param senderId Identifier of the chat member, applied the reaction.
+         * @param isOutgoing True, if the reaction was added by the current user.
          * @param date Point in time (Unix timestamp) when the reaction was added.
          */
-        public AddedReaction(ReactionType type, MessageSender senderId, int date) {
+        public AddedReaction(ReactionType type, MessageSender senderId, boolean isOutgoing, int date) {
             this.type = type;
             this.senderId = senderId;
+            this.isOutgoing = isOutgoing;
             this.date = date;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1666271766;
+        public static final int CONSTRUCTOR = 1258586525;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4105,6 +4111,162 @@ public class TdApi {
     }
 
     /**
+     * This class is an abstract base class.
+     * Describes a reason why a bot was allowed to write messages to the current user.
+     */
+    public abstract static class BotWriteAccessAllowReason extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            BotWriteAccessAllowReasonConnectedWebsite.CONSTRUCTOR,
+            BotWriteAccessAllowReasonAddedToAttachmentMenu.CONSTRUCTOR,
+            BotWriteAccessAllowReasonLaunchedWebApp.CONSTRUCTOR,
+            BotWriteAccessAllowReasonAcceptedRequest.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public BotWriteAccessAllowReason() {
+        }
+    }
+
+    /**
+     * The user connected a website by logging in using Telegram Login Widget on it.
+     */
+    public static class BotWriteAccessAllowReasonConnectedWebsite extends BotWriteAccessAllowReason {
+        /**
+         * Domain name of the connected website.
+         */
+        public String domainName;
+
+        /**
+         * The user connected a website by logging in using Telegram Login Widget on it.
+         */
+        public BotWriteAccessAllowReasonConnectedWebsite() {
+        }
+
+        /**
+         * The user connected a website by logging in using Telegram Login Widget on it.
+         *
+         * @param domainName Domain name of the connected website.
+         */
+        public BotWriteAccessAllowReasonConnectedWebsite(String domainName) {
+            this.domainName = domainName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2016325603;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user added the bot to attachment or side menu using toggleBotIsAddedToAttachmentMenu.
+     */
+    public static class BotWriteAccessAllowReasonAddedToAttachmentMenu extends BotWriteAccessAllowReason {
+
+        /**
+         * The user added the bot to attachment or side menu using toggleBotIsAddedToAttachmentMenu.
+         */
+        public BotWriteAccessAllowReasonAddedToAttachmentMenu() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2104795235;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user launched a Web App using getWebAppLinkUrl.
+     */
+    public static class BotWriteAccessAllowReasonLaunchedWebApp extends BotWriteAccessAllowReason {
+        /**
+         * Information about the Web App.
+         */
+        public WebApp webApp;
+
+        /**
+         * The user launched a Web App using getWebAppLinkUrl.
+         */
+        public BotWriteAccessAllowReasonLaunchedWebApp() {
+        }
+
+        /**
+         * The user launched a Web App using getWebAppLinkUrl.
+         *
+         * @param webApp Information about the Web App.
+         */
+        public BotWriteAccessAllowReasonLaunchedWebApp(WebApp webApp) {
+            this.webApp = webApp;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -240843561;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user accepted bot's request to send messages with allowBotToSendMessages.
+     */
+    public static class BotWriteAccessAllowReasonAcceptedRequest extends BotWriteAccessAllowReason {
+
+        /**
+         * The user accepted bot's request to send messages with allowBotToSendMessages.
+         */
+        public BotWriteAccessAllowReasonAcceptedRequest() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1983497220;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes a call.
      */
     public static class Call extends Object {
@@ -5071,7 +5233,7 @@ public class TdApi {
      */
     public static class CallStateDiscarded extends CallState {
         /**
-         * The reason, why the call has ended.
+         * The reason why the call has ended.
          */
         public CallDiscardReason reason;
         /**
@@ -5096,7 +5258,7 @@ public class TdApi {
         /**
          * The call has ended successfully.
          *
-         * @param reason The reason, why the call has ended.
+         * @param reason The reason why the call has ended.
          * @param needRating True, if the call rating must be sent to the server.
          * @param needDebugInformation True, if the call debug information must be sent to the server.
          * @param needLog True, if the call log must be sent to the server.
@@ -7464,6 +7626,10 @@ public class TdApi {
      */
     public static class ChatBoostStatus extends Object {
         /**
+         * An HTTP URL, which can be used to boost the chat.
+         */
+        public String boostUrl;
+        /**
          * True, if the current user has already boosted the chat.
          */
         public boolean isBoosted;
@@ -7501,6 +7667,7 @@ public class TdApi {
         /**
          * Describes current boost status of a chat.
          *
+         * @param boostUrl An HTTP URL, which can be used to boost the chat.
          * @param isBoosted True, if the current user has already boosted the chat.
          * @param level Current boost level of the chat.
          * @param boostCount The number of times the chat was boosted.
@@ -7509,7 +7676,8 @@ public class TdApi {
          * @param premiumMemberCount Approximate number of Telegram Premium subscribers joined the chat; always 0 if the current user isn't an administrator in the chat.
          * @param premiumMemberPercentage A percentage of Telegram Premium subscribers joined the chat; always 0 if the current user isn't an administrator in the chat.
          */
-        public ChatBoostStatus(boolean isBoosted, int level, int boostCount, int currentLevelBoostCount, int nextLevelBoostCount, int premiumMemberCount, double premiumMemberPercentage) {
+        public ChatBoostStatus(String boostUrl, boolean isBoosted, int level, int boostCount, int currentLevelBoostCount, int nextLevelBoostCount, int premiumMemberCount, double premiumMemberPercentage) {
+            this.boostUrl = boostUrl;
             this.isBoosted = isBoosted;
             this.level = level;
             this.boostCount = boostCount;
@@ -7522,7 +7690,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -848674937;
+        public static final int CONSTRUCTOR = -603806542;
 
         /**
          * @return this.CONSTRUCTOR
@@ -27776,6 +27944,10 @@ public class TdApi {
          */
         @Nullable public MessageForwardInfo forwardInfo;
         /**
+         * Information about the initial message for messages created with importMessages; may be null if the message isn't imported.
+         */
+        @Nullable public MessageImportInfo importInfo;
+        /**
          * Information about interactions with the message; may be null if none.
          */
         @Nullable public MessageInteractionInfo interactionInfo;
@@ -27862,6 +28034,7 @@ public class TdApi {
          * @param date Point in time (Unix timestamp) when the message was sent.
          * @param editDate Point in time (Unix timestamp) when the message was last edited.
          * @param forwardInfo Information about the initial message sender; may be null if none or unknown.
+         * @param importInfo Information about the initial message for messages created with importMessages; may be null if the message isn't imported.
          * @param interactionInfo Information about interactions with the message; may be null if none.
          * @param unreadReactions Information about unread reactions added to the message.
          * @param replyTo Information about the message or the story this message is replying to; may be null if none.
@@ -27876,7 +28049,7 @@ public class TdApi {
          * @param content Content of the message.
          * @param replyMarkup Reply markup for the message; may be null if none.
          */
-        public Message(long id, MessageSender senderId, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean canBeEdited, boolean canBeForwarded, boolean canBeSaved, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetAddedReactions, boolean canGetStatistics, boolean canGetMessageThread, boolean canGetViewers, boolean canGetMediaTimestampLinks, boolean canReportReactions, boolean hasTimestampedMedia, boolean isChannelPost, boolean isTopicMessage, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, MessageInteractionInfo interactionInfo, UnreadReaction[] unreadReactions, MessageReplyTo replyTo, long messageThreadId, MessageSelfDestructType selfDestructType, double selfDestructIn, double autoDeleteIn, long viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, ReplyMarkup replyMarkup) {
+        public Message(long id, MessageSender senderId, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean canBeEdited, boolean canBeForwarded, boolean canBeSaved, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetAddedReactions, boolean canGetStatistics, boolean canGetMessageThread, boolean canGetViewers, boolean canGetMediaTimestampLinks, boolean canReportReactions, boolean hasTimestampedMedia, boolean isChannelPost, boolean isTopicMessage, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, MessageImportInfo importInfo, MessageInteractionInfo interactionInfo, UnreadReaction[] unreadReactions, MessageReplyTo replyTo, long messageThreadId, MessageSelfDestructType selfDestructType, double selfDestructIn, double autoDeleteIn, long viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, ReplyMarkup replyMarkup) {
             this.id = id;
             this.senderId = senderId;
             this.chatId = chatId;
@@ -27902,6 +28075,7 @@ public class TdApi {
             this.date = date;
             this.editDate = editDate;
             this.forwardInfo = forwardInfo;
+            this.importInfo = importInfo;
             this.interactionInfo = interactionInfo;
             this.unreadReactions = unreadReactions;
             this.replyTo = replyTo;
@@ -27920,7 +28094,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 123937316;
+        public static final int CONSTRUCTOR = 948330074;
 
         /**
          * @return this.CONSTRUCTOR
@@ -28121,7 +28295,6 @@ public class TdApi {
             MessageContactRegistered.CONSTRUCTOR,
             MessageUserShared.CONSTRUCTOR,
             MessageChatShared.CONSTRUCTOR,
-            MessageWebsiteConnected.CONSTRUCTOR,
             MessageBotWriteAccessAllowed.CONSTRUCTOR,
             MessageWebAppDataSent.CONSTRUCTOR,
             MessageWebAppDataReceived.CONSTRUCTOR,
@@ -30539,55 +30712,13 @@ public class TdApi {
     }
 
     /**
-     * The current user has connected a website by logging in using Telegram Login Widget on it.
-     */
-    public static class MessageWebsiteConnected extends MessageContent {
-        /**
-         * Domain name of the connected website.
-         */
-        public String domainName;
-
-        /**
-         * The current user has connected a website by logging in using Telegram Login Widget on it.
-         */
-        public MessageWebsiteConnected() {
-        }
-
-        /**
-         * The current user has connected a website by logging in using Telegram Login Widget on it.
-         *
-         * @param domainName Domain name of the connected website.
-         */
-        public MessageWebsiteConnected(String domainName) {
-            this.domainName = domainName;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1074551800;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * The user allowed the bot to send messages.
      */
     public static class MessageBotWriteAccessAllowed extends MessageContent {
         /**
-         * Information about the Web App, which requested the access; may be null if none or the Web App was opened from the attachment menu.
+         * The reason why the bot was allowed to write messages.
          */
-        @Nullable public WebApp webApp;
-        /**
-         * True, if user allowed the bot to send messages by an explicit call to allowBotToSendMessages.
-         */
-        public boolean byRequest;
+        public BotWriteAccessAllowReason reason;
 
         /**
          * The user allowed the bot to send messages.
@@ -30598,18 +30729,16 @@ public class TdApi {
         /**
          * The user allowed the bot to send messages.
          *
-         * @param webApp Information about the Web App, which requested the access; may be null if none or the Web App was opened from the attachment menu.
-         * @param byRequest True, if user allowed the bot to send messages by an explicit call to allowBotToSendMessages.
+         * @param reason The reason why the bot was allowed to write messages.
          */
-        public MessageBotWriteAccessAllowed(WebApp webApp, boolean byRequest) {
-            this.webApp = webApp;
-            this.byRequest = byRequest;
+        public MessageBotWriteAccessAllowed(BotWriteAccessAllowReason reason) {
+            this.reason = reason;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 841874858;
+        public static final int CONSTRUCTOR = -1702185036;
 
         /**
          * @return this.CONSTRUCTOR
@@ -31332,8 +31461,7 @@ public class TdApi {
             MessageForwardOriginUser.CONSTRUCTOR,
             MessageForwardOriginChat.CONSTRUCTOR,
             MessageForwardOriginHiddenUser.CONSTRUCTOR,
-            MessageForwardOriginChannel.CONSTRUCTOR,
-            MessageForwardOriginMessageImport.CONSTRUCTOR
+            MessageForwardOriginChannel.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -31521,33 +31649,39 @@ public class TdApi {
     }
 
     /**
-     * The message was imported from an exported message history.
+     * Contains information about a message created with importMessages.
      */
-    public static class MessageForwardOriginMessageImport extends MessageForwardOrigin {
+    public static class MessageImportInfo extends Object {
         /**
-         * Name of the sender.
+         * Name of the original sender.
          */
         public String senderName;
+        /**
+         * Point in time (Unix timestamp) when the message was originally sent.
+         */
+        public int date;
 
         /**
-         * The message was imported from an exported message history.
+         * Contains information about a message created with importMessages.
          */
-        public MessageForwardOriginMessageImport() {
+        public MessageImportInfo() {
         }
 
         /**
-         * The message was imported from an exported message history.
+         * Contains information about a message created with importMessages.
          *
-         * @param senderName Name of the sender.
+         * @param senderName Name of the original sender.
+         * @param date Point in time (Unix timestamp) when the message was originally sent.
          */
-        public MessageForwardOriginMessageImport(String senderName) {
+        public MessageImportInfo(String senderName, int date) {
             this.senderName = senderName;
+            this.date = date;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -739561951;
+        public static final int CONSTRUCTOR = -421549105;
 
         /**
          * @return this.CONSTRUCTOR
@@ -31837,6 +31971,10 @@ public class TdApi {
          */
         public boolean isChosen;
         /**
+         * Identifier of the message sender used by the current user to add the reaction; null if unknown or the reaction isn't chosen.
+         */
+        public MessageSender usedSenderId;
+        /**
          * Identifiers of at most 3 recent message senders, added the reaction; available in private, basic group and supergroup chats.
          */
         public MessageSender[] recentSenderIds;
@@ -31853,19 +31991,21 @@ public class TdApi {
          * @param type Type of the reaction.
          * @param totalCount Number of times the reaction was added.
          * @param isChosen True, if the reaction is chosen by the current user.
+         * @param usedSenderId Identifier of the message sender used by the current user to add the reaction; null if unknown or the reaction isn't chosen.
          * @param recentSenderIds Identifiers of at most 3 recent message senders, added the reaction; available in private, basic group and supergroup chats.
          */
-        public MessageReaction(ReactionType type, int totalCount, boolean isChosen, MessageSender[] recentSenderIds) {
+        public MessageReaction(ReactionType type, int totalCount, boolean isChosen, MessageSender usedSenderId, MessageSender[] recentSenderIds) {
             this.type = type;
             this.totalCount = totalCount;
             this.isChosen = isChosen;
+            this.usedSenderId = usedSenderId;
             this.recentSenderIds = recentSenderIds;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 583566666;
+        public static final int CONSTRUCTOR = -1093994369;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47715,7 +47855,7 @@ public class TdApi {
          */
         public double widthPercentage;
         /**
-         * The ordinate of the rectangle's center, as a percentage of the media height.
+         * The height of the rectangle, as a percentage of the media height.
          */
         public double heightPercentage;
         /**
@@ -47735,7 +47875,7 @@ public class TdApi {
          * @param xPercentage The abscissa of the rectangle's center, as a percentage of the media width.
          * @param yPercentage The ordinate of the rectangle's center, as a percentage of the media height.
          * @param widthPercentage The width of the rectangle, as a percentage of the media width.
-         * @param heightPercentage The ordinate of the rectangle's center, as a percentage of the media height.
+         * @param heightPercentage The height of the rectangle, as a percentage of the media height.
          * @param rotationAngle Clockwise rotation angle of the rectangle, in degrees; 0-360.
          */
         public StoryAreaPosition(double xPercentage, double yPercentage, double widthPercentage, double heightPercentage, double rotationAngle) {
