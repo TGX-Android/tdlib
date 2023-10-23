@@ -27968,7 +27968,7 @@ public class TdApi {
          */
         @Nullable public MessageSelfDestructType selfDestructType;
         /**
-         * Time left before the message self-destruct timer expires, in seconds; 0 if self-desctruction isn't scheduled yet.
+         * Time left before the message self-destruct timer expires, in seconds; 0 if self-destruction isn't scheduled yet.
          */
         public double selfDestructIn;
         /**
@@ -28040,7 +28040,7 @@ public class TdApi {
          * @param replyTo Information about the message or the story this message is replying to; may be null if none.
          * @param messageThreadId If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs.
          * @param selfDestructType The message's self-destruct type; may be null if none.
-         * @param selfDestructIn Time left before the message self-destruct timer expires, in seconds; 0 if self-desctruction isn't scheduled yet.
+         * @param selfDestructIn Time left before the message self-destruct timer expires, in seconds; 0 if self-destruction isn't scheduled yet.
          * @param autoDeleteIn Time left before the message will be automatically deleted by messageAutoDeleteTime setting of the chat, in seconds; 0 if never.
          * @param viaBotUserId If non-zero, the user identifier of the bot through which this message was sent.
          * @param authorSignature For channel posts and anonymous group messages, optional author signature.
