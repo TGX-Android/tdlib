@@ -61778,7 +61778,7 @@ public class TdApi {
          */
         public String author;
         /**
-         * True, if the preview has large media and its appearance can be changed.
+         * True, if size of media in the preview can be changed.
          */
         public boolean hasLargeMedia;
         /**
@@ -61856,7 +61856,7 @@ public class TdApi {
          * @param embedHeight Height of the embedded preview.
          * @param duration Duration of the content, in seconds.
          * @param author Author of the content.
-         * @param hasLargeMedia True, if the preview has large media and its appearance can be changed.
+         * @param hasLargeMedia True, if size of media in the preview can be changed.
          * @param showLargeMedia True, if large media preview must be shown.
          * @param skipConfirmation True, if there is no need to show an ordinary open URL confirmation, when opening the URL from the preview, because the URL is shown in the message text in clear.
          * @param showAboveText True, if the link preview must be shown above message text; otherwise, the link preview must be shown below the message text.
@@ -77114,7 +77114,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
+     * Returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
      *
      * <p> Returns {@link Message Message} </p>
      */
@@ -77129,7 +77129,7 @@ public class TdApi {
         public long messageId;
 
         /**
-         * Default constructor for a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
+         * Default constructor for a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
          *
          * <p> Returns {@link Message Message} </p>
          */
@@ -77137,7 +77137,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
+         * Creates a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
          *
          * <p> Returns {@link Message Message} </p>
          *
