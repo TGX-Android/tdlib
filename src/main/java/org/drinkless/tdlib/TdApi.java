@@ -23073,7 +23073,7 @@ public class TdApi {
      */
     public static class InputMessageReplyToMessage extends InputMessageReplyTo {
         /**
-         * The identifier of the chat to which the message to be replied belongs; pass 0 if the message to be replied is in the same chat. Must always be 0 for replies in secret chats. A message can be replied in another chat only if message.canBeRepliedInAnotherChat.
+         * The identifier of the chat to which the message to be replied belongs; pass 0 if the message to be replied is in the same chat. Must always be 0 for replies in secret chats. A message can be replied in another chat or topic only if message.canBeRepliedInAnotherChat.
          */
         public long chatId;
         /**
@@ -23094,7 +23094,7 @@ public class TdApi {
         /**
          * Describes a message to be replied.
          *
-         * @param chatId The identifier of the chat to which the message to be replied belongs; pass 0 if the message to be replied is in the same chat. Must always be 0 for replies in secret chats. A message can be replied in another chat only if message.canBeRepliedInAnotherChat.
+         * @param chatId The identifier of the chat to which the message to be replied belongs; pass 0 if the message to be replied is in the same chat. Must always be 0 for replies in secret chats. A message can be replied in another chat or topic only if message.canBeRepliedInAnotherChat.
          * @param messageId The identifier of the message to be replied in the same or the specified chat.
          * @param quote Manually chosen quote from the message to be replied; pass null if none; 0-getOption(&quot;message_reply_quote_length_max&quot;) characters. Must always be null for replies in secret chats. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed to be kept and must be kept in the quote.
          */
@@ -28431,7 +28431,7 @@ public class TdApi {
          */
         public boolean canBeForwarded;
         /**
-         * True, if the message can be replied in another chat.
+         * True, if the message can be replied in another chat or topic.
          */
         public boolean canBeRepliedInAnotherChat;
         /**
@@ -28573,7 +28573,7 @@ public class TdApi {
          * @param isPinned True, if the message is pinned.
          * @param canBeEdited True, if the message can be edited. For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message by the application.
          * @param canBeForwarded True, if the message can be forwarded.
-         * @param canBeRepliedInAnotherChat True, if the message can be replied in another chat.
+         * @param canBeRepliedInAnotherChat True, if the message can be replied in another chat or topic.
          * @param canBeSaved True, if content of the message can be saved locally or copied.
          * @param canBeDeletedOnlyForSelf True, if the message can be deleted only for the current user while other users will continue to see it.
          * @param canBeDeletedForAllUsers True, if the message can be deleted for all users.
@@ -32842,15 +32842,15 @@ public class TdApi {
          */
         public boolean isQuoteManual;
         /**
-         * Information about origin of the message if the message was replied from another chat; may be null for messages from the same chat.
+         * Information about origin of the message if the message was from another chat or topic; may be null for messages from the same chat.
          */
         @Nullable public MessageOrigin origin;
         /**
-         * Point in time (Unix timestamp) when the message was sent if the message was replied from another chat; 0 for messages from the same chat.
+         * Point in time (Unix timestamp) when the message was sent if the message was from another chat or topic; 0 for messages from the same chat.
          */
         public int originSendDate;
         /**
-         * Media content of the message if the message was replied from another chat; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageContact, messageDice, messageDocument, messageGame, messageInvoice, messageLocation, messagePhoto, messagePoll, messagePremiumGiveaway, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
+         * Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageContact, messageDice, messageDocument, messageGame, messageInvoice, messageLocation, messagePhoto, messagePoll, messagePremiumGiveaway, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
          */
         @Nullable public MessageContent content;
 
@@ -32867,9 +32867,9 @@ public class TdApi {
          * @param messageId The identifier of the message; may be 0 if the replied message is in unknown chat.
          * @param quote Manually or automatically chosen quote from the replied message; may be null if none. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities can be present in the quote.
          * @param isQuoteManual True, if the quote was manually chosen by the message sender.
-         * @param origin Information about origin of the message if the message was replied from another chat; may be null for messages from the same chat.
-         * @param originSendDate Point in time (Unix timestamp) when the message was sent if the message was replied from another chat; 0 for messages from the same chat.
-         * @param content Media content of the message if the message was replied from another chat; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageContact, messageDice, messageDocument, messageGame, messageInvoice, messageLocation, messagePhoto, messagePoll, messagePremiumGiveaway, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
+         * @param origin Information about origin of the message if the message was from another chat or topic; may be null for messages from the same chat.
+         * @param originSendDate Point in time (Unix timestamp) when the message was sent if the message was from another chat or topic; 0 for messages from the same chat.
+         * @param content Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageContact, messageDice, messageDocument, messageGame, messageInvoice, messageLocation, messagePhoto, messagePoll, messagePremiumGiveaway, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
          */
         public MessageReplyToMessage(long chatId, long messageId, FormattedText quote, boolean isQuoteManual, MessageOrigin origin, int originSendDate, MessageContent content) {
             this.chatId = chatId;
@@ -77114,7 +77114,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
+     * Returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without non-bundled replied message respectively.
      *
      * <p> Returns {@link Message Message} </p>
      */
@@ -77129,7 +77129,7 @@ public class TdApi {
         public long messageId;
 
         /**
-         * Default constructor for a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
+         * Default constructor for a function, which returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without non-bundled replied message respectively.
          *
          * <p> Returns {@link Message Message} </p>
          */
@@ -77137,7 +77137,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without replied message respectively.
+         * Creates a function, which returns information about a non-bundled message that is replied by a given message. Also, returns the pinned message, the game message, the invoice message, the message with a previously set same background, and the topic creation message for messages of the types messagePinMessage, messageGameScore, messagePaymentSuccessful, messageChatSetBackground and topic messages without non-bundled replied message respectively.
          *
          * <p> Returns {@link Message Message} </p>
          *
