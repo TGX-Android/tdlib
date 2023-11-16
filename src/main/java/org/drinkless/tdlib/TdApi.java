@@ -4335,7 +4335,7 @@ public class TdApi {
          */
         public int id;
         /**
-         * Peer user identifier.
+         * User identifier of the other call participant.
          */
         public long userId;
         /**
@@ -4361,7 +4361,7 @@ public class TdApi {
          * Describes a call.
          *
          * @param id Call identifier, not persistent.
-         * @param userId Peer user identifier.
+         * @param userId User identifier of the other call participant.
          * @param isOutgoing True, if the call is outgoing.
          * @param isVideo True, if the call is a video call.
          * @param state Call state.
@@ -5200,7 +5200,7 @@ public class TdApi {
      */
     public static class CallStateReady extends CallState {
         /**
-         * Call protocols supported by the peer.
+         * Call protocols supported by the other call participant.
          */
         public CallProtocol protocol;
         /**
@@ -5233,7 +5233,7 @@ public class TdApi {
         /**
          * The call is ready to use.
          *
-         * @param protocol Call protocols supported by the peer.
+         * @param protocol Call protocols supported by the other call participant.
          * @param servers List of available call servers.
          * @param config A JSON-encoded call config.
          * @param encryptionKey Call encryption key.
@@ -6811,7 +6811,7 @@ public class TdApi {
          */
         public boolean canUnarchive;
         /**
-         * If non-negative, the current user was found by the peer through searchChatsNearby and this is the distance between the users.
+         * If non-negative, the current user was found by the other user through searchChatsNearby and this is the distance between the users.
          */
         public int distance;
 
@@ -6825,7 +6825,7 @@ public class TdApi {
          * The chat is a private or secret chat, which can be reported using the method reportChat, or the other user can be blocked using the method setMessageSenderBlockList, or the other user can be added to the contact list using the method addContact. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
          *
          * @param canUnarchive If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings.
-         * @param distance If non-negative, the current user was found by the peer through searchChatsNearby and this is the distance between the users.
+         * @param distance If non-negative, the current user was found by the other user through searchChatsNearby and this is the distance between the users.
          */
         public ChatActionBarReportAddBlock(boolean canUnarchive, int distance) {
             this.canUnarchive = canUnarchive;
@@ -11767,7 +11767,7 @@ public class TdApi {
      */
     public static class ChatMessageSender extends Object {
         /**
-         * Available message senders.
+         * The message sender.
          */
         public MessageSender sender;
         /**
@@ -11784,7 +11784,7 @@ public class TdApi {
         /**
          * Represents a message sender, which can be used to send messages in a chat.
          *
-         * @param sender Available message senders.
+         * @param sender The message sender.
          * @param needsPremium True, if Telegram Premium is needed to use the message sender.
          */
         public ChatMessageSender(MessageSender sender, boolean needsPremium) {
@@ -13306,7 +13306,7 @@ public class TdApi {
          */
         public int secretChatId;
         /**
-         * User identifier of the secret chat peer.
+         * User identifier of the other user in the secret chat.
          */
         public long userId;
 
@@ -13320,7 +13320,7 @@ public class TdApi {
          * A secret chat with a user.
          *
          * @param secretChatId Secret chat identifier.
-         * @param userId User identifier of the secret chat peer.
+         * @param userId User identifier of the other user in the secret chat.
          */
         public ChatTypeSecret(int secretChatId, long userId) {
             this.secretChatId = secretChatId;
@@ -17848,7 +17848,7 @@ public class TdApi {
          */
         public int scheduledStartDate;
         /**
-         * True, if the group call is scheduled and the current user will receive a notification when the group call will start.
+         * True, if the group call is scheduled and the current user will receive a notification when the group call starts.
          */
         public boolean enabledStartNotification;
         /**
@@ -17932,7 +17932,7 @@ public class TdApi {
          * @param id Group call identifier.
          * @param title Group call title.
          * @param scheduledStartDate Point in time (Unix timestamp) when the group call is supposed to be started by an administrator; 0 if it is already active or was ended.
-         * @param enabledStartNotification True, if the group call is scheduled and the current user will receive a notification when the group call will start.
+         * @param enabledStartNotification True, if the group call is scheduled and the current user will receive a notification when the group call starts.
          * @param isActive True, if the call is active.
          * @param isRtmpStream True, if the chat is an RTMP stream instead of an ordinary video chat.
          * @param isJoined True, if the call is joined.
@@ -22153,7 +22153,7 @@ public class TdApi {
          */
         public InputThumbnail thumbnail;
         /**
-         * If true, automatic file type detection will be disabled and the document will always be sent as file. Always true for files sent to secret chats.
+         * True, if automatic file type detection is disabled and the document must be sent as a file. Always true for files sent to secret chats.
          */
         public boolean disableContentTypeDetection;
         /**
@@ -22172,7 +22172,7 @@ public class TdApi {
          *
          * @param document Document to be sent.
          * @param thumbnail Document thumbnail; pass null to skip thumbnail uploading.
-         * @param disableContentTypeDetection If true, automatic file type detection will be disabled and the document will always be sent as file. Always true for files sent to secret chats.
+         * @param disableContentTypeDetection True, if automatic file type detection is disabled and the document must be sent as a file. Always true for files sent to secret chats.
          * @param caption Document caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
          */
         public InputMessageDocument(InputFile document, InputThumbnail thumbnail, boolean disableContentTypeDetection, FormattedText caption) {
@@ -32686,9 +32686,9 @@ public class TdApi {
          */
         public boolean isChosen;
         /**
-         * Identifier of the message sender used by the current user to add the reaction; null if unknown or the reaction isn't chosen.
+         * Identifier of the message sender used by the current user to add the reaction; may be null if unknown or the reaction isn't chosen.
          */
-        public MessageSender usedSenderId;
+        @Nullable public MessageSender usedSenderId;
         /**
          * Identifiers of at most 3 recent message senders, added the reaction; available in private, basic group and supergroup chats.
          */
@@ -32706,7 +32706,7 @@ public class TdApi {
          * @param type Type of the reaction.
          * @param totalCount Number of times the reaction was added.
          * @param isChosen True, if the reaction is chosen by the current user.
-         * @param usedSenderId Identifier of the message sender used by the current user to add the reaction; null if unknown or the reaction isn't chosen.
+         * @param usedSenderId Identifier of the message sender used by the current user to add the reaction; may be null if unknown or the reaction isn't chosen.
          * @param recentSenderIds Identifiers of at most 3 recent message senders, added the reaction; available in private, basic group and supergroup chats.
          */
         public MessageReaction(ReactionType type, int totalCount, boolean isChosen, MessageSender usedSenderId, MessageSender[] recentSenderIds) {
@@ -33006,12 +33006,12 @@ public class TdApi {
     }
 
     /**
-     * The message will be sent when the peer will be online. Applicable to private chats only and when the exact online status of the peer is known.
+     * The message will be sent when the other user is online. Applicable to private chats only and when the exact online status of the other user is known.
      */
     public static class MessageSchedulingStateSendWhenOnline extends MessageSchedulingState {
 
         /**
-         * The message will be sent when the peer will be online. Applicable to private chats only and when the exact online status of the peer is known.
+         * The message will be sent when the other user is online. Applicable to private chats only and when the exact online status of the other user is known.
          */
         public MessageSchedulingStateSendWhenOnline() {
         }
@@ -40652,7 +40652,7 @@ public class TdApi {
          */
         public boolean isFromGiveaway;
         /**
-         * Identifier of the corresponding giveaway message; can be 0 or an identifier of a deleted message.
+         * Identifier of the corresponding giveaway message in the creatorId chat; can be 0 or an identifier of a deleted message.
          */
         public long giveawayMessageId;
         /**
@@ -40680,7 +40680,7 @@ public class TdApi {
          * @param creatorId Identifier of a chat or a user that created the gift code.
          * @param creationDate Point in time (Unix timestamp) when the code was created.
          * @param isFromGiveaway True, if the gift code was created for a giveaway.
-         * @param giveawayMessageId Identifier of the corresponding giveaway message; can be 0 or an identifier of a deleted message.
+         * @param giveawayMessageId Identifier of the corresponding giveaway message in the creatorId chat; can be 0 or an identifier of a deleted message.
          * @param monthCount Number of month the Telegram Premium subscription will be active after code activation.
          * @param userId Identifier of a user for which the code was created; 0 if none.
          * @param useDate Point in time (Unix timestamp) when the code was activated; 0 if none.
@@ -54119,7 +54119,7 @@ public class TdApi {
     }
 
     /**
-     * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully or even that the send message request will be processed. This update will be sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
+     * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully. This update is sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
      */
     public static class UpdateMessageSendAcknowledged extends Update {
         /**
@@ -54132,13 +54132,13 @@ public class TdApi {
         public long messageId;
 
         /**
-         * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully or even that the send message request will be processed. This update will be sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
+         * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully. This update is sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
          */
         public UpdateMessageSendAcknowledged() {
         }
 
         /**
-         * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully or even that the send message request will be processed. This update will be sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
+         * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully. This update is sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
          *
          * @param chatId The chat identifier of the sent message.
          * @param messageId A temporary message identifier.
@@ -54835,7 +54835,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * The new tdentifier of a custom emoji to be shown on the reply header background.
+         * The new identifier of a custom emoji to be shown on the reply header background; 0 if none.
          */
         public long backgroundCustomEmojiId;
 
@@ -54849,7 +54849,7 @@ public class TdApi {
          * A chat's custom emoji for reply background has changed.
          *
          * @param chatId Chat identifier.
-         * @param backgroundCustomEmojiId The new tdentifier of a custom emoji to be shown on the reply header background.
+         * @param backgroundCustomEmojiId The new identifier of a custom emoji to be shown on the reply header background; 0 if none.
          */
         public UpdateChatBackgroundCustomEmoji(long chatId, long backgroundCustomEmojiId) {
             this.chatId = chatId;
@@ -55989,7 +55989,7 @@ public class TdApi {
     }
 
     /**
-     * The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it will be sent just after the number of online users has changed.
+     * The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it is sent just after the number of online users has changed.
      */
     public static class UpdateChatOnlineMemberCount extends Update {
         /**
@@ -56002,13 +56002,13 @@ public class TdApi {
         public int onlineMemberCount;
 
         /**
-         * The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it will be sent just after the number of online users has changed.
+         * The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it is sent just after the number of online users has changed.
          */
         public UpdateChatOnlineMemberCount() {
         }
 
         /**
-         * The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it will be sent just after the number of online users has changed.
+         * The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it is sent just after the number of online users has changed.
          *
          * @param chatId Identifier of the chat.
          * @param onlineMemberCount New number of online members in the chat, or 0 if unknown.
@@ -80278,7 +80278,7 @@ public class TdApi {
     }
 
     /**
-     * Preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
+     * Preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it is sent in a message.
      *
      * <p> Returns {@link File File} </p>
      */
@@ -80297,7 +80297,7 @@ public class TdApi {
         public int priority;
 
         /**
-         * Default constructor for a function, which preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
+         * Default constructor for a function, which preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it is sent in a message.
          *
          * <p> Returns {@link File File} </p>
          */
@@ -80305,7 +80305,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message.
+         * Creates a function, which preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. Updates updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it is sent in a message.
          *
          * <p> Returns {@link File File} </p>
          *
@@ -92067,7 +92067,7 @@ public class TdApi {
     }
 
     /**
-     * Toggles whether the current user will receive a notification when the group call will start; scheduled group calls only.
+     * Toggles whether the current user will receive a notification when the group call starts; scheduled group calls only.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -92082,7 +92082,7 @@ public class TdApi {
         public boolean enabledStartNotification;
 
         /**
-         * Default constructor for a function, which toggles whether the current user will receive a notification when the group call will start; scheduled group calls only.
+         * Default constructor for a function, which toggles whether the current user will receive a notification when the group call starts; scheduled group calls only.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -92090,7 +92090,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which toggles whether the current user will receive a notification when the group call will start; scheduled group calls only.
+         * Creates a function, which toggles whether the current user will receive a notification when the group call starts; scheduled group calls only.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
