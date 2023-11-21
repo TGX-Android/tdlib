@@ -61782,7 +61782,7 @@ public class TdApi {
          */
         public boolean hasLargeMedia;
         /**
-         * True, if large media preview must be shown.
+         * True, if large media preview must be shown; otherwise, the media preview must be shown small and only the first frame must be shown for videos.
          */
         public boolean showLargeMedia;
         /**
@@ -61857,7 +61857,7 @@ public class TdApi {
          * @param duration Duration of the content, in seconds.
          * @param author Author of the content.
          * @param hasLargeMedia True, if size of media in the preview can be changed.
-         * @param showLargeMedia True, if large media preview must be shown.
+         * @param showLargeMedia True, if large media preview must be shown; otherwise, the media preview must be shown small and only the first frame must be shown for videos.
          * @param skipConfirmation True, if there is no need to show an ordinary open URL confirmation, when opening the URL from the preview, because the URL is shown in the message text in clear.
          * @param showAboveText True, if the link preview must be shown above message text; otherwise, the link preview must be shown below the message text.
          * @param animation Preview of the content as an animation, if available; may be null.
