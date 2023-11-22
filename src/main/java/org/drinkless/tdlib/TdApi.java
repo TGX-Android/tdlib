@@ -47687,7 +47687,7 @@ public class TdApi {
      */
     public static class SpeechRecognitionResultError extends SpeechRecognitionResult {
         /**
-         * Recognition error.
+         * Recognition error. An error with a message &quot;MSG_VOICE_TOO_LONG&quot; is returned when media duration is too big to be recognized.
          */
         public Error error;
 
@@ -47700,7 +47700,7 @@ public class TdApi {
         /**
          * The speech recognition failed.
          *
-         * @param error Recognition error.
+         * @param error Recognition error. An error with a message &quot;MSG_VOICE_TOO_LONG&quot; is returned when media duration is too big to be recognized.
          */
         public SpeechRecognitionResultError(Error error) {
             this.error = error;
@@ -80884,7 +80884,7 @@ public class TdApi {
     }
 
     /**
-     * Recognizes speech in a video note or a voice note message. The message must be successfully sent and must not be scheduled. May return an error with a message &quot;MSG_VOICE_TOO_LONG&quot; if media duration is too big to be recognized.
+     * Recognizes speech in a video note or a voice note message. The message must be successfully sent and must not be scheduled.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -80899,7 +80899,7 @@ public class TdApi {
         public long messageId;
 
         /**
-         * Default constructor for a function, which recognizes speech in a video note or a voice note message. The message must be successfully sent and must not be scheduled. May return an error with a message &quot;MSG_VOICE_TOO_LONG&quot; if media duration is too big to be recognized.
+         * Default constructor for a function, which recognizes speech in a video note or a voice note message. The message must be successfully sent and must not be scheduled.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -80907,7 +80907,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which recognizes speech in a video note or a voice note message. The message must be successfully sent and must not be scheduled. May return an error with a message &quot;MSG_VOICE_TOO_LONG&quot; if media duration is too big to be recognized.
+         * Creates a function, which recognizes speech in a video note or a voice note message. The message must be successfully sent and must not be scheduled.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
