@@ -2906,7 +2906,7 @@ public class TdApi {
          */
         public AvailableReaction[] popularReactions;
         /**
-         * True, if custom emoji reactions could be added by Telegram Premium subscribers.
+         * True, if any custom emoji reaction can be added by Telegram Premium subscribers.
          */
         public boolean allowCustomEmoji;
 
@@ -2922,7 +2922,7 @@ public class TdApi {
          * @param topReactions List of reactions to be shown at the top.
          * @param recentReactions List of recently used reactions.
          * @param popularReactions List of popular reactions.
-         * @param allowCustomEmoji True, if custom emoji reactions could be added by Telegram Premium subscribers.
+         * @param allowCustomEmoji True, if any custom emoji reaction can be added by Telegram Premium subscribers.
          */
         public AvailableReactions(AvailableReaction[] topReactions, AvailableReaction[] recentReactions, AvailableReaction[] popularReactions, boolean allowCustomEmoji) {
             this.topReactions = topReactions;
@@ -11893,7 +11893,7 @@ public class TdApi {
      */
     public static class ChatNotificationSettings extends Object {
         /**
-         * If true, muteFor is ignored and the value for the relevant type of chat or the forum chat is used instead.
+         * If true, the value for the relevant type of chat or the forum chat is used instead of muteFor.
          */
         public boolean useDefaultMuteFor;
         /**
@@ -11909,7 +11909,7 @@ public class TdApi {
          */
         public long soundId;
         /**
-         * If true, showPreview is ignored and the value for the relevant type of chat or the forum chat is used instead.
+         * If true, the value for the relevant type of chat or the forum chat is used instead of showPreview.
          */
         public boolean useDefaultShowPreview;
         /**
@@ -11917,7 +11917,7 @@ public class TdApi {
          */
         public boolean showPreview;
         /**
-         * If true, muteStories is ignored and the value for the relevant type of chat is used instead.
+         * If true, the value for the relevant type of chat is used instead of muteStories.
          */
         public boolean useDefaultMuteStories;
         /**
@@ -11933,7 +11933,7 @@ public class TdApi {
          */
         public long storySoundId;
         /**
-         * If true, showStorySender is ignored and the value for the relevant type of chat is used instead.
+         * If true, the value for the relevant type of chat is used instead of showStorySender.
          */
         public boolean useDefaultShowStorySender;
         /**
@@ -11941,7 +11941,7 @@ public class TdApi {
          */
         public boolean showStorySender;
         /**
-         * If true, disablePinnedMessageNotifications is ignored and the value for the relevant type of chat or the forum chat is used instead.
+         * If true, the value for the relevant type of chat or the forum chat is used instead of disablePinnedMessageNotifications.
          */
         public boolean useDefaultDisablePinnedMessageNotifications;
         /**
@@ -11949,7 +11949,7 @@ public class TdApi {
          */
         public boolean disablePinnedMessageNotifications;
         /**
-         * If true, disableMentionNotifications is ignored and the value for the relevant type of chat or the forum chat is used instead.
+         * If true, the value for the relevant type of chat or the forum chat is used instead of disableMentionNotifications.
          */
         public boolean useDefaultDisableMentionNotifications;
         /**
@@ -11966,21 +11966,21 @@ public class TdApi {
         /**
          * Contains information about notification settings for a chat or a forum topic.
          *
-         * @param useDefaultMuteFor If true, muteFor is ignored and the value for the relevant type of chat or the forum chat is used instead.
+         * @param useDefaultMuteFor If true, the value for the relevant type of chat or the forum chat is used instead of muteFor.
          * @param muteFor Time left before notifications will be unmuted, in seconds.
          * @param useDefaultSound If true, the value for the relevant type of chat or the forum chat is used instead of soundId.
          * @param soundId Identifier of the notification sound to be played for messages; 0 if sound is disabled.
-         * @param useDefaultShowPreview If true, showPreview is ignored and the value for the relevant type of chat or the forum chat is used instead.
+         * @param useDefaultShowPreview If true, the value for the relevant type of chat or the forum chat is used instead of showPreview.
          * @param showPreview True, if message content must be displayed in notifications.
-         * @param useDefaultMuteStories If true, muteStories is ignored and the value for the relevant type of chat is used instead.
+         * @param useDefaultMuteStories If true, the value for the relevant type of chat is used instead of muteStories.
          * @param muteStories True, if story notifications are disabled for the chat.
          * @param useDefaultStorySound If true, the value for the relevant type of chat is used instead of storySoundId.
          * @param storySoundId Identifier of the notification sound to be played for stories; 0 if sound is disabled.
-         * @param useDefaultShowStorySender If true, showStorySender is ignored and the value for the relevant type of chat is used instead.
+         * @param useDefaultShowStorySender If true, the value for the relevant type of chat is used instead of showStorySender.
          * @param showStorySender True, if the sender of stories must be displayed in notifications.
-         * @param useDefaultDisablePinnedMessageNotifications If true, disablePinnedMessageNotifications is ignored and the value for the relevant type of chat or the forum chat is used instead.
+         * @param useDefaultDisablePinnedMessageNotifications If true, the value for the relevant type of chat or the forum chat is used instead of disablePinnedMessageNotifications.
          * @param disablePinnedMessageNotifications If true, notifications for incoming pinned messages will be created as for an ordinary unread message.
-         * @param useDefaultDisableMentionNotifications If true, disableMentionNotifications is ignored and the value for the relevant type of chat or the forum chat is used instead.
+         * @param useDefaultDisableMentionNotifications If true, the value for the relevant type of chat or the forum chat is used instead of disableMentionNotifications.
          * @param disableMentionNotifications If true, notifications for messages with mentions will be created as for an ordinary unread message.
          */
         public ChatNotificationSettings(boolean useDefaultMuteFor, int muteFor, boolean useDefaultSound, long soundId, boolean useDefaultShowPreview, boolean showPreview, boolean useDefaultMuteStories, boolean muteStories, boolean useDefaultStorySound, long storySoundId, boolean useDefaultShowStorySender, boolean showStorySender, boolean useDefaultDisablePinnedMessageNotifications, boolean disablePinnedMessageNotifications, boolean useDefaultDisableMentionNotifications, boolean disableMentionNotifications) {
@@ -13909,12 +13909,12 @@ public class TdApi {
     }
 
     /**
-     * Currently waiting for the network to become available. Use setNetworkType to change the available network type.
+     * Waiting for the network to become available. Use setNetworkType to change the available network type.
      */
     public static class ConnectionStateWaitingForNetwork extends ConnectionState {
 
         /**
-         * Currently waiting for the network to become available. Use setNetworkType to change the available network type.
+         * Waiting for the network to become available. Use setNetworkType to change the available network type.
          */
         public ConnectionStateWaitingForNetwork() {
         }
@@ -13934,12 +13934,12 @@ public class TdApi {
     }
 
     /**
-     * Currently establishing a connection with a proxy server.
+     * Establishing a connection with a proxy server.
      */
     public static class ConnectionStateConnectingToProxy extends ConnectionState {
 
         /**
-         * Currently establishing a connection with a proxy server.
+         * Establishing a connection with a proxy server.
          */
         public ConnectionStateConnectingToProxy() {
         }
@@ -13959,12 +13959,12 @@ public class TdApi {
     }
 
     /**
-     * Currently establishing a connection to the Telegram servers.
+     * Establishing a connection to the Telegram servers.
      */
     public static class ConnectionStateConnecting extends ConnectionState {
 
         /**
-         * Currently establishing a connection to the Telegram servers.
+         * Establishing a connection to the Telegram servers.
          */
         public ConnectionStateConnecting() {
         }
@@ -13984,12 +13984,12 @@ public class TdApi {
     }
 
     /**
-     * Downloading data received while the application was offline.
+     * Downloading data supposed to be received while the application was offline.
      */
     public static class ConnectionStateUpdating extends ConnectionState {
 
         /**
-         * Downloading data received while the application was offline.
+         * Downloading data supposed to be received while the application was offline.
          */
         public ConnectionStateUpdating() {
         }
@@ -28891,7 +28891,7 @@ public class TdApi {
          */
         @Nullable public WebPage webPage;
         /**
-         * Options which was used for generation of the link preview; may be null if default options were used.
+         * Options which were used for generation of the link preview; may be null if default options were used.
          */
         @Nullable public LinkPreviewOptions linkPreviewOptions;
 
@@ -28906,7 +28906,7 @@ public class TdApi {
          *
          * @param text Text of the message.
          * @param webPage A link preview attached to the message; may be null.
-         * @param linkPreviewOptions Options which was used for generation of the link preview; may be null if default options were used.
+         * @param linkPreviewOptions Options which were used for generation of the link preview; may be null if default options were used.
          */
         public MessageText(FormattedText text, WebPage webPage, LinkPreviewOptions linkPreviewOptions) {
             this.text = text;
@@ -46090,11 +46090,11 @@ public class TdApi {
          */
         public boolean showPreview;
         /**
-         * If true, muteStories is ignored and story notifications are received only for the first 5 chats from topChatCategoryUsers.
+         * If true, story notifications are received only for the first 5 chats from topChatCategoryUsers regardless of the value of muteStories.
          */
         public boolean useDefaultMuteStories;
         /**
-         * True, if story notifications are disabled for the chat.
+         * True, if story notifications are disabled.
          */
         public boolean muteStories;
         /**
@@ -46126,8 +46126,8 @@ public class TdApi {
          * @param muteFor Time left before notifications will be unmuted, in seconds.
          * @param soundId Identifier of the notification sound to be played; 0 if sound is disabled.
          * @param showPreview True, if message content must be displayed in notifications.
-         * @param useDefaultMuteStories If true, muteStories is ignored and story notifications are received only for the first 5 chats from topChatCategoryUsers.
-         * @param muteStories True, if story notifications are disabled for the chat.
+         * @param useDefaultMuteStories If true, story notifications are received only for the first 5 chats from topChatCategoryUsers regardless of the value of muteStories.
+         * @param muteStories True, if story notifications are disabled.
          * @param storySoundId Identifier of the notification sound to be played for stories; 0 if sound is disabled.
          * @param showStorySender True, if the sender of stories must be displayed in notifications.
          * @param disablePinnedMessageNotifications True, if notifications for incoming pinned messages will be created as for an ordinary unread message.
@@ -50699,7 +50699,7 @@ public class TdApi {
          */
         public ChatMemberStatus status;
         /**
-         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, getUserPrivacySettingRules, or in chatFolderInviteLinkInfo.missingChatIds.
+         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds.
          */
         public int memberCount;
         /**
@@ -50776,7 +50776,7 @@ public class TdApi {
          * @param usernames Usernames of the supergroup or channel; may be null.
          * @param date Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
          * @param status Status of the current user in the supergroup or channel; custom title will always be empty.
-         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, getUserPrivacySettingRules, or in chatFolderInviteLinkInfo.missingChatIds.
+         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds.
          * @param hasLinkedChat True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
          * @param hasLocation True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup.
          * @param signMessages True, if messages sent to the channel need to contain information about the sender. This field is only applicable to channels.
@@ -56245,7 +56245,7 @@ public class TdApi {
     }
 
     /**
-     * Contains active notifications that was shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update.
+     * Contains active notifications that were shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update.
      */
     public static class UpdateActiveNotifications extends Update {
         /**
@@ -56254,13 +56254,13 @@ public class TdApi {
         public NotificationGroup[] groups;
 
         /**
-         * Contains active notifications that was shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update.
+         * Contains active notifications that were shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update.
          */
         public UpdateActiveNotifications() {
         }
 
         /**
-         * Contains active notifications that was shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update.
+         * Contains active notifications that were shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update.
          *
          * @param groups Lists of active notification groups.
          */
@@ -91805,7 +91805,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the translatable state of a chat; for Telegram Premium users only.
+     * Changes the translatable state of a chat.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -91820,7 +91820,7 @@ public class TdApi {
         public boolean isTranslatable;
 
         /**
-         * Default constructor for a function, which changes the translatable state of a chat; for Telegram Premium users only.
+         * Default constructor for a function, which changes the translatable state of a chat.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -91828,7 +91828,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the translatable state of a chat; for Telegram Premium users only.
+         * Creates a function, which changes the translatable state of a chat.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
