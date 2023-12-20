@@ -41315,7 +41315,7 @@ public class TdApi {
          */
         public int winnersSelectionDate;
         /**
-         * True, if only new subscribers of the chats will be eligible for the giveaway.
+         * True, if only new members of the chats will be eligible for the giveaway.
          */
         public boolean onlyNewMembers;
         /**
@@ -41335,7 +41335,7 @@ public class TdApi {
          * @param boostedChatId Identifier of the channel chat, which will be automatically boosted by the winners of the giveaway for duration of the Premium subscription.
          * @param additionalChatIds Identifiers of other channel chats that must be subscribed by the users to be eligible for the giveaway. There can be up to getOption(&quot;giveaway_additional_chat_count_max&quot;) additional chats.
          * @param winnersSelectionDate Point in time (Unix timestamp) when the giveaway is expected to be performed; must be 60-getOption(&quot;giveaway_duration_max&quot;) seconds in the future in scheduled giveaways.
-         * @param onlyNewMembers True, if only new subscribers of the chats will be eligible for the giveaway.
+         * @param onlyNewMembers True, if only new members of the chats will be eligible for the giveaway.
          * @param countryCodes The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be eligible for the giveaway. If empty, then all users can participate in the giveaway. There can be up to getOption(&quot;giveaway_country_count_max&quot;) chosen countries. Users with phone number that was bought on Fragment can participate in any giveaway and the country code &quot;FT&quot; must not be specified in the list.
          */
         public PremiumGiveawayParameters(long boostedChatId, long[] additionalChatIds, int winnersSelectionDate, boolean onlyNewMembers, String[] countryCodes) {
