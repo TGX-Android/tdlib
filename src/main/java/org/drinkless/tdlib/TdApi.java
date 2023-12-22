@@ -31385,9 +31385,9 @@ public class TdApi {
      */
     public static class MessagePremiumGiftCode extends MessageContent {
         /**
-         * Identifier of a chat or a user that created the gift code.
+         * Identifier of a chat or a user that created the gift code; may be null if unknown.
          */
-        public MessageSender creatorId;
+        @Nullable public MessageSender creatorId;
         /**
          * True, if the gift code was created for a giveaway.
          */
@@ -31418,7 +31418,7 @@ public class TdApi {
         /**
          * A Telegram Premium gift code was created for the user.
          *
-         * @param creatorId Identifier of a chat or a user that created the gift code.
+         * @param creatorId Identifier of a chat or a user that created the gift code; may be null if unknown.
          * @param isFromGiveaway True, if the gift code was created for a giveaway.
          * @param isUnclaimed True, if the winner for the corresponding Telegram Premium subscription wasn't chosen.
          * @param monthCount Number of month the Telegram Premium subscription will be active after code activation.
@@ -31534,7 +31534,7 @@ public class TdApi {
      */
     public static class MessagePremiumGiveawayCompleted extends MessageContent {
         /**
-         * Identifier of the message with the giveaway, can be an identifier of a deleted message.
+         * Identifier of the message with the giveaway; can be 0 if the message was deleted.
          */
         public long giveawayMessageId;
         /**
@@ -31555,7 +31555,7 @@ public class TdApi {
         /**
          * A Telegram Premium giveaway has been completed for the chat.
          *
-         * @param giveawayMessageId Identifier of the message with the giveaway, can be an identifier of a deleted message.
+         * @param giveawayMessageId Identifier of the message with the giveaway; can be 0 if the message was deleted.
          * @param winnerCount Number of winners in the giveaway.
          * @param unclaimedPrizeCount Number of undistributed prizes.
          */
