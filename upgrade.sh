@@ -7,7 +7,7 @@ PASSWORD=$2
 SECONDS=0
 pushd tdlib > /dev/null
 
-REMOTE="https://USERNAME:PASSWORD@$(git remote get-url origin | cut -c 9-)"
+REMOTE="https://${USERNAME}:${PASSWORD}@$(git remote get-url origin | cut -c 9-)"
 
 git checkout main > /dev/null
 git pull origin main > /dev/null
@@ -16,7 +16,8 @@ git checkout master > /dev/null
 git pull origin master
 cd ..
 echo "Building..."
-./rebuild.sh > /dev/null
+./rebuild.sh > /dev/null 2>&1
+git add --all
 echo "Build finished."
 cd ..
 TDLIB_COMMIT=$(cat version.txt | cut -c 1-7)
@@ -29,6 +30,6 @@ elif [ "$SECONDS" -gt 0 ]; then
 else
   git commit -m "$COMMIT_MSG"
 fi
-git push "$REMOTE" 2>&1 /dev/null
+git push "$REMOTE" > /dev/null 2>&1
 
 popd > /dev/null
