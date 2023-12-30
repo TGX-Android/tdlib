@@ -55,7 +55,6 @@ public class TdApi {
             AcceptCall.CONSTRUCTOR,
             AcceptTermsOfService.CONSTRUCTOR,
             ActivateStoryStealthMode.CONSTRUCTOR,
-            AddApplicationChangelog.CONSTRUCTOR,
             AddChatFolderByInviteLink.CONSTRUCTOR,
             AddChatMember.CONSTRUCTOR,
             AddChatMembers.CONSTRUCTOR,
@@ -161,6 +160,7 @@ public class TdApi {
             DeleteChatMessagesBySender.CONSTRUCTOR,
             DeleteChatReplyMarkup.CONSTRUCTOR,
             DeleteCommands.CONSTRUCTOR,
+            DeleteDefaultBackground.CONSTRUCTOR,
             DeleteFile.CONSTRUCTOR,
             DeleteForumTopic.CONSTRUCTOR,
             DeleteLanguagePack.CONSTRUCTOR,
@@ -220,7 +220,6 @@ public class TdApi {
             GetAutosaveSettings.CONSTRUCTOR,
             GetAvailableChatBoostSlots.CONSTRUCTOR,
             GetBackgroundUrl.CONSTRUCTOR,
-            GetBackgrounds.CONSTRUCTOR,
             GetBankCardInfo.CONSTRUCTOR,
             GetBasicGroup.CONSTRUCTOR,
             GetBasicGroupFullInfo.CONSTRUCTOR,
@@ -235,6 +234,8 @@ public class TdApi {
             GetChatAdministrators.CONSTRUCTOR,
             GetChatArchivedStories.CONSTRUCTOR,
             GetChatAvailableMessageSenders.CONSTRUCTOR,
+            GetChatBoostFeatures.CONSTRUCTOR,
+            GetChatBoostLevelFeatures.CONSTRUCTOR,
             GetChatBoostLink.CONSTRUCTOR,
             GetChatBoostLinkInfo.CONSTRUCTOR,
             GetChatBoostStatus.CONSTRUCTOR,
@@ -267,6 +268,7 @@ public class TdApi {
             GetChatSparseMessagePositions.CONSTRUCTOR,
             GetChatSponsoredMessages.CONSTRUCTOR,
             GetChatStatistics.CONSTRUCTOR,
+            GetChatStoryInteractions.CONSTRUCTOR,
             GetChats.CONSTRUCTOR,
             GetChatsForChatFolderInviteLink.CONSTRUCTOR,
             GetChatsToSendStories.CONSTRUCTOR,
@@ -283,10 +285,12 @@ public class TdApi {
             GetDatabaseStatistics.CONSTRUCTOR,
             GetDeepLinkInfo.CONSTRUCTOR,
             GetDefaultBackgroundCustomEmojiStickers.CONSTRUCTOR,
+            GetDefaultChatEmojiStatuses.CONSTRUCTOR,
             GetDefaultChatPhotoCustomEmojiStickers.CONSTRUCTOR,
             GetDefaultEmojiStatuses.CONSTRUCTOR,
             GetDefaultMessageAutoDeleteTime.CONSTRUCTOR,
             GetDefaultProfilePhotoCustomEmojiStickers.CONSTRUCTOR,
+            GetDisallowedChatEmojiStatuses.CONSTRUCTOR,
             GetEmojiCategories.CONSTRUCTOR,
             GetEmojiReaction.CONSTRUCTOR,
             GetEmojiSuggestionsUrl.CONSTRUCTOR,
@@ -311,6 +315,7 @@ public class TdApi {
             GetInactiveSupergroupChats.CONSTRUCTOR,
             GetInlineGameHighScores.CONSTRUCTOR,
             GetInlineQueryResults.CONSTRUCTOR,
+            GetInstalledBackgrounds.CONSTRUCTOR,
             GetInstalledStickerSets.CONSTRUCTOR,
             GetInternalLink.CONSTRUCTOR,
             GetInternalLinkType.CONSTRUCTOR,
@@ -390,10 +395,10 @@ public class TdApi {
             GetStorageStatisticsFast.CONSTRUCTOR,
             GetStory.CONSTRUCTOR,
             GetStoryAvailableReactions.CONSTRUCTOR,
+            GetStoryInteractions.CONSTRUCTOR,
             GetStoryNotificationSettingsExceptions.CONSTRUCTOR,
             GetStoryPublicForwards.CONSTRUCTOR,
             GetStoryStatistics.CONSTRUCTOR,
-            GetStoryViewers.CONSTRUCTOR,
             GetSuggestedFileName.CONSTRUCTOR,
             GetSuggestedStickerSetName.CONSTRUCTOR,
             GetSuitableDiscussionChats.CONSTRUCTOR,
@@ -405,6 +410,7 @@ public class TdApi {
             GetTemporaryPasswordState.CONSTRUCTOR,
             GetTextEntities.CONSTRUCTOR,
             GetThemeParametersJsonString.CONSTRUCTOR,
+            GetThemedChatEmojiStatuses.CONSTRUCTOR,
             GetThemedEmojiStatuses.CONSTRUCTOR,
             GetTopChats.CONSTRUCTOR,
             GetTrendingStickerSets.CONSTRUCTOR,
@@ -436,6 +442,7 @@ public class TdApi {
             LoadGroupCallParticipants.CONSTRUCTOR,
             LogOut.CONSTRUCTOR,
             OpenChat.CONSTRUCTOR,
+            OpenChatSimilarChat.CONSTRUCTOR,
             OpenMessageContent.CONSTRUCTOR,
             OpenStory.CONSTRUCTOR,
             OpenWebApp.CONSTRUCTOR,
@@ -462,11 +469,11 @@ public class TdApi {
             RegisterDevice.CONSTRUCTOR,
             RegisterUser.CONSTRUCTOR,
             RemoveAllFilesFromDownloads.CONSTRUCTOR,
-            RemoveBackground.CONSTRUCTOR,
             RemoveChatActionBar.CONSTRUCTOR,
             RemoveContacts.CONSTRUCTOR,
             RemoveFavoriteSticker.CONSTRUCTOR,
             RemoveFileFromDownloads.CONSTRUCTOR,
+            RemoveInstalledBackground.CONSTRUCTOR,
             RemoveMessageReaction.CONSTRUCTOR,
             RemoveNotification.CONSTRUCTOR,
             RemoveNotificationGroup.CONSTRUCTOR,
@@ -504,7 +511,7 @@ public class TdApi {
             ResendRecoveryEmailAddressCode.CONSTRUCTOR,
             ResetAllNotificationSettings.CONSTRUCTOR,
             ResetAuthenticationEmailAddress.CONSTRUCTOR,
-            ResetBackgrounds.CONSTRUCTOR,
+            ResetInstalledBackgrounds.CONSTRUCTOR,
             ResetNetworkStatistics.CONSTRUCTOR,
             ResetPassword.CONSTRUCTOR,
             RevokeChatInviteLink.CONSTRUCTOR,
@@ -564,7 +571,6 @@ public class TdApi {
             SetAuthenticationPhoneNumber.CONSTRUCTOR,
             SetAutoDownloadSettings.CONSTRUCTOR,
             SetAutosaveSettings.CONSTRUCTOR,
-            SetBackground.CONSTRUCTOR,
             SetBio.CONSTRUCTOR,
             SetBotInfoDescription.CONSTRUCTOR,
             SetBotInfoShortDescription.CONSTRUCTOR,
@@ -579,6 +585,7 @@ public class TdApi {
             SetChatDescription.CONSTRUCTOR,
             SetChatDiscussionGroup.CONSTRUCTOR,
             SetChatDraftMessage.CONSTRUCTOR,
+            SetChatEmojiStatus.CONSTRUCTOR,
             SetChatLocation.CONSTRUCTOR,
             SetChatMemberStatus.CONSTRUCTOR,
             SetChatMessageAutoDeleteTime.CONSTRUCTOR,
@@ -586,6 +593,7 @@ public class TdApi {
             SetChatNotificationSettings.CONSTRUCTOR,
             SetChatPermissions.CONSTRUCTOR,
             SetChatPhoto.CONSTRUCTOR,
+            SetChatProfileAccentColor.CONSTRUCTOR,
             SetChatSlowModeDelay.CONSTRUCTOR,
             SetChatTheme.CONSTRUCTOR,
             SetChatTitle.CONSTRUCTOR,
@@ -595,6 +603,7 @@ public class TdApi {
             SetCustomLanguagePack.CONSTRUCTOR,
             SetCustomLanguagePackString.CONSTRUCTOR,
             SetDatabaseEncryptionKey.CONSTRUCTOR,
+            SetDefaultBackground.CONSTRUCTOR,
             SetDefaultChannelAdministratorRights.CONSTRUCTOR,
             SetDefaultGroupAdministratorRights.CONSTRUCTOR,
             SetDefaultMessageAutoDeleteTime.CONSTRUCTOR,
@@ -614,6 +623,7 @@ public class TdApi {
             SetLogVerbosityLevel.CONSTRUCTOR,
             SetLoginEmailAddress.CONSTRUCTOR,
             SetMenuButton.CONSTRUCTOR,
+            SetMessageReactions.CONSTRUCTOR,
             SetMessageSenderBlockList.CONSTRUCTOR,
             SetName.CONSTRUCTOR,
             SetNetworkType.CONSTRUCTOR,
@@ -646,7 +656,7 @@ public class TdApi {
             SetVideoChatDefaultParticipant.CONSTRUCTOR,
             ShareChatWithBot.CONSTRUCTOR,
             SharePhoneNumber.CONSTRUCTOR,
-            ShareUserWithBot.CONSTRUCTOR,
+            ShareUsersWithBot.CONSTRUCTOR,
             StartGroupCallRecording.CONSTRUCTOR,
             StartGroupCallScreenSharing.CONSTRUCTOR,
             StartScheduledGroupCall.CONSTRUCTOR,
@@ -757,6 +767,10 @@ public class TdApi {
          * The list of 1-3 colors in RGB format, describing the accent color, as expected to be shown in dark themes.
          */
         public int[] darkThemeColors;
+        /**
+         * The minimum chat boost level required to use the color.
+         */
+        public int minChatBoostLevel;
 
         /**
          * Contains information about supported accent color for user/chat name, background of empty chat photo, replies to messages and link previews.
@@ -771,18 +785,20 @@ public class TdApi {
          * @param builtInAccentColorId Identifier of a built-in color to use in places, where only one color is needed; 0-6.
          * @param lightThemeColors The list of 1-3 colors in RGB format, describing the accent color, as expected to be shown in light themes.
          * @param darkThemeColors The list of 1-3 colors in RGB format, describing the accent color, as expected to be shown in dark themes.
+         * @param minChatBoostLevel The minimum chat boost level required to use the color.
          */
-        public AccentColor(int id, int builtInAccentColorId, int[] lightThemeColors, int[] darkThemeColors) {
+        public AccentColor(int id, int builtInAccentColorId, int[] lightThemeColors, int[] darkThemeColors, int minChatBoostLevel) {
             this.id = id;
             this.builtInAccentColorId = builtInAccentColorId;
             this.lightThemeColors = lightThemeColors;
             this.darkThemeColors = darkThemeColors;
+            this.minChatBoostLevel = minChatBoostLevel;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1830661068;
+        public static final int CONSTRUCTOR = -2052909992;
 
         /**
          * @return this.CONSTRUCTOR
@@ -2973,7 +2989,7 @@ public class TdApi {
          */
         public String name;
         /**
-         * Document with the background; may be null. Null only for filled backgrounds.
+         * Document with the background; may be null. Null only for filled and chat theme backgrounds.
          */
         @Nullable public Document document;
         /**
@@ -2994,7 +3010,7 @@ public class TdApi {
          * @param isDefault True, if this is one of default backgrounds.
          * @param isDark True, if the background is dark and is recommended to be used with dark theme.
          * @param name Unique background name.
-         * @param document Document with the background; may be null. Null only for filled backgrounds.
+         * @param document Document with the background; may be null. Null only for filled and chat theme backgrounds.
          * @param type Type of the background.
          */
         public Background(long id, boolean isDefault, boolean isDark, String name, Document document, BackgroundType type) {
@@ -3187,7 +3203,8 @@ public class TdApi {
         @IntDef({
             BackgroundTypeWallpaper.CONSTRUCTOR,
             BackgroundTypePattern.CONSTRUCTOR,
-            BackgroundTypeFill.CONSTRUCTOR
+            BackgroundTypeFill.CONSTRUCTOR,
+            BackgroundTypeChatTheme.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -3332,6 +3349,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 993008684;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A background from a chat theme; can be used only as a chat background in channels.
+     */
+    public static class BackgroundTypeChatTheme extends BackgroundType {
+        /**
+         * Name of the chat theme.
+         */
+        public String themeName;
+
+        /**
+         * A background from a chat theme; can be used only as a chat background in channels.
+         */
+        public BackgroundTypeChatTheme() {
+        }
+
+        /**
+         * A background from a chat theme; can be used only as a chat background in channels.
+         *
+         * @param themeName Name of the chat theme.
+         */
+        public BackgroundTypeChatTheme(String themeName) {
+            this.themeName = themeName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1299879762;
 
         /**
          * @return this.CONSTRUCTOR
@@ -5977,9 +6032,17 @@ public class TdApi {
          */
         public int accentColorId;
         /**
-         * Identifier of a custom emoji to be shown on the reply header background in replies to messages sent by the chat; 0 if none.
+         * Identifier of a custom emoji to be shown on the reply header and link preview background for messages sent by the chat; 0 if none.
          */
         public long backgroundCustomEmojiId;
+        /**
+         * Identifier of the profile accent color for the chat's profile; -1 if none.
+         */
+        public int profileAccentColorId;
+        /**
+         * Identifier of a custom emoji to be shown on the background of the chat's profile; 0 if none.
+         */
+        public long profileBackgroundCustomEmojiId;
         /**
          * Actions that non-administrator chat members are allowed to take in the chat.
          */
@@ -6069,6 +6132,10 @@ public class TdApi {
          */
         public int messageAutoDeleteTime;
         /**
+         * Emoji status to be shown along with chat title; may be null.
+         */
+        @Nullable public EmojiStatus emojiStatus;
+        /**
          * Background set for the chat; may be null if none.
          */
         @Nullable public ChatBackground background;
@@ -6115,7 +6182,9 @@ public class TdApi {
          * @param title Chat title.
          * @param photo Chat photo; may be null.
          * @param accentColorId Identifier of the accent color for message sender name, and backgrounds of chat photo, reply header, and link preview.
-         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header background in replies to messages sent by the chat; 0 if none.
+         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header and link preview background for messages sent by the chat; 0 if none.
+         * @param profileAccentColorId Identifier of the profile accent color for the chat's profile; -1 if none.
+         * @param profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown on the background of the chat's profile; 0 if none.
          * @param permissions Actions that non-administrator chat members are allowed to take in the chat.
          * @param lastMessage Last message in the chat; may be null if none or unknown.
          * @param positions Positions of the chat in chat lists.
@@ -6138,6 +6207,7 @@ public class TdApi {
          * @param notificationSettings Notification settings for the chat.
          * @param availableReactions Types of reaction, available in the chat.
          * @param messageAutoDeleteTime Current message auto-delete or self-destruct timer setting for the chat, in seconds; 0 if disabled. Self-destruct timer in secret chats starts after the message or its content is viewed. Auto-delete timer in other chats starts from the send date.
+         * @param emojiStatus Emoji status to be shown along with chat title; may be null.
          * @param background Background set for the chat; may be null if none.
          * @param themeName If non-empty, name of a theme, set for the chat.
          * @param actionBar Information about actions which must be possible to do through the chat action bar; may be null if none.
@@ -6147,13 +6217,15 @@ public class TdApi {
          * @param draftMessage A draft of a message in the chat; may be null if none.
          * @param clientData Application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used.
          */
-        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, int accentColorId, long backgroundCustomEmojiId, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, BlockList blockList, boolean hasProtectedContent, boolean isTranslatable, boolean isMarkedAsUnread, boolean viewAsTopics, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, int unreadReactionCount, ChatNotificationSettings notificationSettings, ChatAvailableReactions availableReactions, int messageAutoDeleteTime, ChatBackground background, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
+        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, int accentColorId, long backgroundCustomEmojiId, int profileAccentColorId, long profileBackgroundCustomEmojiId, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, BlockList blockList, boolean hasProtectedContent, boolean isTranslatable, boolean isMarkedAsUnread, boolean viewAsTopics, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, int unreadReactionCount, ChatNotificationSettings notificationSettings, ChatAvailableReactions availableReactions, int messageAutoDeleteTime, EmojiStatus emojiStatus, ChatBackground background, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
             this.id = id;
             this.type = type;
             this.title = title;
             this.photo = photo;
             this.accentColorId = accentColorId;
             this.backgroundCustomEmojiId = backgroundCustomEmojiId;
+            this.profileAccentColorId = profileAccentColorId;
+            this.profileBackgroundCustomEmojiId = profileBackgroundCustomEmojiId;
             this.permissions = permissions;
             this.lastMessage = lastMessage;
             this.positions = positions;
@@ -6176,6 +6248,7 @@ public class TdApi {
             this.notificationSettings = notificationSettings;
             this.availableReactions = availableReactions;
             this.messageAutoDeleteTime = messageAutoDeleteTime;
+            this.emojiStatus = emojiStatus;
             this.background = background;
             this.themeName = themeName;
             this.actionBar = actionBar;
@@ -6189,7 +6262,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1627782697;
+        public static final int CONSTRUCTOR = -467157553;
 
         /**
          * @return this.CONSTRUCTOR
@@ -7331,7 +7404,7 @@ public class TdApi {
          */
         public Background background;
         /**
-         * Dimming of the background in dark themes, as a percentage; 0-100.
+         * Dimming of the background in dark themes, as a percentage; 0-100. Applied only to Wallpaper and Fill types of background.
          */
         public int darkThemeDimming;
 
@@ -7345,7 +7418,7 @@ public class TdApi {
          * Describes a background set for a specific chat.
          *
          * @param background The background.
-         * @param darkThemeDimming Dimming of the background in dark themes, as a percentage; 0-100.
+         * @param darkThemeDimming Dimming of the background in dark themes, as a percentage; 0-100. Applied only to Wallpaper and Fill types of background.
          */
         public ChatBackground(Background background, int darkThemeDimming) {
             this.background = background;
@@ -7418,6 +7491,142 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1765815118;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of features available on the first chat boost levels.
+     */
+    public static class ChatBoostFeatures extends Object {
+        /**
+         * The list of features.
+         */
+        public ChatBoostLevelFeatures[] features;
+
+        /**
+         * Contains a list of features available on the first chat boost levels.
+         */
+        public ChatBoostFeatures() {
+        }
+
+        /**
+         * Contains a list of features available on the first chat boost levels.
+         *
+         * @param features The list of features.
+         */
+        public ChatBoostFeatures(ChatBoostLevelFeatures[] features) {
+            this.features = features;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -245268598;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of features available on a specific chat boost level.
+     */
+    public static class ChatBoostLevelFeatures extends Object {
+        /**
+         * Target chat boost level.
+         */
+        public int level;
+        /**
+         * Number of stories that the chat can publish daily.
+         */
+        public int storyPerDayCount;
+        /**
+         * Number of custom emoji reactions that can be added to the list of available reactions.
+         */
+        public int customEmojiReactionCount;
+        /**
+         * Number of custom colors for chat title.
+         */
+        public int titleColorCount;
+        /**
+         * Number of custom colors for profile photo background.
+         */
+        public int profileAccentColorCount;
+        /**
+         * True, if custom emoji for profile background can be set.
+         */
+        public boolean canSetProfileBackgroundCustomEmoji;
+        /**
+         * Number of custom colors for background of empty chat photo, replies to messages and link previews.
+         */
+        public int accentColorCount;
+        /**
+         * True, if custom emoji for reply header and link preview background can be set.
+         */
+        public boolean canSetBackgroundCustomEmoji;
+        /**
+         * True, if emoji status can be set.
+         */
+        public boolean canSetEmojiStatus;
+        /**
+         * Number of chat theme backgrounds that can be set as chat background.
+         */
+        public int chatThemeBackgroundCount;
+        /**
+         * True, if custom background can be set in the chat for all users.
+         */
+        public boolean canSetCustomBackground;
+
+        /**
+         * Contains a list of features available on a specific chat boost level.
+         */
+        public ChatBoostLevelFeatures() {
+        }
+
+        /**
+         * Contains a list of features available on a specific chat boost level.
+         *
+         * @param level Target chat boost level.
+         * @param storyPerDayCount Number of stories that the chat can publish daily.
+         * @param customEmojiReactionCount Number of custom emoji reactions that can be added to the list of available reactions.
+         * @param titleColorCount Number of custom colors for chat title.
+         * @param profileAccentColorCount Number of custom colors for profile photo background.
+         * @param canSetProfileBackgroundCustomEmoji True, if custom emoji for profile background can be set.
+         * @param accentColorCount Number of custom colors for background of empty chat photo, replies to messages and link previews.
+         * @param canSetBackgroundCustomEmoji True, if custom emoji for reply header and link preview background can be set.
+         * @param canSetEmojiStatus True, if emoji status can be set.
+         * @param chatThemeBackgroundCount Number of chat theme backgrounds that can be set as chat background.
+         * @param canSetCustomBackground True, if custom background can be set in the chat for all users.
+         */
+        public ChatBoostLevelFeatures(int level, int storyPerDayCount, int customEmojiReactionCount, int titleColorCount, int profileAccentColorCount, boolean canSetProfileBackgroundCustomEmoji, int accentColorCount, boolean canSetBackgroundCustomEmoji, boolean canSetEmojiStatus, int chatThemeBackgroundCount, boolean canSetCustomBackground) {
+            this.level = level;
+            this.storyPerDayCount = storyPerDayCount;
+            this.customEmojiReactionCount = customEmojiReactionCount;
+            this.titleColorCount = titleColorCount;
+            this.profileAccentColorCount = profileAccentColorCount;
+            this.canSetProfileBackgroundCustomEmoji = canSetProfileBackgroundCustomEmoji;
+            this.accentColorCount = accentColorCount;
+            this.canSetBackgroundCustomEmoji = canSetBackgroundCustomEmoji;
+            this.canSetEmojiStatus = canSetEmojiStatus;
+            this.chatThemeBackgroundCount = chatThemeBackgroundCount;
+            this.canSetCustomBackground = canSetCustomBackground;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -23123490;
 
         /**
          * @return this.CONSTRUCTOR
@@ -7954,7 +8163,9 @@ public class TdApi {
             ChatEventMemberPromoted.CONSTRUCTOR,
             ChatEventMemberRestricted.CONSTRUCTOR,
             ChatEventAvailableReactionsChanged.CONSTRUCTOR,
+            ChatEventBackgroundChanged.CONSTRUCTOR,
             ChatEventDescriptionChanged.CONSTRUCTOR,
+            ChatEventEmojiStatusChanged.CONSTRUCTOR,
             ChatEventLinkedChatChanged.CONSTRUCTOR,
             ChatEventLocationChanged.CONSTRUCTOR,
             ChatEventMessageAutoDeleteTimeChanged.CONSTRUCTOR,
@@ -7966,7 +8177,7 @@ public class TdApi {
             ChatEventUsernameChanged.CONSTRUCTOR,
             ChatEventActiveUsernamesChanged.CONSTRUCTOR,
             ChatEventAccentColorChanged.CONSTRUCTOR,
-            ChatEventBackgroundCustomEmojiChanged.CONSTRUCTOR,
+            ChatEventProfileAccentColorChanged.CONSTRUCTOR,
             ChatEventHasProtectedContentToggled.CONSTRUCTOR,
             ChatEventInvitesToggled.CONSTRUCTOR,
             ChatEventIsAllHistoryAvailableToggled.CONSTRUCTOR,
@@ -8532,6 +8743,50 @@ public class TdApi {
     }
 
     /**
+     * The chat background was changed.
+     */
+    public static class ChatEventBackgroundChanged extends ChatEventAction {
+        /**
+         * Previous background; may be null if none.
+         */
+        @Nullable public ChatBackground oldBackground;
+        /**
+         * New background; may be null if none.
+         */
+        @Nullable public ChatBackground newBackground;
+
+        /**
+         * The chat background was changed.
+         */
+        public ChatEventBackgroundChanged() {
+        }
+
+        /**
+         * The chat background was changed.
+         *
+         * @param oldBackground Previous background; may be null if none.
+         * @param newBackground New background; may be null if none.
+         */
+        public ChatEventBackgroundChanged(ChatBackground oldBackground, ChatBackground newBackground) {
+            this.oldBackground = oldBackground;
+            this.newBackground = newBackground;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1225953992;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * The chat description was changed.
      */
     public static class ChatEventDescriptionChanged extends ChatEventAction {
@@ -8565,6 +8820,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 39112478;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat emoji status was changed.
+     */
+    public static class ChatEventEmojiStatusChanged extends ChatEventAction {
+        /**
+         * Previous emoji status; may be null if none.
+         */
+        @Nullable public EmojiStatus oldEmojiStatus;
+        /**
+         * New emoji status; may be null if none.
+         */
+        @Nullable public EmojiStatus newEmojiStatus;
+
+        /**
+         * The chat emoji status was changed.
+         */
+        public ChatEventEmojiStatusChanged() {
+        }
+
+        /**
+         * The chat emoji status was changed.
+         *
+         * @param oldEmojiStatus Previous emoji status; may be null if none.
+         * @param newEmojiStatus New emoji status; may be null if none.
+         */
+        public ChatEventEmojiStatusChanged(EmojiStatus oldEmojiStatus, EmojiStatus newEmojiStatus) {
+            this.oldEmojiStatus = oldEmojiStatus;
+            this.newEmojiStatus = newEmojiStatus;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2081850594;
 
         /**
          * @return this.CONSTRUCTOR
@@ -9016,7 +9315,7 @@ public class TdApi {
     }
 
     /**
-     * The chat accent color was changed.
+     * The chat accent color or background custom emoji were changed.
      */
     public static class ChatEventAccentColorChanged extends ChatEventAction {
         /**
@@ -9024,31 +9323,43 @@ public class TdApi {
          */
         public int oldAccentColorId;
         /**
+         * Previous identifier of the custom emoji; 0 if none.
+         */
+        public long oldBackgroundCustomEmojiId;
+        /**
          * New identifier of chat accent color.
          */
         public int newAccentColorId;
+        /**
+         * New identifier of the custom emoji; 0 if none.
+         */
+        public long newBackgroundCustomEmojiId;
 
         /**
-         * The chat accent color was changed.
+         * The chat accent color or background custom emoji were changed.
          */
         public ChatEventAccentColorChanged() {
         }
 
         /**
-         * The chat accent color was changed.
+         * The chat accent color or background custom emoji were changed.
          *
          * @param oldAccentColorId Previous identifier of chat accent color.
+         * @param oldBackgroundCustomEmojiId Previous identifier of the custom emoji; 0 if none.
          * @param newAccentColorId New identifier of chat accent color.
+         * @param newBackgroundCustomEmojiId New identifier of the custom emoji; 0 if none.
          */
-        public ChatEventAccentColorChanged(int oldAccentColorId, int newAccentColorId) {
+        public ChatEventAccentColorChanged(int oldAccentColorId, long oldBackgroundCustomEmojiId, int newAccentColorId, long newBackgroundCustomEmojiId) {
             this.oldAccentColorId = oldAccentColorId;
+            this.oldBackgroundCustomEmojiId = oldBackgroundCustomEmojiId;
             this.newAccentColorId = newAccentColorId;
+            this.newBackgroundCustomEmojiId = newBackgroundCustomEmojiId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 707952178;
+        public static final int CONSTRUCTOR = -427591885;
 
         /**
          * @return this.CONSTRUCTOR
@@ -9060,39 +9371,51 @@ public class TdApi {
     }
 
     /**
-     * The chat's custom emoji for reply background was changed.
+     * The chat's profile accent color or profile background custom emoji were changed.
      */
-    public static class ChatEventBackgroundCustomEmojiChanged extends ChatEventAction {
+    public static class ChatEventProfileAccentColorChanged extends ChatEventAction {
+        /**
+         * Previous identifier of chat's profile accent color; -1 if none.
+         */
+        public int oldProfileAccentColorId;
         /**
          * Previous identifier of the custom emoji; 0 if none.
          */
-        public long oldBackgroundCustomEmojiId;
+        public long oldProfileBackgroundCustomEmojiId;
+        /**
+         * New identifier of chat's profile accent color; -1 if none.
+         */
+        public int newProfileAccentColorId;
         /**
          * New identifier of the custom emoji; 0 if none.
          */
-        public long newBackgroundCustomEmojiId;
+        public long newProfileBackgroundCustomEmojiId;
 
         /**
-         * The chat's custom emoji for reply background was changed.
+         * The chat's profile accent color or profile background custom emoji were changed.
          */
-        public ChatEventBackgroundCustomEmojiChanged() {
+        public ChatEventProfileAccentColorChanged() {
         }
 
         /**
-         * The chat's custom emoji for reply background was changed.
+         * The chat's profile accent color or profile background custom emoji were changed.
          *
-         * @param oldBackgroundCustomEmojiId Previous identifier of the custom emoji; 0 if none.
-         * @param newBackgroundCustomEmojiId New identifier of the custom emoji; 0 if none.
+         * @param oldProfileAccentColorId Previous identifier of chat's profile accent color; -1 if none.
+         * @param oldProfileBackgroundCustomEmojiId Previous identifier of the custom emoji; 0 if none.
+         * @param newProfileAccentColorId New identifier of chat's profile accent color; -1 if none.
+         * @param newProfileBackgroundCustomEmojiId New identifier of the custom emoji; 0 if none.
          */
-        public ChatEventBackgroundCustomEmojiChanged(long oldBackgroundCustomEmojiId, long newBackgroundCustomEmojiId) {
-            this.oldBackgroundCustomEmojiId = oldBackgroundCustomEmojiId;
-            this.newBackgroundCustomEmojiId = newBackgroundCustomEmojiId;
+        public ChatEventProfileAccentColorChanged(int oldProfileAccentColorId, long oldProfileBackgroundCustomEmojiId, int newProfileAccentColorId, long newProfileBackgroundCustomEmojiId) {
+            this.oldProfileAccentColorId = oldProfileAccentColorId;
+            this.oldProfileBackgroundCustomEmojiId = oldProfileBackgroundCustomEmojiId;
+            this.newProfileAccentColorId = newProfileAccentColorId;
+            this.newProfileBackgroundCustomEmojiId = newProfileBackgroundCustomEmojiId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -764993894;
+        public static final int CONSTRUCTOR = -1514612124;
 
         /**
          * @return this.CONSTRUCTOR
@@ -12034,7 +12357,7 @@ public class TdApi {
      */
     public static class ChatPermissions extends Object {
         /**
-         * True, if the user can send text messages, contacts, giveaways, invoices, locations, and venues.
+         * True, if the user can send text messages, contacts, giveaways, giveaway winners, invoices, locations, and venues.
          */
         public boolean canSendBasicMessages;
         /**
@@ -12099,7 +12422,7 @@ public class TdApi {
         /**
          * Describes actions that a user is allowed to take in a chat.
          *
-         * @param canSendBasicMessages True, if the user can send text messages, contacts, giveaways, invoices, locations, and venues.
+         * @param canSendBasicMessages True, if the user can send text messages, contacts, giveaways, giveaway winners, invoices, locations, and venues.
          * @param canSendAudios True, if the user can send music files.
          * @param canSendDocuments True, if the user can send documents.
          * @param canSendPhotos True, if the user can send photos.
@@ -16102,7 +16425,7 @@ public class TdApi {
     }
 
     /**
-     * Contains a list of custom emoji identifiers, which can be set as emoji statuses.
+     * Contains a list of custom emoji identifiers for emoji statuses.
      */
     public static class EmojiStatuses extends Object {
         /**
@@ -16111,13 +16434,13 @@ public class TdApi {
         public long[] customEmojiIds;
 
         /**
-         * Contains a list of custom emoji identifiers, which can be set as emoji statuses.
+         * Contains a list of custom emoji identifiers for emoji statuses.
          */
         public EmojiStatuses() {
         }
 
         /**
-         * Contains a list of custom emoji identifiers, which can be set as emoji statuses.
+         * Contains a list of custom emoji identifiers for emoji statuses.
          *
          * @param customEmojiIds The list of custom emoji identifiers.
          */
@@ -24450,7 +24773,8 @@ public class TdApi {
             InputStoryAreaTypeLocation.CONSTRUCTOR,
             InputStoryAreaTypeFoundVenue.CONSTRUCTOR,
             InputStoryAreaTypePreviousVenue.CONSTRUCTOR,
-            InputStoryAreaTypeSuggestedReaction.CONSTRUCTOR
+            InputStoryAreaTypeSuggestedReaction.CONSTRUCTOR,
+            InputStoryAreaTypeMessage.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -24644,11 +24968,55 @@ public class TdApi {
     }
 
     /**
+     * An area pointing to a message.
+     */
+    public static class InputStoryAreaTypeMessage extends InputStoryAreaType {
+        /**
+         * Identifier of the chat with the message. Currently, the chat must be a supergroup or a channel chat.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message. Only successfully sent non-scheduled messages can be specified.
+         */
+        public long messageId;
+
+        /**
+         * An area pointing to a message.
+         */
+        public InputStoryAreaTypeMessage() {
+        }
+
+        /**
+         * An area pointing to a message.
+         *
+         * @param chatId Identifier of the chat with the message. Currently, the chat must be a supergroup or a channel chat.
+         * @param messageId Identifier of the message. Only successfully sent non-scheduled messages can be specified.
+         */
+        public InputStoryAreaTypeMessage(long chatId, long messageId) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -266607529;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains a list of story areas to be added.
      */
     public static class InputStoryAreas extends Object {
         /**
-         * List of 0-10 input story areas.
+         * List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation, inputStoryAreaTypeFoundVenue, and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, and up to 1 inputStoryAreaTypeMessage area.
          */
         public InputStoryArea[] areas;
 
@@ -24661,7 +25029,7 @@ public class TdApi {
         /**
          * Contains a list of story areas to be added.
          *
-         * @param areas List of 0-10 input story areas.
+         * @param areas List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation, inputStoryAreaTypeFoundVenue, and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, and up to 1 inputStoryAreaTypeMessage area.
          */
         public InputStoryAreas(InputStoryArea[] areas) {
             this.areas = areas;
@@ -24937,6 +25305,7 @@ public class TdApi {
             InternalLinkTypePassportDataRequest.CONSTRUCTOR,
             InternalLinkTypePhoneNumberConfirmation.CONSTRUCTOR,
             InternalLinkTypePremiumFeatures.CONSTRUCTOR,
+            InternalLinkTypePremiumGift.CONSTRUCTOR,
             InternalLinkTypePremiumGiftCode.CONSTRUCTOR,
             InternalLinkTypePrivacyAndSecuritySettings.CONSTRUCTOR,
             InternalLinkTypeProxy.CONSTRUCTOR,
@@ -25885,6 +26254,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1216892745;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to the screen for gifting Telegram Premium subscriptions to friends.
+     */
+    public static class InternalLinkTypePremiumGift extends InternalLinkType {
+        /**
+         * Referrer specified in the link.
+         */
+        public String referrer;
+
+        /**
+         * The link is a link to the screen for gifting Telegram Premium subscriptions to friends.
+         */
+        public InternalLinkTypePremiumGift() {
+        }
+
+        /**
+         * The link is a link to the screen for gifting Telegram Premium subscriptions to friends.
+         *
+         * @param referrer Referrer specified in the link.
+         */
+        public InternalLinkTypePremiumGift(String referrer) {
+            this.referrer = referrer;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1523936577;
 
         /**
          * @return this.CONSTRUCTOR
@@ -27124,7 +27531,7 @@ public class TdApi {
             KeyboardButtonTypeRequestPhoneNumber.CONSTRUCTOR,
             KeyboardButtonTypeRequestLocation.CONSTRUCTOR,
             KeyboardButtonTypeRequestPoll.CONSTRUCTOR,
-            KeyboardButtonTypeRequestUser.CONSTRUCTOR,
+            KeyboardButtonTypeRequestUsers.CONSTRUCTOR,
             KeyboardButtonTypeRequestChat.CONSTRUCTOR,
             KeyboardButtonTypeWebApp.CONSTRUCTOR
         })
@@ -27263,57 +27670,63 @@ public class TdApi {
     }
 
     /**
-     * A button that requests a user to be shared by the current user; available only in private chats. Use the method shareUserWithBot to complete the request.
+     * A button that requests users to be shared by the current user; available only in private chats. Use the method shareUsersWithBot to complete the request.
      */
-    public static class KeyboardButtonTypeRequestUser extends KeyboardButtonType {
+    public static class KeyboardButtonTypeRequestUsers extends KeyboardButtonType {
         /**
          * Unique button identifier.
          */
         public int id;
         /**
-         * True, if the shared user must or must not be a bot.
+         * True, if the shared users must or must not be bots.
          */
         public boolean restrictUserIsBot;
         /**
-         * True, if the shared user must be a bot; otherwise, the shared user must no be a bot. Ignored if restrictUserIsBot is false.
+         * True, if the shared users must be bots; otherwise, the shared users must not be bots. Ignored if restrictUserIsBot is false.
          */
         public boolean userIsBot;
         /**
-         * True, if the shared user must or must not be a Telegram Premium user.
+         * True, if the shared users must or must not be Telegram Premium users.
          */
         public boolean restrictUserIsPremium;
         /**
-         * True, if the shared user must be a Telegram Premium user; otherwise, the shared user must no be a Telegram Premium user. Ignored if restrictUserIsPremium is false.
+         * True, if the shared users must be Telegram Premium users; otherwise, the shared users must not be Telegram Premium users. Ignored if restrictUserIsPremium is false.
          */
         public boolean userIsPremium;
+        /**
+         * The maximum number of users to share.
+         */
+        public int maxQuantity;
 
         /**
-         * A button that requests a user to be shared by the current user; available only in private chats. Use the method shareUserWithBot to complete the request.
+         * A button that requests users to be shared by the current user; available only in private chats. Use the method shareUsersWithBot to complete the request.
          */
-        public KeyboardButtonTypeRequestUser() {
+        public KeyboardButtonTypeRequestUsers() {
         }
 
         /**
-         * A button that requests a user to be shared by the current user; available only in private chats. Use the method shareUserWithBot to complete the request.
+         * A button that requests users to be shared by the current user; available only in private chats. Use the method shareUsersWithBot to complete the request.
          *
          * @param id Unique button identifier.
-         * @param restrictUserIsBot True, if the shared user must or must not be a bot.
-         * @param userIsBot True, if the shared user must be a bot; otherwise, the shared user must no be a bot. Ignored if restrictUserIsBot is false.
-         * @param restrictUserIsPremium True, if the shared user must or must not be a Telegram Premium user.
-         * @param userIsPremium True, if the shared user must be a Telegram Premium user; otherwise, the shared user must no be a Telegram Premium user. Ignored if restrictUserIsPremium is false.
+         * @param restrictUserIsBot True, if the shared users must or must not be bots.
+         * @param userIsBot True, if the shared users must be bots; otherwise, the shared users must not be bots. Ignored if restrictUserIsBot is false.
+         * @param restrictUserIsPremium True, if the shared users must or must not be Telegram Premium users.
+         * @param userIsPremium True, if the shared users must be Telegram Premium users; otherwise, the shared users must not be Telegram Premium users. Ignored if restrictUserIsPremium is false.
+         * @param maxQuantity The maximum number of users to share.
          */
-        public KeyboardButtonTypeRequestUser(int id, boolean restrictUserIsBot, boolean userIsBot, boolean restrictUserIsPremium, boolean userIsPremium) {
+        public KeyboardButtonTypeRequestUsers(int id, boolean restrictUserIsBot, boolean userIsBot, boolean restrictUserIsPremium, boolean userIsPremium, int maxQuantity) {
             this.id = id;
             this.restrictUserIsBot = restrictUserIsBot;
             this.userIsBot = userIsBot;
             this.restrictUserIsPremium = restrictUserIsPremium;
             this.userIsPremium = userIsPremium;
+            this.maxQuantity = maxQuantity;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1996508112;
+        public static final int CONSTRUCTOR = 2120478608;
 
         /**
          * @return this.CONSTRUCTOR
@@ -29062,8 +29475,9 @@ public class TdApi {
             MessagePremiumGiveawayCreated.CONSTRUCTOR,
             MessagePremiumGiveaway.CONSTRUCTOR,
             MessagePremiumGiveawayCompleted.CONSTRUCTOR,
+            MessagePremiumGiveawayWinners.CONSTRUCTOR,
             MessageContactRegistered.CONSTRUCTOR,
-            MessageUserShared.CONSTRUCTOR,
+            MessageUsersShared.CONSTRUCTOR,
             MessageChatShared.CONSTRUCTOR,
             MessageBotWriteAccessAllowed.CONSTRUCTOR,
             MessageWebAppDataSent.CONSTRUCTOR,
@@ -31327,11 +31741,11 @@ public class TdApi {
          */
         public String cryptocurrency;
         /**
-         * The paid amount, in the smallest units of the cryptocurrency.
+         * The paid amount, in the smallest units of the cryptocurrency; 0 if none.
          */
         public long cryptocurrencyAmount;
         /**
-         * Number of month the Telegram Premium subscription will be active.
+         * Number of months the Telegram Premium subscription will be active.
          */
         public int monthCount;
         /**
@@ -31352,8 +31766,8 @@ public class TdApi {
          * @param currency Currency for the paid amount.
          * @param amount The paid amount, in the smallest units of the currency.
          * @param cryptocurrency Cryptocurrency used to pay for the gift; may be empty if none.
-         * @param cryptocurrencyAmount The paid amount, in the smallest units of the cryptocurrency.
-         * @param monthCount Number of month the Telegram Premium subscription will be active.
+         * @param cryptocurrencyAmount The paid amount, in the smallest units of the cryptocurrency; 0 if none.
+         * @param monthCount Number of months the Telegram Premium subscription will be active.
          * @param sticker A sticker to be shown in the message; may be null if unknown.
          */
         public MessageGiftedPremium(long gifterUserId, String currency, long amount, String cryptocurrency, long cryptocurrencyAmount, int monthCount, Sticker sticker) {
@@ -31397,7 +31811,23 @@ public class TdApi {
          */
         public boolean isUnclaimed;
         /**
-         * Number of month the Telegram Premium subscription will be active after code activation.
+         * Currency for the paid amount; empty if unknown.
+         */
+        public String currency;
+        /**
+         * The paid amount, in the smallest units of the currency; 0 if unknown.
+         */
+        public long amount;
+        /**
+         * Cryptocurrency used to pay for the gift; may be empty if none or unknown.
+         */
+        public String cryptocurrency;
+        /**
+         * The paid amount, in the smallest units of the cryptocurrency; 0 if unknown.
+         */
+        public long cryptocurrencyAmount;
+        /**
+         * Number of months the Telegram Premium subscription will be active after code activation.
          */
         public int monthCount;
         /**
@@ -31421,14 +31851,22 @@ public class TdApi {
          * @param creatorId Identifier of a chat or a user that created the gift code; may be null if unknown.
          * @param isFromGiveaway True, if the gift code was created for a giveaway.
          * @param isUnclaimed True, if the winner for the corresponding Telegram Premium subscription wasn't chosen.
-         * @param monthCount Number of month the Telegram Premium subscription will be active after code activation.
+         * @param currency Currency for the paid amount; empty if unknown.
+         * @param amount The paid amount, in the smallest units of the currency; 0 if unknown.
+         * @param cryptocurrency Cryptocurrency used to pay for the gift; may be empty if none or unknown.
+         * @param cryptocurrencyAmount The paid amount, in the smallest units of the cryptocurrency; 0 if unknown.
+         * @param monthCount Number of months the Telegram Premium subscription will be active after code activation.
          * @param sticker A sticker to be shown in the message; may be null if unknown.
          * @param code The gift code.
          */
-        public MessagePremiumGiftCode(MessageSender creatorId, boolean isFromGiveaway, boolean isUnclaimed, int monthCount, Sticker sticker, String code) {
+        public MessagePremiumGiftCode(MessageSender creatorId, boolean isFromGiveaway, boolean isUnclaimed, String currency, long amount, String cryptocurrency, long cryptocurrencyAmount, int monthCount, Sticker sticker, String code) {
             this.creatorId = creatorId;
             this.isFromGiveaway = isFromGiveaway;
             this.isUnclaimed = isUnclaimed;
+            this.currency = currency;
+            this.amount = amount;
+            this.cryptocurrency = cryptocurrency;
+            this.cryptocurrencyAmount = cryptocurrencyAmount;
             this.monthCount = monthCount;
             this.sticker = sticker;
             this.code = code;
@@ -31437,7 +31875,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2057062031;
+        public static final int CONSTRUCTOR = 649927667;
 
         /**
          * @return this.CONSTRUCTOR
@@ -31486,7 +31924,7 @@ public class TdApi {
          */
         public int winnerCount;
         /**
-         * Number of month the Telegram Premium subscription will be active after code activation.
+         * Number of months the Telegram Premium subscription will be active after code activation.
          */
         public int monthCount;
         /**
@@ -31505,7 +31943,7 @@ public class TdApi {
          *
          * @param parameters Giveaway parameters.
          * @param winnerCount Number of users which will receive Telegram Premium subscription gift codes.
-         * @param monthCount Number of month the Telegram Premium subscription will be active after code activation.
+         * @param monthCount Number of months the Telegram Premium subscription will be active after code activation.
          * @param sticker A sticker to be shown in the message; may be null if unknown.
          */
         public MessagePremiumGiveaway(PremiumGiveawayParameters parameters, int winnerCount, int monthCount, Sticker sticker) {
@@ -31530,7 +31968,7 @@ public class TdApi {
     }
 
     /**
-     * A Telegram Premium giveaway has been completed for the chat.
+     * A Telegram Premium giveaway without public winners has been completed for the chat.
      */
     public static class MessagePremiumGiveawayCompleted extends MessageContent {
         /**
@@ -31547,13 +31985,13 @@ public class TdApi {
         public int unclaimedPrizeCount;
 
         /**
-         * A Telegram Premium giveaway has been completed for the chat.
+         * A Telegram Premium giveaway without public winners has been completed for the chat.
          */
         public MessagePremiumGiveawayCompleted() {
         }
 
         /**
-         * A Telegram Premium giveaway has been completed for the chat.
+         * A Telegram Premium giveaway without public winners has been completed for the chat.
          *
          * @param giveawayMessageId Identifier of the message with the giveaway; can be 0 if the message was deleted.
          * @param winnerCount Number of winners in the giveaway.
@@ -31569,6 +32007,104 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2142029495;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A Telegram Premium giveaway with public winners has been completed for the chat.
+     */
+    public static class MessagePremiumGiveawayWinners extends MessageContent {
+        /**
+         * Identifier of the channel chat, which was automatically boosted by the winners of the giveaway for duration of the Premium subscription.
+         */
+        public long boostedChatId;
+        /**
+         * Identifier of the message with the giveaway in the boosted chat.
+         */
+        public long giveawayMessageId;
+        /**
+         * Number of other chats that participated in the giveaway.
+         */
+        public int additionalChatCount;
+        /**
+         * Point in time (Unix timestamp) when the winners were selected. May be bigger than winners selection date specified in parameters of the giveaway.
+         */
+        public int actualWinnersSelectionDate;
+        /**
+         * True, if only new members of the chats were eligible for the giveaway.
+         */
+        public boolean onlyNewMembers;
+        /**
+         * True, if the giveaway was canceled and was fully refunded.
+         */
+        public boolean wasRefunded;
+        /**
+         * Number of months the Telegram Premium subscription will be active after code activation.
+         */
+        public int monthCount;
+        /**
+         * Additional description of the giveaway prize.
+         */
+        public String prizeDescription;
+        /**
+         * Total number of winners in the giveaway.
+         */
+        public int winnerCount;
+        /**
+         * Up to 100 user identifiers of the winners of the giveaway.
+         */
+        public long[] winnerUserIds;
+        /**
+         * Number of undistributed prizes.
+         */
+        public int unclaimedPrizeCount;
+
+        /**
+         * A Telegram Premium giveaway with public winners has been completed for the chat.
+         */
+        public MessagePremiumGiveawayWinners() {
+        }
+
+        /**
+         * A Telegram Premium giveaway with public winners has been completed for the chat.
+         *
+         * @param boostedChatId Identifier of the channel chat, which was automatically boosted by the winners of the giveaway for duration of the Premium subscription.
+         * @param giveawayMessageId Identifier of the message with the giveaway in the boosted chat.
+         * @param additionalChatCount Number of other chats that participated in the giveaway.
+         * @param actualWinnersSelectionDate Point in time (Unix timestamp) when the winners were selected. May be bigger than winners selection date specified in parameters of the giveaway.
+         * @param onlyNewMembers True, if only new members of the chats were eligible for the giveaway.
+         * @param wasRefunded True, if the giveaway was canceled and was fully refunded.
+         * @param monthCount Number of months the Telegram Premium subscription will be active after code activation.
+         * @param prizeDescription Additional description of the giveaway prize.
+         * @param winnerCount Total number of winners in the giveaway.
+         * @param winnerUserIds Up to 100 user identifiers of the winners of the giveaway.
+         * @param unclaimedPrizeCount Number of undistributed prizes.
+         */
+        public MessagePremiumGiveawayWinners(long boostedChatId, long giveawayMessageId, int additionalChatCount, int actualWinnersSelectionDate, boolean onlyNewMembers, boolean wasRefunded, int monthCount, String prizeDescription, int winnerCount, long[] winnerUserIds, int unclaimedPrizeCount) {
+            this.boostedChatId = boostedChatId;
+            this.giveawayMessageId = giveawayMessageId;
+            this.additionalChatCount = additionalChatCount;
+            this.actualWinnersSelectionDate = actualWinnersSelectionDate;
+            this.onlyNewMembers = onlyNewMembers;
+            this.wasRefunded = wasRefunded;
+            this.monthCount = monthCount;
+            this.prizeDescription = prizeDescription;
+            this.winnerCount = winnerCount;
+            this.winnerUserIds = winnerUserIds;
+            this.unclaimedPrizeCount = unclaimedPrizeCount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1326563847;
 
         /**
          * @return this.CONSTRUCTOR
@@ -31605,39 +32141,39 @@ public class TdApi {
     }
 
     /**
-     * The current user shared a user, which was requested by the bot.
+     * The current user shared users, which were requested by the bot.
      */
-    public static class MessageUserShared extends MessageContent {
+    public static class MessageUsersShared extends MessageContent {
         /**
-         * Identifier of the shared user.
+         * Identifier of the shared users.
          */
-        public long userId;
+        public long[] userIds;
         /**
          * Identifier of the keyboard button with the request.
          */
         public int buttonId;
 
         /**
-         * The current user shared a user, which was requested by the bot.
+         * The current user shared users, which were requested by the bot.
          */
-        public MessageUserShared() {
+        public MessageUsersShared() {
         }
 
         /**
-         * The current user shared a user, which was requested by the bot.
+         * The current user shared users, which were requested by the bot.
          *
-         * @param userId Identifier of the shared user.
+         * @param userIds Identifier of the shared users.
          * @param buttonId Identifier of the keyboard button with the request.
          */
-        public MessageUserShared(long userId, int buttonId) {
-            this.userId = userId;
+        public MessageUsersShared(long[] userIds, int buttonId) {
+            this.userIds = userIds;
             this.buttonId = buttonId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -723732612;
+        public static final int CONSTRUCTOR = -36105356;
 
         /**
          * @return this.CONSTRUCTOR
@@ -31970,7 +32506,7 @@ public class TdApi {
     }
 
     /**
-     * Options to be used when a message content is copied without reference to the original sender. Service messages, and messages with messageInvoice or messagePremiumGiveaway content can't be copied.
+     * Options to be used when a message content is copied without reference to the original sender. Service messages, messages with messageInvoice, messagePremiumGiveaway, or messagePremiumGiveawayWinners content can't be copied.
      */
     public static class MessageCopyOptions extends Object {
         /**
@@ -31987,13 +32523,13 @@ public class TdApi {
         public FormattedText newCaption;
 
         /**
-         * Options to be used when a message content is copied without reference to the original sender. Service messages, and messages with messageInvoice or messagePremiumGiveaway content can't be copied.
+         * Options to be used when a message content is copied without reference to the original sender. Service messages, messages with messageInvoice, messagePremiumGiveaway, or messagePremiumGiveawayWinners content can't be copied.
          */
         public MessageCopyOptions() {
         }
 
         /**
-         * Options to be used when a message content is copied without reference to the original sender. Service messages, and messages with messageInvoice or messagePremiumGiveaway content can't be copied.
+         * Options to be used when a message content is copied without reference to the original sender. Service messages, messages with messageInvoice, messagePremiumGiveaway, or messagePremiumGiveawayWinners content can't be copied.
          *
          * @param sendCopy True, if content of the message needs to be copied without reference to the original sender. Always true if the message is forwarded to a secret chat or is local.
          * @param replaceCaption True, if media caption of the message copy needs to be replaced. Ignored if sendCopy is false.
@@ -33112,7 +33648,7 @@ public class TdApi {
          */
         public int originSendDate;
         /**
-         * Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageContact, messageDice, messageDocument, messageGame, messageInvoice, messageLocation, messagePhoto, messagePoll, messagePremiumGiveaway, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
+         * Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageContact, messageDice, messageDocument, messageGame, messageInvoice, messageLocation, messagePhoto, messagePoll, messagePremiumGiveaway, messagePremiumGiveawayWinners, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
          */
         @Nullable public MessageContent content;
 
@@ -33130,7 +33666,7 @@ public class TdApi {
          * @param quote Chosen quote from the replied message; may be null if none.
          * @param origin Information about origin of the message if the message was from another chat or topic; may be null for messages from the same chat.
          * @param originSendDate Point in time (Unix timestamp) when the message was sent if the message was from another chat or topic; 0 for messages from the same chat.
-         * @param content Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageContact, messageDice, messageDocument, messageGame, messageInvoice, messageLocation, messagePhoto, messagePoll, messagePremiumGiveaway, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
+         * @param content Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageContact, messageDice, messageDocument, messageGame, messageInvoice, messageLocation, messagePhoto, messagePoll, messagePremiumGiveaway, messagePremiumGiveawayWinners, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
          */
         public MessageReplyToMessage(long chatId, long messageId, TextQuote quote, MessageOrigin origin, int originSendDate, MessageContent content) {
             this.chatId = chatId;
@@ -39412,6 +39948,10 @@ public class TdApi {
          * Public payment token.
          */
         public String publicToken;
+        /**
+         * URL for sending card tokenization requests.
+         */
+        public String tokenizeUrl;
 
         /**
          * Smart Glocal payment provider.
@@ -39423,15 +39963,17 @@ public class TdApi {
          * Smart Glocal payment provider.
          *
          * @param publicToken Public payment token.
+         * @param tokenizeUrl URL for sending card tokenization requests.
          */
-        public PaymentProviderSmartGlocal(String publicToken) {
+        public PaymentProviderSmartGlocal(String publicToken, String tokenizeUrl) {
             this.publicToken = publicToken;
+            this.tokenizeUrl = tokenizeUrl;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1800479470;
+        public static final int CONSTRUCTOR = -1174112396;
 
         /**
          * @return this.CONSTRUCTOR
@@ -40977,9 +41519,9 @@ public class TdApi {
      */
     public static class PremiumGiftCodeInfo extends Object {
         /**
-         * Identifier of a chat or a user that created the gift code.
+         * Identifier of a chat or a user that created the gift code; may be null if unknown. If null and the code is from messagePremiumGiftCode message, then creatorId from the message can be used.
          */
-        public MessageSender creatorId;
+        @Nullable public MessageSender creatorId;
         /**
          * Point in time (Unix timestamp) when the code was created.
          */
@@ -40993,7 +41535,7 @@ public class TdApi {
          */
         public long giveawayMessageId;
         /**
-         * Number of month the Telegram Premium subscription will be active after code activation.
+         * Number of months the Telegram Premium subscription will be active after code activation.
          */
         public int monthCount;
         /**
@@ -41014,11 +41556,11 @@ public class TdApi {
         /**
          * Contains information about a Telegram Premium gift code.
          *
-         * @param creatorId Identifier of a chat or a user that created the gift code.
+         * @param creatorId Identifier of a chat or a user that created the gift code; may be null if unknown. If null and the code is from messagePremiumGiftCode message, then creatorId from the message can be used.
          * @param creationDate Point in time (Unix timestamp) when the code was created.
          * @param isFromGiveaway True, if the gift code was created for a giveaway.
          * @param giveawayMessageId Identifier of the corresponding giveaway message in the creatorId chat; can be 0 or an identifier of a deleted message.
-         * @param monthCount Number of month the Telegram Premium subscription will be active after code activation.
+         * @param monthCount Number of months the Telegram Premium subscription will be active after code activation.
          * @param userId Identifier of a user for which the code was created; 0 if none.
          * @param useDate Point in time (Unix timestamp) when the code was activated; 0 if none.
          */
@@ -41063,7 +41605,7 @@ public class TdApi {
          */
         public int userCount;
         /**
-         * Number of month the Telegram Premium subscription will be active.
+         * Number of months the Telegram Premium subscription will be active.
          */
         public int monthCount;
         /**
@@ -41087,7 +41629,7 @@ public class TdApi {
          * @param currency ISO 4217 currency code for Telegram Premium gift code payment.
          * @param amount The amount to pay, in the smallest units of the currency.
          * @param userCount Number of users which will be able to activate the gift codes.
-         * @param monthCount Number of month the Telegram Premium subscription will be active.
+         * @param monthCount Number of months the Telegram Premium subscription will be active.
          * @param storeProductId Identifier of the store product associated with the option; may be empty if none.
          * @param storeProductQuantity Number of times the store product must be paid.
          */
@@ -41319,9 +41861,17 @@ public class TdApi {
          */
         public boolean onlyNewMembers;
         /**
+         * True, if the list of winners of the giveaway will be available to everyone.
+         */
+        public boolean hasPublicWinners;
+        /**
          * The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be eligible for the giveaway. If empty, then all users can participate in the giveaway. There can be up to getOption(&quot;giveaway_country_count_max&quot;) chosen countries. Users with phone number that was bought on Fragment can participate in any giveaway and the country code &quot;FT&quot; must not be specified in the list.
          */
         public String[] countryCodes;
+        /**
+         * Additional description of the giveaway prize; 0-128 characters.
+         */
+        public String prizeDescription;
 
         /**
          * Describes parameters of a Telegram Premium giveaway.
@@ -41336,20 +41886,24 @@ public class TdApi {
          * @param additionalChatIds Identifiers of other channel chats that must be subscribed by the users to be eligible for the giveaway. There can be up to getOption(&quot;giveaway_additional_chat_count_max&quot;) additional chats.
          * @param winnersSelectionDate Point in time (Unix timestamp) when the giveaway is expected to be performed; must be 60-getOption(&quot;giveaway_duration_max&quot;) seconds in the future in scheduled giveaways.
          * @param onlyNewMembers True, if only new members of the chats will be eligible for the giveaway.
+         * @param hasPublicWinners True, if the list of winners of the giveaway will be available to everyone.
          * @param countryCodes The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be eligible for the giveaway. If empty, then all users can participate in the giveaway. There can be up to getOption(&quot;giveaway_country_count_max&quot;) chosen countries. Users with phone number that was bought on Fragment can participate in any giveaway and the country code &quot;FT&quot; must not be specified in the list.
+         * @param prizeDescription Additional description of the giveaway prize; 0-128 characters.
          */
-        public PremiumGiveawayParameters(long boostedChatId, long[] additionalChatIds, int winnersSelectionDate, boolean onlyNewMembers, String[] countryCodes) {
+        public PremiumGiveawayParameters(long boostedChatId, long[] additionalChatIds, int winnersSelectionDate, boolean onlyNewMembers, boolean hasPublicWinners, String[] countryCodes, String prizeDescription) {
             this.boostedChatId = boostedChatId;
             this.additionalChatIds = additionalChatIds;
             this.winnersSelectionDate = winnersSelectionDate;
             this.onlyNewMembers = onlyNewMembers;
+            this.hasPublicWinners = hasPublicWinners;
             this.countryCodes = countryCodes;
+            this.prizeDescription = prizeDescription;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2006253369;
+        public static final int CONSTRUCTOR = 1168346872;
 
         /**
          * @return this.CONSTRUCTOR
@@ -42116,7 +42670,7 @@ public class TdApi {
          */
         public int discountPercentage;
         /**
-         * Number of month the Telegram Premium subscription will be active.
+         * Number of months the Telegram Premium subscription will be active.
          */
         public int monthCount;
         /**
@@ -42140,7 +42694,7 @@ public class TdApi {
          * @param currency ISO 4217 currency code for Telegram Premium subscription payment.
          * @param amount The amount to pay, in the smallest units of the currency.
          * @param discountPercentage The discount associated with this option, as a percentage.
-         * @param monthCount Number of month the Telegram Premium subscription will be active.
+         * @param monthCount Number of months the Telegram Premium subscription will be active.
          * @param storeProductId Identifier of the store product associated with the option.
          * @param paymentLink An internal link to be opened for buying Telegram Premium to the user if store payment isn't possible; may be null if direct payment isn't available.
          */
@@ -42676,7 +43230,7 @@ public class TdApi {
          */
         public int winnerCount;
         /**
-         * Number of month the Telegram Premium subscription will be active after code activation.
+         * Number of months the Telegram Premium subscription will be active after code activation.
          */
         public int monthCount;
         /**
@@ -42695,7 +43249,7 @@ public class TdApi {
          *
          * @param id Unique identifier of the prepaid giveaway.
          * @param winnerCount Number of users which will receive Telegram Premium subscription gift codes.
-         * @param monthCount Number of month the Telegram Premium subscription will be active after code activation.
+         * @param monthCount Number of months the Telegram Premium subscription will be active after code activation.
          * @param paymentDate Point in time (Unix timestamp) when the giveaway was paid.
          */
         public PrepaidPremiumGiveaway(long id, int winnerCount, int monthCount, int paymentDate) {
@@ -42728,13 +43282,17 @@ public class TdApi {
          */
         public int id;
         /**
-         * Description of accent colors expected to be used in light themes.
+         * Accent colors expected to be used in light themes.
          */
         public ProfileAccentColors lightThemeColors;
         /**
-         * Description of accent colors expected to be used in dark themes.
+         * Accent colors expected to be used in dark themes.
          */
         public ProfileAccentColors darkThemeColors;
+        /**
+         * The minimum chat boost level required to use the color.
+         */
+        public int minChatBoostLevel;
 
         /**
          * Contains information about supported accent color for user profile photo background.
@@ -42746,19 +43304,21 @@ public class TdApi {
          * Contains information about supported accent color for user profile photo background.
          *
          * @param id Profile accent color identifier.
-         * @param lightThemeColors Description of accent colors expected to be used in light themes.
-         * @param darkThemeColors Description of accent colors expected to be used in dark themes.
+         * @param lightThemeColors Accent colors expected to be used in light themes.
+         * @param darkThemeColors Accent colors expected to be used in dark themes.
+         * @param minChatBoostLevel The minimum chat boost level required to use the color.
          */
-        public ProfileAccentColor(int id, ProfileAccentColors lightThemeColors, ProfileAccentColors darkThemeColors) {
+        public ProfileAccentColor(int id, ProfileAccentColors lightThemeColors, ProfileAccentColors darkThemeColors, int minChatBoostLevel) {
             this.id = id;
             this.lightThemeColors = lightThemeColors;
             this.darkThemeColors = darkThemeColors;
+            this.minChatBoostLevel = minChatBoostLevel;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 736786830;
+        public static final int CONSTRUCTOR = -2015895790;
 
         /**
          * @return this.CONSTRUCTOR
@@ -43222,6 +43782,160 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1183735952;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes a public forward or repost of a story.
+     */
+    public abstract static class PublicForward extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            PublicForwardMessage.CONSTRUCTOR,
+            PublicForwardStory.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public PublicForward() {
+        }
+    }
+
+    /**
+     * Contains a public forward as a message.
+     */
+    public static class PublicForwardMessage extends PublicForward {
+        /**
+         * Information about the message.
+         */
+        public Message message;
+
+        /**
+         * Contains a public forward as a message.
+         */
+        public PublicForwardMessage() {
+        }
+
+        /**
+         * Contains a public forward as a message.
+         *
+         * @param message Information about the message.
+         */
+        public PublicForwardMessage(Message message) {
+            this.message = message;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 51885010;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a public repost to a story.
+     */
+    public static class PublicForwardStory extends PublicForward {
+        /**
+         * Information about the story.
+         */
+        public Story story;
+
+        /**
+         * Contains a public repost to a story.
+         */
+        public PublicForwardStory() {
+        }
+
+        /**
+         * Contains a public repost to a story.
+         *
+         * @param story Information about the story.
+         */
+        public PublicForwardStory(Story story) {
+            this.story = story;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2145330863;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of public forwards and reposts as a story of a message or a story.
+     */
+    public static class PublicForwards extends Object {
+        /**
+         * Approximate total number of messages and stories found.
+         */
+        public int totalCount;
+        /**
+         * List of found public forwards and reposts.
+         */
+        public PublicForward[] forwards;
+        /**
+         * The offset for the next request. If empty, then there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Represents a list of public forwards and reposts as a story of a message or a story.
+         */
+        public PublicForwards() {
+        }
+
+        /**
+         * Represents a list of public forwards and reposts as a story of a message or a story.
+         *
+         * @param totalCount Approximate total number of messages and stories found.
+         * @param forwards List of found public forwards and reposts.
+         * @param nextOffset The offset for the next request. If empty, then there are no more results.
+         */
+        public PublicForwards(int totalCount, PublicForward[] forwards, String nextOffset) {
+            this.totalCount = totalCount;
+            this.forwards = forwards;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2011272719;
 
         /**
          * @return this.CONSTRUCTOR
@@ -43830,7 +44544,7 @@ public class TdApi {
      */
     public static class PushMessageContentPremiumGiftCode extends PushMessageContent {
         /**
-         * Number of month the Telegram Premium subscription will be active after code activation.
+         * Number of months the Telegram Premium subscription will be active after code activation.
          */
         public int monthCount;
 
@@ -43843,7 +44557,7 @@ public class TdApi {
         /**
          * A message with a Telegram Premium gift code created for the user.
          *
-         * @param monthCount Number of month the Telegram Premium subscription will be active after code activation.
+         * @param monthCount Number of months the Telegram Premium subscription will be active after code activation.
          */
         public PushMessageContentPremiumGiftCode(int monthCount) {
             this.monthCount = monthCount;
@@ -43872,7 +44586,7 @@ public class TdApi {
          */
         public int winnerCount;
         /**
-         * Number of month the Telegram Premium subscription will be active after code activation; 0 for pinned message.
+         * Number of months the Telegram Premium subscription will be active after code activation; 0 for pinned message.
          */
         public int monthCount;
         /**
@@ -43890,7 +44604,7 @@ public class TdApi {
          * A message with a Telegram Premium giveaway.
          *
          * @param winnerCount Number of users which will receive Telegram Premium subscription gift codes; 0 for pinned message.
-         * @param monthCount Number of month the Telegram Premium subscription will be active after code activation; 0 for pinned message.
+         * @param monthCount Number of months the Telegram Premium subscription will be active after code activation; 0 for pinned message.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentPremiumGiveaway(int winnerCount, int monthCount, boolean isPinned) {
@@ -48888,6 +49602,10 @@ public class TdApi {
          */
         public boolean needsRepainting;
         /**
+         * True, if stickers in the sticker set are custom emoji that can be used as chat emoji status; for custom emoji sticker sets only.
+         */
+        public boolean isAllowedAsChatEmojiStatus;
+        /**
          * True for already viewed trending sticker sets.
          */
         public boolean isViewed;
@@ -48920,11 +49638,12 @@ public class TdApi {
          * @param stickerFormat Format of the stickers in the set.
          * @param stickerType Type of the stickers in the set.
          * @param needsRepainting True, if stickers in the sticker set are custom emoji that must be repainted; for custom emoji sticker sets only.
+         * @param isAllowedAsChatEmojiStatus True, if stickers in the sticker set are custom emoji that can be used as chat emoji status; for custom emoji sticker sets only.
          * @param isViewed True for already viewed trending sticker sets.
          * @param stickers List of stickers in this set.
          * @param emojis A list of emoji corresponding to the stickers in the same order. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object.
          */
-        public StickerSet(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerFormat stickerFormat, StickerType stickerType, boolean needsRepainting, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
+        public StickerSet(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerFormat stickerFormat, StickerType stickerType, boolean needsRepainting, boolean isAllowedAsChatEmojiStatus, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
             this.id = id;
             this.title = title;
             this.name = name;
@@ -48936,6 +49655,7 @@ public class TdApi {
             this.stickerFormat = stickerFormat;
             this.stickerType = stickerType;
             this.needsRepainting = needsRepainting;
+            this.isAllowedAsChatEmojiStatus = isAllowedAsChatEmojiStatus;
             this.isViewed = isViewed;
             this.stickers = stickers;
             this.emojis = emojis;
@@ -48944,7 +49664,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1633386587;
+        public static final int CONSTRUCTOR = -2037789692;
 
         /**
          * @return this.CONSTRUCTOR
@@ -48972,7 +49692,7 @@ public class TdApi {
          */
         public String name;
         /**
-         * Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null.
+         * Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed.
          */
         @Nullable public Thumbnail thumbnail;
         /**
@@ -49004,6 +49724,10 @@ public class TdApi {
          */
         public boolean needsRepainting;
         /**
+         * True, if stickers in the sticker set are custom emoji that can be used as chat emoji status; for custom emoji sticker sets only.
+         */
+        public boolean isAllowedAsChatEmojiStatus;
+        /**
          * True for already viewed trending sticker sets.
          */
         public boolean isViewed;
@@ -49028,7 +49752,7 @@ public class TdApi {
          * @param id Identifier of the sticker set.
          * @param title Title of the sticker set.
          * @param name Name of the sticker set.
-         * @param thumbnail Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null.
+         * @param thumbnail Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed.
          * @param thumbnailOutline Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
          * @param isInstalled True, if the sticker set has been installed by the current user.
          * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
@@ -49036,11 +49760,12 @@ public class TdApi {
          * @param stickerFormat Format of the stickers in the set.
          * @param stickerType Type of the stickers in the set.
          * @param needsRepainting True, if stickers in the sticker set are custom emoji that must be repainted; for custom emoji sticker sets only.
+         * @param isAllowedAsChatEmojiStatus True, if stickers in the sticker set are custom emoji that can be used as chat emoji status; for custom emoji sticker sets only.
          * @param isViewed True for already viewed trending sticker sets.
          * @param size Total number of stickers in the set.
          * @param covers Up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full sticker set needs to be requested.
          */
-        public StickerSetInfo(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerFormat stickerFormat, StickerType stickerType, boolean needsRepainting, boolean isViewed, int size, Sticker[] covers) {
+        public StickerSetInfo(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerFormat stickerFormat, StickerType stickerType, boolean needsRepainting, boolean isAllowedAsChatEmojiStatus, boolean isViewed, int size, Sticker[] covers) {
             this.id = id;
             this.title = title;
             this.name = name;
@@ -49052,6 +49777,7 @@ public class TdApi {
             this.stickerFormat = stickerFormat;
             this.stickerType = stickerType;
             this.needsRepainting = needsRepainting;
+            this.isAllowedAsChatEmojiStatus = isAllowedAsChatEmojiStatus;
             this.isViewed = isViewed;
             this.size = size;
             this.covers = covers;
@@ -49060,7 +49786,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1500614601;
+        public static final int CONSTRUCTOR = 1232488541;
 
         /**
          * @return this.CONSTRUCTOR
@@ -49810,9 +50536,9 @@ public class TdApi {
          */
         public boolean canGetStatistics;
         /**
-         * True, if users viewed the story can be received through getStoryViewers.
+         * True, if interactions with the story can be received through getStoryInteractions.
          */
-        public boolean canGetViewers;
+        public boolean canGetInteractions;
         /**
          * True, if users viewed the story can't be received, because the story has expired more than getOption(&quot;story_viewers_expiration_delay&quot;) seconds ago.
          */
@@ -49869,7 +50595,7 @@ public class TdApi {
          * @param canBeReplied True, if the story can be replied in the chat with the story sender.
          * @param canToggleIsPinned True, if the story's isPinned value can be changed.
          * @param canGetStatistics True, if the story statistics are available through getStoryStatistics.
-         * @param canGetViewers True, if users viewed the story can be received through getStoryViewers.
+         * @param canGetInteractions True, if interactions with the story can be received through getStoryInteractions.
          * @param hasExpiredViewers True, if users viewed the story can't be received, because the story has expired more than getOption(&quot;story_viewers_expiration_delay&quot;) seconds ago.
          * @param repostInfo Information about the original story; may be null if the story wasn't reposted.
          * @param interactionInfo Information about interactions with the story; may be null if the story isn't owned or there were no interactions.
@@ -49879,7 +50605,7 @@ public class TdApi {
          * @param areas Clickable areas to be shown on the story content.
          * @param caption Caption of the story.
          */
-        public Story(int id, long senderChatId, int date, boolean isBeingSent, boolean isBeingEdited, boolean isEdited, boolean isPinned, boolean isVisibleOnlyForSelf, boolean canBeDeleted, boolean canBeEdited, boolean canBeForwarded, boolean canBeReplied, boolean canToggleIsPinned, boolean canGetStatistics, boolean canGetViewers, boolean hasExpiredViewers, StoryRepostInfo repostInfo, StoryInteractionInfo interactionInfo, ReactionType chosenReactionType, StoryPrivacySettings privacySettings, StoryContent content, StoryArea[] areas, FormattedText caption) {
+        public Story(int id, long senderChatId, int date, boolean isBeingSent, boolean isBeingEdited, boolean isEdited, boolean isPinned, boolean isVisibleOnlyForSelf, boolean canBeDeleted, boolean canBeEdited, boolean canBeForwarded, boolean canBeReplied, boolean canToggleIsPinned, boolean canGetStatistics, boolean canGetInteractions, boolean hasExpiredViewers, StoryRepostInfo repostInfo, StoryInteractionInfo interactionInfo, ReactionType chosenReactionType, StoryPrivacySettings privacySettings, StoryContent content, StoryArea[] areas, FormattedText caption) {
             this.id = id;
             this.senderChatId = senderChatId;
             this.date = date;
@@ -49894,7 +50620,7 @@ public class TdApi {
             this.canBeReplied = canBeReplied;
             this.canToggleIsPinned = canToggleIsPinned;
             this.canGetStatistics = canGetStatistics;
-            this.canGetViewers = canGetViewers;
+            this.canGetInteractions = canGetInteractions;
             this.hasExpiredViewers = hasExpiredViewers;
             this.repostInfo = repostInfo;
             this.interactionInfo = interactionInfo;
@@ -49908,7 +50634,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1726794505;
+        public static final int CONSTRUCTOR = 378731027;
 
         /**
          * @return this.CONSTRUCTOR
@@ -50037,7 +50763,8 @@ public class TdApi {
         @IntDef({
             StoryAreaTypeLocation.CONSTRUCTOR,
             StoryAreaTypeVenue.CONSTRUCTOR,
-            StoryAreaTypeSuggestedReaction.CONSTRUCTOR
+            StoryAreaTypeSuggestedReaction.CONSTRUCTOR,
+            StoryAreaTypeMessage.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -50176,6 +50903,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -111177092;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An area pointing to a message.
+     */
+    public static class StoryAreaTypeMessage extends StoryAreaType {
+        /**
+         * Identifier of the chat with the message.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message.
+         */
+        public long messageId;
+
+        /**
+         * An area pointing to a message.
+         */
+        public StoryAreaTypeMessage() {
+        }
+
+        /**
+         * An area pointing to a message.
+         *
+         * @param chatId Identifier of the chat with the message.
+         * @param messageId Identifier of the message.
+         */
+        public StoryAreaTypeMessage(long chatId, long messageId) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1074825548;
 
         /**
          * @return this.CONSTRUCTOR
@@ -50417,6 +51188,62 @@ public class TdApi {
     }
 
     /**
+     * Represents interaction with a story.
+     */
+    public static class StoryInteraction extends Object {
+        /**
+         * Identifier of the user or chat that made the interaction.
+         */
+        public MessageSender actorId;
+        /**
+         * Approximate point in time (Unix timestamp) when the interaction happened.
+         */
+        public int interactionDate;
+        /**
+         * Block list to which the actor is added; may be null if none or for chat stories.
+         */
+        @Nullable public BlockList blockList;
+        /**
+         * Type of the interaction.
+         */
+        public StoryInteractionType type;
+
+        /**
+         * Represents interaction with a story.
+         */
+        public StoryInteraction() {
+        }
+
+        /**
+         * Represents interaction with a story.
+         *
+         * @param actorId Identifier of the user or chat that made the interaction.
+         * @param interactionDate Approximate point in time (Unix timestamp) when the interaction happened.
+         * @param blockList Block list to which the actor is added; may be null if none or for chat stories.
+         * @param type Type of the interaction.
+         */
+        public StoryInteraction(MessageSender actorId, int interactionDate, BlockList blockList, StoryInteractionType type) {
+            this.actorId = actorId;
+            this.interactionDate = interactionDate;
+            this.blockList = blockList;
+            this.type = type;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -702229982;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains information about interactions with a story.
      */
     public static class StoryInteractionInfo extends Object {
@@ -50462,6 +51289,211 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -846542065;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes type of interaction with a story.
+     */
+    public abstract static class StoryInteractionType extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            StoryInteractionTypeView.CONSTRUCTOR,
+            StoryInteractionTypeForward.CONSTRUCTOR,
+            StoryInteractionTypeRepost.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public StoryInteractionType() {
+        }
+    }
+
+    /**
+     * A view of the story.
+     */
+    public static class StoryInteractionTypeView extends StoryInteractionType {
+        /**
+         * Type of the reaction that was chosen by the viewer; may be null if none.
+         */
+        @Nullable public ReactionType chosenReactionType;
+
+        /**
+         * A view of the story.
+         */
+        public StoryInteractionTypeView() {
+        }
+
+        /**
+         * A view of the story.
+         *
+         * @param chosenReactionType Type of the reaction that was chosen by the viewer; may be null if none.
+         */
+        public StoryInteractionTypeView(ReactionType chosenReactionType) {
+            this.chosenReactionType = chosenReactionType;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1407399888;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A forward of the story as a message.
+     */
+    public static class StoryInteractionTypeForward extends StoryInteractionType {
+        /**
+         * The message with story forward.
+         */
+        public Message message;
+
+        /**
+         * A forward of the story as a message.
+         */
+        public StoryInteractionTypeForward() {
+        }
+
+        /**
+         * A forward of the story as a message.
+         *
+         * @param message The message with story forward.
+         */
+        public StoryInteractionTypeForward(Message message) {
+            this.message = message;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 668089599;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A repost of the story as a story.
+     */
+    public static class StoryInteractionTypeRepost extends StoryInteractionType {
+        /**
+         * The reposted story.
+         */
+        public Story story;
+
+        /**
+         * A repost of the story as a story.
+         */
+        public StoryInteractionTypeRepost() {
+        }
+
+        /**
+         * A repost of the story as a story.
+         *
+         * @param story The reposted story.
+         */
+        public StoryInteractionTypeRepost(Story story) {
+            this.story = story;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1021150780;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of interactions with a story.
+     */
+    public static class StoryInteractions extends Object {
+        /**
+         * Approximate total number of interactions found.
+         */
+        public int totalCount;
+        /**
+         * Approximate total number of found forwards and reposts; always 0 for chat stories.
+         */
+        public int totalForwardCount;
+        /**
+         * Approximate total number of found reactions; always 0 for chat stories.
+         */
+        public int totalReactionCount;
+        /**
+         * List of story interactions.
+         */
+        public StoryInteraction[] interactions;
+        /**
+         * The offset for the next request. If empty, then there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Represents a list of interactions with a story.
+         */
+        public StoryInteractions() {
+        }
+
+        /**
+         * Represents a list of interactions with a story.
+         *
+         * @param totalCount Approximate total number of interactions found.
+         * @param totalForwardCount Approximate total number of found forwards and reposts; always 0 for chat stories.
+         * @param totalReactionCount Approximate total number of found reactions; always 0 for chat stories.
+         * @param interactions List of story interactions.
+         * @param nextOffset The offset for the next request. If empty, then there are no more results.
+         */
+        public StoryInteractions(int totalCount, int totalForwardCount, int totalReactionCount, StoryInteraction[] interactions, String nextOffset) {
+            this.totalCount = totalCount;
+            this.totalForwardCount = totalForwardCount;
+            this.totalReactionCount = totalReactionCount;
+            this.interactions = interactions;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1537062962;
 
         /**
          * @return this.CONSTRUCTOR
@@ -50830,160 +51862,6 @@ public class TdApi {
     }
 
     /**
-     * This class is an abstract base class.
-     * Describes a public forward or repost of a story.
-     */
-    public abstract static class StoryPublicForward extends Object {
-        /**
-         * Describes possible values returned by getConstructor().
-         */
-        @Retention(RetentionPolicy.SOURCE)
-        @IntDef({
-            StoryPublicForwardMessage.CONSTRUCTOR,
-            StoryPublicForwardStory.CONSTRUCTOR
-        })
-        public @interface Constructors {}
-
-        /**
-         * @return identifier uniquely determining type of the object.
-         */
-        @Constructors
-        @Override
-        public abstract int getConstructor();
-        /**
-         * Default class constructor.
-         */
-        public StoryPublicForward() {
-        }
-    }
-
-    /**
-     * Contains a public forward of a story as a message.
-     */
-    public static class StoryPublicForwardMessage extends StoryPublicForward {
-        /**
-         * Information about the message with the story.
-         */
-        public Message message;
-
-        /**
-         * Contains a public forward of a story as a message.
-         */
-        public StoryPublicForwardMessage() {
-        }
-
-        /**
-         * Contains a public forward of a story as a message.
-         *
-         * @param message Information about the message with the story.
-         */
-        public StoryPublicForwardMessage(Message message) {
-            this.message = message;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -46546420;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Contains a public repost of a story as a story.
-     */
-    public static class StoryPublicForwardStory extends StoryPublicForward {
-        /**
-         * Information about the reposted story.
-         */
-        public Story story;
-
-        /**
-         * Contains a public repost of a story as a story.
-         */
-        public StoryPublicForwardStory() {
-        }
-
-        /**
-         * Contains a public repost of a story as a story.
-         *
-         * @param story Information about the reposted story.
-         */
-        public StoryPublicForwardStory(Story story) {
-            this.story = story;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -135872186;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Represents a list of public forwards and reposts of a story.
-     */
-    public static class StoryPublicForwards extends Object {
-        /**
-         * Approximate total number of messages and stories found.
-         */
-        public int totalCount;
-        /**
-         * List of found public forwards and reposts.
-         */
-        public StoryPublicForward[] forwards;
-        /**
-         * The offset for the next request. If empty, then there are no more results.
-         */
-        public String nextOffset;
-
-        /**
-         * Represents a list of public forwards and reposts of a story.
-         */
-        public StoryPublicForwards() {
-        }
-
-        /**
-         * Represents a list of public forwards and reposts of a story.
-         *
-         * @param totalCount Approximate total number of messages and stories found.
-         * @param forwards List of found public forwards and reposts.
-         * @param nextOffset The offset for the next request. If empty, then there are no more results.
-         */
-        public StoryPublicForwards(int totalCount, StoryPublicForward[] forwards, String nextOffset) {
-            this.totalCount = totalCount;
-            this.forwards = forwards;
-            this.nextOffset = nextOffset;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -749207856;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Contains information about original story that was reposted.
      */
     public static class StoryRepostInfo extends Object {
@@ -51158,118 +52036,6 @@ public class TdApi {
     }
 
     /**
-     * Represents a viewer of a story.
-     */
-    public static class StoryViewer extends Object {
-        /**
-         * User identifier of the viewer.
-         */
-        public long userId;
-        /**
-         * Approximate point in time (Unix timestamp) when the story was viewed.
-         */
-        public int viewDate;
-        /**
-         * Block list to which the user is added; may be null if none.
-         */
-        @Nullable public BlockList blockList;
-        /**
-         * Type of the reaction that was chosen by the user; may be null if none.
-         */
-        @Nullable public ReactionType chosenReactionType;
-
-        /**
-         * Represents a viewer of a story.
-         */
-        public StoryViewer() {
-        }
-
-        /**
-         * Represents a viewer of a story.
-         *
-         * @param userId User identifier of the viewer.
-         * @param viewDate Approximate point in time (Unix timestamp) when the story was viewed.
-         * @param blockList Block list to which the user is added; may be null if none.
-         * @param chosenReactionType Type of the reaction that was chosen by the user; may be null if none.
-         */
-        public StoryViewer(long userId, int viewDate, BlockList blockList, ReactionType chosenReactionType) {
-            this.userId = userId;
-            this.viewDate = viewDate;
-            this.blockList = blockList;
-            this.chosenReactionType = chosenReactionType;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -821055182;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Represents a list of story viewers.
-     */
-    public static class StoryViewers extends Object {
-        /**
-         * Approximate total number of story viewers found.
-         */
-        public int totalCount;
-        /**
-         * Approximate total number of reactions set by found story viewers.
-         */
-        public int totalReactionCount;
-        /**
-         * List of story viewers.
-         */
-        public StoryViewer[] viewers;
-        /**
-         * The offset for the next request. If empty, then there are no more results.
-         */
-        public String nextOffset;
-
-        /**
-         * Represents a list of story viewers.
-         */
-        public StoryViewers() {
-        }
-
-        /**
-         * Represents a list of story viewers.
-         *
-         * @param totalCount Approximate total number of story viewers found.
-         * @param totalReactionCount Approximate total number of reactions set by found story viewers.
-         * @param viewers List of story viewers.
-         * @param nextOffset The offset for the next request. If empty, then there are no more results.
-         */
-        public StoryViewers(int totalCount, int totalReactionCount, StoryViewer[] viewers, String nextOffset) {
-            this.totalCount = totalCount;
-            this.totalReactionCount = totalReactionCount;
-            this.viewers = viewers;
-            this.nextOffset = nextOffset;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 920230351;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * This class is an abstract base class.
      * Describes an action suggested to the current user.
      */
@@ -51287,7 +52053,8 @@ public class TdApi {
             SuggestedActionSetPassword.CONSTRUCTOR,
             SuggestedActionUpgradePremium.CONSTRUCTOR,
             SuggestedActionRestorePremium.CONSTRUCTOR,
-            SuggestedActionSubscribeToAnnualPremium.CONSTRUCTOR
+            SuggestedActionSubscribeToAnnualPremium.CONSTRUCTOR,
+            SuggestedActionGiftPremiumForChristmas.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -51556,6 +52323,31 @@ public class TdApi {
     }
 
     /**
+     * Suggests the user to gift Telegram Premium to friends for Christmas.
+     */
+    public static class SuggestedActionGiftPremiumForChristmas extends SuggestedAction {
+
+        /**
+         * Suggests the user to gift Telegram Premium to friends for Christmas.
+         */
+        public SuggestedActionGiftPremiumForChristmas() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1816924561;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers.
      */
     public static class Supergroup extends Object {
@@ -51576,9 +52368,13 @@ public class TdApi {
          */
         public ChatMemberStatus status;
         /**
-         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or for public chats in which where sent messages and posted stories from storyPublicForwards, or for public chats in which where sent messages from getMessagePublicForwards response.
+         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or for public chats in which where sent messages and posted stories from publicForwards, or for public chats in which where sent messages from getMessagePublicForwards response.
          */
         public int memberCount;
+        /**
+         * Approximate boost level for the chat.
+         */
+        public int boostLevel;
         /**
          * True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
          */
@@ -51653,7 +52449,8 @@ public class TdApi {
          * @param usernames Usernames of the supergroup or channel; may be null.
          * @param date Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
          * @param status Status of the current user in the supergroup or channel; custom title will always be empty.
-         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or for public chats in which where sent messages and posted stories from storyPublicForwards, or for public chats in which where sent messages from getMessagePublicForwards response.
+         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or for public chats in which where sent messages and posted stories from publicForwards, or for public chats in which where sent messages from getMessagePublicForwards response.
+         * @param boostLevel Approximate boost level for the chat.
          * @param hasLinkedChat True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
          * @param hasLocation True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup.
          * @param signMessages True, if messages sent to the channel need to contain information about the sender. This field is only applicable to channels.
@@ -51670,12 +52467,13 @@ public class TdApi {
          * @param hasActiveStories True, if the channel has non-expired stories available to the current user.
          * @param hasUnreadActiveStories True, if the channel has unread non-expired stories available to the current user.
          */
-        public Supergroup(long id, Usernames usernames, int date, ChatMemberStatus status, int memberCount, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean joinToSendMessages, boolean joinByRequest, boolean isSlowModeEnabled, boolean isChannel, boolean isBroadcastGroup, boolean isForum, boolean isVerified, String restrictionReason, boolean isScam, boolean isFake, boolean hasActiveStories, boolean hasUnreadActiveStories) {
+        public Supergroup(long id, Usernames usernames, int date, ChatMemberStatus status, int memberCount, int boostLevel, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean joinToSendMessages, boolean joinByRequest, boolean isSlowModeEnabled, boolean isChannel, boolean isBroadcastGroup, boolean isForum, boolean isVerified, String restrictionReason, boolean isScam, boolean isFake, boolean hasActiveStories, boolean hasUnreadActiveStories) {
             this.id = id;
             this.usernames = usernames;
             this.date = date;
             this.status = status;
             this.memberCount = memberCount;
+            this.boostLevel = boostLevel;
             this.hasLinkedChat = hasLinkedChat;
             this.hasLocation = hasLocation;
             this.signMessages = signMessages;
@@ -51696,7 +52494,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1959742523;
+        public static final int CONSTRUCTOR = 966869641;
 
         /**
          * @return this.CONSTRUCTOR
@@ -52655,7 +53453,7 @@ public class TdApi {
          */
         public long[] userIds;
         /**
-         * Number of month the Telegram Premium subscription will be active for the users.
+         * Number of months the Telegram Premium subscription will be active for the users.
          */
         public int monthCount;
 
@@ -52672,7 +53470,7 @@ public class TdApi {
          * @param currency ISO 4217 currency code of the payment currency.
          * @param amount Paid amount, in the smallest units of the currency.
          * @param userIds Identifiers of the users which can activate the gift codes.
-         * @param monthCount Number of month the Telegram Premium subscription will be active for the users.
+         * @param monthCount Number of months the Telegram Premium subscription will be active for the users.
          */
         public TelegramPaymentPurposePremiumGiftCodes(long boostedChatId, String currency, long amount, long[] userIds, int monthCount) {
             this.boostedChatId = boostedChatId;
@@ -52717,7 +53515,7 @@ public class TdApi {
          */
         public int winnerCount;
         /**
-         * Number of month the Telegram Premium subscription will be active for the users.
+         * Number of months the Telegram Premium subscription will be active for the users.
          */
         public int monthCount;
 
@@ -52734,7 +53532,7 @@ public class TdApi {
          * @param currency ISO 4217 currency code of the payment currency.
          * @param amount Paid amount, in the smallest units of the currency.
          * @param winnerCount Number of users which will be able to activate the gift codes.
-         * @param monthCount Number of month the Telegram Premium subscription will be active for the users.
+         * @param monthCount Number of months the Telegram Premium subscription will be active for the users.
          */
         public TelegramPaymentPurposePremiumGiveaway(PremiumGiveawayParameters parameters, String currency, long amount, int winnerCount, int monthCount) {
             this.parameters = parameters;
@@ -54848,8 +55646,7 @@ public class TdApi {
             UpdateNewChat.CONSTRUCTOR,
             UpdateChatTitle.CONSTRUCTOR,
             UpdateChatPhoto.CONSTRUCTOR,
-            UpdateChatAccentColor.CONSTRUCTOR,
-            UpdateChatBackgroundCustomEmoji.CONSTRUCTOR,
+            UpdateChatAccentColors.CONSTRUCTOR,
             UpdateChatPermissions.CONSTRUCTOR,
             UpdateChatLastMessage.CONSTRUCTOR,
             UpdateChatPosition.CONSTRUCTOR,
@@ -54858,6 +55655,7 @@ public class TdApi {
             UpdateChatActionBar.CONSTRUCTOR,
             UpdateChatAvailableReactions.CONSTRUCTOR,
             UpdateChatDraftMessage.CONSTRUCTOR,
+            UpdateChatEmojiStatus.CONSTRUCTOR,
             UpdateChatMessageSender.CONSTRUCTOR,
             UpdateChatMessageAutoDeleteTime.CONSTRUCTOR,
             UpdateChatNotificationSettings.CONSTRUCTOR,
@@ -54923,7 +55721,7 @@ public class TdApi {
             UpdateFavoriteStickers.CONSTRUCTOR,
             UpdateSavedAnimations.CONSTRUCTOR,
             UpdateSavedNotificationSounds.CONSTRUCTOR,
-            UpdateSelectedBackground.CONSTRUCTOR,
+            UpdateDefaultBackground.CONSTRUCTOR,
             UpdateChatThemes.CONSTRUCTOR,
             UpdateAccentColors.CONSTRUCTOR,
             UpdateProfileAccentColors.CONSTRUCTOR,
@@ -54955,7 +55753,9 @@ public class TdApi {
             UpdatePollAnswer.CONSTRUCTOR,
             UpdateChatMember.CONSTRUCTOR,
             UpdateNewChatJoinRequest.CONSTRUCTOR,
-            UpdateChatBoost.CONSTRUCTOR
+            UpdateChatBoost.CONSTRUCTOR,
+            UpdateMessageReaction.CONSTRUCTOR,
+            UpdateMessageReactions.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -55713,9 +56513,9 @@ public class TdApi {
     }
 
     /**
-     * A chat accent color has changed.
+     * Chat accent colors have changed.
      */
-    public static class UpdateChatAccentColor extends Update {
+    public static class UpdateChatAccentColors extends Update {
         /**
          * Chat identifier.
          */
@@ -55724,72 +56524,46 @@ public class TdApi {
          * The new chat accent color identifier.
          */
         public int accentColorId;
+        /**
+         * The new identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none.
+         */
+        public long backgroundCustomEmojiId;
+        /**
+         * The new chat profile accent color identifier; -1 if none.
+         */
+        public int profileAccentColorId;
+        /**
+         * The new identifier of a custom emoji to be shown on the profile background; 0 if none.
+         */
+        public long profileBackgroundCustomEmojiId;
 
         /**
-         * A chat accent color has changed.
+         * Chat accent colors have changed.
          */
-        public UpdateChatAccentColor() {
+        public UpdateChatAccentColors() {
         }
 
         /**
-         * A chat accent color has changed.
+         * Chat accent colors have changed.
          *
          * @param chatId Chat identifier.
          * @param accentColorId The new chat accent color identifier.
+         * @param backgroundCustomEmojiId The new identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none.
+         * @param profileAccentColorId The new chat profile accent color identifier; -1 if none.
+         * @param profileBackgroundCustomEmojiId The new identifier of a custom emoji to be shown on the profile background; 0 if none.
          */
-        public UpdateChatAccentColor(long chatId, int accentColorId) {
+        public UpdateChatAccentColors(long chatId, int accentColorId, long backgroundCustomEmojiId, int profileAccentColorId, long profileBackgroundCustomEmojiId) {
             this.chatId = chatId;
             this.accentColorId = accentColorId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -65989068;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * A chat's custom emoji for reply background has changed.
-     */
-    public static class UpdateChatBackgroundCustomEmoji extends Update {
-        /**
-         * Chat identifier.
-         */
-        public long chatId;
-        /**
-         * The new identifier of a custom emoji to be shown on the reply header background; 0 if none.
-         */
-        public long backgroundCustomEmojiId;
-
-        /**
-         * A chat's custom emoji for reply background has changed.
-         */
-        public UpdateChatBackgroundCustomEmoji() {
-        }
-
-        /**
-         * A chat's custom emoji for reply background has changed.
-         *
-         * @param chatId Chat identifier.
-         * @param backgroundCustomEmojiId The new identifier of a custom emoji to be shown on the reply header background; 0 if none.
-         */
-        public UpdateChatBackgroundCustomEmoji(long chatId, long backgroundCustomEmojiId) {
-            this.chatId = chatId;
             this.backgroundCustomEmojiId = backgroundCustomEmojiId;
+            this.profileAccentColorId = profileAccentColorId;
+            this.profileBackgroundCustomEmojiId = profileBackgroundCustomEmojiId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -591734406;
+        public static final int CONSTRUCTOR = -1212614407;
 
         /**
          * @return this.CONSTRUCTOR
@@ -56160,6 +56934,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1455190380;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Chat emoji status has changed.
+     */
+    public static class UpdateChatEmojiStatus extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The new chat emoji status; may be null.
+         */
+        @Nullable public EmojiStatus emojiStatus;
+
+        /**
+         * Chat emoji status has changed.
+         */
+        public UpdateChatEmojiStatus() {
+        }
+
+        /**
+         * Chat emoji status has changed.
+         *
+         * @param chatId Chat identifier.
+         * @param emojiStatus The new chat emoji status; may be null.
+         */
+        public UpdateChatEmojiStatus(long chatId, EmojiStatus emojiStatus) {
+            this.chatId = chatId;
+            this.emojiStatus = emojiStatus;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2004444432;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59067,31 +59885,31 @@ public class TdApi {
     }
 
     /**
-     * The selected background has changed.
+     * The default background has changed.
      */
-    public static class UpdateSelectedBackground extends Update {
+    public static class UpdateDefaultBackground extends Update {
         /**
-         * True, if background for dark theme has changed.
+         * True, if default background for dark theme has changed.
          */
         public boolean forDarkTheme;
         /**
-         * The new selected background; may be null.
+         * The new default background; may be null.
          */
         @Nullable public Background background;
 
         /**
-         * The selected background has changed.
+         * The default background has changed.
          */
-        public UpdateSelectedBackground() {
+        public UpdateDefaultBackground() {
         }
 
         /**
-         * The selected background has changed.
+         * The default background has changed.
          *
-         * @param forDarkTheme True, if background for dark theme has changed.
-         * @param background The new selected background; may be null.
+         * @param forDarkTheme True, if default background for dark theme has changed.
+         * @param background The new default background; may be null.
          */
-        public UpdateSelectedBackground(boolean forDarkTheme, Background background) {
+        public UpdateDefaultBackground(boolean forDarkTheme, Background background) {
             this.forDarkTheme = forDarkTheme;
             this.background = background;
         }
@@ -59099,7 +59917,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1715658659;
+        public static final int CONSTRUCTOR = -716139217;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59201,7 +60019,7 @@ public class TdApi {
          */
         public ProfileAccentColor[] colors;
         /**
-         * The list of accent color identifiers, which can be set through setProfileAccentColor. The colors must be shown in the specififed order.
+         * The list of accent color identifiers, which can be set through setProfileAccentColor and setChatProfileAccentColor. The colors must be shown in the specififed order.
          */
         public int[] availableAccentColorIds;
 
@@ -59215,7 +60033,7 @@ public class TdApi {
          * The list of supported accent colors for user profiles has changed.
          *
          * @param colors Information about supported colors.
-         * @param availableAccentColorIds The list of accent color identifiers, which can be set through setProfileAccentColor. The colors must be shown in the specififed order.
+         * @param availableAccentColorIds The list of accent color identifiers, which can be set through setProfileAccentColor and setChatProfileAccentColor. The colors must be shown in the specififed order.
          */
         public UpdateProfileAccentColors(ProfileAccentColor[] colors, int[] availableAccentColorIds) {
             this.colors = colors;
@@ -60657,6 +61475,130 @@ public class TdApi {
     }
 
     /**
+     * User changed its reactions on a message with public reactions; for bots only.
+     */
+    public static class UpdateMessageReaction extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * Message identifier.
+         */
+        public long messageId;
+        /**
+         * Identifier of the user or chat that changed reactions.
+         */
+        public MessageSender actorId;
+        /**
+         * Point in time (Unix timestamp) when the reactions were changed.
+         */
+        public int date;
+        /**
+         * Old list of chosen reactions.
+         */
+        public ReactionType[] oldReactionTypes;
+        /**
+         * New list of chosen reactions.
+         */
+        public ReactionType[] newReactionTypes;
+
+        /**
+         * User changed its reactions on a message with public reactions; for bots only.
+         */
+        public UpdateMessageReaction() {
+        }
+
+        /**
+         * User changed its reactions on a message with public reactions; for bots only.
+         *
+         * @param chatId Chat identifier.
+         * @param messageId Message identifier.
+         * @param actorId Identifier of the user or chat that changed reactions.
+         * @param date Point in time (Unix timestamp) when the reactions were changed.
+         * @param oldReactionTypes Old list of chosen reactions.
+         * @param newReactionTypes New list of chosen reactions.
+         */
+        public UpdateMessageReaction(long chatId, long messageId, MessageSender actorId, int date, ReactionType[] oldReactionTypes, ReactionType[] newReactionTypes) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.actorId = actorId;
+            this.date = date;
+            this.oldReactionTypes = oldReactionTypes;
+            this.newReactionTypes = newReactionTypes;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1084895706;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Reactions added to a message with anonymous reactions have changed; for bots only.
+     */
+    public static class UpdateMessageReactions extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * Message identifier.
+         */
+        public long messageId;
+        /**
+         * Point in time (Unix timestamp) when the reactions were changed.
+         */
+        public int date;
+        /**
+         * The list of reactions added to the message.
+         */
+        public MessageReaction[] reactions;
+
+        /**
+         * Reactions added to a message with anonymous reactions have changed; for bots only.
+         */
+        public UpdateMessageReactions() {
+        }
+
+        /**
+         * Reactions added to a message with anonymous reactions have changed; for bots only.
+         *
+         * @param chatId Chat identifier.
+         * @param messageId Message identifier.
+         * @param date Point in time (Unix timestamp) when the reactions were changed.
+         * @param reactions The list of reactions added to the message.
+         */
+        public UpdateMessageReactions(long chatId, long messageId, int date, MessageReaction[] reactions) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.date = date;
+            this.reactions = reactions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 955237189;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains a list of updates.
      */
     public static class Updates extends Object {
@@ -60731,7 +61673,7 @@ public class TdApi {
          */
         public int accentColorId;
         /**
-         * Identifier of a custom emoji to be shown on the reply header background; 0 if none. For Telegram Premium users only.
+         * Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none. For Telegram Premium users only.
          */
         public long backgroundCustomEmojiId;
         /**
@@ -60824,7 +61766,7 @@ public class TdApi {
          * @param status Current online status of the user.
          * @param profilePhoto Profile photo of the user; may be null.
          * @param accentColorId Identifier of the accent color for name, and backgrounds of profile photo, reply header, and link preview. For Telegram Premium users only.
-         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header background; 0 if none. For Telegram Premium users only.
+         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none. For Telegram Premium users only.
          * @param profileAccentColorId Identifier of the accent color for the user's profile; -1 if none. For Telegram Premium users only.
          * @param profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown on the background of the user's profile; 0 if none. For Telegram Premium users only.
          * @param emojiStatus Emoji status to be shown instead of the default Telegram Premium badge; may be null. For Telegram Premium users only.
@@ -63188,50 +64130,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1009023855;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Adds server-provided application changelog as messages to the chat 777000 (Telegram) or as a stories; for official applications only. Returns a 404 error if nothing changed.
-     *
-     * <p> Returns {@link Ok Ok} </p>
-     */
-    public static class AddApplicationChangelog extends Function<Ok> {
-        /**
-         * The previous application version.
-         */
-        public String previousApplicationVersion;
-
-        /**
-         * Default constructor for a function, which adds server-provided application changelog as messages to the chat 777000 (Telegram) or as a stories; for official applications only. Returns a 404 error if nothing changed.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         */
-        public AddApplicationChangelog() {
-        }
-
-        /**
-         * Creates a function, which adds server-provided application changelog as messages to the chat 777000 (Telegram) or as a stories; for official applications only. Returns a 404 error if nothing changed.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         *
-         * @param previousApplicationVersion The previous application version.
-         */
-        public AddApplicationChangelog(String previousApplicationVersion) {
-            this.previousApplicationVersion = previousApplicationVersion;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1946976311;
 
         /**
          * @return this.CONSTRUCTOR
@@ -66279,14 +67177,14 @@ public class TdApi {
     }
 
     /**
-     * Clears the list of recently used emoji statuses.
+     * Clears the list of recently used emoji statuses for self status.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class ClearRecentEmojiStatuses extends Function<Ok> {
 
         /**
-         * Default constructor for a function, which clears the list of recently used emoji statuses.
+         * Default constructor for a function, which clears the list of recently used emoji statuses for self status.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -68329,6 +69227,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1002732586;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Deletes default background for chats.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteDefaultBackground extends Function<Ok> {
+        /**
+         * Pass true if the background is deleted for a dark theme.
+         */
+        public boolean forDarkTheme;
+
+        /**
+         * Default constructor for a function, which deletes default background for chats.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteDefaultBackground() {
+        }
+
+        /**
+         * Creates a function, which deletes default background for chats.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param forDarkTheme Pass true if the background is deleted for a dark theme.
+         */
+        public DeleteDefaultBackground(boolean forDarkTheme) {
+            this.forDarkTheme = forDarkTheme;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1297814210;
 
         /**
          * @return this.CONSTRUCTOR
@@ -71127,7 +72069,7 @@ public class TdApi {
          */
         public String name;
         /**
-         * Background type.
+         * Background type; backgroundTypeChatTheme isn't supported.
          */
         public BackgroundType type;
 
@@ -71145,7 +72087,7 @@ public class TdApi {
          * <p> Returns {@link HttpUrl HttpUrl} </p>
          *
          * @param name Background name.
-         * @param type Background type.
+         * @param type Background type; backgroundTypeChatTheme isn't supported.
          */
         public GetBackgroundUrl(String name, BackgroundType type) {
             this.name = name;
@@ -71156,50 +72098,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 733769682;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns backgrounds installed by the user.
-     *
-     * <p> Returns {@link Backgrounds Backgrounds} </p>
-     */
-    public static class GetBackgrounds extends Function<Backgrounds> {
-        /**
-         * Pass true to order returned backgrounds for a dark theme.
-         */
-        public boolean forDarkTheme;
-
-        /**
-         * Default constructor for a function, which returns backgrounds installed by the user.
-         *
-         * <p> Returns {@link Backgrounds Backgrounds} </p>
-         */
-        public GetBackgrounds() {
-        }
-
-        /**
-         * Creates a function, which returns backgrounds installed by the user.
-         *
-         * <p> Returns {@link Backgrounds Backgrounds} </p>
-         *
-         * @param forDarkTheme Pass true to order returned backgrounds for a dark theme.
-         */
-        public GetBackgrounds(boolean forDarkTheme) {
-            this.forDarkTheme = forDarkTheme;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 249072633;
 
         /**
          * @return this.CONSTRUCTOR
@@ -71882,6 +72780,79 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1158670635;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns list of features available on the first 10 chat boost levels; this is an offline request.
+     *
+     * <p> Returns {@link ChatBoostFeatures ChatBoostFeatures} </p>
+     */
+    public static class GetChatBoostFeatures extends Function<ChatBoostFeatures> {
+
+        /**
+         * Default constructor for a function, which returns list of features available on the first 10 chat boost levels; this is an offline request.
+         *
+         * <p> Returns {@link ChatBoostFeatures ChatBoostFeatures} </p>
+         */
+        public GetChatBoostFeatures() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 887580706;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns list of features available on the specific chat boost level; this is an offline request.
+     *
+     * <p> Returns {@link ChatBoostLevelFeatures ChatBoostLevelFeatures} </p>
+     */
+    public static class GetChatBoostLevelFeatures extends Function<ChatBoostLevelFeatures> {
+        /**
+         * Chat boost level.
+         */
+        public int level;
+
+        /**
+         * Default constructor for a function, which returns list of features available on the specific chat boost level; this is an offline request.
+         *
+         * <p> Returns {@link ChatBoostLevelFeatures ChatBoostLevelFeatures} </p>
+         */
+        public GetChatBoostLevelFeatures() {
+        }
+
+        /**
+         * Creates a function, which returns list of features available on the specific chat boost level; this is an offline request.
+         *
+         * <p> Returns {@link ChatBoostLevelFeatures ChatBoostLevelFeatures} </p>
+         *
+         * @param level Chat boost level.
+         */
+        public GetChatBoostLevelFeatures(int level) {
+            this.level = level;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1911643643;
 
         /**
          * @return this.CONSTRUCTOR
@@ -73553,6 +74524,80 @@ public class TdApi {
     }
 
     /**
+     * Returns interactions with a story posted in a chat. Can be used only if story is posted on behalf of a chat and the user is an administrator in the chat.
+     *
+     * <p> Returns {@link StoryInteractions StoryInteractions} </p>
+     */
+    public static class GetChatStoryInteractions extends Function<StoryInteractions> {
+        /**
+         * The identifier of the sender of the story.
+         */
+        public long storySenderChatId;
+        /**
+         * Story identifier.
+         */
+        public int storyId;
+        /**
+         * Pass the default heart reaction or a suggested reaction type to receive only interactions with the specified reaction type; pass null to receive all interactions.
+         */
+        public ReactionType reactionType;
+        /**
+         * Pass true to get forwards and reposts first, then reactions, then other views; pass false to get interactions sorted just by interaction date.
+         */
+        public boolean preferForwards;
+        /**
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of story interactions to return.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns interactions with a story posted in a chat. Can be used only if story is posted on behalf of a chat and the user is an administrator in the chat.
+         *
+         * <p> Returns {@link StoryInteractions StoryInteractions} </p>
+         */
+        public GetChatStoryInteractions() {
+        }
+
+        /**
+         * Creates a function, which returns interactions with a story posted in a chat. Can be used only if story is posted on behalf of a chat and the user is an administrator in the chat.
+         *
+         * <p> Returns {@link StoryInteractions StoryInteractions} </p>
+         *
+         * @param storySenderChatId The identifier of the sender of the story.
+         * @param storyId Story identifier.
+         * @param reactionType Pass the default heart reaction or a suggested reaction type to receive only interactions with the specified reaction type; pass null to receive all interactions.
+         * @param preferForwards Pass true to get forwards and reposts first, then reactions, then other views; pass false to get interactions sorted just by interaction date.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of story interactions to return.
+         */
+        public GetChatStoryInteractions(long storySenderChatId, int storyId, ReactionType reactionType, boolean preferForwards, String offset, int limit) {
+            this.storySenderChatId = storySenderChatId;
+            this.storyId = storyId;
+            this.reactionType = reactionType;
+            this.preferForwards = preferForwards;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -974359690;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns an ordered list of chats from the beginning of a chat list. For informational purposes only. Use loadChats and updates processing instead to maintain chat lists in a consistent state.
      *
      * <p> Returns {@link Chats Chats} </p>
@@ -74119,6 +75164,35 @@ public class TdApi {
     }
 
     /**
+     * Returns default emoji statuses for chats.
+     *
+     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     */
+    public static class GetDefaultChatEmojiStatuses extends Function<EmojiStatuses> {
+
+        /**
+         * Default constructor for a function, which returns default emoji statuses for chats.
+         *
+         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         */
+        public GetDefaultChatEmojiStatuses() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1481996570;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns default list of custom emoji stickers for placing on a chat photo.
      *
      * <p> Returns {@link Stickers Stickers} </p>
@@ -74148,14 +75222,14 @@ public class TdApi {
     }
 
     /**
-     * Returns default emoji statuses.
+     * Returns default emoji statuses for self status.
      *
      * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
      */
     public static class GetDefaultEmojiStatuses extends Function<EmojiStatuses> {
 
         /**
-         * Default constructor for a function, which returns default emoji statuses.
+         * Default constructor for a function, which returns default emoji statuses for self status.
          *
          * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
          */
@@ -74224,6 +75298,35 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1280041655;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the list of emoji statuses, which can't be used as chat emoji status, even they are from a sticker set with isAllowedAsChatEmojiStatus == true.
+     *
+     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     */
+    public static class GetDisallowedChatEmojiStatuses extends Function<EmojiStatuses> {
+
+        /**
+         * Default constructor for a function, which returns the list of emoji statuses, which can't be used as chat emoji status, even they are from a sticker set with isAllowedAsChatEmojiStatus == true.
+         *
+         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         */
+        public GetDisallowedChatEmojiStatuses() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -770421344;
 
         /**
          * @return this.CONSTRUCTOR
@@ -75358,6 +76461,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 2044524652;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns backgrounds installed by the user.
+     *
+     * <p> Returns {@link Backgrounds Backgrounds} </p>
+     */
+    public static class GetInstalledBackgrounds extends Function<Backgrounds> {
+        /**
+         * Pass true to order returned backgrounds for a dark theme.
+         */
+        public boolean forDarkTheme;
+
+        /**
+         * Default constructor for a function, which returns backgrounds installed by the user.
+         *
+         * <p> Returns {@link Backgrounds Backgrounds} </p>
+         */
+        public GetInstalledBackgrounds() {
+        }
+
+        /**
+         * Creates a function, which returns backgrounds installed by the user.
+         *
+         * <p> Returns {@link Backgrounds Backgrounds} </p>
+         *
+         * @param forDarkTheme Pass true to order returned backgrounds for a dark theme.
+         */
+        public GetInstalledBackgrounds(boolean forDarkTheme) {
+            this.forDarkTheme = forDarkTheme;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1051406241;
 
         /**
          * @return this.CONSTRUCTOR
@@ -76715,11 +77862,11 @@ public class TdApi {
     }
 
     /**
-     * Returns forwarded copies of a channel message to different public channels. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages is chosen by TDLib.
+     * Returns forwarded copies of a channel message to different public channels and public reposts as a story. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages and stories is chosen by TDLib.
      *
-     * <p> Returns {@link FoundMessages FoundMessages} </p>
+     * <p> Returns {@link PublicForwards PublicForwards} </p>
      */
-    public static class GetMessagePublicForwards extends Function<FoundMessages> {
+    public static class GetMessagePublicForwards extends Function<PublicForwards> {
         /**
          * Chat identifier of the message.
          */
@@ -76733,27 +77880,27 @@ public class TdApi {
          */
         public String offset;
         /**
-         * The maximum number of messages to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * The maximum number of messages and stories to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
 
         /**
-         * Default constructor for a function, which returns forwarded copies of a channel message to different public channels. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages is chosen by TDLib.
+         * Default constructor for a function, which returns forwarded copies of a channel message to different public channels and public reposts as a story. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages and stories is chosen by TDLib.
          *
-         * <p> Returns {@link FoundMessages FoundMessages} </p>
+         * <p> Returns {@link PublicForwards PublicForwards} </p>
          */
         public GetMessagePublicForwards() {
         }
 
         /**
-         * Creates a function, which returns forwarded copies of a channel message to different public channels. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages is chosen by TDLib.
+         * Creates a function, which returns forwarded copies of a channel message to different public channels and public reposts as a story. Can be used only if message.canGetStatistics == true. For optimal performance, the number of returned messages and stories is chosen by TDLib.
          *
-         * <p> Returns {@link FoundMessages FoundMessages} </p>
+         * <p> Returns {@link PublicForwards PublicForwards} </p>
          *
          * @param chatId Chat identifier of the message.
          * @param messageId Message identifier.
          * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
-         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * @param limit The maximum number of messages and stories to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
          */
         public GetMessagePublicForwards(long chatId, long messageId, String offset, int limit) {
             this.chatId = chatId;
@@ -76765,7 +77912,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1611049289;
+        public static final int CONSTRUCTOR = 1369285812;
 
         /**
          * @return this.CONSTRUCTOR
@@ -77734,7 +78881,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Identifier of the giveaway message in the chat.
+         * Identifier of the giveaway or a giveaway winners message in the chat.
          */
         public long messageId;
 
@@ -77752,7 +78899,7 @@ public class TdApi {
          * <p> Returns {@link PremiumGiveawayInfo PremiumGiveawayInfo} </p>
          *
          * @param chatId Identifier of the channel chat which started the giveaway.
-         * @param messageId Identifier of the giveaway message in the chat.
+         * @param messageId Identifier of the giveaway or a giveaway winners message in the chat.
          */
         public GetPremiumGiveawayInfo(long chatId, long messageId) {
             this.chatId = chatId;
@@ -78037,14 +79184,14 @@ public class TdApi {
     }
 
     /**
-     * Returns recent emoji statuses.
+     * Returns recent emoji statuses for self status.
      *
      * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
      */
     public static class GetRecentEmojiStatuses extends Function<EmojiStatuses> {
 
         /**
-         * Default constructor for a function, which returns recent emoji statuses.
+         * Default constructor for a function, which returns recent emoji statuses for self status.
          *
          * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
          */
@@ -78998,6 +80145,86 @@ public class TdApi {
     }
 
     /**
+     * Returns interactions with a story. The method can be called only for stories posted on behalf of the current user.
+     *
+     * <p> Returns {@link StoryInteractions StoryInteractions} </p>
+     */
+    public static class GetStoryInteractions extends Function<StoryInteractions> {
+        /**
+         * Story identifier.
+         */
+        public int storyId;
+        /**
+         * Query to search for in names, usernames and titles; may be empty to get all relevant interactions.
+         */
+        public String query;
+        /**
+         * Pass true to get only interactions by contacts; pass false to get all relevant interactions.
+         */
+        public boolean onlyContacts;
+        /**
+         * Pass true to get forwards and reposts first, then reactions, then other views; pass false to get interactions sorted just by interaction date.
+         */
+        public boolean preferForwards;
+        /**
+         * Pass true to get interactions with reaction first; pass false to get interactions sorted just by interaction date. Ignored if preferForwards == true.
+         */
+        public boolean preferWithReaction;
+        /**
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of story interactions to return.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns interactions with a story. The method can be called only for stories posted on behalf of the current user.
+         *
+         * <p> Returns {@link StoryInteractions StoryInteractions} </p>
+         */
+        public GetStoryInteractions() {
+        }
+
+        /**
+         * Creates a function, which returns interactions with a story. The method can be called only for stories posted on behalf of the current user.
+         *
+         * <p> Returns {@link StoryInteractions StoryInteractions} </p>
+         *
+         * @param storyId Story identifier.
+         * @param query Query to search for in names, usernames and titles; may be empty to get all relevant interactions.
+         * @param onlyContacts Pass true to get only interactions by contacts; pass false to get all relevant interactions.
+         * @param preferForwards Pass true to get forwards and reposts first, then reactions, then other views; pass false to get interactions sorted just by interaction date.
+         * @param preferWithReaction Pass true to get interactions with reaction first; pass false to get interactions sorted just by interaction date. Ignored if preferForwards == true.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of story interactions to return.
+         */
+        public GetStoryInteractions(int storyId, String query, boolean onlyContacts, boolean preferForwards, boolean preferWithReaction, String offset, int limit) {
+            this.storyId = storyId;
+            this.query = query;
+            this.onlyContacts = onlyContacts;
+            this.preferForwards = preferForwards;
+            this.preferWithReaction = preferWithReaction;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 483475469;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns list of chats with non-default notification settings for stories.
      *
      * <p> Returns {@link Chats Chats} </p>
@@ -79029,9 +80256,9 @@ public class TdApi {
     /**
      * Returns forwards of a story as a message to public chats and reposts by public channels. Can be used only if the story is posted on behalf of the current user or story.canGetStatistics == true. For optimal performance, the number of returned messages and stories is chosen by TDLib.
      *
-     * <p> Returns {@link StoryPublicForwards StoryPublicForwards} </p>
+     * <p> Returns {@link PublicForwards PublicForwards} </p>
      */
-    public static class GetStoryPublicForwards extends Function<StoryPublicForwards> {
+    public static class GetStoryPublicForwards extends Function<PublicForwards> {
         /**
          * The identifier of the sender of the story.
          */
@@ -79052,7 +80279,7 @@ public class TdApi {
         /**
          * Default constructor for a function, which returns forwards of a story as a message to public chats and reposts by public channels. Can be used only if the story is posted on behalf of the current user or story.canGetStatistics == true. For optimal performance, the number of returned messages and stories is chosen by TDLib.
          *
-         * <p> Returns {@link StoryPublicForwards StoryPublicForwards} </p>
+         * <p> Returns {@link PublicForwards PublicForwards} </p>
          */
         public GetStoryPublicForwards() {
         }
@@ -79060,7 +80287,7 @@ public class TdApi {
         /**
          * Creates a function, which returns forwards of a story as a message to public chats and reposts by public channels. Can be used only if the story is posted on behalf of the current user or story.canGetStatistics == true. For optimal performance, the number of returned messages and stories is chosen by TDLib.
          *
-         * <p> Returns {@link StoryPublicForwards StoryPublicForwards} </p>
+         * <p> Returns {@link PublicForwards PublicForwards} </p>
          *
          * @param storySenderChatId The identifier of the sender of the story.
          * @param storyId The identifier of the story.
@@ -79077,7 +80304,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1954325527;
+        public static final int CONSTRUCTOR = 1761074363;
 
         /**
          * @return this.CONSTRUCTOR
@@ -79134,80 +80361,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 982926146;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns viewers of a story. The method can be called only for stories posted on behalf of the current user.
-     *
-     * <p> Returns {@link StoryViewers StoryViewers} </p>
-     */
-    public static class GetStoryViewers extends Function<StoryViewers> {
-        /**
-         * Story identifier.
-         */
-        public int storyId;
-        /**
-         * Query to search for in names and usernames of the viewers; may be empty to get all relevant viewers.
-         */
-        public String query;
-        /**
-         * Pass true to get only contacts; pass false to get all relevant viewers.
-         */
-        public boolean onlyContacts;
-        /**
-         * Pass true to get viewers with reaction first; pass false to get viewers sorted just by viewDate.
-         */
-        public boolean preferWithReaction;
-        /**
-         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
-         */
-        public String offset;
-        /**
-         * The maximum number of story viewers to return.
-         */
-        public int limit;
-
-        /**
-         * Default constructor for a function, which returns viewers of a story. The method can be called only for stories posted on behalf of the current user.
-         *
-         * <p> Returns {@link StoryViewers StoryViewers} </p>
-         */
-        public GetStoryViewers() {
-        }
-
-        /**
-         * Creates a function, which returns viewers of a story. The method can be called only for stories posted on behalf of the current user.
-         *
-         * <p> Returns {@link StoryViewers StoryViewers} </p>
-         *
-         * @param storyId Story identifier.
-         * @param query Query to search for in names and usernames of the viewers; may be empty to get all relevant viewers.
-         * @param onlyContacts Pass true to get only contacts; pass false to get all relevant viewers.
-         * @param preferWithReaction Pass true to get viewers with reaction first; pass false to get viewers sorted just by viewDate.
-         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
-         * @param limit The maximum number of story viewers to return.
-         */
-        public GetStoryViewers(int storyId, String query, boolean onlyContacts, boolean preferWithReaction, String offset, int limit) {
-            this.storyId = storyId;
-            this.query = query;
-            this.onlyContacts = onlyContacts;
-            this.preferWithReaction = preferWithReaction;
-            this.offset = offset;
-            this.limit = limit;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1088392634;
 
         /**
          * @return this.CONSTRUCTOR
@@ -79667,14 +80820,43 @@ public class TdApi {
     }
 
     /**
-     * Returns up to 8 emoji statuses, which must be shown right after the default Premium Badge in the emoji status list.
+     * Returns up to 8 emoji statuses, which must be shown in the emoji status list for chats.
+     *
+     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     */
+    public static class GetThemedChatEmojiStatuses extends Function<EmojiStatuses> {
+
+        /**
+         * Default constructor for a function, which returns up to 8 emoji statuses, which must be shown in the emoji status list for chats.
+         *
+         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         */
+        public GetThemedChatEmojiStatuses() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -76325707;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns up to 8 emoji statuses, which must be shown right after the default Premium Badge in the emoji status list for self status.
      *
      * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
      */
     public static class GetThemedEmojiStatuses extends Function<EmojiStatuses> {
 
         /**
-         * Default constructor for a function, which returns up to 8 emoji statuses, which must be shown right after the default Premium Badge in the emoji status list.
+         * Default constructor for a function, which returns up to 8 emoji statuses, which must be shown right after the default Premium Badge in the emoji status list for self status.
          *
          * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
          */
@@ -81160,6 +82342,56 @@ public class TdApi {
     }
 
     /**
+     * Informs TDLib that a chat was opened from the list of similar chats. The method is independent from openChat and closeChat methods.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class OpenChatSimilarChat extends Function<Ok> {
+        /**
+         * Identifier of the original chat, which similar chats were requested.
+         */
+        public long chatId;
+        /**
+         * Identifier of the opened chat.
+         */
+        public long openedChatId;
+
+        /**
+         * Default constructor for a function, which informs TDLib that a chat was opened from the list of similar chats. The method is independent from openChat and closeChat methods.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public OpenChatSimilarChat() {
+        }
+
+        /**
+         * Creates a function, which informs TDLib that a chat was opened from the list of similar chats. The method is independent from openChat and closeChat methods.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the original chat, which similar chats were requested.
+         * @param openedChatId Identifier of the opened chat.
+         */
+        public OpenChatSimilarChat(long chatId, long openedChatId) {
+            this.chatId = chatId;
+            this.openedChatId = openedChatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1884883949;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Informs TDLib that the message content has been opened (e.g., the user has opened a photo, video, document, location or venue, or has listened to an audio file or voice note message). An updateMessageContentOpened update will be generated if something has changed.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -82556,50 +83788,6 @@ public class TdApi {
     }
 
     /**
-     * Removes background from the list of installed backgrounds.
-     *
-     * <p> Returns {@link Ok Ok} </p>
-     */
-    public static class RemoveBackground extends Function<Ok> {
-        /**
-         * The background identifier.
-         */
-        public long backgroundId;
-
-        /**
-         * Default constructor for a function, which removes background from the list of installed backgrounds.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         */
-        public RemoveBackground() {
-        }
-
-        /**
-         * Creates a function, which removes background from the list of installed backgrounds.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         *
-         * @param backgroundId The background identifier.
-         */
-        public RemoveBackground(long backgroundId) {
-            this.backgroundId = backgroundId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1484545642;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Removes a chat action bar without any other action.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -82771,6 +83959,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1460060142;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Removes background from the list of installed backgrounds.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class RemoveInstalledBackground extends Function<Ok> {
+        /**
+         * The background identifier.
+         */
+        public long backgroundId;
+
+        /**
+         * Default constructor for a function, which removes background from the list of installed backgrounds.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public RemoveInstalledBackground() {
+        }
+
+        /**
+         * Creates a function, which removes background from the list of installed backgrounds.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param backgroundId The background identifier.
+         */
+        public RemoveInstalledBackground(long backgroundId) {
+            this.backgroundId = backgroundId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1346446652;
 
         /**
          * @return this.CONSTRUCTOR
@@ -84399,20 +85631,20 @@ public class TdApi {
      *
      * <p> Returns {@link Ok Ok} </p>
      */
-    public static class ResetBackgrounds extends Function<Ok> {
+    public static class ResetInstalledBackgrounds extends Function<Ok> {
 
         /**
          * Default constructor for a function, which resets list of installed backgrounds to its default value.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
-        public ResetBackgrounds() {
+        public ResetInstalledBackgrounds() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 204852088;
+        public static final int CONSTRUCTOR = 1884553559;
 
         /**
          * @return this.CONSTRUCTOR
@@ -87224,7 +88456,7 @@ public class TdApi {
          */
         public int accentColorId;
         /**
-         * Identifier of a custom emoji to be shown on the reply header background; 0 if none.
+         * Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none.
          */
         public long backgroundCustomEmojiId;
 
@@ -87242,7 +88474,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param accentColorId Identifier of the accent color to use.
-         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header background; 0 if none.
+         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none.
          */
         public SetAccentColor(int accentColorId, long backgroundCustomEmojiId) {
             this.accentColorId = accentColorId;
@@ -87590,62 +88822,6 @@ public class TdApi {
     }
 
     /**
-     * Changes the background selected by the user; adds background to the list of installed backgrounds.
-     *
-     * <p> Returns {@link Background Background} </p>
-     */
-    public static class SetBackground extends Function<Background> {
-        /**
-         * The input background to use; pass null to create a new filled background or to remove the current background.
-         */
-        public InputBackground background;
-        /**
-         * Background type; pass null to use the default type of the remote background or to remove the current background.
-         */
-        public BackgroundType type;
-        /**
-         * Pass true if the background is changed for a dark theme.
-         */
-        public boolean forDarkTheme;
-
-        /**
-         * Default constructor for a function, which changes the background selected by the user; adds background to the list of installed backgrounds.
-         *
-         * <p> Returns {@link Background Background} </p>
-         */
-        public SetBackground() {
-        }
-
-        /**
-         * Creates a function, which changes the background selected by the user; adds background to the list of installed backgrounds.
-         *
-         * <p> Returns {@link Background Background} </p>
-         *
-         * @param background The input background to use; pass null to create a new filled background or to remove the current background.
-         * @param type Background type; pass null to use the default type of the remote background or to remove the current background.
-         * @param forDarkTheme Pass true if the background is changed for a dark theme.
-         */
-        public SetBackground(InputBackground background, BackgroundType type, boolean forDarkTheme) {
-            this.background = background;
-            this.type = type;
-            this.forDarkTheme = forDarkTheme;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1035439225;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Changes the bio of the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -87958,7 +89134,7 @@ public class TdApi {
     }
 
     /**
-     * Changes accent color and background custom emoji of a chat. Supported only for channels with getOption(&quot;channel_custom_accent_color_boost_level_min&quot;) boost level. Requires canChangeInfo administrator right.
+     * Changes accent color and background custom emoji of a chat. Requires canChangeInfo administrator right.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -87968,16 +89144,16 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Identifier of the accent color to use.
+         * Identifier of the accent color to use. The chat must have at least accentColor.minChatBoostLevel boost level to pass the corresponding color.
          */
         public int accentColorId;
         /**
-         * Identifier of a custom emoji to be shown on the reply header background; 0 if none.
+         * Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none. Use chatBoostLevelFeatures.canSetBackgroundCustomEmoji to check whether a custom emoji can be set.
          */
         public long backgroundCustomEmojiId;
 
         /**
-         * Default constructor for a function, which changes accent color and background custom emoji of a chat. Supported only for channels with getOption(&quot;channel_custom_accent_color_boost_level_min&quot;) boost level. Requires canChangeInfo administrator right.
+         * Default constructor for a function, which changes accent color and background custom emoji of a chat. Requires canChangeInfo administrator right.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -87985,13 +89161,13 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes accent color and background custom emoji of a chat. Supported only for channels with getOption(&quot;channel_custom_accent_color_boost_level_min&quot;) boost level. Requires canChangeInfo administrator right.
+         * Creates a function, which changes accent color and background custom emoji of a chat. Requires canChangeInfo administrator right.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Chat identifier.
-         * @param accentColorId Identifier of the accent color to use.
-         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header background; 0 if none.
+         * @param accentColorId Identifier of the accent color to use. The chat must have at least accentColor.minChatBoostLevel boost level to pass the corresponding color.
+         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none. Use chatBoostLevelFeatures.canSetBackgroundCustomEmoji to check whether a custom emoji can be set.
          */
         public SetChatAccentColor(long chatId, int accentColorId, long backgroundCustomEmojiId) {
             this.chatId = chatId;
@@ -88114,7 +89290,7 @@ public class TdApi {
     }
 
     /**
-     * Sets the background in a specific chat. Supported only in private and secret chats with non-deleted users.
+     * Sets the background in a specific chat. Supported only in private and secret chats with non-deleted users, and in chats with sufficient boost level and canChangeInfo administrator right.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -88124,24 +89300,24 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * The input background to use; pass null to create a new filled background.
+         * The input background to use; pass null to create a new filled or chat theme background.
          */
         public InputBackground background;
         /**
-         * Background type; pass null to use default background type for the chosen background.
+         * Background type; pass null to use default background type for the chosen background; backgroundTypeChatTheme isn't supported for private and secret chats. Use chatBoostLevelFeatures.chatThemeBackgroundCount and chatBoostLevelFeatures.canSetCustomBackground to check whether the background type can be set in the boosted chat.
          */
         public BackgroundType type;
         /**
-         * Dimming of the background in dark themes, as a percentage; 0-100.
+         * Dimming of the background in dark themes, as a percentage; 0-100. Applied only to Wallpaper and Fill types of background.
          */
         public int darkThemeDimming;
         /**
-         * Pass true to set background only for self; pass false to set background for both chat users. Background can be set for both users only by Telegram Premium users and if set background isn't of the type inputBackgroundPrevious.
+         * Pass true to set background only for self; pass false to set background for all chat users. Always false for backgrounds set in boosted chats. Background can be set for both users only by Telegram Premium users and if set background isn't of the type inputBackgroundPrevious.
          */
         public boolean onlyForSelf;
 
         /**
-         * Default constructor for a function, which sets the background in a specific chat. Supported only in private and secret chats with non-deleted users.
+         * Default constructor for a function, which sets the background in a specific chat. Supported only in private and secret chats with non-deleted users, and in chats with sufficient boost level and canChangeInfo administrator right.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -88149,15 +89325,15 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sets the background in a specific chat. Supported only in private and secret chats with non-deleted users.
+         * Creates a function, which sets the background in a specific chat. Supported only in private and secret chats with non-deleted users, and in chats with sufficient boost level and canChangeInfo administrator right.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Chat identifier.
-         * @param background The input background to use; pass null to create a new filled background.
-         * @param type Background type; pass null to use default background type for the chosen background.
-         * @param darkThemeDimming Dimming of the background in dark themes, as a percentage; 0-100.
-         * @param onlyForSelf Pass true to set background only for self; pass false to set background for both chat users. Background can be set for both users only by Telegram Premium users and if set background isn't of the type inputBackgroundPrevious.
+         * @param background The input background to use; pass null to create a new filled or chat theme background.
+         * @param type Background type; pass null to use default background type for the chosen background; backgroundTypeChatTheme isn't supported for private and secret chats. Use chatBoostLevelFeatures.chatThemeBackgroundCount and chatBoostLevelFeatures.canSetCustomBackground to check whether the background type can be set in the boosted chat.
+         * @param darkThemeDimming Dimming of the background in dark themes, as a percentage; 0-100. Applied only to Wallpaper and Fill types of background.
+         * @param onlyForSelf Pass true to set background only for self; pass false to set background for all chat users. Always false for backgrounds set in boosted chats. Background can be set for both users only by Telegram Premium users and if set background isn't of the type inputBackgroundPrevious.
          */
         public SetChatBackground(long chatId, InputBackground background, BackgroundType type, int darkThemeDimming, boolean onlyForSelf) {
             this.chatId = chatId;
@@ -88377,6 +89553,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1683889946;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the emoji status of a chat. Use chatBoostLevelFeatures.canSetEmojiStatus to check whether an emoji status can be set. Requires canChangeInfo administrator right.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetChatEmojiStatus extends Function<Ok> {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * New emoji status; pass null to remove emoji status.
+         */
+        public EmojiStatus emojiStatus;
+
+        /**
+         * Default constructor for a function, which changes the emoji status of a chat. Use chatBoostLevelFeatures.canSetEmojiStatus to check whether an emoji status can be set. Requires canChangeInfo administrator right.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetChatEmojiStatus() {
+        }
+
+        /**
+         * Creates a function, which changes the emoji status of a chat. Use chatBoostLevelFeatures.canSetEmojiStatus to check whether an emoji status can be set. Requires canChangeInfo administrator right.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Chat identifier.
+         * @param emojiStatus New emoji status; pass null to remove emoji status.
+         */
+        public SetChatEmojiStatus(long chatId, EmojiStatus emojiStatus) {
+            this.chatId = chatId;
+            this.emojiStatus = emojiStatus;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1434982674;
 
         /**
          * @return this.CONSTRUCTOR
@@ -88733,6 +89959,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -377778941;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes accent color and background custom emoji for profile of a chat. Requires canChangeInfo administrator right.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetChatProfileAccentColor extends Function<Ok> {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * Identifier of the accent color to use for profile; pass -1 if none. The chat must have at least profileAccentColor.minChatBoostLevel boost level to pass the corresponding color.
+         */
+        public int profileAccentColorId;
+        /**
+         * Identifier of a custom emoji to be shown on the chat's profile photo background; 0 if none. Use chatBoostLevelFeatures.canSetProfileBackgroundCustomEmoji to check whether a custom emoji can be set.
+         */
+        public long profileBackgroundCustomEmojiId;
+
+        /**
+         * Default constructor for a function, which changes accent color and background custom emoji for profile of a chat. Requires canChangeInfo administrator right.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetChatProfileAccentColor() {
+        }
+
+        /**
+         * Creates a function, which changes accent color and background custom emoji for profile of a chat. Requires canChangeInfo administrator right.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Chat identifier.
+         * @param profileAccentColorId Identifier of the accent color to use for profile; pass -1 if none. The chat must have at least profileAccentColor.minChatBoostLevel boost level to pass the corresponding color.
+         * @param profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown on the chat's profile photo background; 0 if none. Use chatBoostLevelFeatures.canSetProfileBackgroundCustomEmoji to check whether a custom emoji can be set.
+         */
+        public SetChatProfileAccentColor(long chatId, int profileAccentColorId, long profileBackgroundCustomEmojiId) {
+            this.chatId = chatId;
+            this.profileAccentColorId = profileAccentColorId;
+            this.profileBackgroundCustomEmojiId = profileBackgroundCustomEmojiId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1109896826;
 
         /**
          * @return this.CONSTRUCTOR
@@ -89177,6 +90459,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1204599371;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Sets default background for chats; adds the background to the list of installed backgrounds.
+     *
+     * <p> Returns {@link Background Background} </p>
+     */
+    public static class SetDefaultBackground extends Function<Background> {
+        /**
+         * The input background to use; pass null to create a new filled background.
+         */
+        public InputBackground background;
+        /**
+         * Background type; pass null to use the default type of the remote background; backgroundTypeChatTheme isn't supported.
+         */
+        public BackgroundType type;
+        /**
+         * Pass true if the background is set for a dark theme.
+         */
+        public boolean forDarkTheme;
+
+        /**
+         * Default constructor for a function, which sets default background for chats; adds the background to the list of installed backgrounds.
+         *
+         * <p> Returns {@link Background Background} </p>
+         */
+        public SetDefaultBackground() {
+        }
+
+        /**
+         * Creates a function, which sets default background for chats; adds the background to the list of installed backgrounds.
+         *
+         * <p> Returns {@link Background Background} </p>
+         *
+         * @param background The input background to use; pass null to create a new filled background.
+         * @param type Background type; pass null to use the default type of the remote background; backgroundTypeChatTheme isn't supported.
+         * @param forDarkTheme Pass true if the background is set for a dark theme.
+         */
+        public SetDefaultBackground(InputBackground background, BackgroundType type, boolean forDarkTheme) {
+            this.background = background;
+            this.type = type;
+            this.forDarkTheme = forDarkTheme;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1982748511;
 
         /**
          * @return this.CONSTRUCTOR
@@ -90144,6 +91482,68 @@ public class TdApi {
     }
 
     /**
+     * Sets reactions on a message; for bots only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetMessageReactions extends Function<Ok> {
+        /**
+         * Identifier of the chat to which the message belongs.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message.
+         */
+        public long messageId;
+        /**
+         * Types of the reaction to set.
+         */
+        public ReactionType[] reactionTypes;
+        /**
+         * Pass true if the reactions are added with a big animation.
+         */
+        public boolean isBig;
+
+        /**
+         * Default constructor for a function, which sets reactions on a message; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetMessageReactions() {
+        }
+
+        /**
+         * Creates a function, which sets reactions on a message; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the chat to which the message belongs.
+         * @param messageId Identifier of the message.
+         * @param reactionTypes Types of the reaction to set.
+         * @param isBig Pass true if the reactions are added with a big animation.
+         */
+        public SetMessageReactions(long chatId, long messageId, ReactionType[] reactionTypes, boolean isBig) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.reactionTypes = reactionTypes;
+            this.isBig = isBig;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -372524900;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes the block list of a message sender. Currently, only users and supergroup chats can be blocked.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -90672,7 +92072,7 @@ public class TdApi {
          */
         public int profileAccentColorId;
         /**
-         * Identifier of a custom emoji to be shown in the on the user's profile photo background; 0 if none.
+         * Identifier of a custom emoji to be shown on the user's profile photo background; 0 if none.
          */
         public long profileBackgroundCustomEmojiId;
 
@@ -90690,7 +92090,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param profileAccentColorId Identifier of the accent color to use for profile; pass -1 if none.
-         * @param profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown in the on the user's profile photo background; 0 if none.
+         * @param profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown on the user's profile photo background; 0 if none.
          */
         public SetProfileAccentColor(int profileAccentColorId, long profileBackgroundCustomEmojiId) {
             this.profileAccentColorId = profileAccentColorId;
@@ -91876,11 +93276,11 @@ public class TdApi {
     }
 
     /**
-     * Shares a user after pressing a keyboardButtonTypeRequestUser button with the bot.
+     * Shares users after pressing a keyboardButtonTypeRequestUsers button with the bot.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
-    public static class ShareUserWithBot extends Function<Ok> {
+    public static class ShareUsersWithBot extends Function<Ok> {
         /**
          * Identifier of the chat with the bot.
          */
@@ -91894,45 +93294,45 @@ public class TdApi {
          */
         public int buttonId;
         /**
-         * Identifier of the shared user.
+         * Identifiers of the shared users.
          */
-        public long sharedUserId;
+        public long[] sharedUserIds;
         /**
-         * Pass true to check that the user can be shared by the button instead of actually sharing them.
+         * Pass true to check that the users can be shared by the button instead of actually sharing them.
          */
         public boolean onlyCheck;
 
         /**
-         * Default constructor for a function, which shares a user after pressing a keyboardButtonTypeRequestUser button with the bot.
+         * Default constructor for a function, which shares users after pressing a keyboardButtonTypeRequestUsers button with the bot.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
-        public ShareUserWithBot() {
+        public ShareUsersWithBot() {
         }
 
         /**
-         * Creates a function, which shares a user after pressing a keyboardButtonTypeRequestUser button with the bot.
+         * Creates a function, which shares users after pressing a keyboardButtonTypeRequestUsers button with the bot.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Identifier of the chat with the bot.
          * @param messageId Identifier of the message with the button.
          * @param buttonId Identifier of the button.
-         * @param sharedUserId Identifier of the shared user.
-         * @param onlyCheck Pass true to check that the user can be shared by the button instead of actually sharing them.
+         * @param sharedUserIds Identifiers of the shared users.
+         * @param onlyCheck Pass true to check that the users can be shared by the button instead of actually sharing them.
          */
-        public ShareUserWithBot(long chatId, long messageId, int buttonId, long sharedUserId, boolean onlyCheck) {
+        public ShareUsersWithBot(long chatId, long messageId, int buttonId, long[] sharedUserIds, boolean onlyCheck) {
             this.chatId = chatId;
             this.messageId = messageId;
             this.buttonId = buttonId;
-            this.sharedUserId = sharedUserId;
+            this.sharedUserIds = sharedUserIds;
             this.onlyCheck = onlyCheck;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -248315940;
+        public static final int CONSTRUCTOR = -1574608333;
 
         /**
          * @return this.CONSTRUCTOR
