@@ -114,6 +114,7 @@ public class TdApi {
             CheckPhoneNumberConfirmationCode.CONSTRUCTOR,
             CheckPhoneNumberVerificationCode.CONSTRUCTOR,
             CheckPremiumGiftCode.CONSTRUCTOR,
+            CheckQuickReplyShortcutName.CONSTRUCTOR,
             CheckRecoveryEmailAddressCode.CONSTRUCTOR,
             CheckStickerSetName.CONSTRUCTOR,
             CleanFileName.CONSTRUCTOR,
@@ -153,6 +154,7 @@ public class TdApi {
             DeleteAccount.CONSTRUCTOR,
             DeleteAllCallMessages.CONSTRUCTOR,
             DeleteAllRevokedChatInviteLinks.CONSTRUCTOR,
+            DeleteBusinessConnectedBot.CONSTRUCTOR,
             DeleteChat.CONSTRUCTOR,
             DeleteChatBackground.CONSTRUCTOR,
             DeleteChatFolder.CONSTRUCTOR,
@@ -169,6 +171,8 @@ public class TdApi {
             DeleteMessages.CONSTRUCTOR,
             DeletePassportElement.CONSTRUCTOR,
             DeleteProfilePhoto.CONSTRUCTOR,
+            DeleteQuickReplyShortcut.CONSTRUCTOR,
+            DeleteQuickReplyShortcutMessages.CONSTRUCTOR,
             DeleteRevokedChatInviteLink.CONSTRUCTOR,
             DeleteSavedCredentials.CONSTRUCTOR,
             DeleteSavedMessagesTopicHistory.CONSTRUCTOR,
@@ -231,6 +235,7 @@ public class TdApi {
             GetBotInfoDescription.CONSTRUCTOR,
             GetBotInfoShortDescription.CONSTRUCTOR,
             GetBotName.CONSTRUCTOR,
+            GetBusinessConnectedBot.CONSTRUCTOR,
             GetCallbackQueryAnswer.CONSTRUCTOR,
             GetCallbackQueryMessage.CONSTRUCTOR,
             GetChat.CONSTRUCTOR,
@@ -424,6 +429,7 @@ public class TdApi {
             GetThemeParametersJsonString.CONSTRUCTOR,
             GetThemedChatEmojiStatuses.CONSTRUCTOR,
             GetThemedEmojiStatuses.CONSTRUCTOR,
+            GetTimeZones.CONSTRUCTOR,
             GetTopChats.CONSTRUCTOR,
             GetTrendingStickerSets.CONSTRUCTOR,
             GetUser.CONSTRUCTOR,
@@ -452,6 +458,8 @@ public class TdApi {
             LoadActiveStories.CONSTRUCTOR,
             LoadChats.CONSTRUCTOR,
             LoadGroupCallParticipants.CONSTRUCTOR,
+            LoadQuickReplyShortcutMessages.CONSTRUCTOR,
+            LoadQuickReplyShortcuts.CONSTRUCTOR,
             LoadSavedMessagesTopics.CONSTRUCTOR,
             LogOut.CONSTRUCTOR,
             OpenChat.CONSTRUCTOR,
@@ -502,6 +510,7 @@ public class TdApi {
             ReorderBotActiveUsernames.CONSTRUCTOR,
             ReorderChatFolders.CONSTRUCTOR,
             ReorderInstalledStickerSets.CONSTRUCTOR,
+            ReorderQuickReplyShortcuts.CONSTRUCTOR,
             ReorderSupergroupActiveUsernames.CONSTRUCTOR,
             ReplacePrimaryChatInviteLink.CONSTRUCTOR,
             ReplaceVideoChatRtmpUrl.CONSTRUCTOR,
@@ -574,6 +583,7 @@ public class TdApi {
             SendPaymentForm.CONSTRUCTOR,
             SendPhoneNumberConfirmationCode.CONSTRUCTOR,
             SendPhoneNumberVerificationCode.CONSTRUCTOR,
+            SendQuickReplyShortcutMessages.CONSTRUCTOR,
             SendStory.CONSTRUCTOR,
             SendWebAppCustomRequest.CONSTRUCTOR,
             SendWebAppData.CONSTRUCTOR,
@@ -591,6 +601,11 @@ public class TdApi {
             SetBotName.CONSTRUCTOR,
             SetBotProfilePhoto.CONSTRUCTOR,
             SetBotUpdatesStatus.CONSTRUCTOR,
+            SetBusinessAwayMessageSettings.CONSTRUCTOR,
+            SetBusinessConnectedBot.CONSTRUCTOR,
+            SetBusinessGreetingMessageSettings.CONSTRUCTOR,
+            SetBusinessLocation.CONSTRUCTOR,
+            SetBusinessOpeningHours.CONSTRUCTOR,
             SetChatAccentColor.CONSTRUCTOR,
             SetChatActiveStoriesList.CONSTRUCTOR,
             SetChatAvailableReactions.CONSTRUCTOR,
@@ -652,6 +667,7 @@ public class TdApi {
             SetPollAnswer.CONSTRUCTOR,
             SetProfileAccentColor.CONSTRUCTOR,
             SetProfilePhoto.CONSTRUCTOR,
+            SetQuickReplyShortcutName.CONSTRUCTOR,
             SetReadDatePrivacySettings.CONSTRUCTOR,
             SetRecoveryEmailAddress.CONSTRUCTOR,
             SetSavedMessagesTagLabel.CONSTRUCTOR,
@@ -702,6 +718,7 @@ public class TdApi {
             ToggleBotIsAddedToAttachmentMenu.CONSTRUCTOR,
             ToggleBotUsernameIsActive.CONSTRUCTOR,
             ToggleChatDefaultDisableNotification.CONSTRUCTOR,
+            ToggleChatFolderTags.CONSTRUCTOR,
             ToggleChatHasProtectedContent.CONSTRUCTOR,
             ToggleChatIsMarkedAsUnread.CONSTRUCTOR,
             ToggleChatIsPinned.CONSTRUCTOR,
@@ -4422,6 +4439,541 @@ public class TdApi {
     }
 
     /**
+     * This class is an abstract base class.
+     * Describes conditions for sending of away messages by a Telegram Business account.
+     */
+    public abstract static class BusinessAwayMessageSchedule extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            BusinessAwayMessageScheduleAlways.CONSTRUCTOR,
+            BusinessAwayMessageScheduleOutsideOfOpeningHours.CONSTRUCTOR,
+            BusinessAwayMessageScheduleCustom.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public BusinessAwayMessageSchedule() {
+        }
+    }
+
+    /**
+     * Send away messages always.
+     */
+    public static class BusinessAwayMessageScheduleAlways extends BusinessAwayMessageSchedule {
+
+        /**
+         * Send away messages always.
+         */
+        public BusinessAwayMessageScheduleAlways() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -910564679;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Send away messages outside of the business opening hours.
+     */
+    public static class BusinessAwayMessageScheduleOutsideOfOpeningHours extends BusinessAwayMessageSchedule {
+
+        /**
+         * Send away messages outside of the business opening hours.
+         */
+        public BusinessAwayMessageScheduleOutsideOfOpeningHours() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -968630506;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Send away messages only in the specified time span.
+     */
+    public static class BusinessAwayMessageScheduleCustom extends BusinessAwayMessageSchedule {
+        /**
+         * Point in time (Unix timestamp) when the away messages will start to be sent.
+         */
+        public int startDate;
+        /**
+         * Point in time (Unix timestamp) when the away messages will stop to be sent.
+         */
+        public int endDate;
+
+        /**
+         * Send away messages only in the specified time span.
+         */
+        public BusinessAwayMessageScheduleCustom() {
+        }
+
+        /**
+         * Send away messages only in the specified time span.
+         *
+         * @param startDate Point in time (Unix timestamp) when the away messages will start to be sent.
+         * @param endDate Point in time (Unix timestamp) when the away messages will stop to be sent.
+         */
+        public BusinessAwayMessageScheduleCustom(int startDate, int endDate) {
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1967108654;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes settings for messages that are automatically sent by a Telegram Business account when it is away.
+     */
+    public static class BusinessAwayMessageSettings extends Object {
+        /**
+         * Unique quick reply shortcut identifier for the away messages.
+         */
+        public int shortcutId;
+        /**
+         * Chosen recipients of the away messages.
+         */
+        public BusinessRecipients recipients;
+        /**
+         * Settings used to check whether the current user is away.
+         */
+        public BusinessAwayMessageSchedule schedule;
+        /**
+         * True, if the messages must not be sent if the account was online in the last 10 minutes.
+         */
+        public boolean offlineOnly;
+
+        /**
+         * Describes settings for messages that are automatically sent by a Telegram Business account when it is away.
+         */
+        public BusinessAwayMessageSettings() {
+        }
+
+        /**
+         * Describes settings for messages that are automatically sent by a Telegram Business account when it is away.
+         *
+         * @param shortcutId Unique quick reply shortcut identifier for the away messages.
+         * @param recipients Chosen recipients of the away messages.
+         * @param schedule Settings used to check whether the current user is away.
+         * @param offlineOnly True, if the messages must not be sent if the account was online in the last 10 minutes.
+         */
+        public BusinessAwayMessageSettings(int shortcutId, BusinessRecipients recipients, BusinessAwayMessageSchedule schedule, boolean offlineOnly) {
+            this.shortcutId = shortcutId;
+            this.recipients = recipients;
+            this.schedule = schedule;
+            this.offlineOnly = offlineOnly;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 353084137;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a bot connected to a business account.
+     */
+    public static class BusinessConnectedBot extends Object {
+        /**
+         * User identifier of the bot.
+         */
+        public long botUserId;
+        /**
+         * Private chats that will be accessible to the bot.
+         */
+        public BusinessRecipients recipients;
+        /**
+         * True, if the bot can send messages to the private chats; false otherwise.
+         */
+        public boolean canReply;
+
+        /**
+         * Describes a bot connected to a business account.
+         */
+        public BusinessConnectedBot() {
+        }
+
+        /**
+         * Describes a bot connected to a business account.
+         *
+         * @param botUserId User identifier of the bot.
+         * @param recipients Private chats that will be accessible to the bot.
+         * @param canReply True, if the bot can send messages to the private chats; false otherwise.
+         */
+        public BusinessConnectedBot(long botUserId, BusinessRecipients recipients, boolean canReply) {
+            this.botUserId = botUserId;
+            this.recipients = recipients;
+            this.canReply = canReply;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -330241321;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes settings for greeting messages that are automatically sent by a Telegram Business account as response to incoming messages in an inactive private chat.
+     */
+    public static class BusinessGreetingMessageSettings extends Object {
+        /**
+         * Unique quick reply shortcut identifier for the greeting messages.
+         */
+        public int shortcutId;
+        /**
+         * Chosen recipients of the greeting messages.
+         */
+        public BusinessRecipients recipients;
+        /**
+         * The number of days after which a chat will be considered as inactive; currently, must be on of 7, 14, 21, or 28.
+         */
+        public int inactivityDays;
+
+        /**
+         * Describes settings for greeting messages that are automatically sent by a Telegram Business account as response to incoming messages in an inactive private chat.
+         */
+        public BusinessGreetingMessageSettings() {
+        }
+
+        /**
+         * Describes settings for greeting messages that are automatically sent by a Telegram Business account as response to incoming messages in an inactive private chat.
+         *
+         * @param shortcutId Unique quick reply shortcut identifier for the greeting messages.
+         * @param recipients Chosen recipients of the greeting messages.
+         * @param inactivityDays The number of days after which a chat will be considered as inactive; currently, must be on of 7, 14, 21, or 28.
+         */
+        public BusinessGreetingMessageSettings(int shortcutId, BusinessRecipients recipients, int inactivityDays) {
+            this.shortcutId = shortcutId;
+            this.recipients = recipients;
+            this.inactivityDays = inactivityDays;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1689140754;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about a Telegram Business account.
+     */
+    public static class BusinessInfo extends Object {
+        /**
+         * Location of the business; may be null if none.
+         */
+        @Nullable public BusinessLocation location;
+        /**
+         * Opening hours of the business; may be null if none. The hours are guaranteed to be valid and has already been split by week days.
+         */
+        @Nullable public BusinessOpeningHours openingHours;
+        /**
+         * The greeting message; may be null if none or the Business account is not of the current user.
+         */
+        @Nullable public BusinessGreetingMessageSettings greetingMessageSettings;
+        /**
+         * The away message; may be null if none or the Business account is not of the current user.
+         */
+        @Nullable public BusinessAwayMessageSettings awayMessageSettings;
+
+        /**
+         * Contains information about a Telegram Business account.
+         */
+        public BusinessInfo() {
+        }
+
+        /**
+         * Contains information about a Telegram Business account.
+         *
+         * @param location Location of the business; may be null if none.
+         * @param openingHours Opening hours of the business; may be null if none. The hours are guaranteed to be valid and has already been split by week days.
+         * @param greetingMessageSettings The greeting message; may be null if none or the Business account is not of the current user.
+         * @param awayMessageSettings The away message; may be null if none or the Business account is not of the current user.
+         */
+        public BusinessInfo(BusinessLocation location, BusinessOpeningHours openingHours, BusinessGreetingMessageSettings greetingMessageSettings, BusinessAwayMessageSettings awayMessageSettings) {
+            this.location = location;
+            this.openingHours = openingHours;
+            this.greetingMessageSettings = greetingMessageSettings;
+            this.awayMessageSettings = awayMessageSettings;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2000441446;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a location of a business.
+     */
+    public static class BusinessLocation extends Object {
+        /**
+         * The location; may be null if not specified.
+         */
+        @Nullable public Location location;
+        /**
+         * Location address; 1-96 characters.
+         */
+        public String address;
+
+        /**
+         * Represents a location of a business.
+         */
+        public BusinessLocation() {
+        }
+
+        /**
+         * Represents a location of a business.
+         *
+         * @param location The location; may be null if not specified.
+         * @param address Location address; 1-96 characters.
+         */
+        public BusinessLocation(Location location, String address) {
+            this.location = location;
+            this.address = address;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1084969126;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes opening hours of a business.
+     */
+    public static class BusinessOpeningHours extends Object {
+        /**
+         * Unique time zone identifier.
+         */
+        public String timeZoneId;
+        /**
+         * Intervals of the time when the business is open.
+         */
+        public BusinessOpeningHoursInterval[] openingHours;
+
+        /**
+         * Describes opening hours of a business.
+         */
+        public BusinessOpeningHours() {
+        }
+
+        /**
+         * Describes opening hours of a business.
+         *
+         * @param timeZoneId Unique time zone identifier.
+         * @param openingHours Intervals of the time when the business is open.
+         */
+        public BusinessOpeningHours(String timeZoneId, BusinessOpeningHoursInterval[] openingHours) {
+            this.timeZoneId = timeZoneId;
+            this.openingHours = openingHours;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 816603700;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes an interval of time when the business is open.
+     */
+    public static class BusinessOpeningHoursInterval extends Object {
+        /**
+         * The first minute of the interval since start of the week; 0-7*24*60.
+         */
+        public int startMinute;
+        /**
+         * The first minute after the end of the interval since start of the week; 1-8*24*60.
+         */
+        public int endMinute;
+
+        /**
+         * Describes an interval of time when the business is open.
+         */
+        public BusinessOpeningHoursInterval() {
+        }
+
+        /**
+         * Describes an interval of time when the business is open.
+         *
+         * @param startMinute The first minute of the interval since start of the week; 0-7*24*60.
+         * @param endMinute The first minute after the end of the interval since start of the week; 1-8*24*60.
+         */
+        public BusinessOpeningHoursInterval(int startMinute, int endMinute) {
+            this.startMinute = startMinute;
+            this.endMinute = endMinute;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1108322732;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes private chats chosen for automatic interaction with a business.
+     */
+    public static class BusinessRecipients extends Object {
+        /**
+         * Identifiers of selected private chats.
+         */
+        public long[] chatIds;
+        /**
+         * True, if all existing private chats are selected.
+         */
+        public boolean selectExistingChats;
+        /**
+         * True, if all new private chats are selected.
+         */
+        public boolean selectNewChats;
+        /**
+         * True, if all private chats with contacts are selected.
+         */
+        public boolean selectContacts;
+        /**
+         * True, if all private chats with non-contacts are selected.
+         */
+        public boolean selectNonContacts;
+        /**
+         * If true, then all private chats except the selected are chosen. Otherwise, only the selected chats are chosen.
+         */
+        public boolean excludeSelected;
+
+        /**
+         * Describes private chats chosen for automatic interaction with a business.
+         */
+        public BusinessRecipients() {
+        }
+
+        /**
+         * Describes private chats chosen for automatic interaction with a business.
+         *
+         * @param chatIds Identifiers of selected private chats.
+         * @param selectExistingChats True, if all existing private chats are selected.
+         * @param selectNewChats True, if all new private chats are selected.
+         * @param selectContacts True, if all private chats with contacts are selected.
+         * @param selectNonContacts True, if all private chats with non-contacts are selected.
+         * @param excludeSelected If true, then all private chats except the selected are chosen. Otherwise, only the selected chats are chosen.
+         */
+        public BusinessRecipients(long[] chatIds, boolean selectExistingChats, boolean selectNewChats, boolean selectContacts, boolean selectNonContacts, boolean excludeSelected) {
+            this.chatIds = chatIds;
+            this.selectExistingChats = selectExistingChats;
+            this.selectNewChats = selectNewChats;
+            this.selectContacts = selectContacts;
+            this.selectNonContacts = selectNonContacts;
+            this.excludeSelected = excludeSelected;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 581049873;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes a call.
      */
     public static class Call extends Object {
@@ -6193,6 +6745,10 @@ public class TdApi {
          */
         public ChatPosition[] positions;
         /**
+         * Chat lists to which the chat belongs. A chat can have a non-zero position in a chat list even it doesn't belong to the chat list and have no position in a chat list even it belongs to the chat list.
+         */
+        public ChatList[] chatLists;
+        /**
          * Identifier of a user or chat that is selected to send messages in the chat; may be null if the user can't change message sender.
          */
         @Nullable public MessageSender messageSenderId;
@@ -6325,6 +6881,7 @@ public class TdApi {
          * @param permissions Actions that non-administrator chat members are allowed to take in the chat.
          * @param lastMessage Last message in the chat; may be null if none or unknown.
          * @param positions Positions of the chat in chat lists.
+         * @param chatLists Chat lists to which the chat belongs. A chat can have a non-zero position in a chat list even it doesn't belong to the chat list and have no position in a chat list even it belongs to the chat list.
          * @param messageSenderId Identifier of a user or chat that is selected to send messages in the chat; may be null if the user can't change message sender.
          * @param blockList Block list to which the chat is added; may be null if none.
          * @param hasProtectedContent True, if chat content can't be saved locally, forwarded, or copied.
@@ -6354,7 +6911,7 @@ public class TdApi {
          * @param draftMessage A draft of a message in the chat; may be null if none.
          * @param clientData Application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used.
          */
-        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, int accentColorId, long backgroundCustomEmojiId, int profileAccentColorId, long profileBackgroundCustomEmojiId, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, MessageSender messageSenderId, BlockList blockList, boolean hasProtectedContent, boolean isTranslatable, boolean isMarkedAsUnread, boolean viewAsTopics, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, int unreadReactionCount, ChatNotificationSettings notificationSettings, ChatAvailableReactions availableReactions, int messageAutoDeleteTime, EmojiStatus emojiStatus, ChatBackground background, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
+        public Chat(long id, ChatType type, String title, ChatPhotoInfo photo, int accentColorId, long backgroundCustomEmojiId, int profileAccentColorId, long profileBackgroundCustomEmojiId, ChatPermissions permissions, Message lastMessage, ChatPosition[] positions, ChatList[] chatLists, MessageSender messageSenderId, BlockList blockList, boolean hasProtectedContent, boolean isTranslatable, boolean isMarkedAsUnread, boolean viewAsTopics, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, int unreadReactionCount, ChatNotificationSettings notificationSettings, ChatAvailableReactions availableReactions, int messageAutoDeleteTime, EmojiStatus emojiStatus, ChatBackground background, String themeName, ChatActionBar actionBar, VideoChat videoChat, ChatJoinRequestsInfo pendingJoinRequests, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
             this.id = id;
             this.type = type;
             this.title = title;
@@ -6366,6 +6923,7 @@ public class TdApi {
             this.permissions = permissions;
             this.lastMessage = lastMessage;
             this.positions = positions;
+            this.chatLists = chatLists;
             this.messageSenderId = messageSenderId;
             this.blockList = blockList;
             this.hasProtectedContent = hasProtectedContent;
@@ -6399,7 +6957,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -467157553;
+        public static final int CONSTRUCTOR = 1383497226;
 
         /**
          * @return this.CONSTRUCTOR
@@ -10613,6 +11171,10 @@ public class TdApi {
          */
         @Nullable public ChatFolderIcon icon;
         /**
+         * The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is didabled.
+         */
+        public int colorId;
+        /**
          * True, if at least one link has been created for the folder.
          */
         public boolean isShareable;
@@ -10672,6 +11234,7 @@ public class TdApi {
          *
          * @param title The title of the folder; 1-12 characters without line feeds.
          * @param icon The chosen icon for the chat folder; may be null. If null, use getChatFolderDefaultIconName to get default icon name for the folder.
+         * @param colorId The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is didabled.
          * @param isShareable True, if at least one link has been created for the folder.
          * @param pinnedChatIds The chat identifiers of pinned chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
          * @param includedChatIds The chat identifiers of always included chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
@@ -10685,9 +11248,10 @@ public class TdApi {
          * @param includeGroups True, if basic groups and supergroups need to be included.
          * @param includeChannels True, if channels need to be included.
          */
-        public ChatFolder(String title, ChatFolderIcon icon, boolean isShareable, long[] pinnedChatIds, long[] includedChatIds, long[] excludedChatIds, boolean excludeMuted, boolean excludeRead, boolean excludeArchived, boolean includeContacts, boolean includeNonContacts, boolean includeBots, boolean includeGroups, boolean includeChannels) {
+        public ChatFolder(String title, ChatFolderIcon icon, int colorId, boolean isShareable, long[] pinnedChatIds, long[] includedChatIds, long[] excludedChatIds, boolean excludeMuted, boolean excludeRead, boolean excludeArchived, boolean includeContacts, boolean includeNonContacts, boolean includeBots, boolean includeGroups, boolean includeChannels) {
             this.title = title;
             this.icon = icon;
+            this.colorId = colorId;
             this.isShareable = isShareable;
             this.pinnedChatIds = pinnedChatIds;
             this.includedChatIds = includedChatIds;
@@ -10705,7 +11269,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -459081051;
+        public static final int CONSTRUCTOR = -474905057;
 
         /**
          * @return this.CONSTRUCTOR
@@ -10771,6 +11335,10 @@ public class TdApi {
          */
         public ChatFolderIcon icon;
         /**
+         * The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is didabled.
+         */
+        public int colorId;
+        /**
          * True, if at least one link has been created for the folder.
          */
         public boolean isShareable;
@@ -10791,13 +11359,15 @@ public class TdApi {
          * @param id Unique chat folder identifier.
          * @param title The title of the folder; 1-12 characters without line feeds.
          * @param icon The chosen or default icon for the chat folder.
+         * @param colorId The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is didabled.
          * @param isShareable True, if at least one link has been created for the folder.
          * @param hasMyInviteLinks True, if the chat folder has invite links created by the current user.
          */
-        public ChatFolderInfo(int id, String title, ChatFolderIcon icon, boolean isShareable, boolean hasMyInviteLinks) {
+        public ChatFolderInfo(int id, String title, ChatFolderIcon icon, int colorId, boolean isShareable, boolean hasMyInviteLinks) {
             this.id = id;
             this.title = title;
             this.icon = icon;
+            this.colorId = colorId;
             this.isShareable = isShareable;
             this.hasMyInviteLinks = hasMyInviteLinks;
         }
@@ -10805,7 +11375,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1279189204;
+        public static final int CONSTRUCTOR = 190948485;
 
         /**
          * @return this.CONSTRUCTOR
@@ -46332,6 +46902,142 @@ public class TdApi {
     }
 
     /**
+     * Describes a message that can be used for quick reply.
+     */
+    public static class QuickReplyMessage extends Object {
+        /**
+         * Unique message identifier among all quick replies.
+         */
+        public long id;
+        /**
+         * The sending state of the message; may be null if the message isn't being sent and didn't fail to be sent.
+         */
+        @Nullable public MessageSendingState sendingState;
+        /**
+         * True, if the message can be edited.
+         */
+        public boolean canBeEdited;
+        /**
+         * Information about the identifier of the quick reply message to which the message replies.
+         */
+        public long replyToMessageId;
+        /**
+         * If non-zero, the user identifier of the bot through which this message was sent.
+         */
+        public long viaBotUserId;
+        /**
+         * Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums.
+         */
+        public long mediaAlbumId;
+        /**
+         * Content of the message.
+         */
+        public MessageContent content;
+        /**
+         * Inline keyboard reply markup for the message; may be null if none.
+         */
+        @Nullable public ReplyMarkup replyMarkup;
+
+        /**
+         * Describes a message that can be used for quick reply.
+         */
+        public QuickReplyMessage() {
+        }
+
+        /**
+         * Describes a message that can be used for quick reply.
+         *
+         * @param id Unique message identifier among all quick replies.
+         * @param sendingState The sending state of the message; may be null if the message isn't being sent and didn't fail to be sent.
+         * @param canBeEdited True, if the message can be edited.
+         * @param replyToMessageId Information about the identifier of the quick reply message to which the message replies.
+         * @param viaBotUserId If non-zero, the user identifier of the bot through which this message was sent.
+         * @param mediaAlbumId Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums.
+         * @param content Content of the message.
+         * @param replyMarkup Inline keyboard reply markup for the message; may be null if none.
+         */
+        public QuickReplyMessage(long id, MessageSendingState sendingState, boolean canBeEdited, long replyToMessageId, long viaBotUserId, long mediaAlbumId, MessageContent content, ReplyMarkup replyMarkup) {
+            this.id = id;
+            this.sendingState = sendingState;
+            this.canBeEdited = canBeEdited;
+            this.replyToMessageId = replyToMessageId;
+            this.viaBotUserId = viaBotUserId;
+            this.mediaAlbumId = mediaAlbumId;
+            this.content = content;
+            this.replyMarkup = replyMarkup;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1090965757;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a shortcut that can be used for a quick reply.
+     */
+    public static class QuickReplyShortcut extends Object {
+        /**
+         * Unique shortcut identifier.
+         */
+        public int id;
+        /**
+         * The name of the shortcut that can be used to use the shortcut.
+         */
+        public String name;
+        /**
+         * The first shortcut message.
+         */
+        public QuickReplyMessage firstMessage;
+        /**
+         * The total number of messages in the shortcut.
+         */
+        public int messageCount;
+
+        /**
+         * Describes a shortcut that can be used for a quick reply.
+         */
+        public QuickReplyShortcut() {
+        }
+
+        /**
+         * Describes a shortcut that can be used for a quick reply.
+         *
+         * @param id Unique shortcut identifier.
+         * @param name The name of the shortcut that can be used to use the shortcut.
+         * @param firstMessage The first shortcut message.
+         * @param messageCount The total number of messages in the shortcut.
+         */
+        public QuickReplyShortcut(int id, String name, QuickReplyMessage firstMessage, int messageCount) {
+            this.id = id;
+            this.name = name;
+            this.firstMessage = firstMessage;
+            this.messageCount = messageCount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1107453291;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Describes type of message reaction.
      */
@@ -56558,6 +57264,94 @@ public class TdApi {
     }
 
     /**
+     * Describes a time zone.
+     */
+    public static class TimeZone extends Object {
+        /**
+         * Unique time zone identifier.
+         */
+        public String id;
+        /**
+         * Time zone name.
+         */
+        public String name;
+        /**
+         * Current UTC time offset for the time zone.
+         */
+        public int utcTimeOffset;
+
+        /**
+         * Describes a time zone.
+         */
+        public TimeZone() {
+        }
+
+        /**
+         * Describes a time zone.
+         *
+         * @param id Unique time zone identifier.
+         * @param name Time zone name.
+         * @param utcTimeOffset Current UTC time offset for the time zone.
+         */
+        public TimeZone(String id, String name, int utcTimeOffset) {
+            this.id = id;
+            this.name = name;
+            this.utcTimeOffset = utcTimeOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1189481763;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of time zones.
+     */
+    public static class TimeZones extends Object {
+        /**
+         * A list of time zones.
+         */
+        public TimeZone[] timeZones;
+
+        /**
+         * Contains a list of time zones.
+         */
+        public TimeZones() {
+        }
+
+        /**
+         * Contains a list of time zones.
+         *
+         * @param timeZones A list of time zones.
+         */
+        public TimeZones(TimeZone[] timeZones) {
+            this.timeZones = timeZones;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -334655570;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Represents the categories of chats for which a list of frequently used chats can be retrieved.
      */
@@ -56951,6 +57745,8 @@ public class TdApi {
             UpdateChatPermissions.CONSTRUCTOR,
             UpdateChatLastMessage.CONSTRUCTOR,
             UpdateChatPosition.CONSTRUCTOR,
+            UpdateChatAddedToList.CONSTRUCTOR,
+            UpdateChatRemovedFromList.CONSTRUCTOR,
             UpdateChatReadInbox.CONSTRUCTOR,
             UpdateChatReadOutbox.CONSTRUCTOR,
             UpdateChatActionBar.CONSTRUCTOR,
@@ -56978,6 +57774,10 @@ public class TdApi {
             UpdateChatOnlineMemberCount.CONSTRUCTOR,
             UpdateSavedMessagesTopic.CONSTRUCTOR,
             UpdateSavedMessagesTopicCount.CONSTRUCTOR,
+            UpdateQuickReplyShortcut.CONSTRUCTOR,
+            UpdateQuickReplyShortcutDeleted.CONSTRUCTOR,
+            UpdateQuickReplyShortcuts.CONSTRUCTOR,
+            UpdateQuickReplyShortcutMessages.CONSTRUCTOR,
             UpdateForumTopicInfo.CONSTRUCTOR,
             UpdateScopeNotificationSettings.CONSTRUCTOR,
             UpdateNotification.CONSTRUCTOR,
@@ -58006,6 +58806,94 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -8979849;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A chat was added to a chat list.
+     */
+    public static class UpdateChatAddedToList extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The chat list to which the chat was added.
+         */
+        public ChatList chatList;
+
+        /**
+         * A chat was added to a chat list.
+         */
+        public UpdateChatAddedToList() {
+        }
+
+        /**
+         * A chat was added to a chat list.
+         *
+         * @param chatId Chat identifier.
+         * @param chatList The chat list to which the chat was added.
+         */
+        public UpdateChatAddedToList(long chatId, ChatList chatList) {
+            this.chatId = chatId;
+            this.chatList = chatList;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1418722068;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A chat was removed from a chat list.
+     */
+    public static class UpdateChatRemovedFromList extends Update {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * The chat list from which the chat was removed.
+         */
+        public ChatList chatList;
+
+        /**
+         * A chat was removed from a chat list.
+         */
+        public UpdateChatRemovedFromList() {
+        }
+
+        /**
+         * A chat was removed from a chat list.
+         *
+         * @param chatId Chat identifier.
+         * @param chatList The chat list from which the chat was removed.
+         */
+        public UpdateChatRemovedFromList(long chatId, ChatList chatList) {
+            this.chatId = chatId;
+            this.chatList = chatList;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1294647836;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59052,6 +59940,10 @@ public class TdApi {
          * Position of the main chat list among chat folders, 0-based.
          */
         public int mainChatListPosition;
+        /**
+         * True, if folder tags are enabled.
+         */
+        public boolean areTagsEnabled;
 
         /**
          * The list of chat folders or a chat folder has changed.
@@ -59064,16 +59956,18 @@ public class TdApi {
          *
          * @param chatFolders The new list of chat folders.
          * @param mainChatListPosition Position of the main chat list among chat folders, 0-based.
+         * @param areTagsEnabled True, if folder tags are enabled.
          */
-        public UpdateChatFolders(ChatFolderInfo[] chatFolders, int mainChatListPosition) {
+        public UpdateChatFolders(ChatFolderInfo[] chatFolders, int mainChatListPosition, boolean areTagsEnabled) {
             this.chatFolders = chatFolders;
             this.mainChatListPosition = mainChatListPosition;
+            this.areTagsEnabled = areTagsEnabled;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1892046525;
+        public static final int CONSTRUCTOR = 1998101395;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59194,6 +60088,164 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -70092335;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Basic information about a quick reply shortcut has changed. This update is guaranteed to come before the quick shortcut name is returned to the application.
+     */
+    public static class UpdateQuickReplyShortcut extends Update {
+        /**
+         * New data about the shortcut.
+         */
+        public QuickReplyShortcut shortcut;
+
+        /**
+         * Basic information about a quick reply shortcut has changed. This update is guaranteed to come before the quick shortcut name is returned to the application.
+         */
+        public UpdateQuickReplyShortcut() {
+        }
+
+        /**
+         * Basic information about a quick reply shortcut has changed. This update is guaranteed to come before the quick shortcut name is returned to the application.
+         *
+         * @param shortcut New data about the shortcut.
+         */
+        public UpdateQuickReplyShortcut(QuickReplyShortcut shortcut) {
+            this.shortcut = shortcut;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -963430193;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A quick reply shortcut and all its messages were deleted.
+     */
+    public static class UpdateQuickReplyShortcutDeleted extends Update {
+        /**
+         * The identifier of the deleted shortcut.
+         */
+        public int shortcutId;
+
+        /**
+         * A quick reply shortcut and all its messages were deleted.
+         */
+        public UpdateQuickReplyShortcutDeleted() {
+        }
+
+        /**
+         * A quick reply shortcut and all its messages were deleted.
+         *
+         * @param shortcutId The identifier of the deleted shortcut.
+         */
+        public UpdateQuickReplyShortcutDeleted(int shortcutId) {
+            this.shortcutId = shortcutId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -390480838;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The list of quick reply shortcuts has changed.
+     */
+    public static class UpdateQuickReplyShortcuts extends Update {
+        /**
+         * The new list of identifiers of quick reply shortcuts.
+         */
+        public int[] shortcutIds;
+
+        /**
+         * The list of quick reply shortcuts has changed.
+         */
+        public UpdateQuickReplyShortcuts() {
+        }
+
+        /**
+         * The list of quick reply shortcuts has changed.
+         *
+         * @param shortcutIds The new list of identifiers of quick reply shortcuts.
+         */
+        public UpdateQuickReplyShortcuts(int[] shortcutIds) {
+            this.shortcutIds = shortcutIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1994849731;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The list of quick reply shortcut messages has changed.
+     */
+    public static class UpdateQuickReplyShortcutMessages extends Update {
+        /**
+         * The identifier of the shortcut.
+         */
+        public int shortcutId;
+        /**
+         * The new list of quick reply messages for the shortcut in order from the first to the last sent.
+         */
+        public QuickReplyMessage[] messages;
+
+        /**
+         * The list of quick reply shortcut messages has changed.
+         */
+        public UpdateQuickReplyShortcutMessages() {
+        }
+
+        /**
+         * The list of quick reply shortcut messages has changed.
+         *
+         * @param shortcutId The identifier of the shortcut.
+         * @param messages The new list of quick reply messages for the shortcut in order from the first to the last sent.
+         */
+        public UpdateQuickReplyShortcutMessages(int shortcutId, QuickReplyMessage[] messages) {
+            this.shortcutId = shortcutId;
+            this.messages = messages;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1396685225;
 
         /**
          * @return this.CONSTRUCTOR
@@ -63325,6 +64377,10 @@ public class TdApi {
          */
         public int groupInCommonCount;
         /**
+         * Information about business settings for Telegram Business accounts; may be null if none.
+         */
+        @Nullable public BusinessInfo businessInfo;
+        /**
          * For bots, information about the bot; may be null if the user isn't a bot.
          */
         @Nullable public BotInfo botInfo;
@@ -63353,9 +64409,10 @@ public class TdApi {
          * @param bio A short user bio; may be null for bots.
          * @param premiumGiftOptions The list of available options for gifting Telegram Premium to the user.
          * @param groupInCommonCount Number of group chats where both the other user and the current user are a member; 0 for the current user.
+         * @param businessInfo Information about business settings for Telegram Business accounts; may be null if none.
          * @param botInfo For bots, information about the bot; may be null if the user isn't a bot.
          */
-        public UserFullInfo(ChatPhoto personalPhoto, ChatPhoto photo, ChatPhoto publicPhoto, BlockList blockList, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean hasPrivateForwards, boolean hasRestrictedVoiceAndVideoNoteMessages, boolean hasPinnedStories, boolean needPhoneNumberPrivacyException, boolean setChatBackground, FormattedText bio, PremiumPaymentOption[] premiumGiftOptions, int groupInCommonCount, BotInfo botInfo) {
+        public UserFullInfo(ChatPhoto personalPhoto, ChatPhoto photo, ChatPhoto publicPhoto, BlockList blockList, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean hasPrivateForwards, boolean hasRestrictedVoiceAndVideoNoteMessages, boolean hasPinnedStories, boolean needPhoneNumberPrivacyException, boolean setChatBackground, FormattedText bio, PremiumPaymentOption[] premiumGiftOptions, int groupInCommonCount, BusinessInfo businessInfo, BotInfo botInfo) {
             this.personalPhoto = personalPhoto;
             this.photo = photo;
             this.publicPhoto = publicPhoto;
@@ -63371,13 +64428,14 @@ public class TdApi {
             this.bio = bio;
             this.premiumGiftOptions = premiumGiftOptions;
             this.groupInCommonCount = groupInCommonCount;
+            this.businessInfo = businessInfo;
             this.botInfo = botInfo;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1372778690;
+        public static final int CONSTRUCTOR = 1846215709;
 
         /**
          * @return this.CONSTRUCTOR
@@ -65910,7 +66968,7 @@ public class TdApi {
     }
 
     /**
-     * Adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to favorite stickers.
+     * Adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to favorite stickers.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -65921,7 +66979,7 @@ public class TdApi {
         public InputFile sticker;
 
         /**
-         * Default constructor for a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to favorite stickers.
+         * Default constructor for a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to favorite stickers.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -65929,7 +66987,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to favorite stickers.
+         * Creates a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to favorite stickers.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -66308,7 +67366,7 @@ public class TdApi {
     }
 
     /**
-     * Manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to recent stickers.
+     * Manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to recent stickers.
      *
      * <p> Returns {@link Stickers Stickers} </p>
      */
@@ -66323,7 +67381,7 @@ public class TdApi {
         public InputFile sticker;
 
         /**
-         * Default constructor for a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to recent stickers.
+         * Default constructor for a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to recent stickers.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          */
@@ -66331,7 +67389,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list. Emoji stickers can't be added to recent stickers.
+         * Creates a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to recent stickers.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          *
@@ -68491,6 +69549,50 @@ public class TdApi {
     }
 
     /**
+     * Checks validness of a name for a quick reply shortcut. Can be called synchronously.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class CheckQuickReplyShortcutName extends Function<Ok> {
+        /**
+         * The name of the shortcut; 1-32 characters.
+         */
+        public String name;
+
+        /**
+         * Default constructor for a function, which checks validness of a name for a quick reply shortcut. Can be called synchronously.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public CheckQuickReplyShortcutName() {
+        }
+
+        /**
+         * Creates a function, which checks validness of a name for a quick reply shortcut. Can be called synchronously.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param name The name of the shortcut; 1-32 characters.
+         */
+        public CheckQuickReplyShortcutName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2101203241;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Checks the 2-step verification recovery email address verification code.
      *
      * <p> Returns {@link PasswordState PasswordState} </p>
@@ -70324,6 +71426,50 @@ public class TdApi {
     }
 
     /**
+     * Deletes the business bot that is connected to the current user account.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteBusinessConnectedBot extends Function<Ok> {
+        /**
+         * Unique user identifier for the bot.
+         */
+        public long botUserId;
+
+        /**
+         * Default constructor for a function, which deletes the business bot that is connected to the current user account.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteBusinessConnectedBot() {
+        }
+
+        /**
+         * Creates a function, which deletes the business bot that is connected to the current user account.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param botUserId Unique user identifier for the bot.
+         */
+        public DeleteBusinessConnectedBot(long botUserId) {
+            this.botUserId = botUserId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1633976747;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Deletes a chat along with all messages in the corresponding chat for all chat members. For group chats this will release the usernames and remove all members. Use the field chat.canBeDeletedForAllUsers to find whether the method can be applied to the chat.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -71101,6 +72247,100 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1319794625;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Deletes a quick reply shortcut.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteQuickReplyShortcut extends Function<Ok> {
+        /**
+         * Unique identifier of the quick reply shortcut.
+         */
+        public int shortcutId;
+
+        /**
+         * Default constructor for a function, which deletes a quick reply shortcut.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteQuickReplyShortcut() {
+        }
+
+        /**
+         * Creates a function, which deletes a quick reply shortcut.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param shortcutId Unique identifier of the quick reply shortcut.
+         */
+        public DeleteQuickReplyShortcut(int shortcutId) {
+            this.shortcutId = shortcutId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -246911978;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Deletes specified quick reply messages.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteQuickReplyShortcutMessages extends Function<Ok> {
+        /**
+         * Unique identifier of the quick reply shortcut to which the messages belong.
+         */
+        public int shortcutId;
+        /**
+         * Unique identifiers of the messages.
+         */
+        public long[] messageIds;
+
+        /**
+         * Default constructor for a function, which deletes specified quick reply messages.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteQuickReplyShortcutMessages() {
+        }
+
+        /**
+         * Creates a function, which deletes specified quick reply messages.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param shortcutId Unique identifier of the quick reply shortcut to which the messages belong.
+         * @param messageIds Unique identifiers of the messages.
+         */
+        public DeleteQuickReplyShortcutMessages(int shortcutId, long[] messageIds) {
+            this.shortcutId = shortcutId;
+            this.messageIds = messageIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -40522947;
 
         /**
          * @return this.CONSTRUCTOR
@@ -74084,6 +75324,35 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1707118036;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the business bot that is connected to the current user account. Returns a 404 error if there is no connected bot.
+     *
+     * <p> Returns {@link BusinessConnectedBot BusinessConnectedBot} </p>
+     */
+    public static class GetBusinessConnectedBot extends Function<BusinessConnectedBot> {
+
+        /**
+         * Default constructor for a function, which returns the business bot that is connected to the current user account. Returns a 404 error if there is no connected bot.
+         *
+         * <p> Returns {@link BusinessConnectedBot BusinessConnectedBot} </p>
+         */
+        public GetBusinessConnectedBot() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 911058883;
 
         /**
          * @return this.CONSTRUCTOR
@@ -82929,6 +84198,35 @@ public class TdApi {
     }
 
     /**
+     * Returns the list of supported time zones.
+     *
+     * <p> Returns {@link TimeZones TimeZones} </p>
+     */
+    public static class GetTimeZones extends Function<TimeZones> {
+
+        /**
+         * Default constructor for a function, which returns the list of supported time zones.
+         *
+         * <p> Returns {@link TimeZones TimeZones} </p>
+         */
+        public GetTimeZones() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1340268632;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns a list of frequently used chats.
      *
      * <p> Returns {@link Chats Chats} </p>
@@ -84309,6 +85607,79 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 938720974;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Loads quick reply messages that can be sent by a given quick reply shortcut. The loaded messages will be sent through updateQuickReplyShortcutMessages.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class LoadQuickReplyShortcutMessages extends Function<Ok> {
+        /**
+         * Unique identifier of the quick reply shortcut.
+         */
+        public int shortcutId;
+
+        /**
+         * Default constructor for a function, which loads quick reply messages that can be sent by a given quick reply shortcut. The loaded messages will be sent through updateQuickReplyShortcutMessages.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public LoadQuickReplyShortcutMessages() {
+        }
+
+        /**
+         * Creates a function, which loads quick reply messages that can be sent by a given quick reply shortcut. The loaded messages will be sent through updateQuickReplyShortcutMessages.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param shortcutId Unique identifier of the quick reply shortcut.
+         */
+        public LoadQuickReplyShortcutMessages(int shortcutId) {
+            this.shortcutId = shortcutId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -46092588;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Loads quick reply shortcuts created by the current user. The loaded topics will be sent through updateQuickReplyShortcuts.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class LoadQuickReplyShortcuts extends Function<Ok> {
+
+        /**
+         * Default constructor for a function, which loads quick reply shortcuts created by the current user. The loaded topics will be sent through updateQuickReplyShortcuts.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public LoadQuickReplyShortcuts() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1016614243;
 
         /**
          * @return this.CONSTRUCTOR
@@ -86818,6 +88189,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1074928158;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the order of quick reply shortcuts.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ReorderQuickReplyShortcuts extends Function<Ok> {
+        /**
+         * The new order of quick reply shortcuts.
+         */
+        public int[] shortcutIds;
+
+        /**
+         * Default constructor for a function, which changes the order of quick reply shortcuts.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ReorderQuickReplyShortcuts() {
+        }
+
+        /**
+         * Creates a function, which changes the order of quick reply shortcuts.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param shortcutIds The new order of quick reply shortcuts.
+         */
+        public ReorderQuickReplyShortcuts(int[] shortcutIds) {
+            this.shortcutIds = shortcutIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2052799232;
 
         /**
          * @return this.CONSTRUCTOR
@@ -90417,6 +91832,62 @@ public class TdApi {
     }
 
     /**
+     * Sends messages from a quick reply shortcut. Requires Telegram Business subscription.
+     *
+     * <p> Returns {@link Messages Messages} </p>
+     */
+    public static class SendQuickReplyShortcutMessages extends Function<Messages> {
+        /**
+         * Identifier of the chat to which to send messages. The chat must be a private chat with a regular user.
+         */
+        public long chatId;
+        /**
+         * Unique identifier of the quick reply shortcut.
+         */
+        public int shortcutId;
+        /**
+         * Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
+         */
+        public int sendingId;
+
+        /**
+         * Default constructor for a function, which sends messages from a quick reply shortcut. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Messages Messages} </p>
+         */
+        public SendQuickReplyShortcutMessages() {
+        }
+
+        /**
+         * Creates a function, which sends messages from a quick reply shortcut. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Messages Messages} </p>
+         *
+         * @param chatId Identifier of the chat to which to send messages. The chat must be a private chat with a regular user.
+         * @param shortcutId Unique identifier of the quick reply shortcut.
+         * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
+         */
+        public SendQuickReplyShortcutMessages(long chatId, int shortcutId, int sendingId) {
+            this.chatId = chatId;
+            this.shortcutId = shortcutId;
+            this.sendingId = sendingId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 232068765;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Sends a new story to a chat; requires canPostStories right for supergroup and channel chats. Returns a temporary story.
      *
      * <p> Returns {@link Story Story} </p>
@@ -91298,6 +92769,226 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1154926191;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the business away message settings of the current user. Requires Telegram Business subscription.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBusinessAwayMessageSettings extends Function<Ok> {
+        /**
+         * The new settings for the away message of the business; pass null to disable the away message.
+         */
+        public BusinessAwayMessageSettings awayMessageSettings;
+
+        /**
+         * Default constructor for a function, which changes the business away message settings of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBusinessAwayMessageSettings() {
+        }
+
+        /**
+         * Creates a function, which changes the business away message settings of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param awayMessageSettings The new settings for the away message of the business; pass null to disable the away message.
+         */
+        public SetBusinessAwayMessageSettings(BusinessAwayMessageSettings awayMessageSettings) {
+            this.awayMessageSettings = awayMessageSettings;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1232357484;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Adds or changes business bot that is connected to the current user account.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBusinessConnectedBot extends Function<Ok> {
+        /**
+         * Connection settings for the bot.
+         */
+        public BusinessConnectedBot bot;
+
+        /**
+         * Default constructor for a function, which adds or changes business bot that is connected to the current user account.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBusinessConnectedBot() {
+        }
+
+        /**
+         * Creates a function, which adds or changes business bot that is connected to the current user account.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param bot Connection settings for the bot.
+         */
+        public SetBusinessConnectedBot(BusinessConnectedBot bot) {
+            this.bot = bot;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1393459472;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the business greeting message settings of the current user. Requires Telegram Business subscription.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBusinessGreetingMessageSettings extends Function<Ok> {
+        /**
+         * The new settings for the greeting message of the business; pass null to disable the greeting message.
+         */
+        public BusinessGreetingMessageSettings greetingMessageSettings;
+
+        /**
+         * Default constructor for a function, which changes the business greeting message settings of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBusinessGreetingMessageSettings() {
+        }
+
+        /**
+         * Creates a function, which changes the business greeting message settings of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param greetingMessageSettings The new settings for the greeting message of the business; pass null to disable the greeting message.
+         */
+        public SetBusinessGreetingMessageSettings(BusinessGreetingMessageSettings greetingMessageSettings) {
+            this.greetingMessageSettings = greetingMessageSettings;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -873120707;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the business location of the current user. Requires Telegram Business subscription.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBusinessLocation extends Function<Ok> {
+        /**
+         * The new location of the business; pass null to remove the location.
+         */
+        public BusinessLocation location;
+
+        /**
+         * Default constructor for a function, which changes the business location of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBusinessLocation() {
+        }
+
+        /**
+         * Creates a function, which changes the business location of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param location The new location of the business; pass null to remove the location.
+         */
+        public SetBusinessLocation(BusinessLocation location) {
+            this.location = location;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -344717547;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the business opening hours of the current user. Requires Telegram Business subscription.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBusinessOpeningHours extends Function<Ok> {
+        /**
+         * The new opening hours of the business; pass null to remove the opening hours.
+         */
+        public BusinessOpeningHours openingHours;
+
+        /**
+         * Default constructor for a function, which changes the business opening hours of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBusinessOpeningHours() {
+        }
+
+        /**
+         * Creates a function, which changes the business opening hours of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param openingHours The new opening hours of the business; pass null to remove the opening hours.
+         */
+        public SetBusinessOpeningHours(BusinessOpeningHours openingHours) {
+            this.openingHours = openingHours;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -462379918;
 
         /**
          * @return this.CONSTRUCTOR
@@ -93381,7 +95072,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer.
+     * Changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer. Must not be called if the user has a business location.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -93392,7 +95083,7 @@ public class TdApi {
         public Location location;
 
         /**
-         * Default constructor for a function, which changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer.
+         * Default constructor for a function, which changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer. Must not be called if the user has a business location.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -93400,7 +95091,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer.
+         * Creates a function, which changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer. Must not be called if the user has a business location.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -94414,6 +96105,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2048260627;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes name of a quick reply shortcut.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetQuickReplyShortcutName extends Function<Ok> {
+        /**
+         * Unique identifier of the quick reply shortcut.
+         */
+        public int shortcutId;
+        /**
+         * New name for the shortcut. Use checkQuickReplyShortcutName to check its validness.
+         */
+        public String name;
+
+        /**
+         * Default constructor for a function, which changes name of a quick reply shortcut.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetQuickReplyShortcutName() {
+        }
+
+        /**
+         * Creates a function, which changes name of a quick reply shortcut.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param shortcutId Unique identifier of the quick reply shortcut.
+         * @param name New name for the shortcut. Use checkQuickReplyShortcutName to check its validness.
+         */
+        public SetQuickReplyShortcutName(int shortcutId, String name) {
+            this.shortcutId = shortcutId;
+            this.name = name;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 186709105;
 
         /**
          * @return this.CONSTRUCTOR
@@ -96899,6 +98640,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 314794002;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Toggles whether chat folder tags are enabled.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ToggleChatFolderTags extends Function<Ok> {
+        /**
+         * Pass true to enable folder tags; pass false to disable them.
+         */
+        public boolean areTagsEnabled;
+
+        /**
+         * Default constructor for a function, which toggles whether chat folder tags are enabled.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ToggleChatFolderTags() {
+        }
+
+        /**
+         * Creates a function, which toggles whether chat folder tags are enabled.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param areTagsEnabled Pass true to enable folder tags; pass false to disable them.
+         */
+        public ToggleChatFolderTags(boolean areTagsEnabled) {
+            this.areTagsEnabled = areTagsEnabled;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2092209084;
 
         /**
          * @return this.CONSTRUCTOR
