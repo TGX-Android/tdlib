@@ -236,6 +236,8 @@ public class TdApi {
             GetBotInfoShortDescription.CONSTRUCTOR,
             GetBotName.CONSTRUCTOR,
             GetBusinessConnectedBot.CONSTRUCTOR,
+            GetBusinessConnection.CONSTRUCTOR,
+            GetBusinessFeatures.CONSTRUCTOR,
             GetCallbackQueryAnswer.CONSTRUCTOR,
             GetCallbackQueryMessage.CONSTRUCTOR,
             GetChat.CONSTRUCTOR,
@@ -282,6 +284,7 @@ public class TdApi {
             GetChatsForChatFolderInviteLink.CONSTRUCTOR,
             GetChatsToSendStories.CONSTRUCTOR,
             GetCloseFriends.CONSTRUCTOR,
+            GetCollectibleItemInfo.CONSTRUCTOR,
             GetCommands.CONSTRUCTOR,
             GetConnectedWebsites.CONSTRUCTOR,
             GetContacts.CONSTRUCTOR,
@@ -365,6 +368,7 @@ public class TdApi {
             GetNetworkStatistics.CONSTRUCTOR,
             GetNewChatPrivacySettings.CONSTRUCTOR,
             GetOption.CONSTRUCTOR,
+            GetOwnedStickerSets.CONSTRUCTOR,
             GetPassportAuthorizationForm.CONSTRUCTOR,
             GetPassportAuthorizationFormAvailableElements.CONSTRUCTOR,
             GetPassportElement.CONSTRUCTOR,
@@ -419,6 +423,7 @@ public class TdApi {
             GetSuggestedFileName.CONSTRUCTOR,
             GetSuggestedStickerSetName.CONSTRUCTOR,
             GetSuitableDiscussionChats.CONSTRUCTOR,
+            GetSuitablePersonalChats.CONSTRUCTOR,
             GetSupergroup.CONSTRUCTOR,
             GetSupergroupFullInfo.CONSTRUCTOR,
             GetSupergroupMembers.CONSTRUCTOR,
@@ -513,9 +518,11 @@ public class TdApi {
             ReorderQuickReplyShortcuts.CONSTRUCTOR,
             ReorderSupergroupActiveUsernames.CONSTRUCTOR,
             ReplacePrimaryChatInviteLink.CONSTRUCTOR,
+            ReplaceStickerInSet.CONSTRUCTOR,
             ReplaceVideoChatRtmpUrl.CONSTRUCTOR,
             ReportChat.CONSTRUCTOR,
             ReportChatPhoto.CONSTRUCTOR,
+            ReportChatSponsoredMessage.CONSTRUCTOR,
             ReportMessageReactions.CONSTRUCTOR,
             ReportStory.CONSTRUCTOR,
             ReportSupergroupAntiSpamFalsePositive.CONSTRUCTOR,
@@ -569,6 +576,8 @@ public class TdApi {
             SearchWebApp.CONSTRUCTOR,
             SendAuthenticationFirebaseSms.CONSTRUCTOR,
             SendBotStartMessage.CONSTRUCTOR,
+            SendBusinessMessage.CONSTRUCTOR,
+            SendBusinessMessageAlbum.CONSTRUCTOR,
             SendCallDebugInformation.CONSTRUCTOR,
             SendCallLog.CONSTRUCTOR,
             SendCallRating.CONSTRUCTOR,
@@ -596,6 +605,7 @@ public class TdApi {
             SetAutoDownloadSettings.CONSTRUCTOR,
             SetAutosaveSettings.CONSTRUCTOR,
             SetBio.CONSTRUCTOR,
+            SetBirthdate.CONSTRUCTOR,
             SetBotInfoDescription.CONSTRUCTOR,
             SetBotInfoShortDescription.CONSTRUCTOR,
             SetBotName.CONSTRUCTOR,
@@ -604,6 +614,7 @@ public class TdApi {
             SetBusinessAwayMessageSettings.CONSTRUCTOR,
             SetBusinessConnectedBot.CONSTRUCTOR,
             SetBusinessGreetingMessageSettings.CONSTRUCTOR,
+            SetBusinessIntro.CONSTRUCTOR,
             SetBusinessLocation.CONSTRUCTOR,
             SetBusinessOpeningHours.CONSTRUCTOR,
             SetChatAccentColor.CONSTRUCTOR,
@@ -661,6 +672,7 @@ public class TdApi {
             SetPassportElement.CONSTRUCTOR,
             SetPassportElementErrors.CONSTRUCTOR,
             SetPassword.CONSTRUCTOR,
+            SetPersonalChat.CONSTRUCTOR,
             SetPinnedChats.CONSTRUCTOR,
             SetPinnedForumTopics.CONSTRUCTOR,
             SetPinnedSavedMessagesTopics.CONSTRUCTOR,
@@ -1114,7 +1126,7 @@ public class TdApi {
      */
     public static class AnimatedEmoji extends Object {
         /**
-         * Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker is a custom emoji, it can have arbitrary format different from stickerFormatTgs.
+         * Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker is a custom emoji, then it can have arbitrary format.
          */
         @Nullable public Sticker sticker;
         /**
@@ -1143,7 +1155,7 @@ public class TdApi {
         /**
          * Describes an animated or custom representation of an emoji.
          *
-         * @param sticker Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker is a custom emoji, it can have arbitrary format different from stickerFormatTgs.
+         * @param sticker Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker is a custom emoji, then it can have arbitrary format.
          * @param stickerWidth Expected width of the sticker, which can be used if the sticker is null.
          * @param stickerHeight Expected height of the sticker, which can be used if the sticker is null.
          * @param fitzpatrickType Emoji modifier fitzpatrick type; 0-6; 0 if none.
@@ -3716,6 +3728,56 @@ public class TdApi {
     }
 
     /**
+     * Represents a birthdate of a user.
+     */
+    public static class Birthdate extends Object {
+        /**
+         * Day of the month; 1-31.
+         */
+        public int day;
+        /**
+         * Month of the year; 1-12.
+         */
+        public int month;
+        /**
+         * Birth year; 0 if unknown.
+         */
+        public int year;
+
+        /**
+         * Represents a birthdate of a user.
+         */
+        public Birthdate() {
+        }
+
+        /**
+         * Represents a birthdate of a user.
+         *
+         * @param day Day of the month; 1-31.
+         * @param month Month of the year; 1-12.
+         * @param year Birth year; 0 if unknown.
+         */
+        public Birthdate(int day, int month, int year) {
+            this.day = day;
+            this.month = month;
+            this.year = year;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1644064030;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Describes a type of a block list.
      */
@@ -4668,6 +4730,468 @@ public class TdApi {
     }
 
     /**
+     * Describes a connection of the bot with a business account.
+     */
+    public static class BusinessConnection extends Object {
+        /**
+         * Unique identifier of the connection.
+         */
+        public String id;
+        /**
+         * Identifier of the business user that created the connection.
+         */
+        public long userId;
+        /**
+         * Chat identifier of the private chat with the user.
+         */
+        public long userChatId;
+        /**
+         * Point in time (Unix timestamp) when the connection was established.
+         */
+        public int date;
+        /**
+         * True, if the bot can send messages to the connected user; false otherwise.
+         */
+        public boolean canReply;
+        /**
+         * True, if the connection is enabled; false otherwise.
+         */
+        public boolean isEnabled;
+
+        /**
+         * Describes a connection of the bot with a business account.
+         */
+        public BusinessConnection() {
+        }
+
+        /**
+         * Describes a connection of the bot with a business account.
+         *
+         * @param id Unique identifier of the connection.
+         * @param userId Identifier of the business user that created the connection.
+         * @param userChatId Chat identifier of the private chat with the user.
+         * @param date Point in time (Unix timestamp) when the connection was established.
+         * @param canReply True, if the bot can send messages to the connected user; false otherwise.
+         * @param isEnabled True, if the connection is enabled; false otherwise.
+         */
+        public BusinessConnection(String id, long userId, long userChatId, int date, boolean canReply, boolean isEnabled) {
+            this.id = id;
+            this.userId = userId;
+            this.userChatId = userChatId;
+            this.date = date;
+            this.canReply = canReply;
+            this.isEnabled = isEnabled;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1144447540;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes a feature available to Business user accounts.
+     */
+    public abstract static class BusinessFeature extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            BusinessFeatureLocation.CONSTRUCTOR,
+            BusinessFeatureOpeningHours.CONSTRUCTOR,
+            BusinessFeatureQuickReplies.CONSTRUCTOR,
+            BusinessFeatureGreetingMessage.CONSTRUCTOR,
+            BusinessFeatureAwayMessage.CONSTRUCTOR,
+            BusinessFeatureAccountLinks.CONSTRUCTOR,
+            BusinessFeatureIntro.CONSTRUCTOR,
+            BusinessFeatureBots.CONSTRUCTOR,
+            BusinessFeatureEmojiStatus.CONSTRUCTOR,
+            BusinessFeatureChatFolderTags.CONSTRUCTOR,
+            BusinessFeatureUpgradedStories.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public BusinessFeature() {
+        }
+    }
+
+    /**
+     * The ability to set location.
+     */
+    public static class BusinessFeatureLocation extends BusinessFeature {
+
+        /**
+         * The ability to set location.
+         */
+        public BusinessFeatureLocation() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1064304004;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to set opening hours.
+     */
+    public static class BusinessFeatureOpeningHours extends BusinessFeature {
+
+        /**
+         * The ability to set opening hours.
+         */
+        public BusinessFeatureOpeningHours() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 461054701;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to use quick replies.
+     */
+    public static class BusinessFeatureQuickReplies extends BusinessFeature {
+
+        /**
+         * The ability to use quick replies.
+         */
+        public BusinessFeatureQuickReplies() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1674048894;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to set up a greeting message.
+     */
+    public static class BusinessFeatureGreetingMessage extends BusinessFeature {
+
+        /**
+         * The ability to set up a greeting message.
+         */
+        public BusinessFeatureGreetingMessage() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1789424756;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to set up an away message.
+     */
+    public static class BusinessFeatureAwayMessage extends BusinessFeature {
+
+        /**
+         * The ability to set up an away message.
+         */
+        public BusinessFeatureAwayMessage() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1090119901;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to create links to the business account with predefined message text.
+     */
+    public static class BusinessFeatureAccountLinks extends BusinessFeature {
+
+        /**
+         * The ability to create links to the business account with predefined message text.
+         */
+        public BusinessFeatureAccountLinks() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1878693646;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to customize intro.
+     */
+    public static class BusinessFeatureIntro extends BusinessFeature {
+
+        /**
+         * The ability to customize intro.
+         */
+        public BusinessFeatureIntro() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1216070476;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to connect a bot to the account.
+     */
+    public static class BusinessFeatureBots extends BusinessFeature {
+
+        /**
+         * The ability to connect a bot to the account.
+         */
+        public BusinessFeatureBots() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 275084773;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to show an emoji status along with the business name.
+     */
+    public static class BusinessFeatureEmojiStatus extends BusinessFeature {
+
+        /**
+         * The ability to show an emoji status along with the business name.
+         */
+        public BusinessFeatureEmojiStatus() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -846282523;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to display folder names for each chat in the chat list.
+     */
+    public static class BusinessFeatureChatFolderTags extends BusinessFeature {
+
+        /**
+         * The ability to display folder names for each chat in the chat list.
+         */
+        public BusinessFeatureChatFolderTags() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -543880918;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Allowed to use many additional features for stories.
+     */
+    public static class BusinessFeatureUpgradedStories extends BusinessFeature {
+
+        /**
+         * Allowed to use many additional features for stories.
+         */
+        public BusinessFeatureUpgradedStories() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1812245550;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a promotion animation for a Business feature.
+     */
+    public static class BusinessFeaturePromotionAnimation extends Object {
+        /**
+         * Business feature.
+         */
+        public BusinessFeature feature;
+        /**
+         * Promotion animation for the feature.
+         */
+        public Animation animation;
+
+        /**
+         * Describes a promotion animation for a Business feature.
+         */
+        public BusinessFeaturePromotionAnimation() {
+        }
+
+        /**
+         * Describes a promotion animation for a Business feature.
+         *
+         * @param feature Business feature.
+         * @param animation Promotion animation for the feature.
+         */
+        public BusinessFeaturePromotionAnimation(BusinessFeature feature, Animation animation) {
+            this.feature = feature;
+            this.animation = animation;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2047174666;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about features, available to Business user accounts.
+     */
+    public static class BusinessFeatures extends Object {
+        /**
+         * The list of available business features.
+         */
+        public BusinessFeature[] features;
+
+        /**
+         * Contains information about features, available to Business user accounts.
+         */
+        public BusinessFeatures() {
+        }
+
+        /**
+         * Contains information about features, available to Business user accounts.
+         *
+         * @param features The list of available business features.
+         */
+        public BusinessFeatures(BusinessFeature[] features) {
+            this.features = features;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1532468184;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes settings for greeting messages that are automatically sent by a Telegram Business account as response to incoming messages in an inactive private chat.
      */
     public static class BusinessGreetingMessageSettings extends Object {
@@ -4737,6 +5261,10 @@ public class TdApi {
          * The away message; may be null if none or the Business account is not of the current user.
          */
         @Nullable public BusinessAwayMessageSettings awayMessageSettings;
+        /**
+         * Information about intro of the business; may be null if none.
+         */
+        @Nullable public BusinessIntro intro;
 
         /**
          * Contains information about a Telegram Business account.
@@ -4751,18 +5279,70 @@ public class TdApi {
          * @param openingHours Opening hours of the business; may be null if none. The hours are guaranteed to be valid and has already been split by week days.
          * @param greetingMessageSettings The greeting message; may be null if none or the Business account is not of the current user.
          * @param awayMessageSettings The away message; may be null if none or the Business account is not of the current user.
+         * @param intro Information about intro of the business; may be null if none.
          */
-        public BusinessInfo(BusinessLocation location, BusinessOpeningHours openingHours, BusinessGreetingMessageSettings greetingMessageSettings, BusinessAwayMessageSettings awayMessageSettings) {
+        public BusinessInfo(BusinessLocation location, BusinessOpeningHours openingHours, BusinessGreetingMessageSettings greetingMessageSettings, BusinessAwayMessageSettings awayMessageSettings, BusinessIntro intro) {
             this.location = location;
             this.openingHours = openingHours;
             this.greetingMessageSettings = greetingMessageSettings;
             this.awayMessageSettings = awayMessageSettings;
+            this.intro = intro;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2000441446;
+        public static final int CONSTRUCTOR = -865504103;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes settings for a business account intro.
+     */
+    public static class BusinessIntro extends Object {
+        /**
+         * Title text of the intro.
+         */
+        public String title;
+        /**
+         * Message text of the intro.
+         */
+        public String message;
+        /**
+         * Greeting sticker of the intro; may be null if none.
+         */
+        @Nullable public Sticker sticker;
+
+        /**
+         * Describes settings for a business account intro.
+         */
+        public BusinessIntro() {
+        }
+
+        /**
+         * Describes settings for a business account intro.
+         *
+         * @param title Title text of the intro.
+         * @param message Message text of the intro.
+         * @param sticker Greeting sticker of the intro; may be null if none.
+         */
+        public BusinessIntro(String title, String message, Sticker sticker) {
+            this.title = title;
+            this.message = message;
+            this.sticker = sticker;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1936815592;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4807,6 +5387,88 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1084969126;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a message from a business account as received by a bot.
+     */
+    public static class BusinessMessage extends Object {
+        /**
+         * The message.
+         */
+        public Message message;
+        /**
+         * Message that is replied by the message in the same chat; may be null if none.
+         */
+        @Nullable public Message replyToMessage;
+
+        /**
+         * Describes a message from a business account as received by a bot.
+         */
+        public BusinessMessage() {
+        }
+
+        /**
+         * Describes a message from a business account as received by a bot.
+         *
+         * @param message The message.
+         * @param replyToMessage Message that is replied by the message in the same chat; may be null if none.
+         */
+        public BusinessMessage(Message message, Message replyToMessage) {
+            this.message = message;
+            this.replyToMessage = replyToMessage;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -94353850;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of messages from a business account as received by a bot.
+     */
+    public static class BusinessMessages extends Object {
+        /**
+         * List of business messages.
+         */
+        public BusinessMessage[] messages;
+
+        /**
+         * Contains a list of messages from a business account as received by a bot.
+         */
+        public BusinessMessages() {
+        }
+
+        /**
+         * Contains a list of messages from a business account as received by a bot.
+         *
+         * @param messages List of business messages.
+         */
+        public BusinessMessages(BusinessMessage[] messages) {
+            this.messages = messages;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -764562473;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4914,6 +5576,10 @@ public class TdApi {
          */
         public long[] chatIds;
         /**
+         * Identifiers of private chats that are always excluded; for businessConnectedBot only.
+         */
+        public long[] excludedChatIds;
+        /**
          * True, if all existing private chats are selected.
          */
         public boolean selectExistingChats;
@@ -4944,14 +5610,16 @@ public class TdApi {
          * Describes private chats chosen for automatic interaction with a business.
          *
          * @param chatIds Identifiers of selected private chats.
+         * @param excludedChatIds Identifiers of private chats that are always excluded; for businessConnectedBot only.
          * @param selectExistingChats True, if all existing private chats are selected.
          * @param selectNewChats True, if all new private chats are selected.
          * @param selectContacts True, if all private chats with contacts are selected.
          * @param selectNonContacts True, if all private chats with non-contacts are selected.
          * @param excludeSelected If true, then all private chats except the selected are chosen. Otherwise, only the selected chats are chosen.
          */
-        public BusinessRecipients(long[] chatIds, boolean selectExistingChats, boolean selectNewChats, boolean selectContacts, boolean selectNonContacts, boolean excludeSelected) {
+        public BusinessRecipients(long[] chatIds, long[] excludedChatIds, boolean selectExistingChats, boolean selectNewChats, boolean selectContacts, boolean selectNonContacts, boolean excludeSelected) {
             this.chatIds = chatIds;
+            this.excludedChatIds = excludedChatIds;
             this.selectExistingChats = selectExistingChats;
             this.selectNewChats = selectNewChats;
             this.selectContacts = selectContacts;
@@ -4962,7 +5630,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 581049873;
+        public static final int CONSTRUCTOR = 868656909;
 
         /**
          * @return this.CONSTRUCTOR
@@ -11171,7 +11839,7 @@ public class TdApi {
          */
         @Nullable public ChatFolderIcon icon;
         /**
-         * The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is didabled.
+         * The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is didabled. Can't be changed if folder tags are disabled or the current user doesn't have Telegram Premium subscription.
          */
         public int colorId;
         /**
@@ -11234,7 +11902,7 @@ public class TdApi {
          *
          * @param title The title of the folder; 1-12 characters without line feeds.
          * @param icon The chosen icon for the chat folder; may be null. If null, use getChatFolderDefaultIconName to get default icon name for the folder.
-         * @param colorId The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is didabled.
+         * @param colorId The identifier of the chosen color for the chat folder icon; from -1 to 6. If -1, then color is didabled. Can't be changed if folder tags are disabled or the current user doesn't have Telegram Premium subscription.
          * @param isShareable True, if at least one link has been created for the folder.
          * @param pinnedChatIds The chat identifiers of pinned chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
          * @param includedChatIds The chat identifiers of always included chats in the folder. There can be up to getOption(&quot;chat_folder_chosen_chat_count_max&quot;) pinned and always included non-secret chats and the same number of secret chats, but the limit can be increased with Telegram Premium.
@@ -14831,12 +15499,12 @@ public class TdApi {
     }
 
     /**
-     * The username can be purchased at fragment.com.
+     * The username can be purchased at https://fragment.com. Information about the username can be received using getCollectibleItemInfo.
      */
     public static class CheckChatUsernameResultUsernamePurchasable extends CheckChatUsernameResult {
 
         /**
-         * The username can be purchased at fragment.com.
+         * The username can be purchased at https://fragment.com. Information about the username can be received using getCollectibleItemInfo.
          */
         public CheckChatUsernameResultUsernamePurchasable() {
         }
@@ -15010,6 +15678,50 @@ public class TdApi {
     }
 
     /**
+     * Describes a user that had or will have a birthday soon.
+     */
+    public static class CloseBirthdayUser extends Object {
+        /**
+         * User identifier.
+         */
+        public long userId;
+        /**
+         * Birthdate of the user.
+         */
+        public Birthdate birthdate;
+
+        /**
+         * Describes a user that had or will have a birthday soon.
+         */
+        public CloseBirthdayUser() {
+        }
+
+        /**
+         * Describes a user that had or will have a birthday soon.
+         *
+         * @param userId User identifier.
+         * @param birthdate Birthdate of the user.
+         */
+        public CloseBirthdayUser(long userId, Birthdate birthdate) {
+            this.userId = userId;
+            this.birthdate = birthdate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2147067410;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Represents a closed vector path. The path begins at the end point of the last command.
      */
     public static class ClosedVectorPath extends Object {
@@ -15037,6 +15749,178 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 589951657;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about a collectible item and its last purchase.
+     */
+    public static class CollectibleItemInfo extends Object {
+        /**
+         * Point in time (Unix timestamp) when the item was purchased.
+         */
+        public int purchaseDate;
+        /**
+         * Currency for the paid amount.
+         */
+        public String currency;
+        /**
+         * The paid amount, in the smallest units of the currency.
+         */
+        public long amount;
+        /**
+         * Cryptocurrency used to pay for the item.
+         */
+        public String cryptocurrency;
+        /**
+         * The paid amount, in the smallest units of the cryptocurrency.
+         */
+        public long cryptocurrencyAmount;
+        /**
+         * Individual URL for the item on https://fragment.com.
+         */
+        public String url;
+
+        /**
+         * Contains information about a collectible item and its last purchase.
+         */
+        public CollectibleItemInfo() {
+        }
+
+        /**
+         * Contains information about a collectible item and its last purchase.
+         *
+         * @param purchaseDate Point in time (Unix timestamp) when the item was purchased.
+         * @param currency Currency for the paid amount.
+         * @param amount The paid amount, in the smallest units of the currency.
+         * @param cryptocurrency Cryptocurrency used to pay for the item.
+         * @param cryptocurrencyAmount The paid amount, in the smallest units of the cryptocurrency.
+         * @param url Individual URL for the item on https://fragment.com.
+         */
+        public CollectibleItemInfo(int purchaseDate, String currency, long amount, String cryptocurrency, long cryptocurrencyAmount, String url) {
+            this.purchaseDate = purchaseDate;
+            this.currency = currency;
+            this.amount = amount;
+            this.cryptocurrency = cryptocurrency;
+            this.cryptocurrencyAmount = cryptocurrencyAmount;
+            this.url = url;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1460640717;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes a collectible item that can be purchased at https://fragment.com.
+     */
+    public abstract static class CollectibleItemType extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            CollectibleItemTypeUsername.CONSTRUCTOR,
+            CollectibleItemTypePhoneNumber.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public CollectibleItemType() {
+        }
+    }
+
+    /**
+     * A username.
+     */
+    public static class CollectibleItemTypeUsername extends CollectibleItemType {
+        /**
+         * The username.
+         */
+        public String username;
+
+        /**
+         * A username.
+         */
+        public CollectibleItemTypeUsername() {
+        }
+
+        /**
+         * A username.
+         *
+         * @param username The username.
+         */
+        public CollectibleItemTypeUsername(String username) {
+            this.username = username;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 458680273;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A phone number.
+     */
+    public static class CollectibleItemTypePhoneNumber extends CollectibleItemType {
+        /**
+         * The phone number.
+         */
+        public String phoneNumber;
+
+        /**
+         * A phone number.
+         */
+        public CollectibleItemTypePhoneNumber() {
+        }
+
+        /**
+         * A phone number.
+         *
+         * @param phoneNumber The phone number.
+         */
+        public CollectibleItemTypePhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1256251714;
 
         /**
          * @return this.CONSTRUCTOR
@@ -21552,6 +22436,56 @@ public class TdApi {
     }
 
     /**
+     * Describes settings for a business account intro to set.
+     */
+    public static class InputBusinessIntro extends Object {
+        /**
+         * Title text of the intro; 0-getOption(&quot;business_intro_title_length_max&quot;) characters.
+         */
+        public String title;
+        /**
+         * Message text of the intro; 0-getOption(&quot;business_intro_message_length_max&quot;) characters.
+         */
+        public String message;
+        /**
+         * Greeting sticker of the intro; pass null if none. The sticker must belong to a sticker set and must not be a custom emoji.
+         */
+        public InputFile sticker;
+
+        /**
+         * Describes settings for a business account intro to set.
+         */
+        public InputBusinessIntro() {
+        }
+
+        /**
+         * Describes settings for a business account intro to set.
+         *
+         * @param title Title text of the intro; 0-getOption(&quot;business_intro_title_length_max&quot;) characters.
+         * @param message Message text of the intro; 0-getOption(&quot;business_intro_message_length_max&quot;) characters.
+         * @param sticker Greeting sticker of the intro; pass null if none. The sticker must belong to a sticker set and must not be a custom emoji.
+         */
+        public InputBusinessIntro(String title, String message, InputFile sticker) {
+            this.title = title;
+            this.message = message;
+            this.sticker = sticker;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 152107783;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Describes a photo to be set as a user profile or chat photo.
      */
@@ -23887,7 +24821,7 @@ public class TdApi {
          */
         @Nullable public InputThumbnail thumbnail;
         /**
-         * Duration of the video, in seconds.
+         * Duration of the video, in seconds; 0-60.
          */
         public int duration;
         /**
@@ -23910,7 +24844,7 @@ public class TdApi {
          *
          * @param videoNote Video note to be sent.
          * @param thumbnail Video thumbnail; may be null if empty; pass null to skip thumbnail uploading.
-         * @param duration Duration of the video, in seconds.
+         * @param duration Duration of the video, in seconds; 0-60.
          * @param length Video width and height; must be positive and not greater than 640.
          * @param selfDestructType Video note self-destruct type; may be null if none; pass null if none; private chats only.
          */
@@ -25637,6 +26571,10 @@ public class TdApi {
          */
         public InputFile sticker;
         /**
+         * Format of the sticker.
+         */
+        public StickerFormat format;
+        /**
          * String with 1-20 emoji corresponding to the sticker.
          */
         public String emojis;
@@ -25659,12 +26597,14 @@ public class TdApi {
          * A sticker to be added to a sticker set.
          *
          * @param sticker File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+         * @param format Format of the sticker.
          * @param emojis String with 1-20 emoji corresponding to the sticker.
          * @param maskPosition Position where the mask is placed; pass null if not specified.
          * @param keywords List of up to 20 keywords with total length up to 64 characters, which can be used to find the sticker.
          */
-        public InputSticker(InputFile sticker, String emojis, MaskPosition maskPosition, String[] keywords) {
+        public InputSticker(InputFile sticker, StickerFormat format, String emojis, MaskPosition maskPosition, String[] keywords) {
             this.sticker = sticker;
+            this.format = format;
             this.emojis = emojis;
             this.maskPosition = maskPosition;
             this.keywords = keywords;
@@ -25673,7 +26613,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 735226185;
+        public static final int CONSTRUCTOR = 1589392402;
 
         /**
          * @return this.CONSTRUCTOR
@@ -27093,7 +28033,7 @@ public class TdApi {
      */
     public static class InternalLinkTypePassportDataRequest extends InternalLinkType {
         /**
-         * User identifier of the service's bot.
+         * User identifier of the service's bot; the corresponding user may be unknown yet.
          */
         public long botUserId;
         /**
@@ -27122,7 +28062,7 @@ public class TdApi {
         /**
          * The link contains a request of Telegram passport data. Call getPassportAuthorizationForm with the given parameters to process the link if the link was received from outside of the application; otherwise, ignore it.
          *
-         * @param botUserId User identifier of the service's bot.
+         * @param botUserId User identifier of the service's bot; the corresponding user may be unknown yet.
          * @param scope Telegram Passport element types requested by the service.
          * @param publicKey Service's public key.
          * @param nonce Unique request identifier provided by the service.
@@ -28665,6 +29605,18 @@ public class TdApi {
          * The maximum number of users to share.
          */
         public int maxQuantity;
+        /**
+         * Pass true to request name of the users; bots only.
+         */
+        public boolean requestName;
+        /**
+         * Pass true to request username of the users; bots only.
+         */
+        public boolean requestUsername;
+        /**
+         * Pass true to request photo of the users; bots only.
+         */
+        public boolean requestPhoto;
 
         /**
          * A button that requests users to be shared by the current user; available only in private chats. Use the method shareUsersWithBot to complete the request.
@@ -28681,20 +29633,26 @@ public class TdApi {
          * @param restrictUserIsPremium True, if the shared users must or must not be Telegram Premium users.
          * @param userIsPremium True, if the shared users must be Telegram Premium users; otherwise, the shared users must not be Telegram Premium users. Ignored if restrictUserIsPremium is false.
          * @param maxQuantity The maximum number of users to share.
+         * @param requestName Pass true to request name of the users; bots only.
+         * @param requestUsername Pass true to request username of the users; bots only.
+         * @param requestPhoto Pass true to request photo of the users; bots only.
          */
-        public KeyboardButtonTypeRequestUsers(int id, boolean restrictUserIsBot, boolean userIsBot, boolean restrictUserIsPremium, boolean userIsPremium, int maxQuantity) {
+        public KeyboardButtonTypeRequestUsers(int id, boolean restrictUserIsBot, boolean userIsBot, boolean restrictUserIsPremium, boolean userIsPremium, int maxQuantity, boolean requestName, boolean requestUsername, boolean requestPhoto) {
             this.id = id;
             this.restrictUserIsBot = restrictUserIsBot;
             this.userIsBot = userIsBot;
             this.restrictUserIsPremium = restrictUserIsPremium;
             this.userIsPremium = userIsPremium;
             this.maxQuantity = maxQuantity;
+            this.requestName = requestName;
+            this.requestUsername = requestUsername;
+            this.requestPhoto = requestPhoto;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2120478608;
+        public static final int CONSTRUCTOR = -1738765315;
 
         /**
          * @return this.CONSTRUCTOR
@@ -28749,6 +29707,18 @@ public class TdApi {
          * True, if the bot must be a member of the chat; for basic group and supergroup chats only.
          */
         public boolean botIsMember;
+        /**
+         * Pass true to request title of the chat; bots only.
+         */
+        public boolean requestTitle;
+        /**
+         * Pass true to request username of the chat; bots only.
+         */
+        public boolean requestUsername;
+        /**
+         * Pass true to request photo of the chat; bots only.
+         */
+        public boolean requestPhoto;
 
         /**
          * A button that requests a chat to be shared by the current user; available only in private chats. Use the method shareChatWithBot to complete the request.
@@ -28769,8 +29739,11 @@ public class TdApi {
          * @param userAdministratorRights Expected user administrator rights in the chat; may be null if they aren't restricted.
          * @param botAdministratorRights Expected bot administrator rights in the chat; may be null if they aren't restricted.
          * @param botIsMember True, if the bot must be a member of the chat; for basic group and supergroup chats only.
+         * @param requestTitle Pass true to request title of the chat; bots only.
+         * @param requestUsername Pass true to request username of the chat; bots only.
+         * @param requestPhoto Pass true to request photo of the chat; bots only.
          */
-        public KeyboardButtonTypeRequestChat(int id, boolean chatIsChannel, boolean restrictChatIsForum, boolean chatIsForum, boolean restrictChatHasUsername, boolean chatHasUsername, boolean chatIsCreated, ChatAdministratorRights userAdministratorRights, ChatAdministratorRights botAdministratorRights, boolean botIsMember) {
+        public KeyboardButtonTypeRequestChat(int id, boolean chatIsChannel, boolean restrictChatIsForum, boolean chatIsForum, boolean restrictChatHasUsername, boolean chatHasUsername, boolean chatIsCreated, ChatAdministratorRights userAdministratorRights, ChatAdministratorRights botAdministratorRights, boolean botIsMember, boolean requestTitle, boolean requestUsername, boolean requestPhoto) {
             this.id = id;
             this.chatIsChannel = chatIsChannel;
             this.restrictChatIsForum = restrictChatIsForum;
@@ -28781,12 +29754,15 @@ public class TdApi {
             this.userAdministratorRights = userAdministratorRights;
             this.botAdministratorRights = botAdministratorRights;
             this.botIsMember = botIsMember;
+            this.requestTitle = requestTitle;
+            this.requestUsername = requestUsername;
+            this.requestPhoto = requestPhoto;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 272541602;
+        public static final int CONSTRUCTOR = 1511138485;
 
         /**
          * @return this.CONSTRUCTOR
@@ -30013,6 +30989,10 @@ public class TdApi {
          */
         public boolean isPinned;
         /**
+         * True, if the message was sent because of a scheduled action by the message sender, for example, as away, or greeting service message.
+         */
+        public boolean isFromOffline;
+        /**
          * True, if the message can be edited. For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message by the application.
          */
         public boolean canBeEdited;
@@ -30129,9 +31109,13 @@ public class TdApi {
          */
         public double autoDeleteIn;
         /**
-         * If non-zero, the user identifier of the bot through which this message was sent.
+         * If non-zero, the user identifier of the inline bot through which this message was sent.
          */
         public long viaBotUserId;
+        /**
+         * If non-zero, the user identifier of the business bot that sent this message.
+         */
+        public long senderBusinessBotUserId;
         /**
          * Number of times the sender of the message boosted the supergroup at the time the message was sent; 0 if none or unknown. For messages sent by the current user, supergroupFullInfo.myBoostCount must be used instead.
          */
@@ -30173,6 +31157,7 @@ public class TdApi {
          * @param schedulingState The scheduling state of the message; may be null if the message isn't scheduled.
          * @param isOutgoing True, if the message is outgoing.
          * @param isPinned True, if the message is pinned.
+         * @param isFromOffline True, if the message was sent because of a scheduled action by the message sender, for example, as away, or greeting service message.
          * @param canBeEdited True, if the message can be edited. For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message by the application.
          * @param canBeForwarded True, if the message can be forwarded.
          * @param canBeRepliedInAnotherChat True, if the message can be replied in another chat or topic.
@@ -30202,7 +31187,8 @@ public class TdApi {
          * @param selfDestructType The message's self-destruct type; may be null if none.
          * @param selfDestructIn Time left before the message self-destruct timer expires, in seconds; 0 if self-destruction isn't scheduled yet.
          * @param autoDeleteIn Time left before the message will be automatically deleted by messageAutoDeleteTime setting of the chat, in seconds; 0 if never.
-         * @param viaBotUserId If non-zero, the user identifier of the bot through which this message was sent.
+         * @param viaBotUserId If non-zero, the user identifier of the inline bot through which this message was sent.
+         * @param senderBusinessBotUserId If non-zero, the user identifier of the business bot that sent this message.
          * @param senderBoostCount Number of times the sender of the message boosted the supergroup at the time the message was sent; 0 if none or unknown. For messages sent by the current user, supergroupFullInfo.myBoostCount must be used instead.
          * @param authorSignature For channel posts and anonymous group messages, optional author signature.
          * @param mediaAlbumId Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums.
@@ -30210,7 +31196,7 @@ public class TdApi {
          * @param content Content of the message.
          * @param replyMarkup Reply markup for the message; may be null if none.
          */
-        public Message(long id, MessageSender senderId, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean canBeEdited, boolean canBeForwarded, boolean canBeRepliedInAnotherChat, boolean canBeSaved, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetAddedReactions, boolean canGetStatistics, boolean canGetMessageThread, boolean canGetReadDate, boolean canGetViewers, boolean canGetMediaTimestampLinks, boolean canReportReactions, boolean hasTimestampedMedia, boolean isChannelPost, boolean isTopicMessage, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, MessageImportInfo importInfo, MessageInteractionInfo interactionInfo, UnreadReaction[] unreadReactions, MessageReplyTo replyTo, long messageThreadId, long savedMessagesTopicId, MessageSelfDestructType selfDestructType, double selfDestructIn, double autoDeleteIn, long viaBotUserId, int senderBoostCount, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, ReplyMarkup replyMarkup) {
+        public Message(long id, MessageSender senderId, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean isFromOffline, boolean canBeEdited, boolean canBeForwarded, boolean canBeRepliedInAnotherChat, boolean canBeSaved, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetAddedReactions, boolean canGetStatistics, boolean canGetMessageThread, boolean canGetReadDate, boolean canGetViewers, boolean canGetMediaTimestampLinks, boolean canReportReactions, boolean hasTimestampedMedia, boolean isChannelPost, boolean isTopicMessage, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, MessageImportInfo importInfo, MessageInteractionInfo interactionInfo, UnreadReaction[] unreadReactions, MessageReplyTo replyTo, long messageThreadId, long savedMessagesTopicId, MessageSelfDestructType selfDestructType, double selfDestructIn, double autoDeleteIn, long viaBotUserId, long senderBusinessBotUserId, int senderBoostCount, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, ReplyMarkup replyMarkup) {
             this.id = id;
             this.senderId = senderId;
             this.chatId = chatId;
@@ -30218,6 +31204,7 @@ public class TdApi {
             this.schedulingState = schedulingState;
             this.isOutgoing = isOutgoing;
             this.isPinned = isPinned;
+            this.isFromOffline = isFromOffline;
             this.canBeEdited = canBeEdited;
             this.canBeForwarded = canBeForwarded;
             this.canBeRepliedInAnotherChat = canBeRepliedInAnotherChat;
@@ -30248,6 +31235,7 @@ public class TdApi {
             this.selfDestructIn = selfDestructIn;
             this.autoDeleteIn = autoDeleteIn;
             this.viaBotUserId = viaBotUserId;
+            this.senderBusinessBotUserId = senderBusinessBotUserId;
             this.senderBoostCount = senderBoostCount;
             this.authorSignature = authorSignature;
             this.mediaAlbumId = mediaAlbumId;
@@ -30259,7 +31247,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1194605269;
+        public static final int CONSTRUCTOR = -1857915351;
 
         /**
          * @return this.CONSTRUCTOR
@@ -33222,9 +34210,9 @@ public class TdApi {
      */
     public static class MessageUsersShared extends MessageContent {
         /**
-         * Identifier of the shared users.
+         * The shared users.
          */
-        public long[] userIds;
+        public SharedUser[] users;
         /**
          * Identifier of the keyboard button with the request.
          */
@@ -33239,18 +34227,18 @@ public class TdApi {
         /**
          * The current user shared users, which were requested by the bot.
          *
-         * @param userIds Identifier of the shared users.
+         * @param users The shared users.
          * @param buttonId Identifier of the keyboard button with the request.
          */
-        public MessageUsersShared(long[] userIds, int buttonId) {
-            this.userIds = userIds;
+        public MessageUsersShared(SharedUser[] users, int buttonId) {
+            this.users = users;
             this.buttonId = buttonId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -36105356;
+        public static final int CONSTRUCTOR = -842442318;
 
         /**
          * @return this.CONSTRUCTOR
@@ -33266,9 +34254,9 @@ public class TdApi {
      */
     public static class MessageChatShared extends MessageContent {
         /**
-         * Identifier of the shared chat.
+         * The shared chat.
          */
-        public long chatId;
+        public SharedChat chat;
         /**
          * Identifier of the keyboard button with the request.
          */
@@ -33283,18 +34271,18 @@ public class TdApi {
         /**
          * The current user shared a chat, which was requested by the bot.
          *
-         * @param chatId Identifier of the shared chat.
+         * @param chat The shared chat.
          * @param buttonId Identifier of the keyboard button with the request.
          */
-        public MessageChatShared(long chatId, int buttonId) {
-            this.chatId = chatId;
+        public MessageChatShared(SharedChat chat, int buttonId) {
+            this.chat = chat;
             this.buttonId = buttonId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 584806545;
+        public static final int CONSTRUCTOR = -1362699935;
 
         /**
          * @return this.CONSTRUCTOR
@@ -33675,7 +34663,7 @@ public class TdApi {
          */
         public int height;
         /**
-         * Media duration; 0 if unknown.
+         * Media duration, in seconds; 0 if unknown.
          */
         public int duration;
         /**
@@ -33698,7 +34686,7 @@ public class TdApi {
          *
          * @param width Media width; 0 if unknown.
          * @param height Media height; 0 if unknown.
-         * @param duration Media duration; 0 if unknown.
+         * @param duration Media duration, in seconds; 0 if unknown.
          * @param minithumbnail Media minithumbnail; may be null.
          * @param caption Media caption.
          */
@@ -41763,7 +42751,7 @@ public class TdApi {
          */
         public String formattedPhoneNumber;
         /**
-         * True, if the phone number was bought on Fragment and isn't tied to a SIM card.
+         * True, if the phone number was bought at https://fragment.com and isn't tied to a SIM card. Information about the phone number can be received using getCollectibleItemInfo.
          */
         public boolean isAnonymous;
 
@@ -41779,7 +42767,7 @@ public class TdApi {
          * @param country Information about the country to which the phone number belongs; may be null.
          * @param countryCallingCode The part of the phone number denoting country calling code or its part.
          * @param formattedPhoneNumber The phone number without country calling code formatted accordingly to local rules. Expected digits are returned as '-', but even more digits might be entered by the user.
-         * @param isAnonymous True, if the phone number was bought on Fragment and isn't tied to a SIM card.
+         * @param isAnonymous True, if the phone number was bought at https://fragment.com and isn't tied to a SIM card. Information about the phone number can be received using getCollectibleItemInfo.
          */
         public PhoneNumberInfo(CountryInfo country, String countryCallingCode, String formattedPhoneNumber, boolean isAnonymous) {
             this.country = country;
@@ -42253,7 +43241,8 @@ public class TdApi {
             PremiumFeatureBackgroundForBoth.CONSTRUCTOR,
             PremiumFeatureSavedMessagesTags.CONSTRUCTOR,
             PremiumFeatureMessagePrivacy.CONSTRUCTOR,
-            PremiumFeatureLastSeenTimes.CONSTRUCTOR
+            PremiumFeatureLastSeenTimes.CONSTRUCTOR,
+            PremiumFeatureBusiness.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -42521,12 +43510,12 @@ public class TdApi {
     }
 
     /**
-     * An emoji status shown along with the user's name.
+     * The ability to show an emoji status along with the user's name.
      */
     public static class PremiumFeatureEmojiStatus extends PremiumFeature {
 
         /**
-         * An emoji status shown along with the user's name.
+         * The ability to show an emoji status along with the user's name.
          */
         public PremiumFeatureEmojiStatus() {
         }
@@ -42810,6 +43799,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -762230129;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to use Business features.
+     */
+    public static class PremiumFeatureBusiness extends PremiumFeature {
+
+        /**
+         * The ability to use Business features.
+         */
+        public PremiumFeatureBusiness() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1503619324;
 
         /**
          * @return this.CONSTRUCTOR
@@ -43265,7 +44279,7 @@ public class TdApi {
          */
         public boolean hasPublicWinners;
         /**
-         * The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be eligible for the giveaway. If empty, then all users can participate in the giveaway. There can be up to getOption(&quot;giveaway_country_count_max&quot;) chosen countries. Users with phone number that was bought on Fragment can participate in any giveaway and the country code &quot;FT&quot; must not be specified in the list.
+         * The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be eligible for the giveaway. If empty, then all users can participate in the giveaway. There can be up to getOption(&quot;giveaway_country_count_max&quot;) chosen countries. Users with phone number that was bought at https://fragment.com can participate in any giveaway and the country code &quot;FT&quot; must not be specified in the list.
          */
         public String[] countryCodes;
         /**
@@ -43287,7 +44301,7 @@ public class TdApi {
          * @param winnersSelectionDate Point in time (Unix timestamp) when the giveaway is expected to be performed; must be 60-getOption(&quot;giveaway_duration_max&quot;) seconds in the future in scheduled giveaways.
          * @param onlyNewMembers True, if only new members of the chats will be eligible for the giveaway.
          * @param hasPublicWinners True, if the list of winners of the giveaway will be available to everyone.
-         * @param countryCodes The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be eligible for the giveaway. If empty, then all users can participate in the giveaway. There can be up to getOption(&quot;giveaway_country_count_max&quot;) chosen countries. Users with phone number that was bought on Fragment can participate in any giveaway and the country code &quot;FT&quot; must not be specified in the list.
+         * @param countryCodes The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be eligible for the giveaway. If empty, then all users can participate in the giveaway. There can be up to getOption(&quot;giveaway_country_count_max&quot;) chosen countries. Users with phone number that was bought at https://fragment.com can participate in any giveaway and the country code &quot;FT&quot; must not be specified in the list.
          * @param prizeDescription Additional description of the giveaway prize; 0-128 characters.
          */
         public PremiumGiveawayParameters(long boostedChatId, long[] additionalChatIds, int winnersSelectionDate, boolean onlyNewMembers, boolean hasPublicWinners, String[] countryCodes, String prizeDescription) {
@@ -44159,6 +45173,7 @@ public class TdApi {
         @IntDef({
             PremiumSourceLimitExceeded.CONSTRUCTOR,
             PremiumSourceFeature.CONSTRUCTOR,
+            PremiumSourceBusinessFeature.CONSTRUCTOR,
             PremiumSourceStoryFeature.CONSTRUCTOR,
             PremiumSourceLink.CONSTRUCTOR,
             PremiumSourceSettings.CONSTRUCTOR
@@ -44244,6 +45259,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 445813541;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A user tried to use a Business feature.
+     */
+    public static class PremiumSourceBusinessFeature extends PremiumSource {
+        /**
+         * The used feature; pass null if none specific feature was used.
+         */
+        public BusinessFeature feature;
+
+        /**
+         * A user tried to use a Business feature.
+         */
+        public PremiumSourceBusinessFeature() {
+        }
+
+        /**
+         * A user tried to use a Business feature.
+         *
+         * @param feature The used feature; pass null if none specific feature was used.
+         */
+        public PremiumSourceBusinessFeature(BusinessFeature feature) {
+            this.feature = feature;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1492946340;
 
         /**
          * @return this.CONSTRUCTOR
@@ -44371,6 +45424,10 @@ public class TdApi {
          * The list of available promotion animations for Premium features.
          */
         public PremiumFeaturePromotionAnimation[] animations;
+        /**
+         * The list of available promotion animations for Business features.
+         */
+        public BusinessFeaturePromotionAnimation[] businessAnimations;
 
         /**
          * Contains state of Telegram Premium subscription and promotion videos for Premium features.
@@ -44384,17 +45441,19 @@ public class TdApi {
          * @param state Text description of the state of the current Premium subscription; may be empty if the current user has no Telegram Premium subscription.
          * @param paymentOptions The list of available options for buying Telegram Premium.
          * @param animations The list of available promotion animations for Premium features.
+         * @param businessAnimations The list of available promotion animations for Business features.
          */
-        public PremiumState(FormattedText state, PremiumStatePaymentOption[] paymentOptions, PremiumFeaturePromotionAnimation[] animations) {
+        public PremiumState(FormattedText state, PremiumStatePaymentOption[] paymentOptions, PremiumFeaturePromotionAnimation[] animations, BusinessFeaturePromotionAnimation[] businessAnimations) {
             this.state = state;
             this.paymentOptions = paymentOptions;
             this.animations = animations;
+            this.businessAnimations = businessAnimations;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1203513213;
+        public static final int CONSTRUCTOR = 1772082178;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47658,6 +48717,225 @@ public class TdApi {
     }
 
     /**
+     * Describes an option to report a sponsored message.
+     */
+    public static class ReportChatSponsoredMessageOption extends Object {
+        /**
+         * Unique identifier of the option.
+         */
+        public byte[] id;
+        /**
+         * Text of the option.
+         */
+        public String text;
+
+        /**
+         * Describes an option to report a sponsored message.
+         */
+        public ReportChatSponsoredMessageOption() {
+        }
+
+        /**
+         * Describes an option to report a sponsored message.
+         *
+         * @param id Unique identifier of the option.
+         * @param text Text of the option.
+         */
+        public ReportChatSponsoredMessageOption(byte[] id, String text) {
+            this.id = id;
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1430452918;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes result of sponsored message report.
+     */
+    public abstract static class ReportChatSponsoredMessageResult extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            ReportChatSponsoredMessageResultOk.CONSTRUCTOR,
+            ReportChatSponsoredMessageResultFailed.CONSTRUCTOR,
+            ReportChatSponsoredMessageResultOptionRequired.CONSTRUCTOR,
+            ReportChatSponsoredMessageResultAdsHidden.CONSTRUCTOR,
+            ReportChatSponsoredMessageResultPremiumRequired.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public ReportChatSponsoredMessageResult() {
+        }
+    }
+
+    /**
+     * The message was reported successfully.
+     */
+    public static class ReportChatSponsoredMessageResultOk extends ReportChatSponsoredMessageResult {
+
+        /**
+         * The message was reported successfully.
+         */
+        public ReportChatSponsoredMessageResultOk() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1968140831;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The sponsored message is too old or not found.
+     */
+    public static class ReportChatSponsoredMessageResultFailed extends ReportChatSponsoredMessageResult {
+
+        /**
+         * The sponsored message is too old or not found.
+         */
+        public ReportChatSponsoredMessageResultFailed() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2132777926;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user must choose an option to report the message and repeat request with the chosen option.
+     */
+    public static class ReportChatSponsoredMessageResultOptionRequired extends ReportChatSponsoredMessageResult {
+        /**
+         * Title for the option choice.
+         */
+        public String title;
+        /**
+         * List of available options.
+         */
+        public ReportChatSponsoredMessageOption[] options;
+
+        /**
+         * The user must choose an option to report the message and repeat request with the chosen option.
+         */
+        public ReportChatSponsoredMessageResultOptionRequired() {
+        }
+
+        /**
+         * The user must choose an option to report the message and repeat request with the chosen option.
+         *
+         * @param title Title for the option choice.
+         * @param options List of available options.
+         */
+        public ReportChatSponsoredMessageResultOptionRequired(String title, ReportChatSponsoredMessageOption[] options) {
+            this.title = title;
+            this.options = options;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1838690321;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Sponsored messages were hidden for the user in all chats.
+     */
+    public static class ReportChatSponsoredMessageResultAdsHidden extends ReportChatSponsoredMessageResult {
+
+        /**
+         * Sponsored messages were hidden for the user in all chats.
+         */
+        public ReportChatSponsoredMessageResultAdsHidden() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -387260898;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user asked to hide sponsored messages, but Telegram Premium is required for this.
+     */
+    public static class ReportChatSponsoredMessageResultPremiumRequired extends ReportChatSponsoredMessageResult {
+
+        /**
+         * The user asked to hide sponsored messages, but Telegram Premium is required for this.
+         */
+        public ReportChatSponsoredMessageResultPremiumRequired() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1997287120;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Describes the reason why a chat is reported.
      */
@@ -50688,6 +51966,124 @@ public class TdApi {
     }
 
     /**
+     * Contains information about a chat shared with a bot.
+     */
+    public static class SharedChat extends Object {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * Title of the chat; for bots only.
+         */
+        public String title;
+        /**
+         * Username of the chat; for bots only.
+         */
+        public String username;
+        /**
+         * Photo of the chat; for bots only; may be null.
+         */
+        @Nullable public Photo photo;
+
+        /**
+         * Contains information about a chat shared with a bot.
+         */
+        public SharedChat() {
+        }
+
+        /**
+         * Contains information about a chat shared with a bot.
+         *
+         * @param chatId Chat identifier.
+         * @param title Title of the chat; for bots only.
+         * @param username Username of the chat; for bots only.
+         * @param photo Photo of the chat; for bots only; may be null.
+         */
+        public SharedChat(long chatId, String title, String username, Photo photo) {
+            this.chatId = chatId;
+            this.title = title;
+            this.username = username;
+            this.photo = photo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1250406426;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about a user shared with a bot.
+     */
+    public static class SharedUser extends Object {
+        /**
+         * User identifier.
+         */
+        public long userId;
+        /**
+         * First name of the user; for bots only.
+         */
+        public String firstName;
+        /**
+         * Last name of the user; for bots only.
+         */
+        public String lastName;
+        /**
+         * Username of the user; for bots only.
+         */
+        public String username;
+        /**
+         * Profile photo of the user; for bots only; may be null.
+         */
+        @Nullable public Photo photo;
+
+        /**
+         * Contains information about a user shared with a bot.
+         */
+        public SharedUser() {
+        }
+
+        /**
+         * Contains information about a user shared with a bot.
+         *
+         * @param userId User identifier.
+         * @param firstName First name of the user; for bots only.
+         * @param lastName Last name of the user; for bots only.
+         * @param username Username of the user; for bots only.
+         * @param photo Profile photo of the user; for bots only; may be null.
+         */
+        public SharedUser(long userId, String firstName, String lastName, String username, Photo photo) {
+            this.userId = userId;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.username = username;
+            this.photo = photo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 293020919;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * One shipping option.
      */
     public static class ShippingOption extends Object {
@@ -50893,6 +52289,10 @@ public class TdApi {
          */
         public boolean isRecommended;
         /**
+         * True, if the message can be reported to Telegram moderators through reportChatSponsoredMessage.
+         */
+        public boolean canBeReported;
+        /**
          * Content of the message. Currently, can be only of the type messageText.
          */
         public MessageContent content;
@@ -50920,14 +52320,16 @@ public class TdApi {
          *
          * @param messageId Message identifier; unique for the chat to which the sponsored message belongs among both ordinary and sponsored messages.
          * @param isRecommended True, if the message needs to be labeled as &quot;recommended&quot; instead of &quot;sponsored&quot;.
+         * @param canBeReported True, if the message can be reported to Telegram moderators through reportChatSponsoredMessage.
          * @param content Content of the message. Currently, can be only of the type messageText.
          * @param sponsor Information about the sponsor of the message.
          * @param buttonText If non-empty, text for the message action button.
          * @param additionalInfo If non-empty, additional information about the sponsored message to be shown along with the message.
          */
-        public SponsoredMessage(long messageId, boolean isRecommended, MessageContent content, MessageSponsor sponsor, String buttonText, String additionalInfo) {
+        public SponsoredMessage(long messageId, boolean isRecommended, boolean canBeReported, MessageContent content, MessageSponsor sponsor, String buttonText, String additionalInfo) {
             this.messageId = messageId;
             this.isRecommended = isRecommended;
+            this.canBeReported = canBeReported;
             this.content = content;
             this.sponsor = sponsor;
             this.buttonText = buttonText;
@@ -50937,7 +52339,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 343286708;
+        public static final int CONSTRUCTOR = 927523951;
 
         /**
          * @return this.CONSTRUCTOR
@@ -51561,6 +52963,10 @@ public class TdApi {
          */
         public ClosedVectorPath[] thumbnailOutline;
         /**
+         * True, if the sticker set is owned by the current user.
+         */
+        public boolean isOwned;
+        /**
          * True, if the sticker set has been installed by the current user.
          */
         public boolean isInstalled;
@@ -51572,10 +52978,6 @@ public class TdApi {
          * True, if the sticker set is official.
          */
         public boolean isOfficial;
-        /**
-         * Format of the stickers in the set.
-         */
-        public StickerFormat stickerFormat;
         /**
          * Type of the stickers in the set.
          */
@@ -51615,10 +53017,10 @@ public class TdApi {
          * @param name Name of the sticker set.
          * @param thumbnail Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed.
          * @param thumbnailOutline Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
+         * @param isOwned True, if the sticker set is owned by the current user.
          * @param isInstalled True, if the sticker set has been installed by the current user.
          * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
          * @param isOfficial True, if the sticker set is official.
-         * @param stickerFormat Format of the stickers in the set.
          * @param stickerType Type of the stickers in the set.
          * @param needsRepainting True, if stickers in the sticker set are custom emoji that must be repainted; for custom emoji sticker sets only.
          * @param isAllowedAsChatEmojiStatus True, if stickers in the sticker set are custom emoji that can be used as chat emoji status; for custom emoji sticker sets only.
@@ -51626,16 +53028,16 @@ public class TdApi {
          * @param stickers List of stickers in this set.
          * @param emojis A list of emoji corresponding to the stickers in the same order. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object.
          */
-        public StickerSet(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerFormat stickerFormat, StickerType stickerType, boolean needsRepainting, boolean isAllowedAsChatEmojiStatus, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
+        public StickerSet(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isOwned, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerType stickerType, boolean needsRepainting, boolean isAllowedAsChatEmojiStatus, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
             this.id = id;
             this.title = title;
             this.name = name;
             this.thumbnail = thumbnail;
             this.thumbnailOutline = thumbnailOutline;
+            this.isOwned = isOwned;
             this.isInstalled = isInstalled;
             this.isArchived = isArchived;
             this.isOfficial = isOfficial;
-            this.stickerFormat = stickerFormat;
             this.stickerType = stickerType;
             this.needsRepainting = needsRepainting;
             this.isAllowedAsChatEmojiStatus = isAllowedAsChatEmojiStatus;
@@ -51647,7 +53049,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2037789692;
+        public static final int CONSTRUCTOR = 607438405;
 
         /**
          * @return this.CONSTRUCTOR
@@ -51683,6 +53085,10 @@ public class TdApi {
          */
         public ClosedVectorPath[] thumbnailOutline;
         /**
+         * True, if the sticker set is owned by the current user.
+         */
+        public boolean isOwned;
+        /**
          * True, if the sticker set has been installed by the current user.
          */
         public boolean isInstalled;
@@ -51694,10 +53100,6 @@ public class TdApi {
          * True, if the sticker set is official.
          */
         public boolean isOfficial;
-        /**
-         * Format of the stickers in the set.
-         */
-        public StickerFormat stickerFormat;
         /**
          * Type of the stickers in the set.
          */
@@ -51737,10 +53139,10 @@ public class TdApi {
          * @param name Name of the sticker set.
          * @param thumbnail Sticker set thumbnail in WEBP, TGS, or WEBM format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed.
          * @param thumbnailOutline Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner.
+         * @param isOwned True, if the sticker set is owned by the current user.
          * @param isInstalled True, if the sticker set has been installed by the current user.
          * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
          * @param isOfficial True, if the sticker set is official.
-         * @param stickerFormat Format of the stickers in the set.
          * @param stickerType Type of the stickers in the set.
          * @param needsRepainting True, if stickers in the sticker set are custom emoji that must be repainted; for custom emoji sticker sets only.
          * @param isAllowedAsChatEmojiStatus True, if stickers in the sticker set are custom emoji that can be used as chat emoji status; for custom emoji sticker sets only.
@@ -51748,16 +53150,16 @@ public class TdApi {
          * @param size Total number of stickers in the set.
          * @param covers Up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full sticker set needs to be requested.
          */
-        public StickerSetInfo(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerFormat stickerFormat, StickerType stickerType, boolean needsRepainting, boolean isAllowedAsChatEmojiStatus, boolean isViewed, int size, Sticker[] covers) {
+        public StickerSetInfo(long id, String title, String name, Thumbnail thumbnail, ClosedVectorPath[] thumbnailOutline, boolean isOwned, boolean isInstalled, boolean isArchived, boolean isOfficial, StickerType stickerType, boolean needsRepainting, boolean isAllowedAsChatEmojiStatus, boolean isViewed, int size, Sticker[] covers) {
             this.id = id;
             this.title = title;
             this.name = name;
             this.thumbnail = thumbnail;
             this.thumbnailOutline = thumbnailOutline;
+            this.isOwned = isOwned;
             this.isInstalled = isInstalled;
             this.isArchived = isArchived;
             this.isOfficial = isOfficial;
-            this.stickerFormat = stickerFormat;
             this.stickerType = stickerType;
             this.needsRepainting = needsRepainting;
             this.isAllowedAsChatEmojiStatus = isAllowedAsChatEmojiStatus;
@@ -51769,7 +53171,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1232488541;
+        public static final int CONSTRUCTOR = 1730888790;
 
         /**
          * @return this.CONSTRUCTOR
@@ -54043,7 +55445,8 @@ public class TdApi {
             SuggestedActionUpgradePremium.CONSTRUCTOR,
             SuggestedActionRestorePremium.CONSTRUCTOR,
             SuggestedActionSubscribeToAnnualPremium.CONSTRUCTOR,
-            SuggestedActionGiftPremiumForChristmas.CONSTRUCTOR
+            SuggestedActionGiftPremiumForChristmas.CONSTRUCTOR,
+            SuggestedActionSetBirthdate.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -54326,6 +55729,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1816924561;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Suggests the user to set birthdate.
+     */
+    public static class SuggestedActionSetBirthdate extends SuggestedAction {
+
+        /**
+         * Suggests the user to set birthdate.
+         */
+        public SuggestedActionSetBirthdate() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -356672766;
 
         /**
          * @return this.CONSTRUCTOR
@@ -57189,12 +58617,12 @@ public class TdApi {
     }
 
     /**
-     * The thumbnail is in TGS format. It will be used only for TGS sticker sets.
+     * The thumbnail is in TGS format. It will be used only for sticker sets.
      */
     public static class ThumbnailFormatTgs extends ThumbnailFormat {
 
         /**
-         * The thumbnail is in TGS format. It will be used only for TGS sticker sets.
+         * The thumbnail is in TGS format. It will be used only for sticker sets.
          */
         public ThumbnailFormatTgs() {
         }
@@ -57214,12 +58642,12 @@ public class TdApi {
     }
 
     /**
-     * The thumbnail is in WEBM format. It will be used only for WEBM sticker sets.
+     * The thumbnail is in WEBM format. It will be used only for sticker sets.
      */
     public static class ThumbnailFormatWebm extends ThumbnailFormat {
 
         /**
-         * The thumbnail is in WEBM format. It will be used only for WEBM sticker sets.
+         * The thumbnail is in WEBM format. It will be used only for sticker sets.
          */
         public ThumbnailFormatWebm() {
         }
@@ -57239,12 +58667,12 @@ public class TdApi {
     }
 
     /**
-     * The thumbnail is in WEBP format. It will be used only for some stickers.
+     * The thumbnail is in WEBP format. It will be used only for some stickers and sticker sets.
      */
     public static class ThumbnailFormatWebp extends ThumbnailFormat {
 
         /**
-         * The thumbnail is in WEBP format. It will be used only for some stickers.
+         * The thumbnail is in WEBP format. It will be used only for some stickers and sticker sets.
          */
         public ThumbnailFormatWebp() {
         }
@@ -57843,8 +59271,13 @@ public class TdApi {
             UpdateAnimatedEmojiMessageClicked.CONSTRUCTOR,
             UpdateAnimationSearchParameters.CONSTRUCTOR,
             UpdateSuggestedActions.CONSTRUCTOR,
+            UpdateContactCloseBirthdays.CONSTRUCTOR,
             UpdateAddChatMembersPrivacyForbidden.CONSTRUCTOR,
             UpdateAutosaveSettings.CONSTRUCTOR,
+            UpdateBusinessConnection.CONSTRUCTOR,
+            UpdateNewBusinessMessage.CONSTRUCTOR,
+            UpdateBusinessMessageEdited.CONSTRUCTOR,
+            UpdateBusinessMessagesDeleted.CONSTRUCTOR,
             UpdateNewInlineQuery.CONSTRUCTOR,
             UpdateNewChosenInlineResult.CONSTRUCTOR,
             UpdateNewCallbackQuery.CONSTRUCTOR,
@@ -62895,7 +64328,7 @@ public class TdApi {
      */
     public static class UpdateSpeechRecognitionTrial extends Update {
         /**
-         * The maximum allowed duration of media for speech recognition without Telegram Premium subscription.
+         * The maximum allowed duration of media for speech recognition without Telegram Premium subscription, in seconds.
          */
         public int maxMediaDuration;
         /**
@@ -62920,7 +64353,7 @@ public class TdApi {
         /**
          * The parameters of speech recognition without Telegram Premium subscription has changed.
          *
-         * @param maxMediaDuration The maximum allowed duration of media for speech recognition without Telegram Premium subscription.
+         * @param maxMediaDuration The maximum allowed duration of media for speech recognition without Telegram Premium subscription, in seconds.
          * @param weeklyCount The total number of allowed speech recognitions per week; 0 if none.
          * @param leftCount Number of left speech recognition attempts this week.
          * @param nextResetDate Point in time (Unix timestamp) when the weekly number of tries will reset; 0 if unknown.
@@ -63123,6 +64556,44 @@ public class TdApi {
     }
 
     /**
+     * The list of contacts that had birthdays recently or will have birthday soon has changed.
+     */
+    public static class UpdateContactCloseBirthdays extends Update {
+        /**
+         * List of contact users with close birthday.
+         */
+        public CloseBirthdayUser[] closeBirthdayUsers;
+
+        /**
+         * The list of contacts that had birthdays recently or will have birthday soon has changed.
+         */
+        public UpdateContactCloseBirthdays() {
+        }
+
+        /**
+         * The list of contacts that had birthdays recently or will have birthday soon has changed.
+         *
+         * @param closeBirthdayUsers List of contact users with close birthday.
+         */
+        public UpdateContactCloseBirthdays(CloseBirthdayUser[] closeBirthdayUsers) {
+            this.closeBirthdayUsers = closeBirthdayUsers;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -36007873;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Adding users to a chat has failed because of their privacy settings. An invite link can be shared with the users if appropriate.
      */
     public static class UpdateAddChatMembersPrivacyForbidden extends Update {
@@ -63200,6 +64671,182 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -634958069;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A business connection has changed; for bots only.
+     */
+    public static class UpdateBusinessConnection extends Update {
+        /**
+         * New data about the connection.
+         */
+        public BusinessConnection connection;
+
+        /**
+         * A business connection has changed; for bots only.
+         */
+        public UpdateBusinessConnection() {
+        }
+
+        /**
+         * A business connection has changed; for bots only.
+         *
+         * @param connection New data about the connection.
+         */
+        public UpdateBusinessConnection(BusinessConnection connection) {
+            this.connection = connection;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2043480970;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A new message was added to a business account; for bots only.
+     */
+    public static class UpdateNewBusinessMessage extends Update {
+        /**
+         * Unique identifier of the business connection.
+         */
+        public String connectionId;
+        /**
+         * The new message.
+         */
+        public BusinessMessage message;
+
+        /**
+         * A new message was added to a business account; for bots only.
+         */
+        public UpdateNewBusinessMessage() {
+        }
+
+        /**
+         * A new message was added to a business account; for bots only.
+         *
+         * @param connectionId Unique identifier of the business connection.
+         * @param message The new message.
+         */
+        public UpdateNewBusinessMessage(String connectionId, BusinessMessage message) {
+            this.connectionId = connectionId;
+            this.message = message;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2034350524;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A message in a business account was edited; for bots only.
+     */
+    public static class UpdateBusinessMessageEdited extends Update {
+        /**
+         * Unique identifier of the business connection.
+         */
+        public String connectionId;
+        /**
+         * The edited message.
+         */
+        public BusinessMessage message;
+
+        /**
+         * A message in a business account was edited; for bots only.
+         */
+        public UpdateBusinessMessageEdited() {
+        }
+
+        /**
+         * A message in a business account was edited; for bots only.
+         *
+         * @param connectionId Unique identifier of the business connection.
+         * @param message The edited message.
+         */
+        public UpdateBusinessMessageEdited(String connectionId, BusinessMessage message) {
+            this.connectionId = connectionId;
+            this.message = message;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2119799415;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Messages in a business account were deleted; for bots only.
+     */
+    public static class UpdateBusinessMessagesDeleted extends Update {
+        /**
+         * Unique identifier of the business connection.
+         */
+        public String connectionId;
+        /**
+         * Identifier of a chat in the business account in which messages were deleted.
+         */
+        public long chatId;
+        /**
+         * Unique message identifiers of the deleted messages.
+         */
+        public long[] messageIds;
+
+        /**
+         * Messages in a business account were deleted; for bots only.
+         */
+        public UpdateBusinessMessagesDeleted() {
+        }
+
+        /**
+         * Messages in a business account were deleted; for bots only.
+         *
+         * @param connectionId Unique identifier of the business connection.
+         * @param chatId Identifier of a chat in the business account in which messages were deleted.
+         * @param messageIds Unique message identifiers of the deleted messages.
+         */
+        public UpdateBusinessMessagesDeleted(String connectionId, long chatId, long[] messageIds) {
+            this.connectionId = connectionId;
+            this.chatId = chatId;
+            this.messageIds = messageIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1106703050;
 
         /**
          * @return this.CONSTRUCTOR
@@ -64369,6 +66016,14 @@ public class TdApi {
          */
         @Nullable public FormattedText bio;
         /**
+         * Birthdate of the user; may be null if unknown.
+         */
+        @Nullable public Birthdate birthdate;
+        /**
+         * Identifier of the personal chat of the user; 0 if none.
+         */
+        public long personalChatId;
+        /**
          * The list of available options for gifting Telegram Premium to the user.
          */
         public PremiumPaymentOption[] premiumGiftOptions;
@@ -64407,12 +66062,14 @@ public class TdApi {
          * @param needPhoneNumberPrivacyException True, if the current user needs to explicitly allow to share their phone number with the user when the method addContact is used.
          * @param setChatBackground True, if the user set chat background for both chat users and it wasn't reverted yet.
          * @param bio A short user bio; may be null for bots.
+         * @param birthdate Birthdate of the user; may be null if unknown.
+         * @param personalChatId Identifier of the personal chat of the user; 0 if none.
          * @param premiumGiftOptions The list of available options for gifting Telegram Premium to the user.
          * @param groupInCommonCount Number of group chats where both the other user and the current user are a member; 0 for the current user.
          * @param businessInfo Information about business settings for Telegram Business accounts; may be null if none.
          * @param botInfo For bots, information about the bot; may be null if the user isn't a bot.
          */
-        public UserFullInfo(ChatPhoto personalPhoto, ChatPhoto photo, ChatPhoto publicPhoto, BlockList blockList, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean hasPrivateForwards, boolean hasRestrictedVoiceAndVideoNoteMessages, boolean hasPinnedStories, boolean needPhoneNumberPrivacyException, boolean setChatBackground, FormattedText bio, PremiumPaymentOption[] premiumGiftOptions, int groupInCommonCount, BusinessInfo businessInfo, BotInfo botInfo) {
+        public UserFullInfo(ChatPhoto personalPhoto, ChatPhoto photo, ChatPhoto publicPhoto, BlockList blockList, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean hasPrivateForwards, boolean hasRestrictedVoiceAndVideoNoteMessages, boolean hasPinnedStories, boolean needPhoneNumberPrivacyException, boolean setChatBackground, FormattedText bio, Birthdate birthdate, long personalChatId, PremiumPaymentOption[] premiumGiftOptions, int groupInCommonCount, BusinessInfo businessInfo, BotInfo botInfo) {
             this.personalPhoto = personalPhoto;
             this.photo = photo;
             this.publicPhoto = publicPhoto;
@@ -64426,6 +66083,8 @@ public class TdApi {
             this.needPhoneNumberPrivacyException = needPhoneNumberPrivacyException;
             this.setChatBackground = setChatBackground;
             this.bio = bio;
+            this.birthdate = birthdate;
+            this.personalChatId = personalChatId;
             this.premiumGiftOptions = premiumGiftOptions;
             this.groupInCommonCount = groupInCommonCount;
             this.businessInfo = businessInfo;
@@ -64435,7 +66094,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1846215709;
+        public static final int CONSTRUCTOR = 1119438280;
 
         /**
          * @return this.CONSTRUCTOR
@@ -64505,6 +66164,7 @@ public class TdApi {
             UserPrivacySettingShowLinkInForwardedMessages.CONSTRUCTOR,
             UserPrivacySettingShowPhoneNumber.CONSTRUCTOR,
             UserPrivacySettingShowBio.CONSTRUCTOR,
+            UserPrivacySettingShowBirthdate.CONSTRUCTOR,
             UserPrivacySettingAllowChatInvites.CONSTRUCTOR,
             UserPrivacySettingAllowCalls.CONSTRUCTOR,
             UserPrivacySettingAllowPeerToPeerCalls.CONSTRUCTOR,
@@ -64652,6 +66312,31 @@ public class TdApi {
     }
 
     /**
+     * A privacy setting for managing whether the user's birthdate is visible.
+     */
+    public static class UserPrivacySettingShowBirthdate extends UserPrivacySetting {
+
+        /**
+         * A privacy setting for managing whether the user's birthdate is visible.
+         */
+        public UserPrivacySettingShowBirthdate() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1167504607;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * A privacy setting for managing whether the user can be invited to chats.
      */
     public static class UserPrivacySettingAllowChatInvites extends UserPrivacySetting {
@@ -64788,6 +66473,7 @@ public class TdApi {
         @IntDef({
             UserPrivacySettingRuleAllowAll.CONSTRUCTOR,
             UserPrivacySettingRuleAllowContacts.CONSTRUCTOR,
+            UserPrivacySettingRuleAllowPremiumUsers.CONSTRUCTOR,
             UserPrivacySettingRuleAllowUsers.CONSTRUCTOR,
             UserPrivacySettingRuleAllowChatMembers.CONSTRUCTOR,
             UserPrivacySettingRuleRestrictAll.CONSTRUCTOR,
@@ -64850,6 +66536,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1892733680;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A rule to allow all Premium Users to do something; currently, allowed only for userPrivacySettingAllowChatInvites.
+     */
+    public static class UserPrivacySettingRuleAllowPremiumUsers extends UserPrivacySettingRule {
+
+        /**
+         * A rule to allow all Premium Users to do something; currently, allowed only for userPrivacySettingAllowChatInvites.
+         */
+        public UserPrivacySettingRuleAllowPremiumUsers() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1624147265;
 
         /**
          * @return this.CONSTRUCTOR
@@ -65506,6 +67217,10 @@ public class TdApi {
          */
         public boolean needLocation;
         /**
+         * True, if the bot supports connection to Telegram Business accounts.
+         */
+        public boolean canConnectToBusiness;
+        /**
          * True, if the bot can be added to attachment or side menu.
          */
         public boolean canBeAddedToAttachmentMenu;
@@ -65525,22 +67240,24 @@ public class TdApi {
          * @param isInline True, if the bot supports inline queries.
          * @param inlineQueryPlaceholder Placeholder for inline queries (displayed on the application input field).
          * @param needLocation True, if the location of the user is expected to be sent with every inline query to this bot.
+         * @param canConnectToBusiness True, if the bot supports connection to Telegram Business accounts.
          * @param canBeAddedToAttachmentMenu True, if the bot can be added to attachment or side menu.
          */
-        public UserTypeBot(boolean canBeEdited, boolean canJoinGroups, boolean canReadAllGroupMessages, boolean isInline, String inlineQueryPlaceholder, boolean needLocation, boolean canBeAddedToAttachmentMenu) {
+        public UserTypeBot(boolean canBeEdited, boolean canJoinGroups, boolean canReadAllGroupMessages, boolean isInline, String inlineQueryPlaceholder, boolean needLocation, boolean canConnectToBusiness, boolean canBeAddedToAttachmentMenu) {
             this.canBeEdited = canBeEdited;
             this.canJoinGroups = canJoinGroups;
             this.canReadAllGroupMessages = canReadAllGroupMessages;
             this.isInline = isInline;
             this.inlineQueryPlaceholder = inlineQueryPlaceholder;
             this.needLocation = needLocation;
+            this.canConnectToBusiness = canConnectToBusiness;
             this.canBeAddedToAttachmentMenu = canBeAddedToAttachmentMenu;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -109451376;
+        public static final int CONSTRUCTOR = -1372542918;
 
         /**
          * @return this.CONSTRUCTOR
@@ -65589,7 +67306,7 @@ public class TdApi {
          */
         public String[] disabledUsernames;
         /**
-         * The active username, which can be changed with setUsername or setSupergroupUsername.
+         * The active username, which can be changed with setUsername or setSupergroupUsername. Information about other active usernames can be received using getCollectibleItemInfo.
          */
         public String editableUsername;
 
@@ -65604,7 +67321,7 @@ public class TdApi {
          *
          * @param activeUsernames List of active usernames; the first one must be shown as the primary username. The order of active usernames can be changed with reorderActiveUsernames, reorderBotActiveUsernames or reorderSupergroupActiveUsernames.
          * @param disabledUsernames List of currently disabled usernames; the username can be activated with toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive.
-         * @param editableUsername The active username, which can be changed with setUsername or setSupergroupUsername.
+         * @param editableUsername The active username, which can be changed with setUsername or setSupergroupUsername. Information about other active usernames can be received using getCollectibleItemInfo.
          */
         public Usernames(String[] activeUsernames, String[] disabledUsernames, String editableUsername) {
             this.activeUsernames = activeUsernames;
@@ -66968,7 +68685,7 @@ public class TdApi {
     }
 
     /**
-     * Adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to favorite stickers.
+     * Adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP or WEBM format can be added to this list. Emoji stickers can't be added to favorite stickers.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -66979,7 +68696,7 @@ public class TdApi {
         public InputFile sticker;
 
         /**
-         * Default constructor for a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to favorite stickers.
+         * Default constructor for a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP or WEBM format can be added to this list. Emoji stickers can't be added to favorite stickers.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -66987,7 +68704,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to favorite stickers.
+         * Creates a function, which adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP or WEBM format can be added to this list. Emoji stickers can't be added to favorite stickers.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -67366,7 +69083,7 @@ public class TdApi {
     }
 
     /**
-     * Manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to recent stickers.
+     * Manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP or WEBM format can be added to this list. Emoji stickers can't be added to recent stickers.
      *
      * <p> Returns {@link Stickers Stickers} </p>
      */
@@ -67381,7 +69098,7 @@ public class TdApi {
         public InputFile sticker;
 
         /**
-         * Default constructor for a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to recent stickers.
+         * Default constructor for a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP or WEBM format can be added to this list. Emoji stickers can't be added to recent stickers.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          */
@@ -67389,7 +69106,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP format can be added to this list. Emoji stickers can't be added to recent stickers.
+         * Creates a function, which manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set or in WEBP or WEBM format can be added to this list. Emoji stickers can't be added to recent stickers.
          *
          * <p> Returns {@link Stickers Stickers} </p>
          *
@@ -67548,17 +69265,17 @@ public class TdApi {
     }
 
     /**
-     * Adds a new sticker to a set; for bots only.
+     * Adds a new sticker to a set.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class AddStickerToSet extends Function<Ok> {
         /**
-         * Sticker set owner.
+         * Sticker set owner; ignored for regular users.
          */
         public long userId;
         /**
-         * Sticker set name.
+         * Sticker set name. The sticker set must be owned by the current user, and contain less than 200 stickers for custom emoji sticker sets and less than 120 otherwise.
          */
         public String name;
         /**
@@ -67567,7 +69284,7 @@ public class TdApi {
         public InputSticker sticker;
 
         /**
-         * Default constructor for a function, which adds a new sticker to a set; for bots only.
+         * Default constructor for a function, which adds a new sticker to a set.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -67575,12 +69292,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds a new sticker to a set; for bots only.
+         * Creates a function, which adds a new sticker to a set.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param userId Sticker set owner.
-         * @param name Sticker set name.
+         * @param userId Sticker set owner; ignored for regular users.
+         * @param name Sticker set name. The sticker set must be owned by the current user, and contain less than 200 stickers for custom emoji sticker sets and less than 120 otherwise.
          * @param sticker Sticker to add to the set.
          */
         public AddStickerToSet(long userId, String name, InputSticker sticker) {
@@ -70874,13 +72591,9 @@ public class TdApi {
          */
         public String title;
         /**
-         * Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive) for bots; 1-64 characters.
+         * Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive) for bots; 0-64 characters. If empty, then the name returned by getSuggestedStickerSetName will be used automatically.
          */
         public String name;
-        /**
-         * Format of the stickers in the set.
-         */
-        public StickerFormat stickerFormat;
         /**
          * Type of the stickers in the set.
          */
@@ -70890,7 +72603,7 @@ public class TdApi {
          */
         public boolean needsRepainting;
         /**
-         * List of stickers to be added to the set; must be non-empty. All stickers must have the same format. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
+         * List of stickers to be added to the set; 1-200 stickers for custom emoji sticker sets, and 1-120 stickers otherwise. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
          */
         public InputSticker[] stickers;
         /**
@@ -70913,18 +72626,16 @@ public class TdApi {
          *
          * @param userId Sticker set owner; ignored for regular users.
          * @param title Sticker set title; 1-64 characters.
-         * @param name Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive) for bots; 1-64 characters.
-         * @param stickerFormat Format of the stickers in the set.
+         * @param name Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive) for bots; 0-64 characters. If empty, then the name returned by getSuggestedStickerSetName will be used automatically.
          * @param stickerType Type of the stickers in the set.
          * @param needsRepainting Pass true if stickers in the sticker set must be repainted; for custom emoji sticker sets only.
-         * @param stickers List of stickers to be added to the set; must be non-empty. All stickers must have the same format. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
+         * @param stickers List of stickers to be added to the set; 1-200 stickers for custom emoji sticker sets, and 1-120 stickers otherwise. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
          * @param source Source of the sticker set; may be empty if unknown.
          */
-        public CreateNewStickerSet(long userId, String title, String name, StickerFormat stickerFormat, StickerType stickerType, boolean needsRepainting, InputSticker[] stickers, String source) {
+        public CreateNewStickerSet(long userId, String title, String name, StickerType stickerType, boolean needsRepainting, InputSticker[] stickers, String source) {
             this.userId = userId;
             this.title = title;
             this.name = name;
-            this.stickerFormat = stickerFormat;
             this.stickerType = stickerType;
             this.needsRepainting = needsRepainting;
             this.stickers = stickers;
@@ -70934,7 +72645,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1057318406;
+        public static final int CONSTRUCTOR = -481065727;
 
         /**
          * @return this.CONSTRUCTOR
@@ -72560,18 +74271,18 @@ public class TdApi {
     }
 
     /**
-     * Deleted a sticker set; for bots only.
+     * Completely deletes a sticker set.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class DeleteStickerSet extends Function<Ok> {
         /**
-         * Sticker set name.
+         * Sticker set name. The sticker set must be owned by the current user.
          */
         public String name;
 
         /**
-         * Default constructor for a function, which deleted a sticker set; for bots only.
+         * Default constructor for a function, which completely deletes a sticker set.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -72579,11 +74290,11 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which deleted a sticker set; for bots only.
+         * Creates a function, which completely deletes a sticker set.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param name Sticker set name.
+         * @param name Sticker set name. The sticker set must be owned by the current user.
          */
         public DeleteStickerSet(String name) {
             this.name = name;
@@ -74697,7 +76408,7 @@ public class TdApi {
          */
         public StickerType stickerType;
         /**
-         * Identifier of the sticker set from which to return the result.
+         * Identifier of the sticker set from which to return the result; use 0 to get results from the beginning.
          */
         public long offsetStickerSetId;
         /**
@@ -74719,7 +76430,7 @@ public class TdApi {
          * <p> Returns {@link StickerSets StickerSets} </p>
          *
          * @param stickerType Type of the sticker sets to return.
-         * @param offsetStickerSetId Identifier of the sticker set from which to return the result.
+         * @param offsetStickerSetId Identifier of the sticker set from which to return the result; use 0 to get results from the beginning.
          * @param limit The maximum number of sticker sets to return; up to 100.
          */
         public GetArchivedStickerSets(StickerType stickerType, long offsetStickerSetId, int limit) {
@@ -75353,6 +77064,94 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 911058883;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns information about a business connection by its identifier; for bots only.
+     *
+     * <p> Returns {@link BusinessConnection BusinessConnection} </p>
+     */
+    public static class GetBusinessConnection extends Function<BusinessConnection> {
+        /**
+         * Identifier of the business connection to return.
+         */
+        public String connectionId;
+
+        /**
+         * Default constructor for a function, which returns information about a business connection by its identifier; for bots only.
+         *
+         * <p> Returns {@link BusinessConnection BusinessConnection} </p>
+         */
+        public GetBusinessConnection() {
+        }
+
+        /**
+         * Creates a function, which returns information about a business connection by its identifier; for bots only.
+         *
+         * <p> Returns {@link BusinessConnection BusinessConnection} </p>
+         *
+         * @param connectionId Identifier of the business connection to return.
+         */
+        public GetBusinessConnection(String connectionId) {
+            this.connectionId = connectionId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2114706400;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns information about features, available to Business users.
+     *
+     * <p> Returns {@link BusinessFeatures BusinessFeatures} </p>
+     */
+    public static class GetBusinessFeatures extends Function<BusinessFeatures> {
+        /**
+         * Source of the request; pass null if the method is called from settings or some non-standard source.
+         */
+        public BusinessFeature source;
+
+        /**
+         * Default constructor for a function, which returns information about features, available to Business users.
+         *
+         * <p> Returns {@link BusinessFeatures BusinessFeatures} </p>
+         */
+        public GetBusinessFeatures() {
+        }
+
+        /**
+         * Creates a function, which returns information about features, available to Business users.
+         *
+         * <p> Returns {@link BusinessFeatures BusinessFeatures} </p>
+         *
+         * @param source Source of the request; pass null if the method is called from settings or some non-standard source.
+         */
+        public GetBusinessFeatures(BusinessFeature source) {
+            this.source = source;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -997171199;
 
         /**
          * @return this.CONSTRUCTOR
@@ -77701,6 +79500,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1445628722;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns information about a given collectible item that was purchased at https://fragment.com.
+     *
+     * <p> Returns {@link CollectibleItemInfo CollectibleItemInfo} </p>
+     */
+    public static class GetCollectibleItemInfo extends Function<CollectibleItemInfo> {
+        /**
+         * Type of the collectible item. The item must be used by a user and must be visible to the current user.
+         */
+        public CollectibleItemType type;
+
+        /**
+         * Default constructor for a function, which returns information about a given collectible item that was purchased at https://fragment.com.
+         *
+         * <p> Returns {@link CollectibleItemInfo CollectibleItemInfo} </p>
+         */
+        public GetCollectibleItemInfo() {
+        }
+
+        /**
+         * Creates a function, which returns information about a given collectible item that was purchased at https://fragment.com.
+         *
+         * <p> Returns {@link CollectibleItemInfo CollectibleItemInfo} </p>
+         *
+         * @param type Type of the collectible item. The item must be used by a user and must be visible to the current user.
+         */
+        public GetCollectibleItemInfo(CollectibleItemType type) {
+            this.type = type;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -217797238;
 
         /**
          * @return this.CONSTRUCTOR
@@ -81421,6 +83264,56 @@ public class TdApi {
     }
 
     /**
+     * Returns sticker sets owned by the current user.
+     *
+     * <p> Returns {@link StickerSets StickerSets} </p>
+     */
+    public static class GetOwnedStickerSets extends Function<StickerSets> {
+        /**
+         * Identifier of the sticker set from which to return owned sticker sets; use 0 to get results from the beginning.
+         */
+        public long offsetStickerSetId;
+        /**
+         * The maximum number of sticker sets to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns sticker sets owned by the current user.
+         *
+         * <p> Returns {@link StickerSets StickerSets} </p>
+         */
+        public GetOwnedStickerSets() {
+        }
+
+        /**
+         * Creates a function, which returns sticker sets owned by the current user.
+         *
+         * <p> Returns {@link StickerSets StickerSets} </p>
+         *
+         * @param offsetStickerSetId Identifier of the sticker set from which to return owned sticker sets; use 0 to get results from the beginning.
+         * @param limit The maximum number of sticker sets to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
+         */
+        public GetOwnedStickerSets(long offsetStickerSetId, int limit) {
+            this.offsetStickerSetId = offsetStickerSetId;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1493074208;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns a Telegram Passport authorization form for sharing data with a service.
      *
      * <p> Returns {@link PassportAuthorizationForm PassportAuthorizationForm} </p>
@@ -83804,6 +85697,35 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 49044982;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns a list of channel chats, which can be used as a personal chat.
+     *
+     * <p> Returns {@link Chats Chats} </p>
+     */
+    public static class GetSuitablePersonalChats extends Function<Chats> {
+
+        /**
+         * Default constructor for a function, which returns a list of channel chats, which can be used as a personal chat.
+         *
+         * <p> Returns {@link Chats Chats} </p>
+         */
+        public GetSuitablePersonalChats() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1870357515;
 
         /**
          * @return this.CONSTRUCTOR
@@ -87912,18 +89834,18 @@ public class TdApi {
     }
 
     /**
-     * Removes a sticker from the set to which it belongs; for bots only. The sticker set must have been created by the bot.
+     * Removes a sticker from the set to which it belongs. The sticker set must be owned by the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class RemoveStickerFromSet extends Function<Ok> {
         /**
-         * Sticker.
+         * Sticker to remove from the set.
          */
         public InputFile sticker;
 
         /**
-         * Default constructor for a function, which removes a sticker from the set to which it belongs; for bots only. The sticker set must have been created by the bot.
+         * Default constructor for a function, which removes a sticker from the set to which it belongs. The sticker set must be owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -87931,11 +89853,11 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which removes a sticker from the set to which it belongs; for bots only. The sticker set must have been created by the bot.
+         * Creates a function, which removes a sticker from the set to which it belongs. The sticker set must be owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param sticker Sticker.
+         * @param sticker Sticker to remove from the set.
          */
         public RemoveStickerFromSet(InputFile sticker) {
             this.sticker = sticker;
@@ -88338,6 +90260,68 @@ public class TdApi {
     }
 
     /**
+     * Replaces existing sticker in a set. The function is equivalent to removeStickerFromSet, then addStickerToSet, then setStickerPositionInSet.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ReplaceStickerInSet extends Function<Ok> {
+        /**
+         * Sticker set owner; ignored for regular users.
+         */
+        public long userId;
+        /**
+         * Sticker set name. The sticker set must be owned by the current user.
+         */
+        public String name;
+        /**
+         * Sticker to remove from the set.
+         */
+        public InputFile oldSticker;
+        /**
+         * Sticker to add to the set.
+         */
+        public InputSticker newSticker;
+
+        /**
+         * Default constructor for a function, which replaces existing sticker in a set. The function is equivalent to removeStickerFromSet, then addStickerToSet, then setStickerPositionInSet.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ReplaceStickerInSet() {
+        }
+
+        /**
+         * Creates a function, which replaces existing sticker in a set. The function is equivalent to removeStickerFromSet, then addStickerToSet, then setStickerPositionInSet.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param userId Sticker set owner; ignored for regular users.
+         * @param name Sticker set name. The sticker set must be owned by the current user.
+         * @param oldSticker Sticker to remove from the set.
+         * @param newSticker Sticker to add to the set.
+         */
+        public ReplaceStickerInSet(long userId, String name, InputFile oldSticker, InputSticker newSticker) {
+            this.userId = userId;
+            this.name = name;
+            this.oldSticker = oldSticker;
+            this.newSticker = newSticker;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -406311399;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Replaces the current RTMP URL for streaming to the chat; requires owner privileges.
      *
      * <p> Returns {@link RtmpUrl RtmpUrl} </p>
@@ -88495,6 +90479,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -646966648;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Reports a sponsored message to Telegram moderators.
+     *
+     * <p> Returns {@link ReportChatSponsoredMessageResult ReportChatSponsoredMessageResult} </p>
+     */
+    public static class ReportChatSponsoredMessage extends Function<ReportChatSponsoredMessageResult> {
+        /**
+         * Chat identifier of the sponsored message.
+         */
+        public long chatId;
+        /**
+         * Identifier of the sponsored message.
+         */
+        public long messageId;
+        /**
+         * Option identifier chosen by the user; leave empty for the initial request.
+         */
+        public byte[] optionId;
+
+        /**
+         * Default constructor for a function, which reports a sponsored message to Telegram moderators.
+         *
+         * <p> Returns {@link ReportChatSponsoredMessageResult ReportChatSponsoredMessageResult} </p>
+         */
+        public ReportChatSponsoredMessage() {
+        }
+
+        /**
+         * Creates a function, which reports a sponsored message to Telegram moderators.
+         *
+         * <p> Returns {@link ReportChatSponsoredMessageResult ReportChatSponsoredMessageResult} </p>
+         *
+         * @param chatId Chat identifier of the sponsored message.
+         * @param messageId Identifier of the sponsored message.
+         * @param optionId Option identifier chosen by the user; leave empty for the initial request.
+         */
+        public ReportChatSponsoredMessage(long chatId, long messageId, byte[] optionId) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.optionId = optionId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -868330562;
 
         /**
          * @return this.CONSTRUCTOR
@@ -91018,6 +93058,160 @@ public class TdApi {
     }
 
     /**
+     * Sends a message on behalf of a business account; for bots only. Returns the message after it was sent.
+     *
+     * <p> Returns {@link BusinessMessage BusinessMessage} </p>
+     */
+    public static class SendBusinessMessage extends Function<BusinessMessage> {
+        /**
+         * Unique identifier of business connection on behalf of which to send the request.
+         */
+        public String businessConnectionId;
+        /**
+         * Target chat.
+         */
+        public long chatId;
+        /**
+         * Information about the message to be replied; pass null if none.
+         */
+        public InputMessageReplyTo replyTo;
+        /**
+         * Pass true to disable notification for the message.
+         */
+        public boolean disableNotification;
+        /**
+         * Pass true if the content of the message must be protected from forwarding and saving.
+         */
+        public boolean protectContent;
+        /**
+         * Markup for replying to the message; pass null if none.
+         */
+        public ReplyMarkup replyMarkup;
+        /**
+         * The content of the message to be sent.
+         */
+        public InputMessageContent inputMessageContent;
+
+        /**
+         * Default constructor for a function, which sends a message on behalf of a business account; for bots only. Returns the message after it was sent.
+         *
+         * <p> Returns {@link BusinessMessage BusinessMessage} </p>
+         */
+        public SendBusinessMessage() {
+        }
+
+        /**
+         * Creates a function, which sends a message on behalf of a business account; for bots only. Returns the message after it was sent.
+         *
+         * <p> Returns {@link BusinessMessage BusinessMessage} </p>
+         *
+         * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request.
+         * @param chatId Target chat.
+         * @param replyTo Information about the message to be replied; pass null if none.
+         * @param disableNotification Pass true to disable notification for the message.
+         * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
+         * @param replyMarkup Markup for replying to the message; pass null if none.
+         * @param inputMessageContent The content of the message to be sent.
+         */
+        public SendBusinessMessage(String businessConnectionId, long chatId, InputMessageReplyTo replyTo, boolean disableNotification, boolean protectContent, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
+            this.businessConnectionId = businessConnectionId;
+            this.chatId = chatId;
+            this.replyTo = replyTo;
+            this.disableNotification = disableNotification;
+            this.protectContent = protectContent;
+            this.replyMarkup = replyMarkup;
+            this.inputMessageContent = inputMessageContent;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -328943213;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Sends 2-10 messages grouped together into an album on behalf of a business account; for bots only. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+     *
+     * <p> Returns {@link BusinessMessages BusinessMessages} </p>
+     */
+    public static class SendBusinessMessageAlbum extends Function<BusinessMessages> {
+        /**
+         * Unique identifier of business connection on behalf of which to send the request.
+         */
+        public String businessConnectionId;
+        /**
+         * Target chat.
+         */
+        public long chatId;
+        /**
+         * Information about the message to be replied; pass null if none.
+         */
+        public InputMessageReplyTo replyTo;
+        /**
+         * Pass true to disable notification for the message.
+         */
+        public boolean disableNotification;
+        /**
+         * Pass true if the content of the message must be protected from forwarding and saving.
+         */
+        public boolean protectContent;
+        /**
+         * Contents of messages to be sent. At most 10 messages can be added to an album.
+         */
+        public InputMessageContent[] inputMessageContents;
+
+        /**
+         * Default constructor for a function, which sends 2-10 messages grouped together into an album on behalf of a business account; for bots only. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+         *
+         * <p> Returns {@link BusinessMessages BusinessMessages} </p>
+         */
+        public SendBusinessMessageAlbum() {
+        }
+
+        /**
+         * Creates a function, which sends 2-10 messages grouped together into an album on behalf of a business account; for bots only. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages.
+         *
+         * <p> Returns {@link BusinessMessages BusinessMessages} </p>
+         *
+         * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request.
+         * @param chatId Target chat.
+         * @param replyTo Information about the message to be replied; pass null if none.
+         * @param disableNotification Pass true to disable notification for the message.
+         * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
+         * @param inputMessageContents Contents of messages to be sent. At most 10 messages can be added to an album.
+         */
+        public SendBusinessMessageAlbum(String businessConnectionId, long chatId, InputMessageReplyTo replyTo, boolean disableNotification, boolean protectContent, InputMessageContent[] inputMessageContents) {
+            this.businessConnectionId = businessConnectionId;
+            this.chatId = chatId;
+            this.replyTo = replyTo;
+            this.disableNotification = disableNotification;
+            this.protectContent = protectContent;
+            this.inputMessageContents = inputMessageContents;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1859188564;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Sends debug information for a call to Telegram servers.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -91244,6 +93438,10 @@ public class TdApi {
          */
         public long messageThreadId;
         /**
+         * Unique identifier of business connection on behalf of which to send the request; for bots only.
+         */
+        public String businessConnectionId;
+        /**
          * The action description; pass null to cancel the currently active action.
          */
         public ChatAction action;
@@ -91263,18 +93461,20 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param messageThreadId If not 0, the message thread identifier in which the action was performed.
+         * @param businessConnectionId Unique identifier of business connection on behalf of which to send the request; for bots only.
          * @param action The action description; pass null to cancel the currently active action.
          */
-        public SendChatAction(long chatId, long messageThreadId, ChatAction action) {
+        public SendChatAction(long chatId, long messageThreadId, String businessConnectionId, ChatAction action) {
             this.chatId = chatId;
             this.messageThreadId = messageThreadId;
+            this.businessConnectionId = businessConnectionId;
             this.action = action;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2096947540;
+        public static final int CONSTRUCTOR = -2010910050;
 
         /**
          * @return this.CONSTRUCTOR
@@ -91906,7 +94106,7 @@ public class TdApi {
          */
         public InputStoryAreas areas;
         /**
-         * Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters.
+         * Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters; can have entities only if getOption(&quot;can_use_text_entities_in_story_caption&quot;).
          */
         public FormattedText caption;
         /**
@@ -91946,7 +94146,7 @@ public class TdApi {
          * @param chatId Identifier of the chat that will post the story.
          * @param content Content of the story.
          * @param areas Clickable rectangle areas to be shown on the story media; pass null if none.
-         * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters.
+         * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters; can have entities only if getOption(&quot;can_use_text_entities_in_story_caption&quot;).
          * @param privacySettings The privacy settings for the story; ignored for stories sent to supergroup and channel chats.
          * @param activePeriod Period after which the story is moved to archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise.
          * @param fromStoryFullId Full identifier of the original story, which content was used to create the story.
@@ -92512,6 +94712,50 @@ public class TdApi {
     }
 
     /**
+     * Changes the birthdate of the current user.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBirthdate extends Function<Ok> {
+        /**
+         * The new value of the current user's birthdate; pass null to remove the birthdate.
+         */
+        public Birthdate birthdate;
+
+        /**
+         * Default constructor for a function, which changes the birthdate of the current user.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBirthdate() {
+        }
+
+        /**
+         * Creates a function, which changes the birthdate of the current user.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param birthdate The new value of the current user's birthdate; pass null to remove the birthdate.
+         */
+        public SetBirthdate(Birthdate birthdate) {
+            this.birthdate = birthdate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1319755160;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Sets the text shown in the chat with a bot if the chat is empty. Can be called only if userTypeBot.canBeEdited == true.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -92912,6 +95156,50 @@ public class TdApi {
     }
 
     /**
+     * Changes the business intro of the current user. Requires Telegram Business subscription.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetBusinessIntro extends Function<Ok> {
+        /**
+         * The new intro of the business; pass null to remove the intro.
+         */
+        public InputBusinessIntro intro;
+
+        /**
+         * Default constructor for a function, which changes the business intro of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetBusinessIntro() {
+        }
+
+        /**
+         * Creates a function, which changes the business intro of the current user. Requires Telegram Business subscription.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param intro The new intro of the business; pass null to remove the intro.
+         */
+        public SetBusinessIntro(InputBusinessIntro intro) {
+            this.intro = intro;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -755834601;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes the business location of the current user. Requires Telegram Business subscription.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -92962,7 +95250,7 @@ public class TdApi {
      */
     public static class SetBusinessOpeningHours extends Function<Ok> {
         /**
-         * The new opening hours of the business; pass null to remove the opening hours.
+         * The new opening hours of the business; pass null to remove the opening hours; up to 28 time intervals can be specified.
          */
         public BusinessOpeningHours openingHours;
 
@@ -92979,7 +95267,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param openingHours The new opening hours of the business; pass null to remove the opening hours.
+         * @param openingHours The new opening hours of the business; pass null to remove the opening hours; up to 28 time intervals can be specified.
          */
         public SetBusinessOpeningHours(BusinessOpeningHours openingHours) {
             this.openingHours = openingHours;
@@ -94142,13 +96430,13 @@ public class TdApi {
     }
 
     /**
-     * Sets a custom emoji sticker set thumbnail; for bots only.
+     * Sets a custom emoji sticker set thumbnail.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class SetCustomEmojiStickerSetThumbnail extends Function<Ok> {
         /**
-         * Sticker set name.
+         * Sticker set name. The sticker set must be owned by the current user.
          */
         public String name;
         /**
@@ -94157,7 +96445,7 @@ public class TdApi {
         public long customEmojiId;
 
         /**
-         * Default constructor for a function, which sets a custom emoji sticker set thumbnail; for bots only.
+         * Default constructor for a function, which sets a custom emoji sticker set thumbnail.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -94165,11 +96453,11 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sets a custom emoji sticker set thumbnail; for bots only.
+         * Creates a function, which sets a custom emoji sticker set thumbnail.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param name Sticker set name.
+         * @param name Sticker set name. The sticker set must be owned by the current user.
          * @param customEmojiId Identifier of the custom emoji from the sticker set, which will be set as sticker set thumbnail; pass 0 to remove the sticker set thumbnail.
          */
         public SetCustomEmojiStickerSetThumbnail(String name, long customEmojiId) {
@@ -95554,7 +97842,7 @@ public class TdApi {
     }
 
     /**
-     * Changes privacy settings for new chat creation; for Telegram Premium users only.
+     * Changes privacy settings for new chat creation; can be used only if getOption(&quot;can_set_new_chat_privacy_settings&quot;).
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -95565,7 +97853,7 @@ public class TdApi {
         public NewChatPrivacySettings settings;
 
         /**
-         * Default constructor for a function, which changes privacy settings for new chat creation; for Telegram Premium users only.
+         * Default constructor for a function, which changes privacy settings for new chat creation; can be used only if getOption(&quot;can_set_new_chat_privacy_settings&quot;).
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -95573,7 +97861,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes privacy settings for new chat creation; for Telegram Premium users only.
+         * Creates a function, which changes privacy settings for new chat creation; can be used only if getOption(&quot;can_set_new_chat_privacy_settings&quot;).
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -95805,6 +98093,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1193589027;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the personal chat of the current user.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetPersonalChat extends Function<Ok> {
+        /**
+         * Identifier of the new personal chat; pass 0 to remove the chat. Use getSuitablePersonalChats to get suitable chats.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which changes the personal chat of the current user.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetPersonalChat() {
+        }
+
+        /**
+         * Creates a function, which changes the personal chat of the current user.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the new personal chat; pass 0 to remove the chat. Use getSuitablePersonalChats to get suitable chats.
+         */
+        public SetPersonalChat(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1068782668;
 
         /**
          * @return this.CONSTRUCTOR
@@ -96360,7 +98692,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the list of emoji corresponding to a sticker; for bots only. The sticker must belong to a regular or custom emoji sticker set created by the bot.
+     * Changes the list of emoji corresponding to a sticker. The sticker must belong to a regular or custom emoji sticker set that is owned by the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -96375,7 +98707,7 @@ public class TdApi {
         public String emojis;
 
         /**
-         * Default constructor for a function, which changes the list of emoji corresponding to a sticker; for bots only. The sticker must belong to a regular or custom emoji sticker set created by the bot.
+         * Default constructor for a function, which changes the list of emoji corresponding to a sticker. The sticker must belong to a regular or custom emoji sticker set that is owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -96383,7 +98715,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the list of emoji corresponding to a sticker; for bots only. The sticker must belong to a regular or custom emoji sticker set created by the bot.
+         * Creates a function, which changes the list of emoji corresponding to a sticker. The sticker must belong to a regular or custom emoji sticker set that is owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -96410,7 +98742,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the list of keywords of a sticker; for bots only. The sticker must belong to a regular or custom emoji sticker set created by the bot.
+     * Changes the list of keywords of a sticker. The sticker must belong to a regular or custom emoji sticker set that is owned by the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -96425,7 +98757,7 @@ public class TdApi {
         public String[] keywords;
 
         /**
-         * Default constructor for a function, which changes the list of keywords of a sticker; for bots only. The sticker must belong to a regular or custom emoji sticker set created by the bot.
+         * Default constructor for a function, which changes the list of keywords of a sticker. The sticker must belong to a regular or custom emoji sticker set that is owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -96433,7 +98765,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the list of keywords of a sticker; for bots only. The sticker must belong to a regular or custom emoji sticker set created by the bot.
+         * Creates a function, which changes the list of keywords of a sticker. The sticker must belong to a regular or custom emoji sticker set that is owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -96460,7 +98792,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the mask position of a mask sticker; for bots only. The sticker must belong to a mask sticker set created by the bot.
+     * Changes the mask position of a mask sticker. The sticker must belong to a mask sticker set that is owned by the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -96475,7 +98807,7 @@ public class TdApi {
         public MaskPosition maskPosition;
 
         /**
-         * Default constructor for a function, which changes the mask position of a mask sticker; for bots only. The sticker must belong to a mask sticker set created by the bot.
+         * Default constructor for a function, which changes the mask position of a mask sticker. The sticker must belong to a mask sticker set that is owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -96483,7 +98815,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the mask position of a mask sticker; for bots only. The sticker must belong to a mask sticker set created by the bot.
+         * Creates a function, which changes the mask position of a mask sticker. The sticker must belong to a mask sticker set that is owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -96510,7 +98842,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the position of a sticker in the set to which it belongs; for bots only. The sticker set must have been created by the bot.
+     * Changes the position of a sticker in the set to which it belongs. The sticker set must be owned by the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -96525,7 +98857,7 @@ public class TdApi {
         public int position;
 
         /**
-         * Default constructor for a function, which changes the position of a sticker in the set to which it belongs; for bots only. The sticker set must have been created by the bot.
+         * Default constructor for a function, which changes the position of a sticker in the set to which it belongs. The sticker set must be owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -96533,7 +98865,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the position of a sticker in the set to which it belongs; for bots only. The sticker set must have been created by the bot.
+         * Creates a function, which changes the position of a sticker in the set to which it belongs. The sticker set must be owned by the current user.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -96560,26 +98892,30 @@ public class TdApi {
     }
 
     /**
-     * Sets a sticker set thumbnail; for bots only.
+     * Sets a sticker set thumbnail.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class SetStickerSetThumbnail extends Function<Ok> {
         /**
-         * Sticker set owner.
+         * Sticker set owner; ignored for regular users.
          */
         public long userId;
         /**
-         * Sticker set name.
+         * Sticker set name. The sticker set must be owned by the current user.
          */
         public String name;
         /**
-         * Thumbnail to set in PNG, TGS, or WEBM format; pass null to remove the sticker set thumbnail. Thumbnail format must match the format of stickers in the set.
+         * Thumbnail to set; pass null to remove the sticker set thumbnail.
          */
         public InputFile thumbnail;
+        /**
+         * Format of the thumbnail; pass null if thumbnail is removed.
+         */
+        public StickerFormat format;
 
         /**
-         * Default constructor for a function, which sets a sticker set thumbnail; for bots only.
+         * Default constructor for a function, which sets a sticker set thumbnail.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -96587,24 +98923,26 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sets a sticker set thumbnail; for bots only.
+         * Creates a function, which sets a sticker set thumbnail.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param userId Sticker set owner.
-         * @param name Sticker set name.
-         * @param thumbnail Thumbnail to set in PNG, TGS, or WEBM format; pass null to remove the sticker set thumbnail. Thumbnail format must match the format of stickers in the set.
+         * @param userId Sticker set owner; ignored for regular users.
+         * @param name Sticker set name. The sticker set must be owned by the current user.
+         * @param thumbnail Thumbnail to set; pass null to remove the sticker set thumbnail.
+         * @param format Format of the thumbnail; pass null if thumbnail is removed.
          */
-        public SetStickerSetThumbnail(long userId, String name, InputFile thumbnail) {
+        public SetStickerSetThumbnail(long userId, String name, InputFile thumbnail, StickerFormat format) {
             this.userId = userId;
             this.name = name;
             this.thumbnail = thumbnail;
+            this.format = format;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1870737953;
+        public static final int CONSTRUCTOR = 1677617458;
 
         /**
          * @return this.CONSTRUCTOR
@@ -96616,13 +98954,13 @@ public class TdApi {
     }
 
     /**
-     * Sets a sticker set title; for bots only.
+     * Sets a sticker set title.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class SetStickerSetTitle extends Function<Ok> {
         /**
-         * Sticker set name.
+         * Sticker set name. The sticker set must be owned by the current user.
          */
         public String name;
         /**
@@ -96631,7 +98969,7 @@ public class TdApi {
         public String title;
 
         /**
-         * Default constructor for a function, which sets a sticker set title; for bots only.
+         * Default constructor for a function, which sets a sticker set title.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -96639,11 +98977,11 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sets a sticker set title; for bots only.
+         * Creates a function, which sets a sticker set title.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param name Sticker set name.
+         * @param name Sticker set name. The sticker set must be owned by the current user.
          * @param title New sticker set title.
          */
         public SetStickerSetTitle(String name, String title) {
