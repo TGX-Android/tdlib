@@ -18228,7 +18228,7 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Contains authentication data for a email address.
+     * Contains authentication data for an email address.
      */
     public abstract static class EmailAddressAuthentication extends Object {
         /**
@@ -71838,7 +71838,7 @@ public class TdApi {
     }
 
     /**
-     * Checks the authentication of a email address. Works only when the current authorization state is authorizationStateWaitEmailCode.
+     * Checks the authentication of an email address. Works only when the current authorization state is authorizationStateWaitEmailCode.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -71849,7 +71849,7 @@ public class TdApi {
         public EmailAddressAuthentication code;
 
         /**
-         * Default constructor for a function, which checks the authentication of a email address. Works only when the current authorization state is authorizationStateWaitEmailCode.
+         * Default constructor for a function, which checks the authentication of an email address. Works only when the current authorization state is authorizationStateWaitEmailCode.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -71857,7 +71857,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which checks the authentication of a email address. Works only when the current authorization state is authorizationStateWaitEmailCode.
+         * Creates a function, which checks the authentication of an email address. Works only when the current authorization state is authorizationStateWaitEmailCode.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -99130,7 +99130,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
+     * Changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of an email address, call checkLoginEmailAddressCode directly.
      *
      * <p> Returns {@link EmailAddressAuthenticationCodeInfo EmailAddressAuthenticationCodeInfo} </p>
      */
@@ -99141,7 +99141,7 @@ public class TdApi {
         public String newLoginEmailAddress;
 
         /**
-         * Default constructor for a function, which changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
+         * Default constructor for a function, which changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of an email address, call checkLoginEmailAddressCode directly.
          *
          * <p> Returns {@link EmailAddressAuthenticationCodeInfo EmailAddressAuthenticationCodeInfo} </p>
          */
@@ -99149,7 +99149,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of a email address, call checkLoginEmailAddressCode directly.
+         * Creates a function, which changes the login email address of the user. The email address can be changed only if the current user already has login email and passwordState.loginEmailAddressPattern is non-empty. The change will not be applied until the new login email address is confirmed with checkLoginEmailAddressCode. To use Apple ID/Google ID instead of an email address, call checkLoginEmailAddressCode directly.
          *
          * <p> Returns {@link EmailAddressAuthenticationCodeInfo EmailAddressAuthenticationCodeInfo} </p>
          *
