@@ -18415,7 +18415,7 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Describes reset state of a email address.
+     * Describes reset state of an email address.
      */
     public abstract static class EmailAddressResetState extends Object {
         /**
