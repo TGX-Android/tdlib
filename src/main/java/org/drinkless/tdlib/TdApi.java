@@ -101740,7 +101740,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Identifier of the message.
+         * Identifier of the message. The message must be one of the following types: messageAnimation, messageAudio, messageDocument, messagePhoto, messageText, messageVideo.
          */
         public long messageId;
         /**
@@ -101762,7 +101762,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId The channel chat the message belongs to.
-         * @param messageId Identifier of the message.
+         * @param messageId Identifier of the message. The message must be one of the following types: messageAnimation, messageAudio, messageDocument, messagePhoto, messageText, messageVideo.
          * @param text New text of the fact-check; 0-getOption(&quot;fact_check_length_max&quot;) characters; pass null to remove it. Only Bold, Italic, and TextUrl entities with https://t.me/ links are supported.
          */
         public SetMessageFactCheck(long chatId, long messageId, FormattedText text) {
