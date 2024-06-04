@@ -88449,22 +88449,22 @@ public class TdApi {
     }
 
     /**
-     * Returns recently searched for hashtags by their prefix.
+     * Returns recently searched for hashtags or cashtags by their prefix.
      *
      * <p> Returns {@link Hashtags Hashtags} </p>
      */
     public static class GetSearchedForHashtags extends Function<Hashtags> {
         /**
-         * Prefix of hashtags to return.
+         * Prefix of hashtags or cashtags to return.
          */
         public String prefix;
         /**
-         * The maximum number of hashtags to be returned.
+         * The maximum number of items to be returned.
          */
         public int limit;
 
         /**
-         * Default constructor for a function, which returns recently searched for hashtags by their prefix.
+         * Default constructor for a function, which returns recently searched for hashtags or cashtags by their prefix.
          *
          * <p> Returns {@link Hashtags Hashtags} </p>
          */
@@ -88472,12 +88472,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns recently searched for hashtags by their prefix.
+         * Creates a function, which returns recently searched for hashtags or cashtags by their prefix.
          *
          * <p> Returns {@link Hashtags Hashtags} </p>
          *
-         * @param prefix Prefix of hashtags to return.
-         * @param limit The maximum number of hashtags to be returned.
+         * @param prefix Prefix of hashtags or cashtags to return.
+         * @param limit The maximum number of items to be returned.
          */
         public GetSearchedForHashtags(String prefix, int limit) {
             this.prefix = prefix;
@@ -93650,18 +93650,18 @@ public class TdApi {
     }
 
     /**
-     * Removes a hashtag from the list of recently searched for hashtags.
+     * Removes a hashtag or a cashtag from the list of recently searched for hashtags or cashtags.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class RemoveSearchedForHashtag extends Function<Ok> {
         /**
-         * Hashtag to delete.
+         * Hashtag or cashtag to delete.
          */
         public String hashtag;
 
         /**
-         * Default constructor for a function, which removes a hashtag from the list of recently searched for hashtags.
+         * Default constructor for a function, which removes a hashtag or a cashtag from the list of recently searched for hashtags or cashtags.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -93669,11 +93669,11 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which removes a hashtag from the list of recently searched for hashtags.
+         * Creates a function, which removes a hashtag or a cashtag from the list of recently searched for hashtags or cashtags.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param hashtag Hashtag to delete.
+         * @param hashtag Hashtag or cashtag to delete.
          */
         public RemoveSearchedForHashtag(String hashtag) {
             this.hashtag = hashtag;
@@ -96286,13 +96286,13 @@ public class TdApi {
     }
 
     /**
-     * Searches for public channel posts with the given hashtag. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * Searches for public channel posts with the given hashtag or cashtag. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      *
      * <p> Returns {@link FoundMessages FoundMessages} </p>
      */
     public static class SearchPublicHashtagMessages extends Function<FoundMessages> {
         /**
-         * Hashtag to search for.
+         * Hashtag or cashtag to search for.
          */
         public String hashtag;
         /**
@@ -96305,7 +96305,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which searches for public channel posts with the given hashtag. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * Default constructor for a function, which searches for public channel posts with the given hashtag or cashtag. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          */
@@ -96313,11 +96313,11 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for public channel posts with the given hashtag. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * Creates a function, which searches for public channel posts with the given hashtag or cashtag. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          *
-         * @param hashtag Hashtag to search for.
+         * @param hashtag Hashtag or cashtag to search for.
          * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
          * @param limit The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          */
