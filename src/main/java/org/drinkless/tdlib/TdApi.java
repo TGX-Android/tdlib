@@ -354,6 +354,7 @@ public class TdApi {
             GetLanguagePackInfo.CONSTRUCTOR,
             GetLanguagePackString.CONSTRUCTOR,
             GetLanguagePackStrings.CONSTRUCTOR,
+            GetLinkPreview.CONSTRUCTOR,
             GetLocalizationTargetInfo.CONSTRUCTOR,
             GetLogStream.CONSTRUCTOR,
             GetLogTagVerbosityLevel.CONSTRUCTOR,
@@ -473,7 +474,6 @@ public class TdApi {
             GetWebAppLinkUrl.CONSTRUCTOR,
             GetWebAppUrl.CONSTRUCTOR,
             GetWebPageInstantView.CONSTRUCTOR,
-            GetWebPagePreview.CONSTRUCTOR,
             HideContactCloseBirthdays.CONSTRUCTOR,
             HideSuggestedAction.CONSTRUCTOR,
             ImportContacts.CONSTRUCTOR,
@@ -14241,9 +14241,9 @@ public class TdApi {
          */
         public boolean canSendOtherMessages;
         /**
-         * True, if the user may add a web page preview to their messages.
+         * True, if the user may add a link preview to their messages.
          */
-        public boolean canAddWebPagePreviews;
+        public boolean canAddLinkPreviews;
         /**
          * True, if the user can change the chat title, photo, and other settings.
          */
@@ -14279,13 +14279,13 @@ public class TdApi {
          * @param canSendVoiceNotes True, if the user can send voice notes.
          * @param canSendPolls True, if the user can send polls.
          * @param canSendOtherMessages True, if the user can send animations, games, stickers, and dice and use inline bots.
-         * @param canAddWebPagePreviews True, if the user may add a web page preview to their messages.
+         * @param canAddLinkPreviews True, if the user may add a link preview to their messages.
          * @param canChangeInfo True, if the user can change the chat title, photo, and other settings.
          * @param canInviteUsers True, if the user can invite new users to the chat.
          * @param canPinMessages True, if the user can pin messages.
          * @param canCreateTopics True, if the user can create topics.
          */
-        public ChatPermissions(boolean canSendBasicMessages, boolean canSendAudios, boolean canSendDocuments, boolean canSendPhotos, boolean canSendVideos, boolean canSendVideoNotes, boolean canSendVoiceNotes, boolean canSendPolls, boolean canSendOtherMessages, boolean canAddWebPagePreviews, boolean canChangeInfo, boolean canInviteUsers, boolean canPinMessages, boolean canCreateTopics) {
+        public ChatPermissions(boolean canSendBasicMessages, boolean canSendAudios, boolean canSendDocuments, boolean canSendPhotos, boolean canSendVideos, boolean canSendVideoNotes, boolean canSendVoiceNotes, boolean canSendPolls, boolean canSendOtherMessages, boolean canAddLinkPreviews, boolean canChangeInfo, boolean canInviteUsers, boolean canPinMessages, boolean canCreateTopics) {
             this.canSendBasicMessages = canSendBasicMessages;
             this.canSendAudios = canSendAudios;
             this.canSendDocuments = canSendDocuments;
@@ -14295,7 +14295,7 @@ public class TdApi {
             this.canSendVoiceNotes = canSendVoiceNotes;
             this.canSendPolls = canSendPolls;
             this.canSendOtherMessages = canSendOtherMessages;
-            this.canAddWebPagePreviews = canAddWebPagePreviews;
+            this.canAddLinkPreviews = canAddLinkPreviews;
             this.canChangeInfo = canChangeInfo;
             this.canInviteUsers = canInviteUsers;
             this.canPinMessages = canPinMessages;
@@ -14305,7 +14305,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1798223946;
+        public static final int CONSTRUCTOR = -118334855;
 
         /**
          * @return this.CONSTRUCTOR
@@ -30212,7 +30212,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a theme. TDLib has no theme support yet.
+     * The link is a link to a cloud theme. TDLib has no theme support yet.
      */
     public static class InternalLinkTypeTheme extends InternalLinkType {
         /**
@@ -30221,13 +30221,13 @@ public class TdApi {
         public String themeName;
 
         /**
-         * The link is a link to a theme. TDLib has no theme support yet.
+         * The link is a link to a cloud theme. TDLib has no theme support yet.
          */
         public InternalLinkTypeTheme() {
         }
 
         /**
-         * The link is a link to a theme. TDLib has no theme support yet.
+         * The link is a link to a cloud theme. TDLib has no theme support yet.
          *
          * @param themeName Name of the theme.
          */
@@ -31863,6 +31863,208 @@ public class TdApi {
     }
 
     /**
+     * Describes a link preview.
+     */
+    public static class LinkPreview extends Object {
+        /**
+         * Original URL of the link.
+         */
+        public String url;
+        /**
+         * URL to display.
+         */
+        public String displayUrl;
+        /**
+         * Short name of the site (e.g., Google Docs, App Store).
+         */
+        public String siteName;
+        /**
+         * Title of the content.
+         */
+        public String title;
+        /**
+         * Description of the content.
+         */
+        public FormattedText description;
+        /**
+         * Type of the link preview.
+         */
+        public LinkPreviewType type;
+        /**
+         * True, if size of media in the preview can be changed.
+         */
+        public boolean hasLargeMedia;
+        /**
+         * True, if large media preview must be shown; otherwise, the media preview must be shown small and only the first frame must be shown for videos.
+         */
+        public boolean showLargeMedia;
+        /**
+         * True, if there is no need to show an ordinary open URL confirmation, when opening the URL from the preview, because the URL is shown in the message text in clear.
+         */
+        public boolean skipConfirmation;
+        /**
+         * True, if the link preview must be shown above message text; otherwise, the link preview must be shown below the message text.
+         */
+        public boolean showAboveText;
+        /**
+         * Version of instant view (currently, can be 1 or 2) for the web page; 0 if none.
+         */
+        public int instantViewVersion;
+
+        /**
+         * Describes a link preview.
+         */
+        public LinkPreview() {
+        }
+
+        /**
+         * Describes a link preview.
+         *
+         * @param url Original URL of the link.
+         * @param displayUrl URL to display.
+         * @param siteName Short name of the site (e.g., Google Docs, App Store).
+         * @param title Title of the content.
+         * @param description Description of the content.
+         * @param type Type of the link preview.
+         * @param hasLargeMedia True, if size of media in the preview can be changed.
+         * @param showLargeMedia True, if large media preview must be shown; otherwise, the media preview must be shown small and only the first frame must be shown for videos.
+         * @param skipConfirmation True, if there is no need to show an ordinary open URL confirmation, when opening the URL from the preview, because the URL is shown in the message text in clear.
+         * @param showAboveText True, if the link preview must be shown above message text; otherwise, the link preview must be shown below the message text.
+         * @param instantViewVersion Version of instant view (currently, can be 1 or 2) for the web page; 0 if none.
+         */
+        public LinkPreview(String url, String displayUrl, String siteName, String title, FormattedText description, LinkPreviewType type, boolean hasLargeMedia, boolean showLargeMedia, boolean skipConfirmation, boolean showAboveText, int instantViewVersion) {
+            this.url = url;
+            this.displayUrl = displayUrl;
+            this.siteName = siteName;
+            this.title = title;
+            this.description = description;
+            this.type = type;
+            this.hasLargeMedia = hasLargeMedia;
+            this.showLargeMedia = showLargeMedia;
+            this.skipConfirmation = skipConfirmation;
+            this.showAboveText = showAboveText;
+            this.instantViewVersion = instantViewVersion;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -740917523;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes a media from a link preview album.
+     */
+    public abstract static class LinkPreviewAlbumMedia extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            LinkPreviewAlbumMediaPhoto.CONSTRUCTOR,
+            LinkPreviewAlbumMediaVideo.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public LinkPreviewAlbumMedia() {
+        }
+    }
+
+    /**
+     * The media is a photo.
+     */
+    public static class LinkPreviewAlbumMediaPhoto extends LinkPreviewAlbumMedia {
+        /**
+         * Photo description.
+         */
+        public Photo photo;
+
+        /**
+         * The media is a photo.
+         */
+        public LinkPreviewAlbumMediaPhoto() {
+        }
+
+        /**
+         * The media is a photo.
+         *
+         * @param photo Photo description.
+         */
+        public LinkPreviewAlbumMediaPhoto(Photo photo) {
+            this.photo = photo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -935480434;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The media is a video.
+     */
+    public static class LinkPreviewAlbumMediaVideo extends LinkPreviewAlbumMedia {
+        /**
+         * Video description.
+         */
+        public Video video;
+
+        /**
+         * The media is a video.
+         */
+        public LinkPreviewAlbumMediaVideo() {
+        }
+
+        /**
+         * The media is a video.
+         *
+         * @param video Video description.
+         */
+        public LinkPreviewAlbumMediaVideo(Video video) {
+            this.video = video;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 390616795;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Options to be used for generation of a link preview.
      */
     public static class LinkPreviewOptions extends Object {
@@ -31914,6 +32116,1227 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1046590451;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes type of link preview.
+     */
+    public abstract static class LinkPreviewType extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            LinkPreviewTypeAlbum.CONSTRUCTOR,
+            LinkPreviewTypeAnimation.CONSTRUCTOR,
+            LinkPreviewTypeApp.CONSTRUCTOR,
+            LinkPreviewTypeArticle.CONSTRUCTOR,
+            LinkPreviewTypeAudio.CONSTRUCTOR,
+            LinkPreviewTypeBackground.CONSTRUCTOR,
+            LinkPreviewTypeChannelBoost.CONSTRUCTOR,
+            LinkPreviewTypeChat.CONSTRUCTOR,
+            LinkPreviewTypeDocument.CONSTRUCTOR,
+            LinkPreviewTypeEmbeddedAudioPlayer.CONSTRUCTOR,
+            LinkPreviewTypeEmbeddedVideoPlayer.CONSTRUCTOR,
+            LinkPreviewTypeInvoice.CONSTRUCTOR,
+            LinkPreviewTypeMessage.CONSTRUCTOR,
+            LinkPreviewTypePhoto.CONSTRUCTOR,
+            LinkPreviewTypePremiumGiftCode.CONSTRUCTOR,
+            LinkPreviewTypeShareableChatFolder.CONSTRUCTOR,
+            LinkPreviewTypeSticker.CONSTRUCTOR,
+            LinkPreviewTypeStickerSet.CONSTRUCTOR,
+            LinkPreviewTypeStory.CONSTRUCTOR,
+            LinkPreviewTypeSupergroupBoost.CONSTRUCTOR,
+            LinkPreviewTypeTheme.CONSTRUCTOR,
+            LinkPreviewTypeUnsupported.CONSTRUCTOR,
+            LinkPreviewTypeUser.CONSTRUCTOR,
+            LinkPreviewTypeVideo.CONSTRUCTOR,
+            LinkPreviewTypeVideoChat.CONSTRUCTOR,
+            LinkPreviewTypeVideoNote.CONSTRUCTOR,
+            LinkPreviewTypeVoiceNote.CONSTRUCTOR,
+            LinkPreviewTypeWebApp.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public LinkPreviewType() {
+        }
+    }
+
+    /**
+     * The link is a link to a media album consisting of photos and videos.
+     */
+    public static class LinkPreviewTypeAlbum extends LinkPreviewType {
+        /**
+         * The list of album media.
+         */
+        public LinkPreviewAlbumMedia[] media;
+        /**
+         * Album caption.
+         */
+        public String caption;
+
+        /**
+         * The link is a link to a media album consisting of photos and videos.
+         */
+        public LinkPreviewTypeAlbum() {
+        }
+
+        /**
+         * The link is a link to a media album consisting of photos and videos.
+         *
+         * @param media The list of album media.
+         * @param caption Album caption.
+         */
+        public LinkPreviewTypeAlbum(LinkPreviewAlbumMedia[] media, String caption) {
+            this.media = media;
+            this.caption = caption;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -919156671;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to an animation.
+     */
+    public static class LinkPreviewTypeAnimation extends LinkPreviewType {
+        /**
+         * The animation.
+         */
+        public Animation animation;
+        /**
+         * Author of the animation.
+         */
+        public String author;
+
+        /**
+         * The link is a link to an animation.
+         */
+        public LinkPreviewTypeAnimation() {
+        }
+
+        /**
+         * The link is a link to an animation.
+         *
+         * @param animation The animation.
+         * @param author Author of the animation.
+         */
+        public LinkPreviewTypeAnimation(Animation animation, String author) {
+            this.animation = animation;
+            this.author = author;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1823256946;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to an app at App Store or Google Play.
+     */
+    public static class LinkPreviewTypeApp extends LinkPreviewType {
+        /**
+         * Photo for the app.
+         */
+        public Photo photo;
+        /**
+         * Author of the app.
+         */
+        public String author;
+
+        /**
+         * The link is a link to an app at App Store or Google Play.
+         */
+        public LinkPreviewTypeApp() {
+        }
+
+        /**
+         * The link is a link to an app at App Store or Google Play.
+         *
+         * @param photo Photo for the app.
+         * @param author Author of the app.
+         */
+        public LinkPreviewTypeApp(Photo photo, String author) {
+            this.photo = photo;
+            this.author = author;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1256642746;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a web site.
+     */
+    public static class LinkPreviewTypeArticle extends LinkPreviewType {
+        /**
+         * Article's main photo; may be null.
+         */
+        @Nullable public Photo photo;
+        /**
+         * Author of the article.
+         */
+        public String author;
+
+        /**
+         * The link is a link to a web site.
+         */
+        public LinkPreviewTypeArticle() {
+        }
+
+        /**
+         * The link is a link to a web site.
+         *
+         * @param photo Article's main photo; may be null.
+         * @param author Author of the article.
+         */
+        public LinkPreviewTypeArticle(Photo photo, String author) {
+            this.photo = photo;
+            this.author = author;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1772204505;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to an audio.
+     */
+    public static class LinkPreviewTypeAudio extends LinkPreviewType {
+        /**
+         * URL of the audio; may be empty if none.
+         */
+        public String url;
+        /**
+         * MIME type of the audio file.
+         */
+        public String mimeType;
+        /**
+         * The audio description; may be null if unknown.
+         */
+        @Nullable public Audio audio;
+        /**
+         * Duration of the audio, in seconds; 0 if unknown.
+         */
+        public int duration;
+        /**
+         * Author of the audio.
+         */
+        public String author;
+
+        /**
+         * The link is a link to an audio.
+         */
+        public LinkPreviewTypeAudio() {
+        }
+
+        /**
+         * The link is a link to an audio.
+         *
+         * @param url URL of the audio; may be empty if none.
+         * @param mimeType MIME type of the audio file.
+         * @param audio The audio description; may be null if unknown.
+         * @param duration Duration of the audio, in seconds; 0 if unknown.
+         * @param author Author of the audio.
+         */
+        public LinkPreviewTypeAudio(String url, String mimeType, Audio audio, int duration, String author) {
+            this.url = url;
+            this.mimeType = mimeType;
+            this.audio = audio;
+            this.duration = duration;
+            this.author = author;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1462528888;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a background. Link preview title and description are available only for filled backgrounds.
+     */
+    public static class LinkPreviewTypeBackground extends LinkPreviewType {
+        /**
+         * Document with the background; may be null for filled backgrounds.
+         */
+        @Nullable public Document document;
+
+        /**
+         * The link is a link to a background. Link preview title and description are available only for filled backgrounds.
+         */
+        public LinkPreviewTypeBackground() {
+        }
+
+        /**
+         * The link is a link to a background. Link preview title and description are available only for filled backgrounds.
+         *
+         * @param document Document with the background; may be null for filled backgrounds.
+         */
+        public LinkPreviewTypeBackground(Document document) {
+            this.document = document;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1841628038;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to boost a channel chat.
+     */
+    public static class LinkPreviewTypeChannelBoost extends LinkPreviewType {
+        /**
+         * Photo of the chat; may be null.
+         */
+        @Nullable public ChatPhoto photo;
+
+        /**
+         * The link is a link to boost a channel chat.
+         */
+        public LinkPreviewTypeChannelBoost() {
+        }
+
+        /**
+         * The link is a link to boost a channel chat.
+         *
+         * @param photo Photo of the chat; may be null.
+         */
+        public LinkPreviewTypeChannelBoost(ChatPhoto photo) {
+            this.photo = photo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -957086634;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a chat.
+     */
+    public static class LinkPreviewTypeChat extends LinkPreviewType {
+        /**
+         * Type of the chat.
+         */
+        public InviteLinkChatType type;
+        /**
+         * Photo of the chat; may be null.
+         */
+        @Nullable public ChatPhoto photo;
+        /**
+         * True, if the link only creates join request.
+         */
+        public boolean createsJoinRequest;
+
+        /**
+         * The link is a link to a chat.
+         */
+        public LinkPreviewTypeChat() {
+        }
+
+        /**
+         * The link is a link to a chat.
+         *
+         * @param type Type of the chat.
+         * @param photo Photo of the chat; may be null.
+         * @param createsJoinRequest True, if the link only creates join request.
+         */
+        public LinkPreviewTypeChat(InviteLinkChatType type, ChatPhoto photo, boolean createsJoinRequest) {
+            this.type = type;
+            this.photo = photo;
+            this.createsJoinRequest = createsJoinRequest;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1372610270;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a general file.
+     */
+    public static class LinkPreviewTypeDocument extends LinkPreviewType {
+        /**
+         * The document description.
+         */
+        public Document document;
+        /**
+         * Author of the document.
+         */
+        public String author;
+
+        /**
+         * The link is a link to a general file.
+         */
+        public LinkPreviewTypeDocument() {
+        }
+
+        /**
+         * The link is a link to a general file.
+         *
+         * @param document The document description.
+         * @param author Author of the document.
+         */
+        public LinkPreviewTypeDocument(Document document, String author) {
+            this.document = document;
+            this.author = author;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1404053319;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to an audio player.
+     */
+    public static class LinkPreviewTypeEmbeddedAudioPlayer extends LinkPreviewType {
+        /**
+         * URL of the external audio player.
+         */
+        public String url;
+        /**
+         * Duration of the audio, in seconds.
+         */
+        public int duration;
+        /**
+         * Author of the audio.
+         */
+        public String author;
+
+        /**
+         * The link is a link to an audio player.
+         */
+        public LinkPreviewTypeEmbeddedAudioPlayer() {
+        }
+
+        /**
+         * The link is a link to an audio player.
+         *
+         * @param url URL of the external audio player.
+         * @param duration Duration of the audio, in seconds.
+         * @param author Author of the audio.
+         */
+        public LinkPreviewTypeEmbeddedAudioPlayer(String url, int duration, String author) {
+            this.url = url;
+            this.duration = duration;
+            this.author = author;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 732979462;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a video player.
+     */
+    public static class LinkPreviewTypeEmbeddedVideoPlayer extends LinkPreviewType {
+        /**
+         * URL of the external video player.
+         */
+        public String url;
+        /**
+         * Duration of the video, in seconds.
+         */
+        public int duration;
+        /**
+         * Author of the video.
+         */
+        public String author;
+        /**
+         * Expected width of the preview.
+         */
+        public int width;
+        /**
+         * Expected height of the preview.
+         */
+        public int height;
+
+        /**
+         * The link is a link to a video player.
+         */
+        public LinkPreviewTypeEmbeddedVideoPlayer() {
+        }
+
+        /**
+         * The link is a link to a video player.
+         *
+         * @param url URL of the external video player.
+         * @param duration Duration of the video, in seconds.
+         * @param author Author of the video.
+         * @param width Expected width of the preview.
+         * @param height Expected height of the preview.
+         */
+        public LinkPreviewTypeEmbeddedVideoPlayer(String url, int duration, String author, int width, int height) {
+            this.url = url;
+            this.duration = duration;
+            this.author = author;
+            this.width = width;
+            this.height = height;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -45312231;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to an invoice.
+     */
+    public static class LinkPreviewTypeInvoice extends LinkPreviewType {
+
+        /**
+         * The link is a link to an invoice.
+         */
+        public LinkPreviewTypeInvoice() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -729855782;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a text or a poll Telegram message.
+     */
+    public static class LinkPreviewTypeMessage extends LinkPreviewType {
+
+        /**
+         * The link is a link to a text or a poll Telegram message.
+         */
+        public LinkPreviewTypeMessage() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 435470750;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a photo.
+     */
+    public static class LinkPreviewTypePhoto extends LinkPreviewType {
+        /**
+         * The photo.
+         */
+        public Photo photo;
+        /**
+         * Author of the photo.
+         */
+        public String author;
+
+        /**
+         * The link is a link to a photo.
+         */
+        public LinkPreviewTypePhoto() {
+        }
+
+        /**
+         * The link is a link to a photo.
+         *
+         * @param photo The photo.
+         * @param author Author of the photo.
+         */
+        public LinkPreviewTypePhoto(Photo photo, String author) {
+            this.photo = photo;
+            this.author = author;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -286541136;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a Telegram Premium gift code.
+     */
+    public static class LinkPreviewTypePremiumGiftCode extends LinkPreviewType {
+
+        /**
+         * The link is a link to a Telegram Premium gift code.
+         */
+        public LinkPreviewTypePremiumGiftCode() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1309507761;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a shareable chat folder.
+     */
+    public static class LinkPreviewTypeShareableChatFolder extends LinkPreviewType {
+
+        /**
+         * The link is a link to a shareable chat folder.
+         */
+        public LinkPreviewTypeShareableChatFolder() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2141539524;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a sticker message.
+     */
+    public static class LinkPreviewTypeSticker extends LinkPreviewType {
+        /**
+         * The sticker.
+         */
+        public Sticker sticker;
+
+        /**
+         * The link is a link to a sticker message.
+         */
+        public LinkPreviewTypeSticker() {
+        }
+
+        /**
+         * The link is a link to a sticker message.
+         *
+         * @param sticker The sticker.
+         */
+        public LinkPreviewTypeSticker(Sticker sticker) {
+            this.sticker = sticker;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 610225445;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a sticker set.
+     */
+    public static class LinkPreviewTypeStickerSet extends LinkPreviewType {
+        /**
+         * Up to 4 stickers from the sticker set.
+         */
+        public Sticker[] stickers;
+
+        /**
+         * The link is a link to a sticker set.
+         */
+        public LinkPreviewTypeStickerSet() {
+        }
+
+        /**
+         * The link is a link to a sticker set.
+         *
+         * @param stickers Up to 4 stickers from the sticker set.
+         */
+        public LinkPreviewTypeStickerSet(Sticker[] stickers) {
+            this.stickers = stickers;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -145958768;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a story. Link preview description is unavailable.
+     */
+    public static class LinkPreviewTypeStory extends LinkPreviewType {
+        /**
+         * The identifier of the chat that posted the story.
+         */
+        public long storySenderChatId;
+        /**
+         * Story identifier.
+         */
+        public int storyId;
+
+        /**
+         * The link is a link to a story. Link preview description is unavailable.
+         */
+        public LinkPreviewTypeStory() {
+        }
+
+        /**
+         * The link is a link to a story. Link preview description is unavailable.
+         *
+         * @param storySenderChatId The identifier of the chat that posted the story.
+         * @param storyId Story identifier.
+         */
+        public LinkPreviewTypeStory(long storySenderChatId, int storyId) {
+            this.storySenderChatId = storySenderChatId;
+            this.storyId = storyId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 513574862;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to boost a supergroup chat.
+     */
+    public static class LinkPreviewTypeSupergroupBoost extends LinkPreviewType {
+        /**
+         * Photo of the chat; may be null.
+         */
+        @Nullable public ChatPhoto photo;
+
+        /**
+         * The link is a link to boost a supergroup chat.
+         */
+        public LinkPreviewTypeSupergroupBoost() {
+        }
+
+        /**
+         * The link is a link to boost a supergroup chat.
+         *
+         * @param photo Photo of the chat; may be null.
+         */
+        public LinkPreviewTypeSupergroupBoost(ChatPhoto photo) {
+            this.photo = photo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1873345418;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a cloud theme. TDLib has no theme support yet.
+     */
+    public static class LinkPreviewTypeTheme extends LinkPreviewType {
+        /**
+         * The list of files with theme description.
+         */
+        public Document[] documents;
+        /**
+         * Settings for the cloud theme.
+         */
+        public ThemeSettings settings;
+
+        /**
+         * The link is a link to a cloud theme. TDLib has no theme support yet.
+         */
+        public LinkPreviewTypeTheme() {
+        }
+
+        /**
+         * The link is a link to a cloud theme. TDLib has no theme support yet.
+         *
+         * @param documents The list of files with theme description.
+         * @param settings Settings for the cloud theme.
+         */
+        public LinkPreviewTypeTheme(Document[] documents, ThemeSettings settings) {
+            this.documents = documents;
+            this.settings = settings;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -226118489;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link preview type is unsupported yet.
+     */
+    public static class LinkPreviewTypeUnsupported extends LinkPreviewType {
+
+        /**
+         * The link preview type is unsupported yet.
+         */
+        public LinkPreviewTypeUnsupported() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1924738233;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a user.
+     */
+    public static class LinkPreviewTypeUser extends LinkPreviewType {
+        /**
+         * Photo of the user; may be null if none.
+         */
+        @Nullable public ChatPhoto photo;
+        /**
+         * True, if the user is a bot.
+         */
+        public boolean isBot;
+
+        /**
+         * The link is a link to a user.
+         */
+        public LinkPreviewTypeUser() {
+        }
+
+        /**
+         * The link is a link to a user.
+         *
+         * @param photo Photo of the user; may be null if none.
+         * @param isBot True, if the user is a bot.
+         */
+        public LinkPreviewTypeUser(ChatPhoto photo, boolean isBot) {
+            this.photo = photo;
+            this.isBot = isBot;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1465024132;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a video.
+     */
+    public static class LinkPreviewTypeVideo extends LinkPreviewType {
+        /**
+         * URL of the video; may be empty if none.
+         */
+        public String url;
+        /**
+         * MIME type of the video file.
+         */
+        public String mimeType;
+        /**
+         * The video description; may be null if unknown.
+         */
+        @Nullable public Video video;
+        /**
+         * Expected width of the preview.
+         */
+        public int width;
+        /**
+         * Expected height of the preview.
+         */
+        public int height;
+        /**
+         * Duration of the video, in seconds; 0 if unknown.
+         */
+        public int duration;
+        /**
+         * Author of the video.
+         */
+        public String author;
+
+        /**
+         * The link is a link to a video.
+         */
+        public LinkPreviewTypeVideo() {
+        }
+
+        /**
+         * The link is a link to a video.
+         *
+         * @param url URL of the video; may be empty if none.
+         * @param mimeType MIME type of the video file.
+         * @param video The video description; may be null if unknown.
+         * @param width Expected width of the preview.
+         * @param height Expected height of the preview.
+         * @param duration Duration of the video, in seconds; 0 if unknown.
+         * @param author Author of the video.
+         */
+        public LinkPreviewTypeVideo(String url, String mimeType, Video video, int width, int height, int duration, String author) {
+            this.url = url;
+            this.mimeType = mimeType;
+            this.video = video;
+            this.width = width;
+            this.height = height;
+            this.duration = duration;
+            this.author = author;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 737066942;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a video chat.
+     */
+    public static class LinkPreviewTypeVideoChat extends LinkPreviewType {
+        /**
+         * Photo of the chat with the video chat; may be null if none.
+         */
+        @Nullable public ChatPhoto photo;
+        /**
+         * True, if the video chat is expected to be a live stream in a channel or a broadcast group.
+         */
+        public boolean isLiveStream;
+
+        /**
+         * The link is a link to a video chat.
+         */
+        public LinkPreviewTypeVideoChat() {
+        }
+
+        /**
+         * The link is a link to a video chat.
+         *
+         * @param photo Photo of the chat with the video chat; may be null if none.
+         * @param isLiveStream True, if the video chat is expected to be a live stream in a channel or a broadcast group.
+         */
+        public LinkPreviewTypeVideoChat(ChatPhoto photo, boolean isLiveStream) {
+            this.photo = photo;
+            this.isLiveStream = isLiveStream;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 420015635;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a video note message.
+     */
+    public static class LinkPreviewTypeVideoNote extends LinkPreviewType {
+        /**
+         * The video note.
+         */
+        public VideoNote videoNote;
+
+        /**
+         * The link is a link to a video note message.
+         */
+        public LinkPreviewTypeVideoNote() {
+        }
+
+        /**
+         * The link is a link to a video note message.
+         *
+         * @param videoNote The video note.
+         */
+        public LinkPreviewTypeVideoNote(VideoNote videoNote) {
+            this.videoNote = videoNote;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -814687391;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a voice note message.
+     */
+    public static class LinkPreviewTypeVoiceNote extends LinkPreviewType {
+        /**
+         * The voice note.
+         */
+        public VoiceNote voiceNote;
+
+        /**
+         * The link is a link to a voice note message.
+         */
+        public LinkPreviewTypeVoiceNote() {
+        }
+
+        /**
+         * The link is a link to a voice note message.
+         *
+         * @param voiceNote The voice note.
+         */
+        public LinkPreviewTypeVoiceNote(VoiceNote voiceNote) {
+            this.voiceNote = voiceNote;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -757936341;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to a Web App.
+     */
+    public static class LinkPreviewTypeWebApp extends LinkPreviewType {
+        /**
+         * Web App photo.
+         */
+        public Photo photo;
+
+        /**
+         * The link is a link to a Web App.
+         */
+        public LinkPreviewTypeWebApp() {
+        }
+
+        /**
+         * The link is a link to a Web App.
+         *
+         * @param photo Web App photo.
+         */
+        public LinkPreviewTypeWebApp(Photo photo) {
+            this.photo = photo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1506873462;
 
         /**
          * @return this.CONSTRUCTOR
@@ -32748,7 +34171,7 @@ public class TdApi {
          */
         public boolean canGetViewers;
         /**
-         * True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description through getMessageLink.
+         * True, if media timestamp links can be generated for media timestamp entities in the message text, caption or link preview description through getMessageLink.
          */
         public boolean canGetMediaTimestampLinks;
         /**
@@ -32888,7 +34311,7 @@ public class TdApi {
          * @param canGetMessageThread True, if information about the message thread is available through getMessageThread and getMessageThreadHistory.
          * @param canGetReadDate True, if read date of the message can be received through getMessageReadDate.
          * @param canGetViewers True, if chat members already viewed the message can be received through getMessageViewers.
-         * @param canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description through getMessageLink.
+         * @param canGetMediaTimestampLinks True, if media timestamp links can be generated for media timestamp entities in the message text, caption or link preview description through getMessageLink.
          * @param canReportReactions True, if reactions on the message can be reported through reportMessageReactions.
          * @param hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
          * @param isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
@@ -33171,6 +34594,7 @@ public class TdApi {
             MessageGameScore.CONSTRUCTOR,
             MessagePaymentSuccessful.CONSTRUCTOR,
             MessagePaymentSuccessfulBot.CONSTRUCTOR,
+            MessagePaymentRefunded.CONSTRUCTOR,
             MessageGiftedPremium.CONSTRUCTOR,
             MessagePremiumGiftCode.CONSTRUCTOR,
             MessagePremiumGiveawayCreated.CONSTRUCTOR,
@@ -33214,7 +34638,7 @@ public class TdApi {
         /**
          * A link preview attached to the message; may be null.
          */
-        @Nullable public WebPage webPage;
+        @Nullable public LinkPreview linkPreview;
         /**
          * Options which were used for generation of the link preview; may be null if default options were used.
          */
@@ -33230,19 +34654,19 @@ public class TdApi {
          * A text message.
          *
          * @param text Text of the message.
-         * @param webPage A link preview attached to the message; may be null.
+         * @param linkPreview A link preview attached to the message; may be null.
          * @param linkPreviewOptions Options which were used for generation of the link preview; may be null if default options were used.
          */
-        public MessageText(FormattedText text, WebPage webPage, LinkPreviewOptions linkPreviewOptions) {
+        public MessageText(FormattedText text, LinkPreview linkPreview, LinkPreviewOptions linkPreviewOptions) {
             this.text = text;
-            this.webPage = webPage;
+            this.linkPreview = linkPreview;
             this.linkPreviewOptions = linkPreviewOptions;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1053465942;
+        public static final int CONSTRUCTOR = 1751469188;
 
         /**
          * @return this.CONSTRUCTOR
@@ -35578,6 +37002,74 @@ public class TdApi {
     }
 
     /**
+     * A payment has been refunded.
+     */
+    public static class MessagePaymentRefunded extends MessageContent {
+        /**
+         * Identifier of the previous owner of the Telegram stars that refunds them.
+         */
+        public MessageSender ownerId;
+        /**
+         * Currency for the price of the product.
+         */
+        public String currency;
+        /**
+         * Total price for the product, in the smallest units of the currency.
+         */
+        public long totalAmount;
+        /**
+         * Invoice payload; only for bots.
+         */
+        public byte[] invoicePayload;
+        /**
+         * Telegram payment identifier.
+         */
+        public String telegramPaymentChargeId;
+        /**
+         * Provider payment identifier.
+         */
+        public String providerPaymentChargeId;
+
+        /**
+         * A payment has been refunded.
+         */
+        public MessagePaymentRefunded() {
+        }
+
+        /**
+         * A payment has been refunded.
+         *
+         * @param ownerId Identifier of the previous owner of the Telegram stars that refunds them.
+         * @param currency Currency for the price of the product.
+         * @param totalAmount Total price for the product, in the smallest units of the currency.
+         * @param invoicePayload Invoice payload; only for bots.
+         * @param telegramPaymentChargeId Telegram payment identifier.
+         * @param providerPaymentChargeId Provider payment identifier.
+         */
+        public MessagePaymentRefunded(MessageSender ownerId, String currency, long totalAmount, byte[] invoicePayload, String telegramPaymentChargeId, String providerPaymentChargeId) {
+            this.ownerId = ownerId;
+            this.currency = currency;
+            this.totalAmount = totalAmount;
+            this.invoicePayload = invoicePayload;
+            this.telegramPaymentChargeId = telegramPaymentChargeId;
+            this.providerPaymentChargeId = providerPaymentChargeId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 297580787;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Telegram Premium was gifted to the user.
      */
     public static class MessageGiftedPremium extends MessageContent {
@@ -36941,7 +38433,7 @@ public class TdApi {
          */
         @Nullable public Message message;
         /**
-         * Timestamp from which the video/audio/video note/voice note/story playing must start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview.
+         * Timestamp from which the video/audio/video note/voice note/story playing must start, in seconds; 0 if not specified. The media can be in the message content or in its link preview.
          */
         public int mediaTimestamp;
         /**
@@ -36962,7 +38454,7 @@ public class TdApi {
          * @param chatId If found, identifier of the chat to which the link points, 0 otherwise.
          * @param messageThreadId If found, identifier of the message thread in which to open the message, or a forum topic to open if the message is missing.
          * @param message If found, the linked message; may be null.
-         * @param mediaTimestamp Timestamp from which the video/audio/video note/voice note/story playing must start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview.
+         * @param mediaTimestamp Timestamp from which the video/audio/video note/voice note/story playing must start, in seconds; 0 if not specified. The media can be in the message content or in its link preview.
          * @param forAlbum True, if the whole media album to which the message belongs is linked.
          */
         public MessageLinkInfo(boolean isPublic, long chatId, long messageThreadId, Message message, int mediaTimestamp, boolean forAlbum) {
@@ -40214,7 +41706,7 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Describes a block of an instant view web page.
+     * Describes a block of an instant view for a web page.
      */
     public abstract static class PageBlock extends Object {
         /**
@@ -41097,7 +42589,7 @@ public class TdApi {
      */
     public static class PageBlockEmbedded extends PageBlock {
         /**
-         * Web page URL, if available.
+         * URL of the embedded page, if available.
          */
         public String url;
         /**
@@ -41138,7 +42630,7 @@ public class TdApi {
         /**
          * An embedded web page.
          *
-         * @param url Web page URL, if available.
+         * @param url URL of the embedded page, if available.
          * @param html HTML-markup of the embedded page.
          * @param posterPhoto Poster photo, if available; may be null.
          * @param width Block width; 0 if unknown.
@@ -41177,7 +42669,7 @@ public class TdApi {
      */
     public static class PageBlockEmbeddedPost extends PageBlock {
         /**
-         * Web page URL.
+         * URL of the embedded post.
          */
         public String url;
         /**
@@ -41210,7 +42702,7 @@ public class TdApi {
         /**
          * An embedded post.
          *
-         * @param url Web page URL.
+         * @param url URL of the embedded post.
          * @param author Post author.
          * @param authorPhoto Post author photo; may be null.
          * @param date Point in time (Unix timestamp) when the post was created; 0 if unknown.
@@ -41597,7 +43089,7 @@ public class TdApi {
     }
 
     /**
-     * Contains a caption of an instant view web page block, consisting of a text and a trailing credit.
+     * Contains a caption of another block.
      */
     public static class PageBlockCaption extends Object {
         /**
@@ -41610,13 +43102,13 @@ public class TdApi {
         public RichText credit;
 
         /**
-         * Contains a caption of an instant view web page block, consisting of a text and a trailing credit.
+         * Contains a caption of another block.
          */
         public PageBlockCaption() {
         }
 
         /**
-         * Contains a caption of an instant view web page block, consisting of a text and a trailing credit.
+         * Contains a caption of another block.
          *
          * @param text Content of the caption.
          * @param credit Block credit (like HTML tag &lt;cite&gt;).
@@ -51893,7 +53385,7 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Describes a text object inside an instant-view web page.
+     * Describes a formatted text object.
      */
     public abstract static class RichText extends Object {
         /**
@@ -52465,7 +53957,7 @@ public class TdApi {
     }
 
     /**
-     * A reference to a richTexts object on the same web page.
+     * A reference to a richTexts object on the same page.
      */
     public static class RichTextReference extends RichText {
         /**
@@ -52482,13 +53974,13 @@ public class TdApi {
         public String url;
 
         /**
-         * A reference to a richTexts object on the same web page.
+         * A reference to a richTexts object on the same page.
          */
         public RichTextReference() {
         }
 
         /**
-         * A reference to a richTexts object on the same web page.
+         * A reference to a richTexts object on the same page.
          *
          * @param text The text.
          * @param anchorName The name of a richTextAnchor object, which is the first element of the target richTexts object.
@@ -52553,7 +54045,7 @@ public class TdApi {
     }
 
     /**
-     * A link to an anchor on the same web page.
+     * A link to an anchor on the same page.
      */
     public static class RichTextAnchorLink extends RichText {
         /**
@@ -52570,13 +54062,13 @@ public class TdApi {
         public String url;
 
         /**
-         * A link to an anchor on the same web page.
+         * A link to an anchor on the same page.
          */
         public RichTextAnchorLink() {
         }
 
         /**
-         * A link to an anchor on the same web page.
+         * A link to an anchor on the same page.
          *
          * @param text The link text.
          * @param anchorName The anchor name. If the name is empty, the link must bring back to top.
@@ -59395,6 +60887,10 @@ public class TdApi {
          */
         public boolean canGetRevenueStatistics;
         /**
+         * True, if the supergroup or channel Telegram Star revenue statistics are available.
+         */
+        public boolean canGetStarRevenueStatistics;
+        /**
          * True, if aggressive anti-spam checks can be enabled or disabled in the supergroup.
          */
         public boolean canToggleAggressiveAntiSpam;
@@ -59480,6 +60976,7 @@ public class TdApi {
          * @param canSetLocation True, if the supergroup location can be changed.
          * @param canGetStatistics True, if the supergroup or channel statistics are available.
          * @param canGetRevenueStatistics True, if the supergroup or channel revenue statistics are available.
+         * @param canGetStarRevenueStatistics True, if the supergroup or channel Telegram Star revenue statistics are available.
          * @param canToggleAggressiveAntiSpam True, if aggressive anti-spam checks can be enabled or disabled in the supergroup.
          * @param isAllHistoryAvailable True, if new chat members will have access to old messages. In public, discussion, of forum groups and all channels, old messages are always available, so this option affects only private non-forum supergroups without a linked chat. The value of this field is only available to chat administrators.
          * @param canHaveSponsoredMessages True, if the chat can have sponsored messages. The value of this field is only available to the owner of the chat.
@@ -59496,7 +60993,7 @@ public class TdApi {
          * @param upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
          * @param upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
          */
-        public SupergroupFullInfo(ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean hasHiddenMembers, boolean canHideMembers, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean canGetRevenueStatistics, boolean canToggleAggressiveAntiSpam, boolean isAllHistoryAvailable, boolean canHaveSponsoredMessages, boolean hasAggressiveAntiSpamEnabled, boolean hasPaidMediaAllowed, boolean hasPinnedStories, int myBoostCount, int unrestrictBoostCount, long stickerSetId, long customEmojiStickerSetId, ChatLocation location, ChatInviteLink inviteLink, BotCommands[] botCommands, long upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
+        public SupergroupFullInfo(ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean hasHiddenMembers, boolean canHideMembers, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean canGetRevenueStatistics, boolean canGetStarRevenueStatistics, boolean canToggleAggressiveAntiSpam, boolean isAllHistoryAvailable, boolean canHaveSponsoredMessages, boolean hasAggressiveAntiSpamEnabled, boolean hasPaidMediaAllowed, boolean hasPinnedStories, int myBoostCount, int unrestrictBoostCount, long stickerSetId, long customEmojiStickerSetId, ChatLocation location, ChatInviteLink inviteLink, BotCommands[] botCommands, long upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
             this.photo = photo;
             this.description = description;
             this.memberCount = memberCount;
@@ -59513,6 +61010,7 @@ public class TdApi {
             this.canSetLocation = canSetLocation;
             this.canGetStatistics = canGetStatistics;
             this.canGetRevenueStatistics = canGetRevenueStatistics;
+            this.canGetStarRevenueStatistics = canGetStarRevenueStatistics;
             this.canToggleAggressiveAntiSpam = canToggleAggressiveAntiSpam;
             this.isAllHistoryAvailable = isAllHistoryAvailable;
             this.canHaveSponsoredMessages = canHaveSponsoredMessages;
@@ -59533,7 +61031,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1058633488;
+        public static final int CONSTRUCTOR = 493566627;
 
         /**
          * @return this.CONSTRUCTOR
@@ -61580,7 +63078,7 @@ public class TdApi {
      */
     public static class TextEntityTypeMediaTimestamp extends TextEntityType {
         /**
-         * Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message.
+         * Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds. The media can be in the content or the link preview of the current message, or in the same places in the replied message.
          */
         public int mediaTimestamp;
 
@@ -61593,7 +63091,7 @@ public class TdApi {
         /**
          * A media timestamp.
          *
-         * @param mediaTimestamp Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message.
+         * @param mediaTimestamp Timestamp from which a video/audio/video note/voice note/story playing must start, in seconds. The media can be in the content or the link preview of the current message, or in the same places in the replied message.
          */
         public TextEntityTypeMediaTimestamp(int mediaTimestamp) {
             this.mediaTimestamp = mediaTimestamp;
@@ -71940,211 +73438,11 @@ public class TdApi {
     }
 
     /**
-     * Describes a link preview.
-     */
-    public static class WebPage extends Object {
-        /**
-         * Original URL of the link.
-         */
-        public String url;
-        /**
-         * URL to display.
-         */
-        public String displayUrl;
-        /**
-         * Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else.
-         */
-        public String type;
-        /**
-         * Short name of the site (e.g., Google Docs, App Store).
-         */
-        public String siteName;
-        /**
-         * Title of the content.
-         */
-        public String title;
-        /**
-         * Description of the content.
-         */
-        public FormattedText description;
-        /**
-         * Image representing the content; may be null.
-         */
-        @Nullable public Photo photo;
-        /**
-         * URL to show in the embedded preview.
-         */
-        public String embedUrl;
-        /**
-         * MIME type of the embedded preview, (e.g., text/html or video/mp4).
-         */
-        public String embedType;
-        /**
-         * Width of the embedded preview.
-         */
-        public int embedWidth;
-        /**
-         * Height of the embedded preview.
-         */
-        public int embedHeight;
-        /**
-         * Duration of the content, in seconds.
-         */
-        public int duration;
-        /**
-         * Author of the content.
-         */
-        public String author;
-        /**
-         * True, if size of media in the preview can be changed.
-         */
-        public boolean hasLargeMedia;
-        /**
-         * True, if large media preview must be shown; otherwise, the media preview must be shown small and only the first frame must be shown for videos.
-         */
-        public boolean showLargeMedia;
-        /**
-         * True, if there is no need to show an ordinary open URL confirmation, when opening the URL from the preview, because the URL is shown in the message text in clear.
-         */
-        public boolean skipConfirmation;
-        /**
-         * True, if the link preview must be shown above message text; otherwise, the link preview must be shown below the message text.
-         */
-        public boolean showAboveText;
-        /**
-         * Preview of the content as an animation, if available; may be null.
-         */
-        @Nullable public Animation animation;
-        /**
-         * Preview of the content as an audio file, if available; may be null.
-         */
-        @Nullable public Audio audio;
-        /**
-         * Preview of the content as a document, if available; may be null.
-         */
-        @Nullable public Document document;
-        /**
-         * Preview of the content as a sticker for small WEBP files, if available; may be null.
-         */
-        @Nullable public Sticker sticker;
-        /**
-         * Preview of the content as a video, if available; may be null.
-         */
-        @Nullable public Video video;
-        /**
-         * Preview of the content as a video note, if available; may be null.
-         */
-        @Nullable public VideoNote videoNote;
-        /**
-         * Preview of the content as a voice note, if available; may be null.
-         */
-        @Nullable public VoiceNote voiceNote;
-        /**
-         * The identifier of the sender of the previewed story; 0 if none.
-         */
-        public long storySenderChatId;
-        /**
-         * The identifier of the previewed story; 0 if none.
-         */
-        public int storyId;
-        /**
-         * Up to 4 stickers from the sticker set available via the link.
-         */
-        public Sticker[] stickers;
-        /**
-         * Version of web page instant view (currently, can be 1 or 2); 0 if none.
-         */
-        public int instantViewVersion;
-
-        /**
-         * Describes a link preview.
-         */
-        public WebPage() {
-        }
-
-        /**
-         * Describes a link preview.
-         *
-         * @param url Original URL of the link.
-         * @param displayUrl URL to display.
-         * @param type Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else.
-         * @param siteName Short name of the site (e.g., Google Docs, App Store).
-         * @param title Title of the content.
-         * @param description Description of the content.
-         * @param photo Image representing the content; may be null.
-         * @param embedUrl URL to show in the embedded preview.
-         * @param embedType MIME type of the embedded preview, (e.g., text/html or video/mp4).
-         * @param embedWidth Width of the embedded preview.
-         * @param embedHeight Height of the embedded preview.
-         * @param duration Duration of the content, in seconds.
-         * @param author Author of the content.
-         * @param hasLargeMedia True, if size of media in the preview can be changed.
-         * @param showLargeMedia True, if large media preview must be shown; otherwise, the media preview must be shown small and only the first frame must be shown for videos.
-         * @param skipConfirmation True, if there is no need to show an ordinary open URL confirmation, when opening the URL from the preview, because the URL is shown in the message text in clear.
-         * @param showAboveText True, if the link preview must be shown above message text; otherwise, the link preview must be shown below the message text.
-         * @param animation Preview of the content as an animation, if available; may be null.
-         * @param audio Preview of the content as an audio file, if available; may be null.
-         * @param document Preview of the content as a document, if available; may be null.
-         * @param sticker Preview of the content as a sticker for small WEBP files, if available; may be null.
-         * @param video Preview of the content as a video, if available; may be null.
-         * @param videoNote Preview of the content as a video note, if available; may be null.
-         * @param voiceNote Preview of the content as a voice note, if available; may be null.
-         * @param storySenderChatId The identifier of the sender of the previewed story; 0 if none.
-         * @param storyId The identifier of the previewed story; 0 if none.
-         * @param stickers Up to 4 stickers from the sticker set available via the link.
-         * @param instantViewVersion Version of web page instant view (currently, can be 1 or 2); 0 if none.
-         */
-        public WebPage(String url, String displayUrl, String type, String siteName, String title, FormattedText description, Photo photo, String embedUrl, String embedType, int embedWidth, int embedHeight, int duration, String author, boolean hasLargeMedia, boolean showLargeMedia, boolean skipConfirmation, boolean showAboveText, Animation animation, Audio audio, Document document, Sticker sticker, Video video, VideoNote videoNote, VoiceNote voiceNote, long storySenderChatId, int storyId, Sticker[] stickers, int instantViewVersion) {
-            this.url = url;
-            this.displayUrl = displayUrl;
-            this.type = type;
-            this.siteName = siteName;
-            this.title = title;
-            this.description = description;
-            this.photo = photo;
-            this.embedUrl = embedUrl;
-            this.embedType = embedType;
-            this.embedWidth = embedWidth;
-            this.embedHeight = embedHeight;
-            this.duration = duration;
-            this.author = author;
-            this.hasLargeMedia = hasLargeMedia;
-            this.showLargeMedia = showLargeMedia;
-            this.skipConfirmation = skipConfirmation;
-            this.showAboveText = showAboveText;
-            this.animation = animation;
-            this.audio = audio;
-            this.document = document;
-            this.sticker = sticker;
-            this.video = video;
-            this.videoNote = videoNote;
-            this.voiceNote = voiceNote;
-            this.storySenderChatId = storySenderChatId;
-            this.storyId = storyId;
-            this.stickers = stickers;
-            this.instantViewVersion = instantViewVersion;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 594900692;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Describes an instant view page for a web page.
      */
     public static class WebPageInstantView extends Object {
         /**
-         * Content of the web page.
+         * Content of the instant view page.
          */
         public PageBlock[] pageBlocks;
         /**
@@ -72160,7 +73458,7 @@ public class TdApi {
          */
         public boolean isRtl;
         /**
-         * True, if the instant view contains the full page. A network request might be needed to get the full web page instant view.
+         * True, if the instant view contains the full page. A network request might be needed to get the full instant view.
          */
         public boolean isFull;
         /**
@@ -72177,11 +73475,11 @@ public class TdApi {
         /**
          * Describes an instant view page for a web page.
          *
-         * @param pageBlocks Content of the web page.
+         * @param pageBlocks Content of the instant view page.
          * @param viewCount Number of the instant view views; 0 if unknown.
          * @param version Version of the instant view; currently, can be 1 or 2.
          * @param isRtl True, if the instant view must be shown from right to left.
-         * @param isFull True, if the instant view contains the full page. A network request might be needed to get the full web page instant view.
+         * @param isFull True, if the instant view contains the full page. A network request might be needed to get the full instant view.
          * @param feedbackLink An internal link to be opened to leave feedback about the instant view.
          */
         public WebPageInstantView(PageBlock[] pageBlocks, int viewCount, int version, boolean isRtl, boolean isFull, InternalLinkType feedbackLink) {
@@ -85206,7 +86504,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if web page preview is disabled in secret chats.
+     * Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats.
      *
      * <p> Returns {@link LoginUrlInfo LoginUrlInfo} </p>
      */
@@ -85217,7 +86515,7 @@ public class TdApi {
         public String link;
 
         /**
-         * Default constructor for a function, which returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if web page preview is disabled in secret chats.
+         * Default constructor for a function, which returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats.
          *
          * <p> Returns {@link LoginUrlInfo LoginUrlInfo} </p>
          */
@@ -85225,7 +86523,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if web page preview is disabled in secret chats.
+         * Creates a function, which returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if link preview is disabled in secret chats.
          *
          * <p> Returns {@link LoginUrlInfo LoginUrlInfo} </p>
          *
@@ -86663,6 +87961,56 @@ public class TdApi {
     }
 
     /**
+     * Returns a link preview by the text of a message. Do not call this function too often. Returns a 404 error if the text has no link preview.
+     *
+     * <p> Returns {@link LinkPreview LinkPreview} </p>
+     */
+    public static class GetLinkPreview extends Function<LinkPreview> {
+        /**
+         * Message text with formatting.
+         */
+        public FormattedText text;
+        /**
+         * Options to be used for generation of the link preview; pass null to use default link preview options.
+         */
+        public LinkPreviewOptions linkPreviewOptions;
+
+        /**
+         * Default constructor for a function, which returns a link preview by the text of a message. Do not call this function too often. Returns a 404 error if the text has no link preview.
+         *
+         * <p> Returns {@link LinkPreview LinkPreview} </p>
+         */
+        public GetLinkPreview() {
+        }
+
+        /**
+         * Creates a function, which returns a link preview by the text of a message. Do not call this function too often. Returns a 404 error if the text has no link preview.
+         *
+         * <p> Returns {@link LinkPreview LinkPreview} </p>
+         *
+         * @param text Message text with formatting.
+         * @param linkPreviewOptions Options to be used for generation of the link preview; pass null to use default link preview options.
+         */
+        public GetLinkPreview(FormattedText text, LinkPreviewOptions linkPreviewOptions) {
+            this.text = text;
+            this.linkPreviewOptions = linkPreviewOptions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1039572191;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns information about the current localization target. This is an offline request if onlyLocal is true. Can be called before authorization.
      *
      * <p> Returns {@link LocalizationTargetInfo LocalizationTargetInfo} </p>
@@ -87523,7 +88871,7 @@ public class TdApi {
          */
         public long messageId;
         /**
-         * If not 0, timestamp from which the video/audio/video note/voice note/story playing must start, in seconds. The media can be in the message content or in its web page preview.
+         * If not 0, timestamp from which the video/audio/video note/voice note/story playing must start, in seconds. The media can be in the message content or in its link preview.
          */
         public int mediaTimestamp;
         /**
@@ -87550,7 +88898,7 @@ public class TdApi {
          *
          * @param chatId Identifier of the chat to which the message belongs.
          * @param messageId Identifier of the message.
-         * @param mediaTimestamp If not 0, timestamp from which the video/audio/video note/voice note/story playing must start, in seconds. The media can be in the message content or in its web page preview.
+         * @param mediaTimestamp If not 0, timestamp from which the video/audio/video note/voice note/story playing must start, in seconds. The media can be in the message content or in its link preview.
          * @param forAlbum Pass true to create a link for the whole media album.
          * @param inMessageThread Pass true to create a link to the message as a channel post comment, in a message thread, or a forum topic.
          */
@@ -90047,7 +91395,7 @@ public class TdApi {
      */
     public static class GetStarRevenueStatistics extends Function<StarRevenueStatistics> {
         /**
-         * Identifier of the owner of the Telegram stars; can be identifier of an owned bot, or identifier of an owned channel chat.
+         * Identifier of the owner of the Telegram stars; can be identifier of an owned bot, or identifier of a channel chat with supergroupFullInfo.canGetStarRevenueStatistics == true.
          */
         public MessageSender ownerId;
         /**
@@ -90068,7 +91416,7 @@ public class TdApi {
          *
          * <p> Returns {@link StarRevenueStatistics StarRevenueStatistics} </p>
          *
-         * @param ownerId Identifier of the owner of the Telegram stars; can be identifier of an owned bot, or identifier of an owned channel chat.
+         * @param ownerId Identifier of the owner of the Telegram stars; can be identifier of an owned bot, or identifier of a channel chat with supergroupFullInfo.canGetStarRevenueStatistics == true.
          * @param isDark Pass true if a dark theme is used by the application.
          */
         public GetStarRevenueStatistics(MessageSender ownerId, boolean isDark) {
@@ -90097,7 +91445,7 @@ public class TdApi {
      */
     public static class GetStarTransactions extends Function<StarTransactions> {
         /**
-         * Identifier of the owner of the Telegram stars; can be the identifier of the current user, identifier of an owned bot, or identifier of a channel chat with supergroupFullInfo.canGetRevenueStatistics == true.
+         * Identifier of the owner of the Telegram stars; can be the identifier of the current user, identifier of an owned bot, or identifier of a channel chat with supergroupFullInfo.canGetStarRevenueStatistics == true.
          */
         public MessageSender ownerId;
         /**
@@ -90126,7 +91474,7 @@ public class TdApi {
          *
          * <p> Returns {@link StarTransactions StarTransactions} </p>
          *
-         * @param ownerId Identifier of the owner of the Telegram stars; can be the identifier of the current user, identifier of an owned bot, or identifier of a channel chat with supergroupFullInfo.canGetRevenueStatistics == true.
+         * @param ownerId Identifier of the owner of the Telegram stars; can be the identifier of the current user, identifier of an owned bot, or identifier of a channel chat with supergroupFullInfo.canGetStarRevenueStatistics == true.
          * @param direction Direction of the transactions to receive; pass null to get all transactions.
          * @param offset Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
          * @param limit The maximum number of transactions to return.
@@ -92065,56 +93413,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1962649975;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns a link preview by the text of a message. Do not call this function too often. Returns a 404 error if the text has no link preview.
-     *
-     * <p> Returns {@link WebPage WebPage} </p>
-     */
-    public static class GetWebPagePreview extends Function<WebPage> {
-        /**
-         * Message text with formatting.
-         */
-        public FormattedText text;
-        /**
-         * Options to be used for generation of the link preview; pass null to use default link preview options.
-         */
-        public LinkPreviewOptions linkPreviewOptions;
-
-        /**
-         * Default constructor for a function, which returns a link preview by the text of a message. Do not call this function too often. Returns a 404 error if the text has no link preview.
-         *
-         * <p> Returns {@link WebPage WebPage} </p>
-         */
-        public GetWebPagePreview() {
-        }
-
-        /**
-         * Creates a function, which returns a link preview by the text of a message. Do not call this function too often. Returns a 404 error if the text has no link preview.
-         *
-         * <p> Returns {@link WebPage WebPage} </p>
-         *
-         * @param text Message text with formatting.
-         * @param linkPreviewOptions Options to be used for generation of the link preview; pass null to use default link preview options.
-         */
-        public GetWebPagePreview(FormattedText text, LinkPreviewOptions linkPreviewOptions) {
-            this.text = text;
-            this.linkPreviewOptions = linkPreviewOptions;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1471104808;
 
         /**
          * @return this.CONSTRUCTOR
