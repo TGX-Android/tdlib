@@ -60681,7 +60681,7 @@ public class TdApi {
          */
         public ChatMemberStatus status;
         /**
-         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards.
+         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards and foundStories.
          */
         public int memberCount;
         /**
@@ -60762,7 +60762,7 @@ public class TdApi {
          * @param usernames Usernames of the supergroup or channel; may be null.
          * @param date Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
          * @param status Status of the current user in the supergroup or channel; custom title will always be empty.
-         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards.
+         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards and foundStories.
          * @param boostLevel Approximate boost level for the chat.
          * @param hasLinkedChat True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
          * @param hasLocation True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup.
@@ -75611,7 +75611,7 @@ public class TdApi {
      */
     public static class CanSendStory extends Function<CanSendStoryResult> {
         /**
-         * Chat identifier.
+         * Chat identifier. Pass Saved Messages chat identifier when posting a story on behalf of the current user.
          */
         public long chatId;
 
@@ -75628,7 +75628,7 @@ public class TdApi {
          *
          * <p> Returns {@link CanSendStoryResult CanSendStoryResult} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId Chat identifier. Pass Saved Messages chat identifier when posting a story on behalf of the current user.
          */
         public CanSendStory(long chatId) {
             this.chatId = chatId;
@@ -101147,7 +101147,7 @@ public class TdApi {
      */
     public static class SendStory extends Function<Story> {
         /**
-         * Identifier of the chat that will post the story.
+         * Identifier of the chat that will post the story. Pass Saved Messages chat identifier when posting a story on behalf of the current user.
          */
         public long chatId;
         /**
@@ -101171,7 +101171,7 @@ public class TdApi {
          */
         public int activePeriod;
         /**
-         * Full identifier of the original story, which content was used to create the story.
+         * Full identifier of the original story, which content was used to create the story; pass null if the story isn't repost of another story.
          */
         public StoryFullId fromStoryFullId;
         /**
@@ -101196,13 +101196,13 @@ public class TdApi {
          *
          * <p> Returns {@link Story Story} </p>
          *
-         * @param chatId Identifier of the chat that will post the story.
+         * @param chatId Identifier of the chat that will post the story. Pass Saved Messages chat identifier when posting a story on behalf of the current user.
          * @param content Content of the story.
          * @param areas Clickable rectangle areas to be shown on the story media; pass null if none.
          * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters; can have entities only if getOption(&quot;can_use_text_entities_in_story_caption&quot;).
          * @param privacySettings The privacy settings for the story; ignored for stories sent to supergroup and channel chats.
          * @param activePeriod Period after which the story is moved to archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise.
-         * @param fromStoryFullId Full identifier of the original story, which content was used to create the story.
+         * @param fromStoryFullId Full identifier of the original story, which content was used to create the story; pass null if the story isn't repost of another story.
          * @param isPostedToChatPage Pass true to keep the story accessible after expiration.
          * @param protectContent Pass true if the content of the story must be protected from forwarding and screenshotting.
          */
