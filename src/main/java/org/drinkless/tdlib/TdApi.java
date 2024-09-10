@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "87d881071fe514936bb17029e96761141287d2be";
+    private static final String GIT_COMMIT_HASH = "dcfd86c70c565c9c1d2f576a9ff0a769f2ef5e49";
 
     private TdApi() {
     }
@@ -30294,7 +30294,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a background. Call searchBackground with the given background name to process the link If background is found and the user wants to apply it, then call setDefaultBackground.
+     * The link is a link to a background. Call searchBackground with the given background name to process the link. If background is found and the user wants to apply it, then call setDefaultBackground.
      */
     public static class InternalLinkTypeBackground extends InternalLinkType {
         /**
@@ -30303,13 +30303,13 @@ public class TdApi {
         public String backgroundName;
 
         /**
-         * The link is a link to a background. Call searchBackground with the given background name to process the link If background is found and the user wants to apply it, then call setDefaultBackground.
+         * The link is a link to a background. Call searchBackground with the given background name to process the link. If background is found and the user wants to apply it, then call setDefaultBackground.
          */
         public InternalLinkTypeBackground() {
         }
 
         /**
-         * The link is a link to a background. Call searchBackground with the given background name to process the link If background is found and the user wants to apply it, then call setDefaultBackground.
+         * The link is a link to a background. Call searchBackground with the given background name to process the link. If background is found and the user wants to apply it, then call setDefaultBackground.
          *
          * @param backgroundName Name of the background.
          */
@@ -31388,7 +31388,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a chat by its username. Call searchPublicChat with the given chat username to process the link If the chat is found, open its profile information screen or the chat itself. If draft text isn't empty and the chat is a private chat with a regular user, then put the draft text in the input field.
+     * The link is a link to a chat by its username. Call searchPublicChat with the given chat username to process the link. If the chat is found, open its profile information screen or the chat itself. If draft text isn't empty and the chat is a private chat with a regular user, then put the draft text in the input field.
      */
     public static class InternalLinkTypePublicChat extends InternalLinkType {
         /**
@@ -31405,13 +31405,13 @@ public class TdApi {
         public boolean openProfile;
 
         /**
-         * The link is a link to a chat by its username. Call searchPublicChat with the given chat username to process the link If the chat is found, open its profile information screen or the chat itself. If draft text isn't empty and the chat is a private chat with a regular user, then put the draft text in the input field.
+         * The link is a link to a chat by its username. Call searchPublicChat with the given chat username to process the link. If the chat is found, open its profile information screen or the chat itself. If draft text isn't empty and the chat is a private chat with a regular user, then put the draft text in the input field.
          */
         public InternalLinkTypePublicChat() {
         }
 
         /**
-         * The link is a link to a chat by its username. Call searchPublicChat with the given chat username to process the link If the chat is found, open its profile information screen or the chat itself. If draft text isn't empty and the chat is a private chat with a regular user, then put the draft text in the input field.
+         * The link is a link to a chat by its username. Call searchPublicChat with the given chat username to process the link. If the chat is found, open its profile information screen or the chat itself. If draft text isn't empty and the chat is a private chat with a regular user, then put the draft text in the input field.
          *
          * @param chatUsername Username of the chat.
          * @param draftText Draft text for message to send in the chat.
@@ -72342,7 +72342,7 @@ public class TdApi {
     }
 
     /**
-     * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
+     * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user. Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
      */
     public static class UpdateSpeedLimitNotification extends Update {
         /**
@@ -72351,13 +72351,13 @@ public class TdApi {
         public boolean isUpload;
 
         /**
-         * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
+         * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user. Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
          */
         public UpdateSpeedLimitNotification() {
         }
 
         /**
-         * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
+         * Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user. Use getOption(&quot;premium_download_speedup&quot;) or getOption(&quot;premium_upload_speedup&quot;) to get expected speedup after subscription to Telegram Premium.
          *
          * @param isUpload True, if upload speed was limited; false, if download speed was limited.
          */
@@ -83440,7 +83440,7 @@ public class TdApi {
     }
 
     /**
-     * Edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
+     * Edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
      *
      * <p> Returns {@link ChatInviteLink ChatInviteLink} </p>
      */
@@ -83471,7 +83471,7 @@ public class TdApi {
         public boolean createsJoinRequest;
 
         /**
-         * Default constructor for a function, which edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
+         * Default constructor for a function, which edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
          *
          * <p> Returns {@link ChatInviteLink ChatInviteLink} </p>
          */
@@ -83479,7 +83479,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
+         * Creates a function, which edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
          *
          * <p> Returns {@link ChatInviteLink ChatInviteLink} </p>
          *
@@ -86453,7 +86453,7 @@ public class TdApi {
          */
         public int fromStoryId;
         /**
-         * The maximum number of stories to be returned For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
+         * The maximum number of stories to be returned. For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
 
@@ -86472,7 +86472,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param fromStoryId Identifier of the story starting from which stories must be returned; use 0 to get results from the last story.
-         * @param limit The maximum number of stories to be returned For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
+         * @param limit The maximum number of stories to be returned. For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
          */
         public GetChatArchivedStories(long chatId, int fromStoryId, int limit) {
             this.chatId = chatId;
@@ -87981,7 +87981,7 @@ public class TdApi {
          */
         public int fromStoryId;
         /**
-         * The maximum number of stories to be returned For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
+         * The maximum number of stories to be returned. For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
          */
         public int limit;
 
@@ -88000,7 +88000,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param fromStoryId Identifier of the story starting from which stories must be returned; use 0 to get results from pinned and the newest story.
-         * @param limit The maximum number of stories to be returned For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
+         * @param limit The maximum number of stories to be returned. For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit.
          */
         public GetChatPostedToChatPageStories(long chatId, int fromStoryId, int limit) {
             this.chatId = chatId;
@@ -103113,7 +103113,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * Searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      *
      * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
      */
@@ -103144,7 +103144,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * Default constructor for a function, which searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
          */
@@ -103152,7 +103152,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * Creates a function, which searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
          *
@@ -106645,7 +106645,7 @@ public class TdApi {
     }
 
     /**
-     * Changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires changeInfo administrator right in basic groups, supergroups and channels Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
+     * Changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires changeInfo administrator right in basic groups, supergroups and channels. Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -106660,7 +106660,7 @@ public class TdApi {
         public int messageAutoDeleteTime;
 
         /**
-         * Default constructor for a function, which changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires changeInfo administrator right in basic groups, supergroups and channels Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
+         * Default constructor for a function, which changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires changeInfo administrator right in basic groups, supergroups and channels. Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -106668,7 +106668,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires changeInfo administrator right in basic groups, supergroups and channels Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
+         * Creates a function, which changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires changeInfo administrator right in basic groups, supergroups and channels. Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
          *
          * <p> Returns {@link Ok Ok} </p>
          *
