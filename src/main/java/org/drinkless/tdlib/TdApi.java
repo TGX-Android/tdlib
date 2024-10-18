@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "fe6f2f93e79f6d1ce49c010ec4931b7dc8554538";
+    private static final String GIT_COMMIT_HASH = "c1fea0f26355d94842f25651edc154842563e97b";
 
     private TdApi() {
     }
@@ -1666,11 +1666,11 @@ public class TdApi {
      */
     public static class AttachmentMenuBotColor extends Object {
         /**
-         * Color in the RGB24 format for light themes.
+         * Color in the RGB format for light themes.
          */
         public int lightColor;
         /**
-         * Color in the RGB24 format for dark themes.
+         * Color in the RGB format for dark themes.
          */
         public int darkColor;
 
@@ -1683,8 +1683,8 @@ public class TdApi {
         /**
          * Describes a color to highlight a bot added to attachment menu.
          *
-         * @param lightColor Color in the RGB24 format for light themes.
-         * @param darkColor Color in the RGB24 format for dark themes.
+         * @param lightColor Color in the RGB format for light themes.
+         * @param darkColor Color in the RGB format for dark themes.
          */
         public AttachmentMenuBotColor(int lightColor, int darkColor) {
             this.lightColor = lightColor;
@@ -3344,7 +3344,7 @@ public class TdApi {
      */
     public static class BackgroundFillSolid extends BackgroundFill {
         /**
-         * A color of the background in the RGB24 format.
+         * A color of the background in the RGB format.
          */
         public int color;
 
@@ -3357,7 +3357,7 @@ public class TdApi {
         /**
          * Describes a solid fill of a background.
          *
-         * @param color A color of the background in the RGB24 format.
+         * @param color A color of the background in the RGB format.
          */
         public BackgroundFillSolid(int color) {
             this.color = color;
@@ -3382,11 +3382,11 @@ public class TdApi {
      */
     public static class BackgroundFillGradient extends BackgroundFill {
         /**
-         * A top color of the background in the RGB24 format.
+         * A top color of the background in the RGB format.
          */
         public int topColor;
         /**
-         * A bottom color of the background in the RGB24 format.
+         * A bottom color of the background in the RGB format.
          */
         public int bottomColor;
         /**
@@ -3403,8 +3403,8 @@ public class TdApi {
         /**
          * Describes a gradient fill of a background.
          *
-         * @param topColor A top color of the background in the RGB24 format.
-         * @param bottomColor A bottom color of the background in the RGB24 format.
+         * @param topColor A top color of the background in the RGB format.
+         * @param bottomColor A bottom color of the background in the RGB format.
          * @param rotationAngle Clockwise rotation angle of the gradient, in degrees; 0-359. Must always be divisible by 45.
          */
         public BackgroundFillGradient(int topColor, int bottomColor, int rotationAngle) {
@@ -3432,7 +3432,7 @@ public class TdApi {
      */
     public static class BackgroundFillFreeformGradient extends BackgroundFill {
         /**
-         * A list of 3 or 4 colors of the freeform gradient in the RGB24 format.
+         * A list of 3 or 4 colors of the freeform gradient in the RGB format.
          */
         public int[] colors;
 
@@ -3445,7 +3445,7 @@ public class TdApi {
         /**
          * Describes a freeform gradient fill of a background.
          *
-         * @param colors A list of 3 or 4 colors of the freeform gradient in the RGB24 format.
+         * @param colors A list of 3 or 4 colors of the freeform gradient in the RGB format.
          */
         public BackgroundFillFreeformGradient(int[] colors) {
             this.colors = colors;
@@ -8854,7 +8854,7 @@ public class TdApi {
     }
 
     /**
-     * The chat can be reported as spam using the method reportChat with the reason reportReasonSpam. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
+     * The chat can be reported as spam using the method reportChat with an empty optionId and messageIds. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
      */
     public static class ChatActionBarReportSpam extends ChatActionBar {
         /**
@@ -8863,13 +8863,13 @@ public class TdApi {
         public boolean canUnarchive;
 
         /**
-         * The chat can be reported as spam using the method reportChat with the reason reportReasonSpam. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
+         * The chat can be reported as spam using the method reportChat with an empty optionId and messageIds. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
          */
         public ChatActionBarReportSpam() {
         }
 
         /**
-         * The chat can be reported as spam using the method reportChat with the reason reportReasonSpam. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
+         * The chat can be reported as spam using the method reportChat with an empty optionId and messageIds. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
          *
          * @param canUnarchive If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings.
          */
@@ -8892,12 +8892,12 @@ public class TdApi {
     }
 
     /**
-     * The chat is a location-based supergroup, which can be reported as having unrelated location using the method reportChat with the reason reportReasonUnrelatedLocation.
+     * The chat is a location-based supergroup, which can't be reported anymore.
      */
     public static class ChatActionBarReportUnrelatedLocation extends ChatActionBar {
 
         /**
-         * The chat is a location-based supergroup, which can be reported as having unrelated location using the method reportChat with the reason reportReasonUnrelatedLocation.
+         * The chat is a location-based supergroup, which can't be reported anymore.
          */
         public ChatActionBarReportUnrelatedLocation() {
         }
@@ -34772,9 +34772,9 @@ public class TdApi {
          */
         public Document[] documents;
         /**
-         * Settings for the cloud theme.
+         * Settings for the cloud theme; may be null if unknown.
          */
-        public ThemeSettings settings;
+        @Nullable public ThemeSettings settings;
 
         /**
          * The link is a link to a cloud theme. TDLib has no theme support yet.
@@ -34786,7 +34786,7 @@ public class TdApi {
          * The link is a link to a cloud theme. TDLib has no theme support yet.
          *
          * @param documents The list of files with theme description.
-         * @param settings Settings for the cloud theme.
+         * @param settings Settings for the cloud theme; may be null if unknown.
          */
         public LinkPreviewTypeTheme(Document[] documents, ThemeSettings settings) {
             this.documents = documents;
@@ -35039,9 +35039,9 @@ public class TdApi {
      */
     public static class LinkPreviewTypeWebApp extends LinkPreviewType {
         /**
-         * Web App photo.
+         * Web App photo; may be null if none.
          */
-        public Photo photo;
+        @Nullable public Photo photo;
 
         /**
          * The link is a link to a Web App.
@@ -35052,7 +35052,7 @@ public class TdApi {
         /**
          * The link is a link to a Web App.
          *
-         * @param photo Web App photo.
+         * @param photo Web App photo; may be null if none.
          */
         public LinkPreviewTypeWebApp(Photo photo) {
             this.photo = photo;
@@ -66244,63 +66244,63 @@ public class TdApi {
      */
     public static class ThemeParameters extends Object {
         /**
-         * A color of the background in the RGB24 format.
+         * A color of the background in the RGB format.
          */
         public int backgroundColor;
         /**
-         * A secondary color for the background in the RGB24 format.
+         * A secondary color for the background in the RGB format.
          */
         public int secondaryBackgroundColor;
         /**
-         * A color of the header background in the RGB24 format.
+         * A color of the header background in the RGB format.
          */
         public int headerBackgroundColor;
         /**
-         * A color of the bottom bar background in the RGB24 format.
+         * A color of the bottom bar background in the RGB format.
          */
         public int bottomBarBackgroundColor;
         /**
-         * A color of the section background in the RGB24 format.
+         * A color of the section background in the RGB format.
          */
         public int sectionBackgroundColor;
         /**
-         * A color of the section separator in the RGB24 format.
+         * A color of the section separator in the RGB format.
          */
         public int sectionSeparatorColor;
         /**
-         * A color of text in the RGB24 format.
+         * A color of text in the RGB format.
          */
         public int textColor;
         /**
-         * An accent color of the text in the RGB24 format.
+         * An accent color of the text in the RGB format.
          */
         public int accentTextColor;
         /**
-         * A color of text on the section headers in the RGB24 format.
+         * A color of text on the section headers in the RGB format.
          */
         public int sectionHeaderTextColor;
         /**
-         * A color of the subtitle text in the RGB24 format.
+         * A color of the subtitle text in the RGB format.
          */
         public int subtitleTextColor;
         /**
-         * A color of the text for destructive actions in the RGB24 format.
+         * A color of the text for destructive actions in the RGB format.
          */
         public int destructiveTextColor;
         /**
-         * A color of hints in the RGB24 format.
+         * A color of hints in the RGB format.
          */
         public int hintColor;
         /**
-         * A color of links in the RGB24 format.
+         * A color of links in the RGB format.
          */
         public int linkColor;
         /**
-         * A color of the buttons in the RGB24 format.
+         * A color of the buttons in the RGB format.
          */
         public int buttonColor;
         /**
-         * A color of text on the buttons in the RGB24 format.
+         * A color of text on the buttons in the RGB format.
          */
         public int buttonTextColor;
 
@@ -66313,21 +66313,21 @@ public class TdApi {
         /**
          * Contains parameters of the application theme.
          *
-         * @param backgroundColor A color of the background in the RGB24 format.
-         * @param secondaryBackgroundColor A secondary color for the background in the RGB24 format.
-         * @param headerBackgroundColor A color of the header background in the RGB24 format.
-         * @param bottomBarBackgroundColor A color of the bottom bar background in the RGB24 format.
-         * @param sectionBackgroundColor A color of the section background in the RGB24 format.
-         * @param sectionSeparatorColor A color of the section separator in the RGB24 format.
-         * @param textColor A color of text in the RGB24 format.
-         * @param accentTextColor An accent color of the text in the RGB24 format.
-         * @param sectionHeaderTextColor A color of text on the section headers in the RGB24 format.
-         * @param subtitleTextColor A color of the subtitle text in the RGB24 format.
-         * @param destructiveTextColor A color of the text for destructive actions in the RGB24 format.
-         * @param hintColor A color of hints in the RGB24 format.
-         * @param linkColor A color of links in the RGB24 format.
-         * @param buttonColor A color of the buttons in the RGB24 format.
-         * @param buttonTextColor A color of text on the buttons in the RGB24 format.
+         * @param backgroundColor A color of the background in the RGB format.
+         * @param secondaryBackgroundColor A secondary color for the background in the RGB format.
+         * @param headerBackgroundColor A color of the header background in the RGB format.
+         * @param bottomBarBackgroundColor A color of the bottom bar background in the RGB format.
+         * @param sectionBackgroundColor A color of the section background in the RGB format.
+         * @param sectionSeparatorColor A color of the section separator in the RGB format.
+         * @param textColor A color of text in the RGB format.
+         * @param accentTextColor An accent color of the text in the RGB format.
+         * @param sectionHeaderTextColor A color of text on the section headers in the RGB format.
+         * @param subtitleTextColor A color of the subtitle text in the RGB format.
+         * @param destructiveTextColor A color of the text for destructive actions in the RGB format.
+         * @param hintColor A color of hints in the RGB format.
+         * @param linkColor A color of links in the RGB format.
+         * @param buttonColor A color of the buttons in the RGB format.
+         * @param buttonTextColor A color of text on the buttons in the RGB format.
          */
         public ThemeParameters(int backgroundColor, int secondaryBackgroundColor, int headerBackgroundColor, int bottomBarBackgroundColor, int sectionBackgroundColor, int sectionSeparatorColor, int textColor, int accentTextColor, int sectionHeaderTextColor, int subtitleTextColor, int destructiveTextColor, int hintColor, int linkColor, int buttonColor, int buttonTextColor) {
             this.backgroundColor = backgroundColor;
