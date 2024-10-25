@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "c1fea0f26355d94842f25651edc154842563e97b";
+    private static final String GIT_COMMIT_HASH = "c684471b3728afb1050f3aadef532a018ca6d7df";
 
     private TdApi() {
     }
@@ -607,7 +607,6 @@ public class TdApi {
             SearchChatMessages.CONSTRUCTOR,
             SearchChatRecentLocationMessages.CONSTRUCTOR,
             SearchChats.CONSTRUCTOR,
-            SearchChatsNearby.CONSTRUCTOR,
             SearchChatsOnServer.CONSTRUCTOR,
             SearchContacts.CONSTRUCTOR,
             SearchEmojis.CONSTRUCTOR,
@@ -721,7 +720,6 @@ public class TdApi {
             SetGroupCallTitle.CONSTRUCTOR,
             SetInactiveSessionTtl.CONSTRUCTOR,
             SetInlineGameScore.CONSTRUCTOR,
-            SetLocation.CONSTRUCTOR,
             SetLogStream.CONSTRUCTOR,
             SetLogTagVerbosityLevel.CONSTRUCTOR,
             SetLogVerbosityLevel.CONSTRUCTOR,
@@ -4727,7 +4725,7 @@ public class TdApi {
      */
     public static class BotTransactionPurposePaidMedia extends BotTransactionPurpose {
         /**
-         * The bought media if the trancastion wasn't refunded.
+         * The bought media if the transaction wasn't refunded.
          */
         public PaidMedia[] media;
         /**
@@ -4744,7 +4742,7 @@ public class TdApi {
         /**
          * Paid media were bought.
          *
-         * @param media The bought media if the trancastion wasn't refunded.
+         * @param media The bought media if the transaction wasn't refunded.
          * @param payload Bot-provided payload; for bots only.
          */
         public BotTransactionPurposePaidMedia(PaidMedia[] media, String payload) {
@@ -8831,7 +8829,6 @@ public class TdApi {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
             ChatActionBarReportSpam.CONSTRUCTOR,
-            ChatActionBarReportUnrelatedLocation.CONSTRUCTOR,
             ChatActionBarInviteMembers.CONSTRUCTOR,
             ChatActionBarReportAddBlock.CONSTRUCTOR,
             ChatActionBarAddContact.CONSTRUCTOR,
@@ -8892,31 +8889,6 @@ public class TdApi {
     }
 
     /**
-     * The chat is a location-based supergroup, which can't be reported anymore.
-     */
-    public static class ChatActionBarReportUnrelatedLocation extends ChatActionBar {
-
-        /**
-         * The chat is a location-based supergroup, which can't be reported anymore.
-         */
-        public ChatActionBarReportUnrelatedLocation() {
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 758175489;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * The chat is a recently created group chat to which new members can be invited.
      */
     public static class ChatActionBarInviteMembers extends ChatActionBar {
@@ -8949,10 +8921,6 @@ public class TdApi {
          * If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings.
          */
         public boolean canUnarchive;
-        /**
-         * If non-negative, the current user was found by the other user through searchChatsNearby and this is the distance between the users.
-         */
-        public int distance;
 
         /**
          * The chat is a private or secret chat, which can be reported using the method reportChat, or the other user can be blocked using the method setMessageSenderBlockList, or the other user can be added to the contact list using the method addContact. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
@@ -8964,17 +8932,15 @@ public class TdApi {
          * The chat is a private or secret chat, which can be reported using the method reportChat, or the other user can be blocked using the method setMessageSenderBlockList, or the other user can be added to the contact list using the method addContact. If the chat is a private chat with a user with an emoji status, then a notice about emoji status usage must be shown.
          *
          * @param canUnarchive If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings.
-         * @param distance If non-negative, the current user was found by the other user through searchChatsNearby and this is the distance between the users.
          */
-        public ChatActionBarReportAddBlock(boolean canUnarchive, int distance) {
+        public ChatActionBarReportAddBlock(boolean canUnarchive) {
             this.canUnarchive = canUnarchive;
-            this.distance = distance;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -914150419;
+        public static final int CONSTRUCTOR = -1451980246;
 
         /**
          * @return this.CONSTRUCTOR
@@ -14559,50 +14525,6 @@ public class TdApi {
     }
 
     /**
-     * Describes a chat located nearby.
-     */
-    public static class ChatNearby extends Object {
-        /**
-         * Chat identifier.
-         */
-        public long chatId;
-        /**
-         * Distance to the chat location, in meters.
-         */
-        public int distance;
-
-        /**
-         * Describes a chat located nearby.
-         */
-        public ChatNearby() {
-        }
-
-        /**
-         * Describes a chat located nearby.
-         *
-         * @param chatId Chat identifier.
-         * @param distance Distance to the chat location, in meters.
-         */
-        public ChatNearby(long chatId, int distance) {
-            this.chatId = chatId;
-            this.distance = distance;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 48120405;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Contains information about notification settings for a chat or a forum topic.
      */
     public static class ChatNotificationSettings extends Object {
@@ -16431,7 +16353,7 @@ public class TdApi {
          */
         public long messageId;
         /**
-         * The bought media if the trancastion wasn't refunded.
+         * The bought media if the transaction wasn't refunded.
          */
         public PaidMedia[] media;
 
@@ -16445,7 +16367,7 @@ public class TdApi {
          * Paid media were bought.
          *
          * @param messageId Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
-         * @param media The bought media if the trancastion wasn't refunded.
+         * @param media The bought media if the transaction wasn't refunded.
          */
         public ChatTransactionPurposePaidMedia(long messageId, PaidMedia[] media) {
             this.messageId = messageId;
@@ -16808,50 +16730,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1809654812;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Represents a list of chats located nearby.
-     */
-    public static class ChatsNearby extends Object {
-        /**
-         * List of users nearby.
-         */
-        public ChatNearby[] usersNearby;
-        /**
-         * List of location-based supergroups nearby.
-         */
-        public ChatNearby[] supergroupsNearby;
-
-        /**
-         * Represents a list of chats located nearby.
-         */
-        public ChatsNearby() {
-        }
-
-        /**
-         * Represents a list of chats located nearby.
-         *
-         * @param usersNearby List of users nearby.
-         * @param supergroupsNearby List of location-based supergroups nearby.
-         */
-        public ChatsNearby(ChatNearby[] usersNearby, ChatNearby[] supergroupsNearby) {
-            this.usersNearby = usersNearby;
-            this.supergroupsNearby = supergroupsNearby;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 187746081;
 
         /**
          * @return this.CONSTRUCTOR
@@ -26909,7 +26787,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Message identifier.
+         * Message identifier. Use messageProperties.canBePaid to check whether the message can be used in the method.
          */
         public long messageId;
 
@@ -26923,7 +26801,7 @@ public class TdApi {
          * An invoice from a message of the type messageInvoice or paid media purchase from messagePaidMedia.
          *
          * @param chatId Chat identifier of the message.
-         * @param messageId Message identifier.
+         * @param messageId Message identifier. Use messageProperties.canBePaid to check whether the message can be used in the method.
          */
         public InputInvoiceMessage(long chatId, long messageId) {
             this.chatId = chatId;
@@ -38794,6 +38672,10 @@ public class TdApi {
          */
         public long receiverUserId;
         /**
+         * Message added to the gifted Telegram Premium by the sender.
+         */
+        public FormattedText text;
+        /**
          * Currency for the paid amount.
          */
         public String currency;
@@ -38829,6 +38711,7 @@ public class TdApi {
          *
          * @param gifterUserId The identifier of a user that gifted Telegram Premium; 0 if the gift was anonymous or is outgoing.
          * @param receiverUserId The identifier of a user that received Telegram Premium; 0 if the gift is incoming.
+         * @param text Message added to the gifted Telegram Premium by the sender.
          * @param currency Currency for the paid amount.
          * @param amount The paid amount, in the smallest units of the currency.
          * @param cryptocurrency Cryptocurrency used to pay for the gift; may be empty if none.
@@ -38836,9 +38719,10 @@ public class TdApi {
          * @param monthCount Number of months the Telegram Premium subscription will be active.
          * @param sticker A sticker to be shown in the message; may be null if unknown.
          */
-        public MessageGiftedPremium(long gifterUserId, long receiverUserId, String currency, long amount, String cryptocurrency, long cryptocurrencyAmount, int monthCount, Sticker sticker) {
+        public MessageGiftedPremium(long gifterUserId, long receiverUserId, FormattedText text, String currency, long amount, String cryptocurrency, long cryptocurrencyAmount, int monthCount, Sticker sticker) {
             this.gifterUserId = gifterUserId;
             this.receiverUserId = receiverUserId;
+            this.text = text;
             this.currency = currency;
             this.amount = amount;
             this.cryptocurrency = cryptocurrency;
@@ -38850,7 +38734,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 819822734;
+        public static final int CONSTRUCTOR = -456073094;
 
         /**
          * @return this.CONSTRUCTOR
@@ -38869,6 +38753,10 @@ public class TdApi {
          * Identifier of a chat or a user that created the gift code; may be null if unknown.
          */
         @Nullable public MessageSender creatorId;
+        /**
+         * Message added to the gift.
+         */
+        public FormattedText text;
         /**
          * True, if the gift code was created for a giveaway.
          */
@@ -38916,6 +38804,7 @@ public class TdApi {
          * A Telegram Premium gift code was created for the user.
          *
          * @param creatorId Identifier of a chat or a user that created the gift code; may be null if unknown.
+         * @param text Message added to the gift.
          * @param isFromGiveaway True, if the gift code was created for a giveaway.
          * @param isUnclaimed True, if the winner for the corresponding Telegram Premium subscription wasn't chosen.
          * @param currency Currency for the paid amount; empty if unknown.
@@ -38926,8 +38815,9 @@ public class TdApi {
          * @param sticker A sticker to be shown in the message; may be null if unknown.
          * @param code The gift code.
          */
-        public MessagePremiumGiftCode(MessageSender creatorId, boolean isFromGiveaway, boolean isUnclaimed, String currency, long amount, String cryptocurrency, long cryptocurrencyAmount, int monthCount, Sticker sticker, String code) {
+        public MessagePremiumGiftCode(MessageSender creatorId, FormattedText text, boolean isFromGiveaway, boolean isUnclaimed, String currency, long amount, String cryptocurrency, long cryptocurrencyAmount, int monthCount, Sticker sticker, String code) {
             this.creatorId = creatorId;
+            this.text = text;
             this.isFromGiveaway = isFromGiveaway;
             this.isUnclaimed = isUnclaimed;
             this.currency = currency;
@@ -38942,7 +38832,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 649927667;
+        public static final int CONSTRUCTOR = 701640270;
 
         /**
          * @return this.CONSTRUCTOR
@@ -39818,7 +39708,7 @@ public class TdApi {
      */
     public static class MessageCopyOptions extends Object {
         /**
-         * True, if content of the message needs to be copied without reference to the original sender. Always true if the message is forwarded to a secret chat or is local.
+         * True, if content of the message needs to be copied without reference to the original sender. Always true if the message is forwarded to a secret chat or is local. Use messageProperties.canBeSaved and messageProperties.canBeCopiedToSecretChat to check whether the message is suitable.
          */
         public boolean sendCopy;
         /**
@@ -39843,7 +39733,7 @@ public class TdApi {
         /**
          * Options to be used when a message content is copied without reference to the original sender. Service messages, messages with messageInvoice, messagePaidMedia, messageGiveaway, or messageGiveawayWinners content can't be copied.
          *
-         * @param sendCopy True, if content of the message needs to be copied without reference to the original sender. Always true if the message is forwarded to a secret chat or is local.
+         * @param sendCopy True, if content of the message needs to be copied without reference to the original sender. Always true if the message is forwarded to a secret chat or is local. Use messageProperties.canBeSaved and messageProperties.canBeCopiedToSecretChat to check whether the message is suitable.
          * @param replaceCaption True, if media caption of the message copy needs to be replaced. Ignored if sendCopy is false.
          * @param newCaption New message caption; pass null to copy message without caption. Ignored if replaceCaption is false.
          * @param newShowCaptionAboveMedia True, if new caption must be shown above the media; otherwise, new caption must be shown below the media; not supported in secret chats. Ignored if replaceCaption is false.
@@ -59138,7 +59028,7 @@ public class TdApi {
          */
         public long starCount;
         /**
-         * List of subbscriptions for Telegram Stars.
+         * List of subscriptions for Telegram Stars.
          */
         public StarSubscription[] subscriptions;
         /**
@@ -59160,7 +59050,7 @@ public class TdApi {
          * Represents a list of Telegram Star subscriptions.
          *
          * @param starCount The amount of owned Telegram Stars.
-         * @param subscriptions List of subbscriptions for Telegram Stars.
+         * @param subscriptions List of subscriptions for Telegram Stars.
          * @param requiredStarCount The number of Telegram Stars required to buy to extend subscriptions expiring soon.
          * @param nextOffset The offset for the next request. If empty, then there are no more results.
          */
@@ -59552,7 +59442,7 @@ public class TdApi {
          */
         public long userId;
         /**
-         * The bought media if the trancastion wasn't refunded.
+         * The bought media if the transaction wasn't refunded.
          */
         public PaidMedia[] media;
 
@@ -59566,7 +59456,7 @@ public class TdApi {
          * The transaction is a transaction with a business account.
          *
          * @param userId Identifier of the business account user.
-         * @param media The bought media if the trancastion wasn't refunded.
+         * @param media The bought media if the transaction wasn't refunded.
          */
         public StarTransactionPartnerBusiness(long userId, PaidMedia[] media) {
             this.userId = userId;
@@ -59632,7 +59522,7 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transcation with another user.
+     * The transaction is a transaction with another user.
      */
     public static class StarTransactionPartnerUser extends StarTransactionPartner {
         /**
@@ -59645,13 +59535,13 @@ public class TdApi {
         public UserTransactionPurpose purpose;
 
         /**
-         * The transaction is a transcation with another user.
+         * The transaction is a transaction with another user.
          */
         public StarTransactionPartnerUser() {
         }
 
         /**
-         * The transaction is a transcation with another user.
+         * The transaction is a transaction with another user.
          *
          * @param userId Identifier of the user; 0 if the user was anonymous.
          * @param purpose Purpose of the transaction.
@@ -61089,6 +60979,10 @@ public class TdApi {
          * Identifiers of the users which can activate the gift codes.
          */
         public long[] userIds;
+        /**
+         * Text to show along with the gift codes; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
+         */
+        public FormattedText text;
 
         /**
          * The user creating Telegram Premium gift codes for other users.
@@ -61103,18 +60997,20 @@ public class TdApi {
          * @param currency ISO 4217 currency code of the payment currency.
          * @param amount Paid amount, in the smallest units of the currency.
          * @param userIds Identifiers of the users which can activate the gift codes.
+         * @param text Text to show along with the gift codes; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
          */
-        public StorePaymentPurposePremiumGiftCodes(long boostedChatId, String currency, long amount, long[] userIds) {
+        public StorePaymentPurposePremiumGiftCodes(long boostedChatId, String currency, long amount, long[] userIds, FormattedText text) {
             this.boostedChatId = boostedChatId;
             this.currency = currency;
             this.amount = amount;
             this.userIds = userIds;
+            this.text = text;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1527840798;
+        public static final int CONSTRUCTOR = -1072286736;
 
         /**
          * @return this.CONSTRUCTOR
@@ -63491,7 +63387,7 @@ public class TdApi {
          */
         public ChatMemberStatus status;
         /**
-         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards and foundStories.
+         * Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards and foundStories.
          */
         public int memberCount;
         /**
@@ -63580,7 +63476,7 @@ public class TdApi {
          * @param usernames Usernames of the supergroup or channel; may be null.
          * @param date Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
          * @param status Status of the current user in the supergroup or channel; custom title will always be empty.
-         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchChatsNearby, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards and foundStories.
+         * @param memberCount Number of members in the supergroup or channel; 0 if unknown. Currently, it is guaranteed to be known only if the supergroup or channel was received through getChatSimilarChats, getChatsToSendStories, getCreatedPublicChats, getGroupsInCommon, getInactiveSupergroupChats, getRecommendedChats, getSuitableDiscussionChats, getUserPrivacySettingRules, getVideoChatAvailableParticipants, searchPublicChats, or in chatFolderInviteLinkInfo.missingChatIds, or in userFullInfo.personalChatId, or for chats with messages or stories from publicForwards and foundStories.
          * @param boostLevel Approximate boost level for the chat.
          * @param hasLinkedChat True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel.
          * @param hasLocation True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup.
@@ -64643,6 +64539,10 @@ public class TdApi {
          * Number of months the Telegram Premium subscription will be active for the users.
          */
         public int monthCount;
+        /**
+         * Text to show along with the gift codes; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
+         */
+        public FormattedText text;
 
         /**
          * The user creating Telegram Premium gift codes for other users.
@@ -64658,19 +64558,21 @@ public class TdApi {
          * @param amount Paid amount, in the smallest units of the currency.
          * @param userIds Identifiers of the users which can activate the gift codes.
          * @param monthCount Number of months the Telegram Premium subscription will be active for the users.
+         * @param text Text to show along with the gift codes; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
          */
-        public TelegramPaymentPurposePremiumGiftCodes(long boostedChatId, String currency, long amount, long[] userIds, int monthCount) {
+        public TelegramPaymentPurposePremiumGiftCodes(long boostedChatId, String currency, long amount, long[] userIds, int monthCount, FormattedText text) {
             this.boostedChatId = boostedChatId;
             this.currency = currency;
             this.amount = amount;
             this.userIds = userIds;
             this.monthCount = monthCount;
+            this.text = text;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1637144394;
+        public static final int CONSTRUCTOR = -1863495348;
 
         /**
          * @return this.CONSTRUCTOR
@@ -65509,12 +65411,12 @@ public class TdApi {
     }
 
     /**
-     * A hashtag text, beginning with &quot;#&quot;.
+     * A hashtag text, beginning with &quot;#&quot; and optionally containing a chat username at the end.
      */
     public static class TextEntityTypeHashtag extends TextEntityType {
 
         /**
-         * A hashtag text, beginning with &quot;#&quot;.
+         * A hashtag text, beginning with &quot;#&quot; and optionally containing a chat username at the end.
          */
         public TextEntityTypeHashtag() {
         }
@@ -65534,12 +65436,12 @@ public class TdApi {
     }
 
     /**
-     * A cashtag text, beginning with &quot;$&quot; and consisting of capital English letters (e.g., &quot;$USD&quot;).
+     * A cashtag text, beginning with &quot;$&quot;, consisting of capital English letters (e.g., &quot;$USD&quot;), and optionally containing a chat username at the end.
      */
     public static class TextEntityTypeCashtag extends TextEntityType {
 
         /**
-         * A cashtag text, beginning with &quot;$&quot; and consisting of capital English letters (e.g., &quot;$USD&quot;).
+         * A cashtag text, beginning with &quot;$&quot;, consisting of capital English letters (e.g., &quot;$USD&quot;), and optionally containing a chat username at the end.
          */
         public TextEntityTypeCashtag() {
         }
@@ -67285,7 +67187,6 @@ public class TdApi {
             UpdateLanguagePackStrings.CONSTRUCTOR,
             UpdateConnectionState.CONSTRUCTOR,
             UpdateTermsOfService.CONSTRUCTOR,
-            UpdateUsersNearby.CONSTRUCTOR,
             UpdateUnconfirmedSession.CONSTRUCTOR,
             UpdateAttachmentMenuBots.CONSTRUCTOR,
             UpdateWebAppMessageSent.CONSTRUCTOR,
@@ -72256,44 +72157,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1304640162;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The list of users nearby has changed. The update is guaranteed to be sent only 60 seconds after a successful searchChatsNearby request.
-     */
-    public static class UpdateUsersNearby extends Update {
-        /**
-         * The new list of users nearby.
-         */
-        public ChatNearby[] usersNearby;
-
-        /**
-         * The list of users nearby has changed. The update is guaranteed to be sent only 60 seconds after a successful searchChatsNearby request.
-         */
-        public UpdateUsersNearby() {
-        }
-
-        /**
-         * The list of users nearby has changed. The update is guaranteed to be sent only 60 seconds after a successful searchChatsNearby request.
-         *
-         * @param usersNearby The new list of users nearby.
-         */
-        public UpdateUsersNearby(ChatNearby[] usersNearby) {
-            this.usersNearby = usersNearby;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1517109163;
 
         /**
          * @return this.CONSTRUCTOR
@@ -85842,7 +85705,7 @@ public class TdApi {
          */
         public MessageSendOptions options;
         /**
-         * Pass true to copy content of the messages without reference to the original sender. Always true if the messages are forwarded to a secret chat or are local.
+         * Pass true to copy content of the messages without reference to the original sender. Always true if the messages are forwarded to a secret chat or are local. Use messageProperties.canBeSaved and messageProperties.canBeCopiedToSecretChat to check whether the message is suitable.
          */
         public boolean sendCopy;
         /**
@@ -85868,7 +85731,7 @@ public class TdApi {
          * @param fromChatId Identifier of the chat from which to forward messages.
          * @param messageIds Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order. At most 100 messages can be forwarded simultaneously. A message can be forwarded only if messageProperties.canBeForwarded.
          * @param options Options to be used to send the messages; pass null to use default options.
-         * @param sendCopy Pass true to copy content of the messages without reference to the original sender. Always true if the messages are forwarded to a secret chat or are local.
+         * @param sendCopy Pass true to copy content of the messages without reference to the original sender. Always true if the messages are forwarded to a secret chat or are local. Use messageProperties.canBeSaved and messageProperties.canBeCopiedToSecretChat to check whether the message is suitable.
          * @param removeCaption Pass true to remove media captions of message copies. Ignored if sendCopy is false.
          */
         public ForwardMessages(long chatId, long messageThreadId, long fromChatId, long[] messageIds, MessageSendOptions options, boolean sendCopy, boolean removeCaption) {
@@ -103242,50 +103105,6 @@ public class TdApi {
     }
 
     /**
-     * Returns a list of users and location-based supergroups nearby. The method was disabled and returns an empty list of chats now.
-     *
-     * <p> Returns {@link ChatsNearby ChatsNearby} </p>
-     */
-    public static class SearchChatsNearby extends Function<ChatsNearby> {
-        /**
-         * Current user location.
-         */
-        public Location location;
-
-        /**
-         * Default constructor for a function, which returns a list of users and location-based supergroups nearby. The method was disabled and returns an empty list of chats now.
-         *
-         * <p> Returns {@link ChatsNearby ChatsNearby} </p>
-         */
-        public SearchChatsNearby() {
-        }
-
-        /**
-         * Creates a function, which returns a list of users and location-based supergroups nearby. The method was disabled and returns an empty list of chats now.
-         *
-         * <p> Returns {@link ChatsNearby ChatsNearby} </p>
-         *
-         * @param location Current user location.
-         */
-        public SearchChatsNearby(Location location) {
-            this.location = location;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -196753377;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Searches for the specified query in the title and username of already known chats via request to the server. Returns chats in the order seen in the main chat list.
      *
      * <p> Returns {@link Chats Chats} </p>
@@ -104321,6 +104140,10 @@ public class TdApi {
          * Name of the sticker set.
          */
         public String name;
+        /**
+         * Pass true to ignore local cache of sticker sets and always send a network request.
+         */
+        public boolean ignoreCache;
 
         /**
          * Default constructor for a function, which searches for a sticker set by its name.
@@ -104336,15 +104159,17 @@ public class TdApi {
          * <p> Returns {@link StickerSet StickerSet} </p>
          *
          * @param name Name of the sticker set.
+         * @param ignoreCache Pass true to ignore local cache of sticker sets and always send a network request.
          */
-        public SearchStickerSet(String name) {
+        public SearchStickerSet(String name, boolean ignoreCache) {
             this.name = name;
+            this.ignoreCache = ignoreCache;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1157930222;
+        public static final int CONSTRUCTOR = 1676592898;
 
         /**
          * @return this.CONSTRUCTOR
@@ -109350,50 +109175,6 @@ public class TdApi {
     }
 
     /**
-     * Changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer. Must not be called if the user has a business location.
-     *
-     * <p> Returns {@link Ok Ok} </p>
-     */
-    public static class SetLocation extends Function<Ok> {
-        /**
-         * The new location of the user.
-         */
-        public Location location;
-
-        /**
-         * Default constructor for a function, which changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer. Must not be called if the user has a business location.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         */
-        public SetLocation() {
-        }
-
-        /**
-         * Creates a function, which changes the location of the current user. Needs to be called if getOption(&quot;is_location_visible&quot;) is true and location changes for more than 1 kilometer. Must not be called if the user has a business location.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         *
-         * @param location The new location of the user.
-         */
-        public SetLocation(Location location) {
-            this.location = location;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 93926257;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Sets new log stream for internal logging of TDLib. Can be called synchronously.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -109696,7 +109477,7 @@ public class TdApi {
          */
         public long messageId;
         /**
-         * Types of the reaction to set.
+         * Types of the reaction to set; pass an empty list to remove the reactions.
          */
         public ReactionType[] reactionTypes;
         /**
@@ -109719,7 +109500,7 @@ public class TdApi {
          *
          * @param chatId Identifier of the chat to which the message belongs.
          * @param messageId Identifier of the message.
-         * @param reactionTypes Types of the reaction to set.
+         * @param reactionTypes Types of the reaction to set; pass an empty list to remove the reactions.
          * @param isBig Pass true if the reactions are added with a big animation.
          */
         public SetMessageReactions(long chatId, long messageId, ReactionType[] reactionTypes, boolean isBig) {
