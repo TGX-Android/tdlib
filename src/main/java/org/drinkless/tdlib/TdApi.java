@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "22d49d5b87a4d5fc60a194dab02dd1d71529687f";
+    private static final String GIT_COMMIT_HASH = "c85b20a41a9d2d18abf340bed98daa3079641643";
 
     private TdApi() {
     }
@@ -142,6 +142,7 @@ public class TdApi {
             CommitPendingPaidMessageReactions.CONSTRUCTOR,
             ConfirmQrCodeAuthentication.CONSTRUCTOR,
             ConfirmSession.CONSTRUCTOR,
+            ConnectChatAffiliateProgram.CONSTRUCTOR,
             CreateBasicGroupChat.CONSTRUCTOR,
             CreateBusinessChatLink.CONSTRUCTOR,
             CreateCall.CONSTRUCTOR,
@@ -196,6 +197,7 @@ public class TdApi {
             DisableProxy.CONSTRUCTOR,
             DiscardCall.CONSTRUCTOR,
             DisconnectAllWebsites.CONSTRUCTOR,
+            DisconnectChatAffiliateProgram.CONSTRUCTOR,
             DisconnectWebsite.CONSTRUCTOR,
             DownloadFile.CONSTRUCTOR,
             EditBotMediaPreview.CONSTRUCTOR,
@@ -270,6 +272,8 @@ public class TdApi {
             GetChat.CONSTRUCTOR,
             GetChatActiveStories.CONSTRUCTOR,
             GetChatAdministrators.CONSTRUCTOR,
+            GetChatAffiliateProgram.CONSTRUCTOR,
+            GetChatAffiliatePrograms.CONSTRUCTOR,
             GetChatArchivedStories.CONSTRUCTOR,
             GetChatAvailableMessageSenders.CONSTRUCTOR,
             GetChatBoostFeatures.CONSTRUCTOR,
@@ -406,6 +410,7 @@ public class TdApi {
             GetNetworkStatistics.CONSTRUCTOR,
             GetNewChatPrivacySettings.CONSTRUCTOR,
             GetOption.CONSTRUCTOR,
+            GetOwnedBots.CONSTRUCTOR,
             GetOwnedStickerSets.CONSTRUCTOR,
             GetPassportAuthorizationForm.CONSTRUCTOR,
             GetPassportAuthorizationFormAvailableElements.CONSTRUCTOR,
@@ -607,8 +612,10 @@ public class TdApi {
             RevokeGroupCallInviteLink.CONSTRUCTOR,
             SaveApplicationLogEvent.CONSTRUCTOR,
             SavePreparedInlineMessage.CONSTRUCTOR,
+            SearchAffiliatePrograms.CONSTRUCTOR,
             SearchBackground.CONSTRUCTOR,
             SearchCallMessages.CONSTRUCTOR,
+            SearchChatAffiliateProgram.CONSTRUCTOR,
             SearchChatMembers.CONSTRUCTOR,
             SearchChatMessages.CONSTRUCTOR,
             SearchChatRecentLocationMessages.CONSTRUCTOR,
@@ -687,6 +694,7 @@ public class TdApi {
             SetBusinessStartPage.CONSTRUCTOR,
             SetChatAccentColor.CONSTRUCTOR,
             SetChatActiveStoriesList.CONSTRUCTOR,
+            SetChatAffiliateProgram.CONSTRUCTOR,
             SetChatAvailableReactions.CONSTRUCTOR,
             SetChatBackground.CONSTRUCTOR,
             SetChatClientData.CONSTRUCTOR,
@@ -1139,6 +1147,254 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2043654342;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about an affiliate that received commission from a Telegram Star transaction.
+     */
+    public static class AffiliateInfo extends Object {
+        /**
+         * The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner.
+         */
+        public int commissionPerMille;
+        /**
+         * Identifier of the chat which received the commission.
+         */
+        public long affiliateChatId;
+        /**
+         * The amount of Telegram Stars that were received by the affiliate; can be negative for refunds.
+         */
+        public StarAmount starAmount;
+
+        /**
+         * Contains information about an affiliate that received commission from a Telegram Star transaction.
+         */
+        public AffiliateInfo() {
+        }
+
+        /**
+         * Contains information about an affiliate that received commission from a Telegram Star transaction.
+         *
+         * @param commissionPerMille The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner.
+         * @param affiliateChatId Identifier of the chat which received the commission.
+         * @param starAmount The amount of Telegram Stars that were received by the affiliate; can be negative for refunds.
+         */
+        public AffiliateInfo(int commissionPerMille, long affiliateChatId, StarAmount starAmount) {
+            this.commissionPerMille = commissionPerMille;
+            this.affiliateChatId = affiliateChatId;
+            this.starAmount = starAmount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1312695046;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about an active affiliate program.
+     */
+    public static class AffiliateProgramInfo extends Object {
+        /**
+         * Parameters of the affiliate program.
+         */
+        public AffiliateProgramParameters parameters;
+        /**
+         * Point in time (Unix timestamp) when the affiliate program will be closed; 0 if the affiliate program isn't scheduled to be closed. If positive, then the program can't be connected using connectChatAffiliateProgram, but active connections will work until the date.
+         */
+        public int endDate;
+        /**
+         * The amount of daily revenue per user in Telegram Stars of the bot that created the affiliate program.
+         */
+        public StarAmount dailyRevenuePerUserAmount;
+
+        /**
+         * Contains information about an active affiliate program.
+         */
+        public AffiliateProgramInfo() {
+        }
+
+        /**
+         * Contains information about an active affiliate program.
+         *
+         * @param parameters Parameters of the affiliate program.
+         * @param endDate Point in time (Unix timestamp) when the affiliate program will be closed; 0 if the affiliate program isn't scheduled to be closed. If positive, then the program can't be connected using connectChatAffiliateProgram, but active connections will work until the date.
+         * @param dailyRevenuePerUserAmount The amount of daily revenue per user in Telegram Stars of the bot that created the affiliate program.
+         */
+        public AffiliateProgramInfo(AffiliateProgramParameters parameters, int endDate, StarAmount dailyRevenuePerUserAmount) {
+            this.parameters = parameters;
+            this.endDate = endDate;
+            this.dailyRevenuePerUserAmount = dailyRevenuePerUserAmount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1761810251;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes parameters of an affiliate program.
+     */
+    public static class AffiliateProgramParameters extends Object {
+        /**
+         * The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner; getOption(&quot;affiliate_program_commission_per_mille_min&quot;)-getOption(&quot;affiliate_program_commission_per_mille_max&quot;).
+         */
+        public int commissionPerMille;
+        /**
+         * Number of months the program will be active; 0-36. If 0, then the program is eternal.
+         */
+        public int monthCount;
+
+        /**
+         * Describes parameters of an affiliate program.
+         */
+        public AffiliateProgramParameters() {
+        }
+
+        /**
+         * Describes parameters of an affiliate program.
+         *
+         * @param commissionPerMille The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner; getOption(&quot;affiliate_program_commission_per_mille_min&quot;)-getOption(&quot;affiliate_program_commission_per_mille_max&quot;).
+         * @param monthCount Number of months the program will be active; 0-36. If 0, then the program is eternal.
+         */
+        public AffiliateProgramParameters(int commissionPerMille, int monthCount) {
+            this.commissionPerMille = commissionPerMille;
+            this.monthCount = monthCount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1642662996;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes the order of the found affiliate programs.
+     */
+    public abstract static class AffiliateProgramSortOrder extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            AffiliateProgramSortOrderProfitability.CONSTRUCTOR,
+            AffiliateProgramSortOrderCreationDate.CONSTRUCTOR,
+            AffiliateProgramSortOrderRevenue.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public AffiliateProgramSortOrder() {
+        }
+    }
+
+    /**
+     * The affiliate programs must be sorted by the profitability.
+     */
+    public static class AffiliateProgramSortOrderProfitability extends AffiliateProgramSortOrder {
+
+        /**
+         * The affiliate programs must be sorted by the profitability.
+         */
+        public AffiliateProgramSortOrderProfitability() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1963282585;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The affiliate programs must be sorted by creation date.
+     */
+    public static class AffiliateProgramSortOrderCreationDate extends AffiliateProgramSortOrder {
+
+        /**
+         * The affiliate programs must be sorted by creation date.
+         */
+        public AffiliateProgramSortOrderCreationDate() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1558628083;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The affiliate programs must be sorted by the expected revenue.
+     */
+    public static class AffiliateProgramSortOrderRevenue extends AffiliateProgramSortOrder {
+
+        /**
+         * The affiliate programs must be sorted by the expected revenue.
+         */
+        public AffiliateProgramSortOrderRevenue() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1923269304;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4455,6 +4711,10 @@ public class TdApi {
          */
         @Nullable public ChatAdministratorRights defaultChannelAdministratorRights;
         /**
+         * Information about the affiliate program of the bot; may be null if none.
+         */
+        @Nullable public AffiliateProgramInfo affiliateProgram;
+        /**
          * Default light background color for bot Web Apps; -1 if not specified.
          */
         public int webAppBackgroundLightColor;
@@ -4517,6 +4777,7 @@ public class TdApi {
          * @param privacyPolicyUrl The HTTP link to the privacy policy of the bot. If empty, then /privacy command must be used if supported by the bot. If the command isn't supported, then https://telegram.org/privacy-tpa must be opened.
          * @param defaultGroupAdministratorRights Default administrator rights for adding the bot to basic group and supergroup chats; may be null.
          * @param defaultChannelAdministratorRights Default administrator rights for adding the bot to channels; may be null.
+         * @param affiliateProgram Information about the affiliate program of the bot; may be null if none.
          * @param webAppBackgroundLightColor Default light background color for bot Web Apps; -1 if not specified.
          * @param webAppBackgroundDarkColor Default dark background color for bot Web Apps; -1 if not specified.
          * @param webAppHeaderLightColor Default light header color for bot Web Apps; -1 if not specified.
@@ -4529,7 +4790,7 @@ public class TdApi {
          * @param editDescriptionMediaLink The internal link, which can be used to edit the photo or animation shown in the chat with the bot if the chat is empty; may be null.
          * @param editSettingsLink The internal link, which can be used to edit bot settings; may be null.
          */
-        public BotInfo(String shortDescription, String description, Photo photo, Animation animation, BotMenuButton menuButton, BotCommand[] commands, String privacyPolicyUrl, ChatAdministratorRights defaultGroupAdministratorRights, ChatAdministratorRights defaultChannelAdministratorRights, int webAppBackgroundLightColor, int webAppBackgroundDarkColor, int webAppHeaderLightColor, int webAppHeaderDarkColor, boolean canGetRevenueStatistics, boolean canManageEmojiStatus, boolean hasMediaPreviews, InternalLinkType editCommandsLink, InternalLinkType editDescriptionLink, InternalLinkType editDescriptionMediaLink, InternalLinkType editSettingsLink) {
+        public BotInfo(String shortDescription, String description, Photo photo, Animation animation, BotMenuButton menuButton, BotCommand[] commands, String privacyPolicyUrl, ChatAdministratorRights defaultGroupAdministratorRights, ChatAdministratorRights defaultChannelAdministratorRights, AffiliateProgramInfo affiliateProgram, int webAppBackgroundLightColor, int webAppBackgroundDarkColor, int webAppHeaderLightColor, int webAppHeaderDarkColor, boolean canGetRevenueStatistics, boolean canManageEmojiStatus, boolean hasMediaPreviews, InternalLinkType editCommandsLink, InternalLinkType editDescriptionLink, InternalLinkType editDescriptionMediaLink, InternalLinkType editSettingsLink) {
             this.shortDescription = shortDescription;
             this.description = description;
             this.photo = photo;
@@ -4539,6 +4800,7 @@ public class TdApi {
             this.privacyPolicyUrl = privacyPolicyUrl;
             this.defaultGroupAdministratorRights = defaultGroupAdministratorRights;
             this.defaultChannelAdministratorRights = defaultChannelAdministratorRights;
+            this.affiliateProgram = affiliateProgram;
             this.webAppBackgroundLightColor = webAppBackgroundLightColor;
             this.webAppBackgroundDarkColor = webAppBackgroundDarkColor;
             this.webAppHeaderLightColor = webAppHeaderLightColor;
@@ -4555,7 +4817,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1428042308;
+        public static final int CONSTRUCTOR = 759416187;
 
         /**
          * @return this.CONSTRUCTOR
@@ -4726,173 +4988,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -944407322;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * This class is an abstract base class.
-     * Describes purpose of a transaction with a bot.
-     */
-    public abstract static class BotTransactionPurpose extends Object {
-        /**
-         * Describes possible values returned by getConstructor().
-         */
-        @Retention(RetentionPolicy.SOURCE)
-        @IntDef({
-            BotTransactionPurposePaidMedia.CONSTRUCTOR,
-            BotTransactionPurposeInvoicePayment.CONSTRUCTOR,
-            BotTransactionPurposeSubscription.CONSTRUCTOR
-        })
-        public @interface Constructors {}
-
-        /**
-         * @return identifier uniquely determining type of the object.
-         */
-        @Constructors
-        @Override
-        public abstract int getConstructor();
-        /**
-         * Default class constructor.
-         */
-        public BotTransactionPurpose() {
-        }
-    }
-
-    /**
-     * Paid media were bought.
-     */
-    public static class BotTransactionPurposePaidMedia extends BotTransactionPurpose {
-        /**
-         * The bought media if the transaction wasn't refunded.
-         */
-        public PaidMedia[] media;
-        /**
-         * Bot-provided payload; for bots only.
-         */
-        public String payload;
-
-        /**
-         * Paid media were bought.
-         */
-        public BotTransactionPurposePaidMedia() {
-        }
-
-        /**
-         * Paid media were bought.
-         *
-         * @param media The bought media if the transaction wasn't refunded.
-         * @param payload Bot-provided payload; for bots only.
-         */
-        public BotTransactionPurposePaidMedia(PaidMedia[] media, String payload) {
-            this.media = media;
-            this.payload = payload;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1522205325;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * User bought a product from the bot.
-     */
-    public static class BotTransactionPurposeInvoicePayment extends BotTransactionPurpose {
-        /**
-         * Information about the bought product; may be null if not applicable.
-         */
-        @Nullable public ProductInfo productInfo;
-        /**
-         * Invoice payload; for bots only.
-         */
-        public byte[] invoicePayload;
-
-        /**
-         * User bought a product from the bot.
-         */
-        public BotTransactionPurposeInvoicePayment() {
-        }
-
-        /**
-         * User bought a product from the bot.
-         *
-         * @param productInfo Information about the bought product; may be null if not applicable.
-         * @param invoicePayload Invoice payload; for bots only.
-         */
-        public BotTransactionPurposeInvoicePayment(ProductInfo productInfo, byte[] invoicePayload) {
-            this.productInfo = productInfo;
-            this.invoicePayload = invoicePayload;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1771593900;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * User bought a subscription in a bot or a business account.
-     */
-    public static class BotTransactionPurposeSubscription extends BotTransactionPurpose {
-        /**
-         * The number of seconds between consecutive Telegram Star debiting.
-         */
-        public int period;
-        /**
-         * Information about the bought subscription; may be null if not applicable.
-         */
-        @Nullable public ProductInfo productInfo;
-        /**
-         * Invoice payload; for bots only.
-         */
-        public byte[] invoicePayload;
-
-        /**
-         * User bought a subscription in a bot or a business account.
-         */
-        public BotTransactionPurposeSubscription() {
-        }
-
-        /**
-         * User bought a subscription in a bot or a business account.
-         *
-         * @param period The number of seconds between consecutive Telegram Star debiting.
-         * @param productInfo Information about the bought subscription; may be null if not applicable.
-         * @param invoicePayload Invoice payload; for bots only.
-         */
-        public BotTransactionPurposeSubscription(int period, ProductInfo productInfo, byte[] invoicePayload) {
-            this.period = period;
-            this.productInfo = productInfo;
-            this.invoicePayload = invoicePayload;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -445029883;
 
         /**
          * @return this.CONSTRUCTOR
@@ -9408,6 +9503,130 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2126186435;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes an affiliate program that was connected to a chat.
+     */
+    public static class ChatAffiliateProgram extends Object {
+        /**
+         * The link that can be used to refer users if the program is still active.
+         */
+        public String url;
+        /**
+         * User identifier of the bot created the program.
+         */
+        public long botUserId;
+        /**
+         * The parameters of the affiliate program.
+         */
+        public AffiliateProgramParameters parameters;
+        /**
+         * Point in time (Unix timestamp) when the affiliate program was connected.
+         */
+        public int connectionDate;
+        /**
+         * True, if the program was canceled by the bot, or disconnected by the chat owner and isn't available anymore.
+         */
+        public boolean isDisconnected;
+        /**
+         * The number of users that used the affiliate program.
+         */
+        public long userCount;
+        /**
+         * The number of Telegram Stars that were earned by the affiliate program.
+         */
+        public long revenueStarCount;
+
+        /**
+         * Describes an affiliate program that was connected to a chat.
+         */
+        public ChatAffiliateProgram() {
+        }
+
+        /**
+         * Describes an affiliate program that was connected to a chat.
+         *
+         * @param url The link that can be used to refer users if the program is still active.
+         * @param botUserId User identifier of the bot created the program.
+         * @param parameters The parameters of the affiliate program.
+         * @param connectionDate Point in time (Unix timestamp) when the affiliate program was connected.
+         * @param isDisconnected True, if the program was canceled by the bot, or disconnected by the chat owner and isn't available anymore.
+         * @param userCount The number of users that used the affiliate program.
+         * @param revenueStarCount The number of Telegram Stars that were earned by the affiliate program.
+         */
+        public ChatAffiliateProgram(String url, long botUserId, AffiliateProgramParameters parameters, int connectionDate, boolean isDisconnected, long userCount, long revenueStarCount) {
+            this.url = url;
+            this.botUserId = botUserId;
+            this.parameters = parameters;
+            this.connectionDate = connectionDate;
+            this.isDisconnected = isDisconnected;
+            this.userCount = userCount;
+            this.revenueStarCount = revenueStarCount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1415835338;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of affiliate programs that were connected to a chat.
+     */
+    public static class ChatAffiliatePrograms extends Object {
+        /**
+         * The total number of affiliate programs that were connected to the chat.
+         */
+        public int totalCount;
+        /**
+         * The list of connected affiliate programs.
+         */
+        public ChatAffiliateProgram[] programs;
+        /**
+         * The offset for the next request. If empty, then there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Represents a list of affiliate programs that were connected to a chat.
+         */
+        public ChatAffiliatePrograms() {
+        }
+
+        /**
+         * Represents a list of affiliate programs that were connected to a chat.
+         *
+         * @param totalCount The total number of affiliate programs that were connected to the chat.
+         * @param programs The list of connected affiliate programs.
+         * @param nextOffset The offset for the next request. If empty, then there are no more results.
+         */
+        public ChatAffiliatePrograms(int totalCount, ChatAffiliateProgram[] programs, String nextOffset) {
+            this.totalCount = totalCount;
+            this.programs = programs;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1107955123;
 
         /**
          * @return this.CONSTRUCTOR
@@ -16411,194 +16630,6 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Describes purpose of a transaction with a supergroup or a channel.
-     */
-    public abstract static class ChatTransactionPurpose extends Object {
-        /**
-         * Describes possible values returned by getConstructor().
-         */
-        @Retention(RetentionPolicy.SOURCE)
-        @IntDef({
-            ChatTransactionPurposePaidMedia.CONSTRUCTOR,
-            ChatTransactionPurposeJoin.CONSTRUCTOR,
-            ChatTransactionPurposeReaction.CONSTRUCTOR,
-            ChatTransactionPurposeGiveaway.CONSTRUCTOR
-        })
-        public @interface Constructors {}
-
-        /**
-         * @return identifier uniquely determining type of the object.
-         */
-        @Constructors
-        @Override
-        public abstract int getConstructor();
-        /**
-         * Default class constructor.
-         */
-        public ChatTransactionPurpose() {
-        }
-    }
-
-    /**
-     * Paid media were bought.
-     */
-    public static class ChatTransactionPurposePaidMedia extends ChatTransactionPurpose {
-        /**
-         * Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
-         */
-        public long messageId;
-        /**
-         * The bought media if the transaction wasn't refunded.
-         */
-        public PaidMedia[] media;
-
-        /**
-         * Paid media were bought.
-         */
-        public ChatTransactionPurposePaidMedia() {
-        }
-
-        /**
-         * Paid media were bought.
-         *
-         * @param messageId Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
-         * @param media The bought media if the transaction wasn't refunded.
-         */
-        public ChatTransactionPurposePaidMedia(long messageId, PaidMedia[] media) {
-            this.messageId = messageId;
-            this.media = media;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 54133151;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * User joined the channel and subscribed to regular payments in Telegram Stars.
-     */
-    public static class ChatTransactionPurposeJoin extends ChatTransactionPurpose {
-        /**
-         * The number of seconds between consecutive Telegram Star debiting.
-         */
-        public int period;
-
-        /**
-         * User joined the channel and subscribed to regular payments in Telegram Stars.
-         */
-        public ChatTransactionPurposeJoin() {
-        }
-
-        /**
-         * User joined the channel and subscribed to regular payments in Telegram Stars.
-         *
-         * @param period The number of seconds between consecutive Telegram Star debiting.
-         */
-        public ChatTransactionPurposeJoin(int period) {
-            this.period = period;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1529950842;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * User paid for a reaction.
-     */
-    public static class ChatTransactionPurposeReaction extends ChatTransactionPurpose {
-        /**
-         * Identifier of the reacted message; can be 0 or an identifier of a deleted message.
-         */
-        public long messageId;
-
-        /**
-         * User paid for a reaction.
-         */
-        public ChatTransactionPurposeReaction() {
-        }
-
-        /**
-         * User paid for a reaction.
-         *
-         * @param messageId Identifier of the reacted message; can be 0 or an identifier of a deleted message.
-         */
-        public ChatTransactionPurposeReaction(long messageId) {
-            this.messageId = messageId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 2053085320;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * User received Telegram Stars from a giveaway.
-     */
-    public static class ChatTransactionPurposeGiveaway extends ChatTransactionPurpose {
-        /**
-         * Identifier of the message with giveaway; can be 0 or an identifier of a deleted message.
-         */
-        public long giveawayMessageId;
-
-        /**
-         * User received Telegram Stars from a giveaway.
-         */
-        public ChatTransactionPurposeGiveaway() {
-        }
-
-        /**
-         * User received Telegram Stars from a giveaway.
-         *
-         * @param giveawayMessageId Identifier of the message with giveaway; can be 0 or an identifier of a deleted message.
-         */
-        public ChatTransactionPurposeGiveaway(long giveawayMessageId) {
-            this.giveawayMessageId = giveawayMessageId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 944540543;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * This class is an abstract base class.
      * Describes the type of chat.
      */
     public abstract static class ChatType extends Object {
@@ -20466,6 +20497,10 @@ public class TdApi {
             FileTypeSecret.CONSTRUCTOR,
             FileTypeSecretThumbnail.CONSTRUCTOR,
             FileTypeSecure.CONSTRUCTOR,
+            FileTypeSelfDestructingPhoto.CONSTRUCTOR,
+            FileTypeSelfDestructingVideo.CONSTRUCTOR,
+            FileTypeSelfDestructingVideoNote.CONSTRUCTOR,
+            FileTypeSelfDestructingVoiceNote.CONSTRUCTOR,
             FileTypeSticker.CONSTRUCTOR,
             FileTypeThumbnail.CONSTRUCTOR,
             FileTypeUnknown.CONSTRUCTOR,
@@ -20755,6 +20790,106 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1419133146;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The file is a self-destructing photo in a private chat.
+     */
+    public static class FileTypeSelfDestructingPhoto extends FileType {
+
+        /**
+         * The file is a self-destructing photo in a private chat.
+         */
+        public FileTypeSelfDestructingPhoto() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2077176475;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The file is a self-destructing video in a private chat.
+     */
+    public static class FileTypeSelfDestructingVideo extends FileType {
+
+        /**
+         * The file is a self-destructing video in a private chat.
+         */
+        public FileTypeSelfDestructingVideo() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1223900123;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The file is a self-destructing video note in a private chat.
+     */
+    public static class FileTypeSelfDestructingVideoNote extends FileType {
+
+        /**
+         * The file is a self-destructing video note in a private chat.
+         */
+        public FileTypeSelfDestructingVideoNote() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1495274177;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The file is a self-destructing voice note in a private chat.
+     */
+    public static class FileTypeSelfDestructingVoiceNote extends FileType {
+
+        /**
+         * The file is a self-destructing voice note in a private chat.
+         */
+        public FileTypeSelfDestructingVoiceNote() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1691409181;
 
         /**
          * @return this.CONSTRUCTOR
@@ -21558,6 +21693,100 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1795337929;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a found affiliate program.
+     */
+    public static class FoundAffiliateProgram extends Object {
+        /**
+         * User identifier of the bot created the program.
+         */
+        public long botUserId;
+        /**
+         * Information about the affiliate program.
+         */
+        public AffiliateProgramInfo parameters;
+
+        /**
+         * Describes a found affiliate program.
+         */
+        public FoundAffiliateProgram() {
+        }
+
+        /**
+         * Describes a found affiliate program.
+         *
+         * @param botUserId User identifier of the bot created the program.
+         * @param parameters Information about the affiliate program.
+         */
+        public FoundAffiliateProgram(long botUserId, AffiliateProgramInfo parameters) {
+            this.botUserId = botUserId;
+            this.parameters = parameters;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2134937582;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of found affiliate programs.
+     */
+    public static class FoundAffiliatePrograms extends Object {
+        /**
+         * The total number of found affiliate programs.
+         */
+        public int totalCount;
+        /**
+         * The list of affiliate programs.
+         */
+        public FoundAffiliateProgram[] programs;
+        /**
+         * The offset for the next request. If empty, then there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Represents a list of found affiliate programs.
+         */
+        public FoundAffiliatePrograms() {
+        }
+
+        /**
+         * Represents a list of found affiliate programs.
+         *
+         * @param totalCount The total number of found affiliate programs.
+         * @param programs The list of affiliate programs.
+         * @param nextOffset The offset for the next request. If empty, then there are no more results.
+         */
+        public FoundAffiliatePrograms(int totalCount, FoundAffiliateProgram[] programs, String nextOffset) {
+            this.totalCount = totalCount;
+            this.programs = programs;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 186317057;
 
         /**
          * @return this.CONSTRUCTOR
@@ -30333,6 +30562,7 @@ public class TdApi {
             InternalLinkTypeBusinessChat.CONSTRUCTOR,
             InternalLinkTypeBuyStars.CONSTRUCTOR,
             InternalLinkTypeChangePhoneNumber.CONSTRUCTOR,
+            InternalLinkTypeChatAffiliateProgram.CONSTRUCTOR,
             InternalLinkTypeChatBoost.CONSTRUCTOR,
             InternalLinkTypeChatFolderInvite.CONSTRUCTOR,
             InternalLinkTypeChatFolderSettings.CONSTRUCTOR,
@@ -30776,6 +31006,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -265856255;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is an affiliate program link. Call searchChatAffiliateProgram with the given username and referrer to process the link.
+     */
+    public static class InternalLinkTypeChatAffiliateProgram extends InternalLinkType {
+        /**
+         * Username to be passed to searchChatAffiliateProgram.
+         */
+        public String username;
+        /**
+         * Referrer to be passed to searchChatAffiliateProgram.
+         */
+        public String referrer;
+
+        /**
+         * The link is an affiliate program link. Call searchChatAffiliateProgram with the given username and referrer to process the link.
+         */
+        public InternalLinkTypeChatAffiliateProgram() {
+        }
+
+        /**
+         * The link is an affiliate program link. Call searchChatAffiliateProgram with the given username and referrer to process the link.
+         *
+         * @param username Username to be passed to searchChatAffiliateProgram.
+         * @param referrer Referrer to be passed to searchChatAffiliateProgram.
+         */
+        public InternalLinkTypeChatAffiliateProgram(String username, String referrer) {
+            this.username = username;
+            this.referrer = referrer;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 632049700;
 
         /**
          * @return this.CONSTRUCTOR
@@ -58881,6 +59155,50 @@ public class TdApi {
     }
 
     /**
+     * Describes a possibly non-integer amount of Telegram Stars.
+     */
+    public static class StarAmount extends Object {
+        /**
+         * The integer amount of Telegram Stars rounded to 0.
+         */
+        public long starCount;
+        /**
+         * The number of 1/1000000000 shares of Telegram Stars; from -999999999 to 999999999.
+         */
+        public int nanostarCount;
+
+        /**
+         * Describes a possibly non-integer amount of Telegram Stars.
+         */
+        public StarAmount() {
+        }
+
+        /**
+         * Describes a possibly non-integer amount of Telegram Stars.
+         *
+         * @param starCount The integer amount of Telegram Stars rounded to 0.
+         * @param nanostarCount The number of 1/1000000000 shares of Telegram Stars; from -999999999 to 999999999.
+         */
+        public StarAmount(long starCount, int nanostarCount) {
+            this.starCount = starCount;
+            this.nanostarCount = nanostarCount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1863216512;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes an option for creating Telegram Star giveaway. Use telegramPaymentPurposeStarGiveaway for out-of-store payments.
      */
     public static class StarGiveawayPaymentOption extends Object {
@@ -59203,17 +59521,17 @@ public class TdApi {
      */
     public static class StarRevenueStatus extends Object {
         /**
-         * Total number of Telegram Stars earned.
+         * Total amount of Telegram Stars earned.
          */
-        public long totalCount;
+        public StarAmount totalAmount;
         /**
-         * The number of Telegram Stars that aren't withdrawn yet.
+         * The amount of Telegram Stars that aren't withdrawn yet.
          */
-        public long currentCount;
+        public StarAmount currentAmount;
         /**
-         * The number of Telegram Stars that are available for withdrawal.
+         * The amount of Telegram Stars that are available for withdrawal.
          */
-        public long availableCount;
+        public StarAmount availableAmount;
         /**
          * True, if Telegram Stars can be withdrawn now or later.
          */
@@ -59232,16 +59550,16 @@ public class TdApi {
         /**
          * Contains information about Telegram Stars earned by a bot or a chat.
          *
-         * @param totalCount Total number of Telegram Stars earned.
-         * @param currentCount The number of Telegram Stars that aren't withdrawn yet.
-         * @param availableCount The number of Telegram Stars that are available for withdrawal.
+         * @param totalAmount Total amount of Telegram Stars earned.
+         * @param currentAmount The amount of Telegram Stars that aren't withdrawn yet.
+         * @param availableAmount The amount of Telegram Stars that are available for withdrawal.
          * @param withdrawalEnabled True, if Telegram Stars can be withdrawn now or later.
          * @param nextWithdrawalIn Time left before the next withdrawal can be started, in seconds; 0 if withdrawal can be started now.
          */
-        public StarRevenueStatus(long totalCount, long currentCount, long availableCount, boolean withdrawalEnabled, int nextWithdrawalIn) {
-            this.totalCount = totalCount;
-            this.currentCount = currentCount;
-            this.availableCount = availableCount;
+        public StarRevenueStatus(StarAmount totalAmount, StarAmount currentAmount, StarAmount availableAmount, boolean withdrawalEnabled, int nextWithdrawalIn) {
+            this.totalAmount = totalAmount;
+            this.currentAmount = currentAmount;
+            this.availableAmount = availableAmount;
             this.withdrawalEnabled = withdrawalEnabled;
             this.nextWithdrawalIn = nextWithdrawalIn;
         }
@@ -59249,7 +59567,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -396634629;
+        public static final int CONSTRUCTOR = 2006266600;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59513,7 +59831,7 @@ public class TdApi {
         /**
          * The amount of owned Telegram Stars.
          */
-        public long starCount;
+        public StarAmount starAmount;
         /**
          * List of subscriptions for Telegram Stars.
          */
@@ -59536,13 +59854,13 @@ public class TdApi {
         /**
          * Represents a list of Telegram Star subscriptions.
          *
-         * @param starCount The amount of owned Telegram Stars.
+         * @param starAmount The amount of owned Telegram Stars.
          * @param subscriptions List of subscriptions for Telegram Stars.
          * @param requiredStarCount The number of Telegram Stars required to buy to extend subscriptions expiring soon.
          * @param nextOffset The offset for the next request. If empty, then there are no more results.
          */
-        public StarSubscriptions(long starCount, StarSubscription[] subscriptions, long requiredStarCount, String nextOffset) {
-            this.starCount = starCount;
+        public StarSubscriptions(StarAmount starAmount, StarSubscription[] subscriptions, long requiredStarCount, String nextOffset) {
+            this.starAmount = starAmount;
             this.subscriptions = subscriptions;
             this.requiredStarCount = requiredStarCount;
             this.nextOffset = nextOffset;
@@ -59551,7 +59869,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1509314500;
+        public static final int CONSTRUCTOR = 151169395;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59573,7 +59891,7 @@ public class TdApi {
         /**
          * The amount of added owned Telegram Stars; negative for outgoing transactions.
          */
-        public long starCount;
+        public StarAmount starAmount;
         /**
          * True, if the transaction is a refund of a previous transaction.
          */
@@ -59583,9 +59901,9 @@ public class TdApi {
          */
         public int date;
         /**
-         * Source of the incoming transaction, or its recipient for outgoing transactions.
+         * Type of the transaction.
          */
-        public StarTransactionPartner partner;
+        public StarTransactionType type;
 
         /**
          * Represents a transaction changing the amount of owned Telegram Stars.
@@ -59597,23 +59915,23 @@ public class TdApi {
          * Represents a transaction changing the amount of owned Telegram Stars.
          *
          * @param id Unique identifier of the transaction.
-         * @param starCount The amount of added owned Telegram Stars; negative for outgoing transactions.
+         * @param starAmount The amount of added owned Telegram Stars; negative for outgoing transactions.
          * @param isRefund True, if the transaction is a refund of a previous transaction.
          * @param date Point in time (Unix timestamp) when the transaction was completed.
-         * @param partner Source of the incoming transaction, or its recipient for outgoing transactions.
+         * @param type Type of the transaction.
          */
-        public StarTransaction(String id, long starCount, boolean isRefund, int date, StarTransactionPartner partner) {
+        public StarTransaction(String id, StarAmount starAmount, boolean isRefund, int date, StarTransactionType type) {
             this.id = id;
-            this.starCount = starCount;
+            this.starAmount = starAmount;
             this.isRefund = isRefund;
             this.date = date;
-            this.partner = partner;
+            this.type = type;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -837778264;
+        public static final int CONSTRUCTOR = 2139228816;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59704,25 +60022,39 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Describes source or recipient of a transaction with Telegram Stars.
+     * Describes type of transaction with Telegram Stars.
      */
-    public abstract static class StarTransactionPartner extends Object {
+    public abstract static class StarTransactionType extends Object {
         /**
          * Describes possible values returned by getConstructor().
          */
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            StarTransactionPartnerTelegram.CONSTRUCTOR,
-            StarTransactionPartnerAppStore.CONSTRUCTOR,
-            StarTransactionPartnerGooglePlay.CONSTRUCTOR,
-            StarTransactionPartnerFragment.CONSTRUCTOR,
-            StarTransactionPartnerTelegramAds.CONSTRUCTOR,
-            StarTransactionPartnerTelegramApi.CONSTRUCTOR,
-            StarTransactionPartnerBot.CONSTRUCTOR,
-            StarTransactionPartnerBusiness.CONSTRUCTOR,
-            StarTransactionPartnerChat.CONSTRUCTOR,
-            StarTransactionPartnerUser.CONSTRUCTOR,
-            StarTransactionPartnerUnsupported.CONSTRUCTOR
+            StarTransactionTypePremiumBotDeposit.CONSTRUCTOR,
+            StarTransactionTypeAppStoreDeposit.CONSTRUCTOR,
+            StarTransactionTypeGooglePlayDeposit.CONSTRUCTOR,
+            StarTransactionTypeFragmentDeposit.CONSTRUCTOR,
+            StarTransactionTypeUserDeposit.CONSTRUCTOR,
+            StarTransactionTypeGiveawayDeposit.CONSTRUCTOR,
+            StarTransactionTypeFragmentWithdrawal.CONSTRUCTOR,
+            StarTransactionTypeTelegramAdsWithdrawal.CONSTRUCTOR,
+            StarTransactionTypeTelegramApiUsage.CONSTRUCTOR,
+            StarTransactionTypeBotPaidMediaPurchase.CONSTRUCTOR,
+            StarTransactionTypeBotPaidMediaSale.CONSTRUCTOR,
+            StarTransactionTypeChannelPaidMediaPurchase.CONSTRUCTOR,
+            StarTransactionTypeChannelPaidMediaSale.CONSTRUCTOR,
+            StarTransactionTypeBotInvoicePurchase.CONSTRUCTOR,
+            StarTransactionTypeBotInvoiceSale.CONSTRUCTOR,
+            StarTransactionTypeBotSubscriptionPurchase.CONSTRUCTOR,
+            StarTransactionTypeBotSubscriptionSale.CONSTRUCTOR,
+            StarTransactionTypeChannelSubscriptionPurchase.CONSTRUCTOR,
+            StarTransactionTypeChannelSubscriptionSale.CONSTRUCTOR,
+            StarTransactionTypeGiftPurchase.CONSTRUCTOR,
+            StarTransactionTypeGiftSale.CONSTRUCTOR,
+            StarTransactionTypeChannelPaidReactionSend.CONSTRUCTOR,
+            StarTransactionTypeChannelPaidReactionReceive.CONSTRUCTOR,
+            StarTransactionTypeAffiliateProgramCommission.CONSTRUCTOR,
+            StarTransactionTypeUnsupported.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -59735,25 +60067,25 @@ public class TdApi {
         /**
          * Default class constructor.
          */
-        public StarTransactionPartner() {
+        public StarTransactionType() {
         }
     }
 
     /**
-     * The transaction is a transaction with Telegram through a bot.
+     * The transaction is a deposit of Telegram Stars from the Premium bot; for regular users only.
      */
-    public static class StarTransactionPartnerTelegram extends StarTransactionPartner {
+    public static class StarTransactionTypePremiumBotDeposit extends StarTransactionType {
 
         /**
-         * The transaction is a transaction with Telegram through a bot.
+         * The transaction is a deposit of Telegram Stars from the Premium bot; for regular users only.
          */
-        public StarTransactionPartnerTelegram() {
+        public StarTransactionTypePremiumBotDeposit() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2055838912;
+        public static final int CONSTRUCTOR = -663156466;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59765,20 +60097,20 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transaction with App Store.
+     * The transaction is a deposit of Telegram Stars from App Store; for regular users only.
      */
-    public static class StarTransactionPartnerAppStore extends StarTransactionPartner {
+    public static class StarTransactionTypeAppStoreDeposit extends StarTransactionType {
 
         /**
-         * The transaction is a transaction with App Store.
+         * The transaction is a deposit of Telegram Stars from App Store; for regular users only.
          */
-        public StarTransactionPartnerAppStore() {
+        public StarTransactionTypeAppStoreDeposit() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -482335012;
+        public static final int CONSTRUCTOR = 136853825;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59790,20 +60122,20 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transaction with Google Play.
+     * The transaction is a deposit of Telegram Stars from Google Play; for regular users only.
      */
-    public static class StarTransactionPartnerGooglePlay extends StarTransactionPartner {
+    public static class StarTransactionTypeGooglePlayDeposit extends StarTransactionType {
 
         /**
-         * The transaction is a transaction with Google Play.
+         * The transaction is a deposit of Telegram Stars from Google Play; for regular users only.
          */
-        public StarTransactionPartnerGooglePlay() {
+        public StarTransactionTypeGooglePlayDeposit() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -232131936;
+        public static final int CONSTRUCTOR = -323111338;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59815,33 +60147,146 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transaction with Fragment.
+     * The transaction is a deposit of Telegram Stars from Fragment; for regular users and bots only.
      */
-    public static class StarTransactionPartnerFragment extends StarTransactionPartner {
+    public static class StarTransactionTypeFragmentDeposit extends StarTransactionType {
+
         /**
-         * State of the withdrawal; may be null for refunds from Fragment or for Telegram Stars bought on Fragment.
+         * The transaction is a deposit of Telegram Stars from Fragment; for regular users and bots only.
+         */
+        public StarTransactionTypeFragmentDeposit() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 123887172;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a deposit of Telegram Stars by another user; for regular users only.
+     */
+    public static class StarTransactionTypeUserDeposit extends StarTransactionType {
+        /**
+         * Identifier of the user that gifted Telegram Stars; 0 if the user was anonymous.
+         */
+        public long userId;
+        /**
+         * The sticker to be shown in the transaction information; may be null if unknown.
+         */
+        @Nullable public Sticker sticker;
+
+        /**
+         * The transaction is a deposit of Telegram Stars by another user; for regular users only.
+         */
+        public StarTransactionTypeUserDeposit() {
+        }
+
+        /**
+         * The transaction is a deposit of Telegram Stars by another user; for regular users only.
+         *
+         * @param userId Identifier of the user that gifted Telegram Stars; 0 if the user was anonymous.
+         * @param sticker The sticker to be shown in the transaction information; may be null if unknown.
+         */
+        public StarTransactionTypeUserDeposit(long userId, Sticker sticker) {
+            this.userId = userId;
+            this.sticker = sticker;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 204085481;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a deposit of Telegram Stars from a giveaway; for regular users only.
+     */
+    public static class StarTransactionTypeGiveawayDeposit extends StarTransactionType {
+        /**
+         * Identifier of a supergroup or a channel chat that created the giveaway.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message with the giveaway; can be 0 or an identifier of a deleted message.
+         */
+        public long giveawayMessageId;
+
+        /**
+         * The transaction is a deposit of Telegram Stars from a giveaway; for regular users only.
+         */
+        public StarTransactionTypeGiveawayDeposit() {
+        }
+
+        /**
+         * The transaction is a deposit of Telegram Stars from a giveaway; for regular users only.
+         *
+         * @param chatId Identifier of a supergroup or a channel chat that created the giveaway.
+         * @param giveawayMessageId Identifier of the message with the giveaway; can be 0 or an identifier of a deleted message.
+         */
+        public StarTransactionTypeGiveawayDeposit(long chatId, long giveawayMessageId) {
+            this.chatId = chatId;
+            this.giveawayMessageId = giveawayMessageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1318977338;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a withdrawal of earned Telegram Stars to Fragment; for bots and channel chats only.
+     */
+    public static class StarTransactionTypeFragmentWithdrawal extends StarTransactionType {
+        /**
+         * State of the withdrawal; may be null for refunds from Fragment.
          */
         @Nullable public RevenueWithdrawalState withdrawalState;
 
         /**
-         * The transaction is a transaction with Fragment.
+         * The transaction is a withdrawal of earned Telegram Stars to Fragment; for bots and channel chats only.
          */
-        public StarTransactionPartnerFragment() {
+        public StarTransactionTypeFragmentWithdrawal() {
         }
 
         /**
-         * The transaction is a transaction with Fragment.
+         * The transaction is a withdrawal of earned Telegram Stars to Fragment; for bots and channel chats only.
          *
-         * @param withdrawalState State of the withdrawal; may be null for refunds from Fragment or for Telegram Stars bought on Fragment.
+         * @param withdrawalState State of the withdrawal; may be null for refunds from Fragment.
          */
-        public StarTransactionPartnerFragment(RevenueWithdrawalState withdrawalState) {
+        public StarTransactionTypeFragmentWithdrawal(RevenueWithdrawalState withdrawalState) {
             this.withdrawalState = withdrawalState;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -635942475;
+        public static final int CONSTRUCTOR = -1355142766;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59853,20 +60298,20 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transaction with Telegram Ad platform.
+     * The transaction is a withdrawal of earned Telegram Stars to Telegram Ad platform; for bots and channel chats only.
      */
-    public static class StarTransactionPartnerTelegramAds extends StarTransactionPartner {
+    public static class StarTransactionTypeTelegramAdsWithdrawal extends StarTransactionType {
 
         /**
-         * The transaction is a transaction with Telegram Ad platform.
+         * The transaction is a withdrawal of earned Telegram Stars to Telegram Ad platform; for bots and channel chats only.
          */
-        public StarTransactionPartnerTelegramAds() {
+        public StarTransactionTypeTelegramAdsWithdrawal() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 153066603;
+        public static final int CONSTRUCTOR = -1517386647;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59878,33 +60323,33 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transaction with Telegram for API usage.
+     * The transaction is a payment for Telegram API usage; for bots only.
      */
-    public static class StarTransactionPartnerTelegramApi extends StarTransactionPartner {
+    public static class StarTransactionTypeTelegramApiUsage extends StarTransactionType {
         /**
          * The number of billed requests.
          */
         public int requestCount;
 
         /**
-         * The transaction is a transaction with Telegram for API usage.
+         * The transaction is a payment for Telegram API usage; for bots only.
          */
-        public StarTransactionPartnerTelegramApi() {
+        public StarTransactionTypeTelegramApiUsage() {
         }
 
         /**
-         * The transaction is a transaction with Telegram for API usage.
+         * The transaction is a payment for Telegram API usage; for bots only.
          *
          * @param requestCount The number of billed requests.
          */
-        public StarTransactionPartnerTelegramApi(int requestCount) {
+        public StarTransactionTypeTelegramApiUsage(int requestCount) {
             this.requestCount = requestCount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1413270013;
+        public static final int CONSTRUCTOR = 665332478;
 
         /**
          * @return this.CONSTRUCTOR
@@ -59916,55 +60361,11 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transaction with a bot.
+     * The transaction is a purchase of paid media from a bot or a business account by the current user; for regular users only.
      */
-    public static class StarTransactionPartnerBot extends StarTransactionPartner {
+    public static class StarTransactionTypeBotPaidMediaPurchase extends StarTransactionType {
         /**
-         * Identifier of the bot.
-         */
-        public long userId;
-        /**
-         * Purpose of the transaction.
-         */
-        public BotTransactionPurpose purpose;
-
-        /**
-         * The transaction is a transaction with a bot.
-         */
-        public StarTransactionPartnerBot() {
-        }
-
-        /**
-         * The transaction is a transaction with a bot.
-         *
-         * @param userId Identifier of the bot.
-         * @param purpose Purpose of the transaction.
-         */
-        public StarTransactionPartnerBot(long userId, BotTransactionPurpose purpose) {
-            this.userId = userId;
-            this.purpose = purpose;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1322138176;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The transaction is a transaction with a business account.
-     */
-    public static class StarTransactionPartnerBusiness extends StarTransactionPartner {
-        /**
-         * Identifier of the business account user.
+         * Identifier of the bot or the business account user that sent the paid media.
          */
         public long userId;
         /**
@@ -59973,18 +60374,18 @@ public class TdApi {
         public PaidMedia[] media;
 
         /**
-         * The transaction is a transaction with a business account.
+         * The transaction is a purchase of paid media from a bot or a business account by the current user; for regular users only.
          */
-        public StarTransactionPartnerBusiness() {
+        public StarTransactionTypeBotPaidMediaPurchase() {
         }
 
         /**
-         * The transaction is a transaction with a business account.
+         * The transaction is a purchase of paid media from a bot or a business account by the current user; for regular users only.
          *
-         * @param userId Identifier of the business account user.
+         * @param userId Identifier of the bot or the business account user that sent the paid media.
          * @param media The bought media if the transaction wasn't refunded.
          */
-        public StarTransactionPartnerBusiness(long userId, PaidMedia[] media) {
+        public StarTransactionTypeBotPaidMediaPurchase(long userId, PaidMedia[] media) {
             this.userId = userId;
             this.media = media;
         }
@@ -59992,7 +60393,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 11110446;
+        public static final int CONSTRUCTOR = 976645509;
 
         /**
          * @return this.CONSTRUCTOR
@@ -60004,83 +60405,51 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transaction with a supergroup or a channel chat.
+     * The transaction is a sale of paid media by the bot or a business account managed by the bot; for bots only.
      */
-    public static class StarTransactionPartnerChat extends StarTransactionPartner {
+    public static class StarTransactionTypeBotPaidMediaSale extends StarTransactionType {
         /**
-         * Identifier of the chat.
-         */
-        public long chatId;
-        /**
-         * Purpose of the transaction.
-         */
-        public ChatTransactionPurpose purpose;
-
-        /**
-         * The transaction is a transaction with a supergroup or a channel chat.
-         */
-        public StarTransactionPartnerChat() {
-        }
-
-        /**
-         * The transaction is a transaction with a supergroup or a channel chat.
-         *
-         * @param chatId Identifier of the chat.
-         * @param purpose Purpose of the transaction.
-         */
-        public StarTransactionPartnerChat(long chatId, ChatTransactionPurpose purpose) {
-            this.chatId = chatId;
-            this.purpose = purpose;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1910197568;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The transaction is a transaction with another user.
-     */
-    public static class StarTransactionPartnerUser extends StarTransactionPartner {
-        /**
-         * Identifier of the user; 0 if the user was anonymous.
+         * Identifier of the user that bought the media.
          */
         public long userId;
         /**
-         * Purpose of the transaction.
+         * The bought media.
          */
-        public UserTransactionPurpose purpose;
+        public PaidMedia[] media;
+        /**
+         * Bot-provided payload.
+         */
+        public String payload;
+        /**
+         * Information about the affiliate which received commission from the transaction; may be null if none.
+         */
+        @Nullable public AffiliateInfo affiliate;
 
         /**
-         * The transaction is a transaction with another user.
+         * The transaction is a sale of paid media by the bot or a business account managed by the bot; for bots only.
          */
-        public StarTransactionPartnerUser() {
+        public StarTransactionTypeBotPaidMediaSale() {
         }
 
         /**
-         * The transaction is a transaction with another user.
+         * The transaction is a sale of paid media by the bot or a business account managed by the bot; for bots only.
          *
-         * @param userId Identifier of the user; 0 if the user was anonymous.
-         * @param purpose Purpose of the transaction.
+         * @param userId Identifier of the user that bought the media.
+         * @param media The bought media.
+         * @param payload Bot-provided payload.
+         * @param affiliate Information about the affiliate which received commission from the transaction; may be null if none.
          */
-        public StarTransactionPartnerUser(long userId, UserTransactionPurpose purpose) {
+        public StarTransactionTypeBotPaidMediaSale(long userId, PaidMedia[] media, String payload, AffiliateInfo affiliate) {
             this.userId = userId;
-            this.purpose = purpose;
+            this.media = media;
+            this.payload = payload;
+            this.affiliate = affiliate;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1867334609;
+        public static final int CONSTRUCTOR = -1034408372;
 
         /**
          * @return this.CONSTRUCTOR
@@ -60092,20 +60461,640 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transaction with unknown partner.
+     * The transaction is a purchase of paid media from a channel by the current user; for regular users only.
      */
-    public static class StarTransactionPartnerUnsupported extends StarTransactionPartner {
+    public static class StarTransactionTypeChannelPaidMediaPurchase extends StarTransactionType {
+        /**
+         * Identifier of the channel chat that sent the paid media.
+         */
+        public long chatId;
+        /**
+         * Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
+         */
+        public long messageId;
+        /**
+         * The bought media if the transaction wasn't refunded.
+         */
+        public PaidMedia[] media;
 
         /**
-         * The transaction is a transaction with unknown partner.
+         * The transaction is a purchase of paid media from a channel by the current user; for regular users only.
          */
-        public StarTransactionPartnerUnsupported() {
+        public StarTransactionTypeChannelPaidMediaPurchase() {
+        }
+
+        /**
+         * The transaction is a purchase of paid media from a channel by the current user; for regular users only.
+         *
+         * @param chatId Identifier of the channel chat that sent the paid media.
+         * @param messageId Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
+         * @param media The bought media if the transaction wasn't refunded.
+         */
+        public StarTransactionTypeChannelPaidMediaPurchase(long chatId, long messageId, PaidMedia[] media) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.media = media;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -994964109;
+        public static final int CONSTRUCTOR = -1321281338;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a sale of paid media by the channel chat; for channel chats only.
+     */
+    public static class StarTransactionTypeChannelPaidMediaSale extends StarTransactionType {
+        /**
+         * Identifier of the user that bought the media.
+         */
+        public long userId;
+        /**
+         * Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
+         */
+        public long messageId;
+        /**
+         * The bought media.
+         */
+        public PaidMedia[] media;
+
+        /**
+         * The transaction is a sale of paid media by the channel chat; for channel chats only.
+         */
+        public StarTransactionTypeChannelPaidMediaSale() {
+        }
+
+        /**
+         * The transaction is a sale of paid media by the channel chat; for channel chats only.
+         *
+         * @param userId Identifier of the user that bought the media.
+         * @param messageId Identifier of the corresponding message with paid media; can be 0 or an identifier of a deleted message.
+         * @param media The bought media.
+         */
+        public StarTransactionTypeChannelPaidMediaSale(long userId, long messageId, PaidMedia[] media) {
+            this.userId = userId;
+            this.messageId = messageId;
+            this.media = media;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 52587085;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a purchase of a product from a bot or a business account by the current user; for regular users only.
+     */
+    public static class StarTransactionTypeBotInvoicePurchase extends StarTransactionType {
+        /**
+         * Identifier of the bot or the business account user that created the invoice.
+         */
+        public long userId;
+        /**
+         * Information about the bought product.
+         */
+        public ProductInfo productInfo;
+
+        /**
+         * The transaction is a purchase of a product from a bot or a business account by the current user; for regular users only.
+         */
+        public StarTransactionTypeBotInvoicePurchase() {
+        }
+
+        /**
+         * The transaction is a purchase of a product from a bot or a business account by the current user; for regular users only.
+         *
+         * @param userId Identifier of the bot or the business account user that created the invoice.
+         * @param productInfo Information about the bought product.
+         */
+        public StarTransactionTypeBotInvoicePurchase(long userId, ProductInfo productInfo) {
+            this.userId = userId;
+            this.productInfo = productInfo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 501066764;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a sale of a product by the bot; for bots only.
+     */
+    public static class StarTransactionTypeBotInvoiceSale extends StarTransactionType {
+        /**
+         * Identifier of the user that bought the product.
+         */
+        public long userId;
+        /**
+         * Information about the bought product.
+         */
+        public ProductInfo productInfo;
+        /**
+         * Invoice payload.
+         */
+        public byte[] invoicePayload;
+        /**
+         * Information about the affiliate which received commission from the transaction; may be null if none.
+         */
+        @Nullable public AffiliateInfo affiliate;
+
+        /**
+         * The transaction is a sale of a product by the bot; for bots only.
+         */
+        public StarTransactionTypeBotInvoiceSale() {
+        }
+
+        /**
+         * The transaction is a sale of a product by the bot; for bots only.
+         *
+         * @param userId Identifier of the user that bought the product.
+         * @param productInfo Information about the bought product.
+         * @param invoicePayload Invoice payload.
+         * @param affiliate Information about the affiliate which received commission from the transaction; may be null if none.
+         */
+        public StarTransactionTypeBotInvoiceSale(long userId, ProductInfo productInfo, byte[] invoicePayload, AffiliateInfo affiliate) {
+            this.userId = userId;
+            this.productInfo = productInfo;
+            this.invoicePayload = invoicePayload;
+            this.affiliate = affiliate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1534954799;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a purchase of a subscription from a bot or a business account by the current user; for regular users only.
+     */
+    public static class StarTransactionTypeBotSubscriptionPurchase extends StarTransactionType {
+        /**
+         * Identifier of the bot or the business account user that created the subscription link.
+         */
+        public long userId;
+        /**
+         * The number of seconds between consecutive Telegram Star debitings.
+         */
+        public int subscriptionPeriod;
+        /**
+         * Information about the bought subscription.
+         */
+        public ProductInfo productInfo;
+
+        /**
+         * The transaction is a purchase of a subscription from a bot or a business account by the current user; for regular users only.
+         */
+        public StarTransactionTypeBotSubscriptionPurchase() {
+        }
+
+        /**
+         * The transaction is a purchase of a subscription from a bot or a business account by the current user; for regular users only.
+         *
+         * @param userId Identifier of the bot or the business account user that created the subscription link.
+         * @param subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
+         * @param productInfo Information about the bought subscription.
+         */
+        public StarTransactionTypeBotSubscriptionPurchase(long userId, int subscriptionPeriod, ProductInfo productInfo) {
+            this.userId = userId;
+            this.subscriptionPeriod = subscriptionPeriod;
+            this.productInfo = productInfo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1086264149;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a sale of a subscription by the bot; for bots only.
+     */
+    public static class StarTransactionTypeBotSubscriptionSale extends StarTransactionType {
+        /**
+         * Identifier of the user that bought the subscription.
+         */
+        public long userId;
+        /**
+         * The number of seconds between consecutive Telegram Star debitings.
+         */
+        public int subscriptionPeriod;
+        /**
+         * Information about the bought subscription.
+         */
+        public ProductInfo productInfo;
+        /**
+         * Invoice payload.
+         */
+        public byte[] invoicePayload;
+        /**
+         * Information about the affiliate which received commission from the transaction; may be null if none.
+         */
+        @Nullable public AffiliateInfo affiliate;
+
+        /**
+         * The transaction is a sale of a subscription by the bot; for bots only.
+         */
+        public StarTransactionTypeBotSubscriptionSale() {
+        }
+
+        /**
+         * The transaction is a sale of a subscription by the bot; for bots only.
+         *
+         * @param userId Identifier of the user that bought the subscription.
+         * @param subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
+         * @param productInfo Information about the bought subscription.
+         * @param invoicePayload Invoice payload.
+         * @param affiliate Information about the affiliate which received commission from the transaction; may be null if none.
+         */
+        public StarTransactionTypeBotSubscriptionSale(long userId, int subscriptionPeriod, ProductInfo productInfo, byte[] invoicePayload, AffiliateInfo affiliate) {
+            this.userId = userId;
+            this.subscriptionPeriod = subscriptionPeriod;
+            this.productInfo = productInfo;
+            this.invoicePayload = invoicePayload;
+            this.affiliate = affiliate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 526936201;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a purchase of a subscription to a channel chat by the current user; for regular users only.
+     */
+    public static class StarTransactionTypeChannelSubscriptionPurchase extends StarTransactionType {
+        /**
+         * Identifier of the channel chat that created the subscription.
+         */
+        public long chatId;
+        /**
+         * The number of seconds between consecutive Telegram Star debitings.
+         */
+        public int subscriptionPeriod;
+
+        /**
+         * The transaction is a purchase of a subscription to a channel chat by the current user; for regular users only.
+         */
+        public StarTransactionTypeChannelSubscriptionPurchase() {
+        }
+
+        /**
+         * The transaction is a purchase of a subscription to a channel chat by the current user; for regular users only.
+         *
+         * @param chatId Identifier of the channel chat that created the subscription.
+         * @param subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
+         */
+        public StarTransactionTypeChannelSubscriptionPurchase(long chatId, int subscriptionPeriod) {
+            this.chatId = chatId;
+            this.subscriptionPeriod = subscriptionPeriod;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 940487633;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a sale of a subscription by the channel chat; for channel chats only.
+     */
+    public static class StarTransactionTypeChannelSubscriptionSale extends StarTransactionType {
+        /**
+         * Identifier of the user that bought the subscription.
+         */
+        public long userId;
+        /**
+         * The number of seconds between consecutive Telegram Star debitings.
+         */
+        public int subscriptionPeriod;
+
+        /**
+         * The transaction is a sale of a subscription by the channel chat; for channel chats only.
+         */
+        public StarTransactionTypeChannelSubscriptionSale() {
+        }
+
+        /**
+         * The transaction is a sale of a subscription by the channel chat; for channel chats only.
+         *
+         * @param userId Identifier of the user that bought the subscription.
+         * @param subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
+         */
+        public StarTransactionTypeChannelSubscriptionSale(long userId, int subscriptionPeriod) {
+            this.userId = userId;
+            this.subscriptionPeriod = subscriptionPeriod;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -32342910;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a purchase of a gift to another user; for regular users and bots only.
+     */
+    public static class StarTransactionTypeGiftPurchase extends StarTransactionType {
+        /**
+         * Identifier of the user that received the gift.
+         */
+        public long userId;
+        /**
+         * The gift.
+         */
+        public Gift gift;
+
+        /**
+         * The transaction is a purchase of a gift to another user; for regular users and bots only.
+         */
+        public StarTransactionTypeGiftPurchase() {
+        }
+
+        /**
+         * The transaction is a purchase of a gift to another user; for regular users and bots only.
+         *
+         * @param userId Identifier of the user that received the gift.
+         * @param gift The gift.
+         */
+        public StarTransactionTypeGiftPurchase(long userId, Gift gift) {
+            this.userId = userId;
+            this.gift = gift;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -278979246;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a sale of a gift received from another user or bot; for regular users only.
+     */
+    public static class StarTransactionTypeGiftSale extends StarTransactionType {
+        /**
+         * Identifier of the user that sent the gift.
+         */
+        public long userId;
+        /**
+         * The gift.
+         */
+        public Gift gift;
+
+        /**
+         * The transaction is a sale of a gift received from another user or bot; for regular users only.
+         */
+        public StarTransactionTypeGiftSale() {
+        }
+
+        /**
+         * The transaction is a sale of a gift received from another user or bot; for regular users only.
+         *
+         * @param userId Identifier of the user that sent the gift.
+         * @param gift The gift.
+         */
+        public StarTransactionTypeGiftSale(long userId, Gift gift) {
+            this.userId = userId;
+            this.gift = gift;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1691750743;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a sending of a paid reaction to a message in a channel chat by the current user; for regular users only.
+     */
+    public static class StarTransactionTypeChannelPaidReactionSend extends StarTransactionType {
+        /**
+         * Identifier of the channel chat.
+         */
+        public long chatId;
+        /**
+         * Identifier of the reacted message; can be 0 or an identifier of a deleted message.
+         */
+        public long messageId;
+
+        /**
+         * The transaction is a sending of a paid reaction to a message in a channel chat by the current user; for regular users only.
+         */
+        public StarTransactionTypeChannelPaidReactionSend() {
+        }
+
+        /**
+         * The transaction is a sending of a paid reaction to a message in a channel chat by the current user; for regular users only.
+         *
+         * @param chatId Identifier of the channel chat.
+         * @param messageId Identifier of the reacted message; can be 0 or an identifier of a deleted message.
+         */
+        public StarTransactionTypeChannelPaidReactionSend(long chatId, long messageId) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1071224896;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a receiving of a paid reaction to a message by the channel chat; for channel chats only.
+     */
+    public static class StarTransactionTypeChannelPaidReactionReceive extends StarTransactionType {
+        /**
+         * Identifier of the user that added the paid reaction.
+         */
+        public long userId;
+        /**
+         * Identifier of the reacted message; can be 0 or an identifier of a deleted message.
+         */
+        public long messageId;
+
+        /**
+         * The transaction is a receiving of a paid reaction to a message by the channel chat; for channel chats only.
+         */
+        public StarTransactionTypeChannelPaidReactionReceive() {
+        }
+
+        /**
+         * The transaction is a receiving of a paid reaction to a message by the channel chat; for channel chats only.
+         *
+         * @param userId Identifier of the user that added the paid reaction.
+         * @param messageId Identifier of the reacted message; can be 0 or an identifier of a deleted message.
+         */
+        public StarTransactionTypeChannelPaidReactionReceive(long userId, long messageId) {
+            this.userId = userId;
+            this.messageId = messageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 601291243;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a receiving of a commission from an affiliate program; for regular users, bots and channel chats only.
+     */
+    public static class StarTransactionTypeAffiliateProgramCommission extends StarTransactionType {
+        /**
+         * Identifier of the chat that created the affiliate program.
+         */
+        public long chatId;
+        /**
+         * The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner.
+         */
+        public int commissionPerMille;
+
+        /**
+         * The transaction is a receiving of a commission from an affiliate program; for regular users, bots and channel chats only.
+         */
+        public StarTransactionTypeAffiliateProgramCommission() {
+        }
+
+        /**
+         * The transaction is a receiving of a commission from an affiliate program; for regular users, bots and channel chats only.
+         *
+         * @param chatId Identifier of the chat that created the affiliate program.
+         * @param commissionPerMille The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the program owner.
+         */
+        public StarTransactionTypeAffiliateProgramCommission(long chatId, int commissionPerMille) {
+            this.chatId = chatId;
+            this.commissionPerMille = commissionPerMille;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1704757901;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction is a transaction of an unsupported type.
+     */
+    public static class StarTransactionTypeUnsupported extends StarTransactionType {
+
+        /**
+         * The transaction is a transaction of an unsupported type.
+         */
+        public StarTransactionTypeUnsupported() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1993329330;
 
         /**
          * @return this.CONSTRUCTOR
@@ -60123,7 +61112,7 @@ public class TdApi {
         /**
          * The amount of owned Telegram Stars.
          */
-        public long starCount;
+        public StarAmount starAmount;
         /**
          * List of transactions with Telegram Stars.
          */
@@ -60142,12 +61131,12 @@ public class TdApi {
         /**
          * Represents a list of Telegram Star transactions.
          *
-         * @param starCount The amount of owned Telegram Stars.
+         * @param starAmount The amount of owned Telegram Stars.
          * @param transactions List of transactions with Telegram Stars.
          * @param nextOffset The offset for the next request. If empty, then there are no more results.
          */
-        public StarTransactions(long starCount, StarTransaction[] transactions, String nextOffset) {
-            this.starCount = starCount;
+        public StarTransactions(StarAmount starAmount, StarTransaction[] transactions, String nextOffset) {
+            this.starAmount = starAmount;
             this.transactions = transactions;
             this.nextOffset = nextOffset;
         }
@@ -60155,7 +61144,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1305722959;
+        public static final int CONSTRUCTOR = 1218437859;
 
         /**
          * @return this.CONSTRUCTOR
@@ -64834,12 +65823,12 @@ public class TdApi {
     }
 
     /**
-     * The currently opened chat needs to be kept.
+     * The currently opened chat and forum topic must be kept.
      */
     public static class TargetChatCurrent extends TargetChat {
 
         /**
-         * The currently opened chat needs to be kept.
+         * The currently opened chat and forum topic must be kept.
          */
         public TargetChatCurrent() {
         }
@@ -72508,7 +73497,7 @@ public class TdApi {
          */
         public AccentColor[] colors;
         /**
-         * The list of accent color identifiers, which can be set through setAccentColor and setChatAccentColor. The colors must be shown in the specififed order.
+         * The list of accent color identifiers, which can be set through setAccentColor and setChatAccentColor. The colors must be shown in the specified order.
          */
         public int[] availableAccentColorIds;
 
@@ -72522,7 +73511,7 @@ public class TdApi {
          * The list of supported accent colors has changed.
          *
          * @param colors Information about supported colors; colors with identifiers 0 (red), 1 (orange), 2 (purple/violet), 3 (green), 4 (cyan), 5 (blue), 6 (pink) must always be supported and aren't included in the list. The exact colors for the accent colors with identifiers 0-6 must be taken from the app theme.
-         * @param availableAccentColorIds The list of accent color identifiers, which can be set through setAccentColor and setChatAccentColor. The colors must be shown in the specififed order.
+         * @param availableAccentColorIds The list of accent color identifiers, which can be set through setAccentColor and setChatAccentColor. The colors must be shown in the specified order.
          */
         public UpdateAccentColors(AccentColor[] colors, int[] availableAccentColorIds) {
             this.colors = colors;
@@ -72552,7 +73541,7 @@ public class TdApi {
          */
         public ProfileAccentColor[] colors;
         /**
-         * The list of accent color identifiers, which can be set through setProfileAccentColor and setChatProfileAccentColor. The colors must be shown in the specififed order.
+         * The list of accent color identifiers, which can be set through setProfileAccentColor and setChatProfileAccentColor. The colors must be shown in the specified order.
          */
         public int[] availableAccentColorIds;
 
@@ -72566,7 +73555,7 @@ public class TdApi {
          * The list of supported accent colors for user profiles has changed.
          *
          * @param colors Information about supported colors.
-         * @param availableAccentColorIds The list of accent color identifiers, which can be set through setProfileAccentColor and setChatProfileAccentColor. The colors must be shown in the specififed order.
+         * @param availableAccentColorIds The list of accent color identifiers, which can be set through setProfileAccentColor and setChatProfileAccentColor. The colors must be shown in the specified order.
          */
         public UpdateProfileAccentColors(ProfileAccentColor[] colors, int[] availableAccentColorIds) {
             this.colors = colors;
@@ -73040,9 +74029,9 @@ public class TdApi {
      */
     public static class UpdateOwnedStarCount extends Update {
         /**
-         * The new number of Telegram Stars owned.
+         * The new amount of owned Telegram Stars.
          */
-        public long starCount;
+        public StarAmount starAmount;
 
         /**
          * The number of Telegram Stars owned by the current user has changed.
@@ -73053,16 +74042,16 @@ public class TdApi {
         /**
          * The number of Telegram Stars owned by the current user has changed.
          *
-         * @param starCount The new number of Telegram Stars owned.
+         * @param starAmount The new amount of owned Telegram Stars.
          */
-        public UpdateOwnedStarCount(long starCount) {
-            this.starCount = starCount;
+        public UpdateOwnedStarCount(StarAmount starAmount) {
+            this.starAmount = starAmount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -560374919;
+        public static final int CONSTRUCTOR = -1350647928;
 
         /**
          * @return this.CONSTRUCTOR
@@ -76262,149 +77251,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1257366487;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * This class is an abstract base class.
-     * Describes purpose of a transaction with a user.
-     */
-    public abstract static class UserTransactionPurpose extends Object {
-        /**
-         * Describes possible values returned by getConstructor().
-         */
-        @Retention(RetentionPolicy.SOURCE)
-        @IntDef({
-            UserTransactionPurposeGiftedStars.CONSTRUCTOR,
-            UserTransactionPurposeGiftSell.CONSTRUCTOR,
-            UserTransactionPurposeGiftSend.CONSTRUCTOR
-        })
-        public @interface Constructors {}
-
-        /**
-         * @return identifier uniquely determining type of the object.
-         */
-        @Constructors
-        @Override
-        public abstract int getConstructor();
-        /**
-         * Default class constructor.
-         */
-        public UserTransactionPurpose() {
-        }
-    }
-
-    /**
-     * A user gifted Telegram Stars.
-     */
-    public static class UserTransactionPurposeGiftedStars extends UserTransactionPurpose {
-        /**
-         * A sticker to be shown in the transaction information; may be null if unknown.
-         */
-        @Nullable public Sticker sticker;
-
-        /**
-         * A user gifted Telegram Stars.
-         */
-        public UserTransactionPurposeGiftedStars() {
-        }
-
-        /**
-         * A user gifted Telegram Stars.
-         *
-         * @param sticker A sticker to be shown in the transaction information; may be null if unknown.
-         */
-        public UserTransactionPurposeGiftedStars(Sticker sticker) {
-            this.sticker = sticker;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 33240065;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The user sold a gift received from another user or bot.
-     */
-    public static class UserTransactionPurposeGiftSell extends UserTransactionPurpose {
-        /**
-         * The gift.
-         */
-        public Gift gift;
-
-        /**
-         * The user sold a gift received from another user or bot.
-         */
-        public UserTransactionPurposeGiftSell() {
-        }
-
-        /**
-         * The user sold a gift received from another user or bot.
-         *
-         * @param gift The gift.
-         */
-        public UserTransactionPurposeGiftSell(Gift gift) {
-            this.gift = gift;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 425708942;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * The user or the bot sent a gift to a user.
-     */
-    public static class UserTransactionPurposeGiftSend extends UserTransactionPurpose {
-        /**
-         * The gift.
-         */
-        public Gift gift;
-
-        /**
-         * The user or the bot sent a gift to a user.
-         */
-        public UserTransactionPurposeGiftSend() {
-        }
-
-        /**
-         * The user or the bot sent a gift to a user.
-         *
-         * @param gift The gift.
-         */
-        public UserTransactionPurposeGiftSend(Gift gift) {
-            this.gift = gift;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1284614945;
 
         /**
          * @return this.CONSTRUCTOR
@@ -81710,6 +82556,56 @@ public class TdApi {
     }
 
     /**
+     * Connects an affiliate program to the given chat. Returns information about the connected affiliate program.
+     *
+     * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+     */
+    public static class ConnectChatAffiliateProgram extends Function<ChatAffiliateProgram> {
+        /**
+         * Identifier of the chat to which the affiliate program will be connected. Can be an identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel chat with canPostMessages administrator right.
+         */
+        public long chatId;
+        /**
+         * Identifier of the bot, which affiliate program is connected.
+         */
+        public long botUserId;
+
+        /**
+         * Default constructor for a function, which connects an affiliate program to the given chat. Returns information about the connected affiliate program.
+         *
+         * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+         */
+        public ConnectChatAffiliateProgram() {
+        }
+
+        /**
+         * Creates a function, which connects an affiliate program to the given chat. Returns information about the connected affiliate program.
+         *
+         * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+         *
+         * @param chatId Identifier of the chat to which the affiliate program will be connected. Can be an identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel chat with canPostMessages administrator right.
+         * @param botUserId Identifier of the bot, which affiliate program is connected.
+         */
+        public ConnectChatAffiliateProgram(long chatId, long botUserId) {
+            this.chatId = chatId;
+            this.botUserId = botUserId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1974559684;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns an existing chat corresponding to a known basic group.
      *
      * <p> Returns {@link Chat Chat} </p>
@@ -82662,7 +83558,7 @@ public class TdApi {
          */
         public int startDate;
         /**
-         * Pass true to create an RTMP stream instead of an ordinary video chat; requires owner privileges.
+         * Pass true to create an RTMP stream instead of an ordinary video chat.
          */
         public boolean isRtmpStream;
 
@@ -82682,7 +83578,7 @@ public class TdApi {
          * @param chatId Identifier of a chat in which the video chat will be created.
          * @param title Group call title; if empty, chat title will be used.
          * @param startDate Point in time (Unix timestamp) when the group call is expected to be started by an administrator; 0 to start the video chat immediately. The date must be at least 10 seconds and at most 8 days in the future.
-         * @param isRtmpStream Pass true to create an RTMP stream instead of an ordinary video chat; requires owner privileges.
+         * @param isRtmpStream Pass true to create an RTMP stream instead of an ordinary video chat.
          */
         public CreateVideoChat(long chatId, String title, int startDate, boolean isRtmpStream) {
             this.chatId = chatId;
@@ -84366,6 +85262,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1082985981;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Disconnects an affiliate program from the given chat and immediately deactivates its referral link. Returns updated information about the disconnected affiliate program.
+     *
+     * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+     */
+    public static class DisconnectChatAffiliateProgram extends Function<ChatAffiliateProgram> {
+        /**
+         * Identifier of the chat for which the affiliate program is connected.
+         */
+        public long chatId;
+        /**
+         * The referral link of the affiliate program.
+         */
+        public String url;
+
+        /**
+         * Default constructor for a function, which disconnects an affiliate program from the given chat and immediately deactivates its referral link. Returns updated information about the disconnected affiliate program.
+         *
+         * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+         */
+        public DisconnectChatAffiliateProgram() {
+        }
+
+        /**
+         * Creates a function, which disconnects an affiliate program from the given chat and immediately deactivates its referral link. Returns updated information about the disconnected affiliate program.
+         *
+         * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+         *
+         * @param chatId Identifier of the chat for which the affiliate program is connected.
+         * @param url The referral link of the affiliate program.
+         */
+        public DisconnectChatAffiliateProgram(long chatId, String url) {
+            this.chatId = chatId;
+            this.url = url;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1223651927;
 
         /**
          * @return this.CONSTRUCTOR
@@ -88144,6 +89090,112 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1544468155;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns an affiliate program that were connected to the given chat by identifier of the bot that created the program.
+     *
+     * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+     */
+    public static class GetChatAffiliateProgram extends Function<ChatAffiliateProgram> {
+        /**
+         * Identifier of the chat for which the affiliate program was connected. Can be an identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel chat with canPostMessages administrator right.
+         */
+        public long chatId;
+        /**
+         * Identifier of the bot that created the program.
+         */
+        public long botUserId;
+
+        /**
+         * Default constructor for a function, which returns an affiliate program that were connected to the given chat by identifier of the bot that created the program.
+         *
+         * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+         */
+        public GetChatAffiliateProgram() {
+        }
+
+        /**
+         * Creates a function, which returns an affiliate program that were connected to the given chat by identifier of the bot that created the program.
+         *
+         * <p> Returns {@link ChatAffiliateProgram ChatAffiliateProgram} </p>
+         *
+         * @param chatId Identifier of the chat for which the affiliate program was connected. Can be an identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel chat with canPostMessages administrator right.
+         * @param botUserId Identifier of the bot that created the program.
+         */
+        public GetChatAffiliateProgram(long chatId, long botUserId) {
+            this.chatId = chatId;
+            this.botUserId = botUserId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1858642842;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns affiliate programs that were connected to the given chat.
+     *
+     * <p> Returns {@link ChatAffiliatePrograms ChatAffiliatePrograms} </p>
+     */
+    public static class GetChatAffiliatePrograms extends Function<ChatAffiliatePrograms> {
+        /**
+         * Identifier of the chat for which the affiliate programs were connected. Can be an identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel chat with canPostMessages administrator right.
+         */
+        public long chatId;
+        /**
+         * Offset of the first affiliate program to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of affiliate programs to return.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns affiliate programs that were connected to the given chat.
+         *
+         * <p> Returns {@link ChatAffiliatePrograms ChatAffiliatePrograms} </p>
+         */
+        public GetChatAffiliatePrograms() {
+        }
+
+        /**
+         * Creates a function, which returns affiliate programs that were connected to the given chat.
+         *
+         * <p> Returns {@link ChatAffiliatePrograms ChatAffiliatePrograms} </p>
+         *
+         * @param chatId Identifier of the chat for which the affiliate programs were connected. Can be an identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel chat with canPostMessages administrator right.
+         * @param offset Offset of the first affiliate program to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of affiliate programs to return.
+         */
+        public GetChatAffiliatePrograms(long chatId, String offset, int limit) {
+            this.chatId = chatId;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -102804911;
 
         /**
          * @return this.CONSTRUCTOR
@@ -94553,6 +95605,35 @@ public class TdApi {
     }
 
     /**
+     * Returns the list of bots owned by the current user.
+     *
+     * <p> Returns {@link Users Users} </p>
+     */
+    public static class GetOwnedBots extends Function<Users> {
+
+        /**
+         * Default constructor for a function, which returns the list of bots owned by the current user.
+         *
+         * <p> Returns {@link Users Users} </p>
+         */
+        public GetOwnedBots() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1954035715;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns sticker sets owned by the current user.
      *
      * <p> Returns {@link StickerSets StickerSets} </p>
@@ -95378,7 +96459,7 @@ public class TdApi {
     }
 
     /**
-     * Saves an inline message to be sent by the given user; for bots only.
+     * Saves an inline message to be sent by the given user.
      *
      * <p> Returns {@link PreparedInlineMessage PreparedInlineMessage} </p>
      */
@@ -95393,7 +96474,7 @@ public class TdApi {
         public String preparedMessageId;
 
         /**
-         * Default constructor for a function, which saves an inline message to be sent by the given user; for bots only.
+         * Default constructor for a function, which saves an inline message to be sent by the given user.
          *
          * <p> Returns {@link PreparedInlineMessage PreparedInlineMessage} </p>
          */
@@ -95401,7 +96482,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which saves an inline message to be sent by the given user; for bots only.
+         * Creates a function, which saves an inline message to be sent by the given user.
          *
          * <p> Returns {@link PreparedInlineMessage PreparedInlineMessage} </p>
          *
@@ -103829,6 +104910,68 @@ public class TdApi {
     }
 
     /**
+     * Searches affiliate programs that can be applied to the given chat.
+     *
+     * <p> Returns {@link FoundAffiliatePrograms FoundAffiliatePrograms} </p>
+     */
+    public static class SearchAffiliatePrograms extends Function<FoundAffiliatePrograms> {
+        /**
+         * Identifier of the chat for which affiliate programs are searched for. Can be an identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel chat with canPostMessages administrator right.
+         */
+        public long chatId;
+        /**
+         * Sort order for the results.
+         */
+        public AffiliateProgramSortOrder sortOrder;
+        /**
+         * Offset of the first affiliate program to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of affiliate programs to return.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which searches affiliate programs that can be applied to the given chat.
+         *
+         * <p> Returns {@link FoundAffiliatePrograms FoundAffiliatePrograms} </p>
+         */
+        public SearchAffiliatePrograms() {
+        }
+
+        /**
+         * Creates a function, which searches affiliate programs that can be applied to the given chat.
+         *
+         * <p> Returns {@link FoundAffiliatePrograms FoundAffiliatePrograms} </p>
+         *
+         * @param chatId Identifier of the chat for which affiliate programs are searched for. Can be an identifier of the Saved Messages chat, of a chat with an owned bot, or of a channel chat with canPostMessages administrator right.
+         * @param sortOrder Sort order for the results.
+         * @param offset Offset of the first affiliate program to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of affiliate programs to return.
+         */
+        public SearchAffiliatePrograms(long chatId, AffiliateProgramSortOrder sortOrder, String offset, int limit) {
+            this.chatId = chatId;
+            this.sortOrder = sortOrder;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1635555148;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Searches for a background by its name.
      *
      * <p> Returns {@link Background Background} </p>
@@ -103918,6 +105061,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1942229221;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Searches a chat with an affiliate program. Returns the chat if found and the program is active.
+     *
+     * <p> Returns {@link Chat Chat} </p>
+     */
+    public static class SearchChatAffiliateProgram extends Function<Chat> {
+        /**
+         * Username of the chat.
+         */
+        public String username;
+        /**
+         * The referrer from an internalLinkTypeChatAffiliateProgram link.
+         */
+        public String referrer;
+
+        /**
+         * Default constructor for a function, which searches a chat with an affiliate program. Returns the chat if found and the program is active.
+         *
+         * <p> Returns {@link Chat Chat} </p>
+         */
+        public SearchChatAffiliateProgram() {
+        }
+
+        /**
+         * Creates a function, which searches a chat with an affiliate program. Returns the chat if found and the program is active.
+         *
+         * <p> Returns {@link Chat Chat} </p>
+         *
+         * @param username Username of the chat.
+         * @param referrer The referrer from an internalLinkTypeChatAffiliateProgram link.
+         */
+        public SearchChatAffiliateProgram(String username, String referrer) {
+            this.username = username;
+            this.referrer = referrer;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1339291206;
 
         /**
          * @return this.CONSTRUCTOR
@@ -105325,9 +106518,21 @@ public class TdApi {
          */
         public StickerType stickerType;
         /**
-         * Space-separated list of emojis to search for; must be non-empty.
+         * Space-separated list of emojis to search for.
          */
         public String emojis;
+        /**
+         * Query to search for; may be empty to search for emoji only.
+         */
+        public String query;
+        /**
+         * List of possible IETF language tags of the user's input language; may be empty if unknown.
+         */
+        public String[] inputLanguageCodes;
+        /**
+         * The offset from which to return the stickers; must be non-negative.
+         */
+        public int offset;
         /**
          * The maximum number of stickers to be returned; 0-100.
          */
@@ -105347,19 +106552,25 @@ public class TdApi {
          * <p> Returns {@link Stickers Stickers} </p>
          *
          * @param stickerType Type of the stickers to return.
-         * @param emojis Space-separated list of emojis to search for; must be non-empty.
+         * @param emojis Space-separated list of emojis to search for.
+         * @param query Query to search for; may be empty to search for emoji only.
+         * @param inputLanguageCodes List of possible IETF language tags of the user's input language; may be empty if unknown.
+         * @param offset The offset from which to return the stickers; must be non-negative.
          * @param limit The maximum number of stickers to be returned; 0-100.
          */
-        public SearchStickers(StickerType stickerType, String emojis, int limit) {
+        public SearchStickers(StickerType stickerType, String emojis, String query, String[] inputLanguageCodes, int offset, int limit) {
             this.stickerType = stickerType;
             this.emojis = emojis;
+            this.query = query;
+            this.inputLanguageCodes = inputLanguageCodes;
+            this.offset = offset;
             this.limit = limit;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1709577973;
+        public static final int CONSTRUCTOR = -1856294754;
 
         /**
          * @return this.CONSTRUCTOR
@@ -108232,6 +109443,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -521970415;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes affiliate program for a bot.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetChatAffiliateProgram extends Function<Ok> {
+        /**
+         * Identifier of the chat with an owned bot for which affiliate program is changed.
+         */
+        public long chatId;
+        /**
+         * Parameters of the affiliate program; pass null to close the currently active program. If there is an active program, then commission and program duration can only be increased. If the active program is scheduled to be closed, then it can't be changed anymore.
+         */
+        public AffiliateProgramParameters parameters;
+
+        /**
+         * Default constructor for a function, which changes affiliate program for a bot.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetChatAffiliateProgram() {
+        }
+
+        /**
+         * Creates a function, which changes affiliate program for a bot.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the chat with an owned bot for which affiliate program is changed.
+         * @param parameters Parameters of the affiliate program; pass null to close the currently active program. If there is an active program, then commission and program duration can only be increased. If the active program is scheduled to be closed, then it can't be changed anymore.
+         */
+        public SetChatAffiliateProgram(long chatId, AffiliateProgramParameters parameters) {
+            this.chatId = chatId;
+            this.parameters = parameters;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 14680631;
 
         /**
          * @return this.CONSTRUCTOR
@@ -111969,7 +113230,7 @@ public class TdApi {
          */
         public int storyId;
         /**
-         * The new privacy settigs for the story.
+         * The new privacy settings for the story.
          */
         public StoryPrivacySettings privacySettings;
 
@@ -111987,7 +113248,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param storyId Identifier of the story.
-         * @param privacySettings The new privacy settigs for the story.
+         * @param privacySettings The new privacy settings for the story.
          */
         public SetStoryPrivacySettings(int storyId, StoryPrivacySettings privacySettings) {
             this.storyId = storyId;
