@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "c85b20a41a9d2d18abf340bed98daa3079641643";
+    private static final String GIT_COMMIT_HASH = "53acb2b5343511432db5aa2091937c3d294c7faa";
 
     private TdApi() {
     }
@@ -75731,23 +75731,23 @@ public class TdApi {
          */
         @Nullable public ProfilePhoto profilePhoto;
         /**
-         * Identifier of the accent color for name, and backgrounds of profile photo, reply header, and link preview. For Telegram Premium users only.
+         * Identifier of the accent color for name, and backgrounds of profile photo, reply header, and link preview.
          */
         public int accentColorId;
         /**
-         * Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none. For Telegram Premium users only.
+         * Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none.
          */
         public long backgroundCustomEmojiId;
         /**
-         * Identifier of the accent color for the user's profile; -1 if none. For Telegram Premium users only.
+         * Identifier of the accent color for the user's profile; -1 if none.
          */
         public int profileAccentColorId;
         /**
-         * Identifier of a custom emoji to be shown on the background of the user's profile; 0 if none. For Telegram Premium users only.
+         * Identifier of a custom emoji to be shown on the background of the user's profile; 0 if none.
          */
         public long profileBackgroundCustomEmojiId;
         /**
-         * Emoji status to be shown instead of the default Telegram Premium badge; may be null. For Telegram Premium users only.
+         * Emoji status to be shown instead of the default Telegram Premium badge; may be null.
          */
         @Nullable public EmojiStatus emojiStatus;
         /**
@@ -75831,11 +75831,11 @@ public class TdApi {
          * @param phoneNumber Phone number of the user.
          * @param status Current online status of the user.
          * @param profilePhoto Profile photo of the user; may be null.
-         * @param accentColorId Identifier of the accent color for name, and backgrounds of profile photo, reply header, and link preview. For Telegram Premium users only.
-         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none. For Telegram Premium users only.
-         * @param profileAccentColorId Identifier of the accent color for the user's profile; -1 if none. For Telegram Premium users only.
-         * @param profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown on the background of the user's profile; 0 if none. For Telegram Premium users only.
-         * @param emojiStatus Emoji status to be shown instead of the default Telegram Premium badge; may be null. For Telegram Premium users only.
+         * @param accentColorId Identifier of the accent color for name, and backgrounds of profile photo, reply header, and link preview.
+         * @param backgroundCustomEmojiId Identifier of a custom emoji to be shown on the reply header and link preview background; 0 if none.
+         * @param profileAccentColorId Identifier of the accent color for the user's profile; -1 if none.
+         * @param profileBackgroundCustomEmojiId Identifier of a custom emoji to be shown on the background of the user's profile; 0 if none.
+         * @param emojiStatus Emoji status to be shown instead of the default Telegram Premium badge; may be null.
          * @param isContact The user is a contact of the current user.
          * @param isMutualContact The user is a contact of the current user and the current user is a contact of the user.
          * @param isCloseFriend The user is a close friend of the current user; implies that the user is a contact.
