@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "2be9e799a2bc523550d4f83f4d2d66d41c9573b9";
+    private static final String GIT_COMMIT_HASH = "28c6f2e9c045372d50217919bf5768b7fbbe0294";
 
     private TdApi() {
     }
@@ -263,6 +263,8 @@ public class TdApi {
             GetBotMediaPreviewInfo.CONSTRUCTOR,
             GetBotMediaPreviews.CONSTRUCTOR,
             GetBotName.CONSTRUCTOR,
+            GetBotSimilarBotCount.CONSTRUCTOR,
+            GetBotSimilarBots.CONSTRUCTOR,
             GetBusinessChatLinkInfo.CONSTRUCTOR,
             GetBusinessChatLinks.CONSTRUCTOR,
             GetBusinessConnectedBot.CONSTRUCTOR,
@@ -436,6 +438,8 @@ public class TdApi {
             GetProxyLink.CONSTRUCTOR,
             GetPushReceiverId.CONSTRUCTOR,
             GetReadDatePrivacySettings.CONSTRUCTOR,
+            GetReceivedGift.CONSTRUCTOR,
+            GetReceivedGifts.CONSTRUCTOR,
             GetRecentEmojiStatuses.CONSTRUCTOR,
             GetRecentInlineBots.CONSTRUCTOR,
             GetRecentStickers.CONSTRUCTOR,
@@ -495,11 +499,12 @@ public class TdApi {
             GetTimeZones.CONSTRUCTOR,
             GetTopChats.CONSTRUCTOR,
             GetTrendingStickerSets.CONSTRUCTOR,
+            GetUpgradedGift.CONSTRUCTOR,
+            GetUpgradedGiftEmojiStatuses.CONSTRUCTOR,
+            GetUpgradedGiftWithdrawalUrl.CONSTRUCTOR,
             GetUser.CONSTRUCTOR,
             GetUserChatBoosts.CONSTRUCTOR,
             GetUserFullInfo.CONSTRUCTOR,
-            GetUserGift.CONSTRUCTOR,
-            GetUserGifts.CONSTRUCTOR,
             GetUserLink.CONSTRUCTOR,
             GetUserPrivacySettingRules.CONSTRUCTOR,
             GetUserProfilePhotos.CONSTRUCTOR,
@@ -528,6 +533,7 @@ public class TdApi {
             LoadQuickReplyShortcuts.CONSTRUCTOR,
             LoadSavedMessagesTopics.CONSTRUCTOR,
             LogOut.CONSTRUCTOR,
+            OpenBotSimilarBot.CONSTRUCTOR,
             OpenChat.CONSTRUCTOR,
             OpenChatSimilarChat.CONSTRUCTOR,
             OpenMessageContent.CONSTRUCTOR,
@@ -818,6 +824,7 @@ public class TdApi {
             ToggleBusinessConnectedBotChatIsPaused.CONSTRUCTOR,
             ToggleChatDefaultDisableNotification.CONSTRUCTOR,
             ToggleChatFolderTags.CONSTRUCTOR,
+            ToggleChatGiftNotifications.CONSTRUCTOR,
             ToggleChatHasProtectedContent.CONSTRUCTOR,
             ToggleChatIsMarkedAsUnread.CONSTRUCTOR,
             ToggleChatIsPinned.CONSTRUCTOR,
@@ -5154,7 +5161,7 @@ public class TdApi {
          */
         public long iconCustomEmojiId;
         /**
-         * Custom description of verification reason set by the bot.
+         * Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, Url, and EmailAddress entities.
          */
         public FormattedText customDescription;
 
@@ -5169,7 +5176,7 @@ public class TdApi {
          *
          * @param botUserId Identifier of the bot that provided the verification.
          * @param iconCustomEmojiId Identifier of the custom emoji that is used as the verification sign.
-         * @param customDescription Custom description of verification reason set by the bot.
+         * @param customDescription Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, Url, and EmailAddress entities.
          */
         public BotVerification(long botUserId, long iconCustomEmojiId, FormattedText customDescription) {
             this.botUserId = botUserId;
@@ -20171,39 +20178,39 @@ public class TdApi {
     }
 
     /**
-     * Describes a custom emoji to be shown instead of the Telegram Premium badge.
+     * Describes an emoji to be shown instead of the Telegram Premium badge.
      */
     public static class EmojiStatus extends Object {
         /**
-         * Identifier of the custom emoji in stickerFormatTgs format.
+         * Type of the emoji status.
          */
-        public long customEmojiId;
+        public EmojiStatusType type;
         /**
          * Point in time (Unix timestamp) when the status will expire; 0 if never.
          */
         public int expirationDate;
 
         /**
-         * Describes a custom emoji to be shown instead of the Telegram Premium badge.
+         * Describes an emoji to be shown instead of the Telegram Premium badge.
          */
         public EmojiStatus() {
         }
 
         /**
-         * Describes a custom emoji to be shown instead of the Telegram Premium badge.
+         * Describes an emoji to be shown instead of the Telegram Premium badge.
          *
-         * @param customEmojiId Identifier of the custom emoji in stickerFormatTgs format.
+         * @param type Type of the emoji status.
          * @param expirationDate Point in time (Unix timestamp) when the status will expire; 0 if never.
          */
-        public EmojiStatus(long customEmojiId, int expirationDate) {
-            this.customEmojiId = customEmojiId;
+        public EmojiStatus(EmojiStatusType type, int expirationDate) {
+            this.type = type;
             this.expirationDate = expirationDate;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -606529994;
+        public static final int CONSTRUCTOR = 973424912;
 
         /**
          * @return this.CONSTRUCTOR
@@ -20217,7 +20224,7 @@ public class TdApi {
     /**
      * Contains a list of custom emoji identifiers for emoji statuses.
      */
-    public static class EmojiStatuses extends Object {
+    public static class EmojiStatusCustomEmojis extends Object {
         /**
          * The list of custom emoji identifiers.
          */
@@ -20226,7 +20233,7 @@ public class TdApi {
         /**
          * Contains a list of custom emoji identifiers for emoji statuses.
          */
-        public EmojiStatuses() {
+        public EmojiStatusCustomEmojis() {
         }
 
         /**
@@ -20234,14 +20241,186 @@ public class TdApi {
          *
          * @param customEmojiIds The list of custom emoji identifiers.
          */
-        public EmojiStatuses(long[] customEmojiIds) {
+        public EmojiStatusCustomEmojis(long[] customEmojiIds) {
             this.customEmojiIds = customEmojiIds;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -377859594;
+        public static final int CONSTRUCTOR = 917123337;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes type of emoji status.
+     */
+    public abstract static class EmojiStatusType extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            EmojiStatusTypeCustomEmoji.CONSTRUCTOR,
+            EmojiStatusTypeUpgradedGift.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public EmojiStatusType() {
+        }
+    }
+
+    /**
+     * A custom emoji set as emoji status.
+     */
+    public static class EmojiStatusTypeCustomEmoji extends EmojiStatusType {
+        /**
+         * Identifier of the custom emoji in stickerFormatTgs format.
+         */
+        public long customEmojiId;
+
+        /**
+         * A custom emoji set as emoji status.
+         */
+        public EmojiStatusTypeCustomEmoji() {
+        }
+
+        /**
+         * A custom emoji set as emoji status.
+         *
+         * @param customEmojiId Identifier of the custom emoji in stickerFormatTgs format.
+         */
+        public EmojiStatusTypeCustomEmoji(long customEmojiId) {
+            this.customEmojiId = customEmojiId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1666780939;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An upgraded gift set as emoji status.
+     */
+    public static class EmojiStatusTypeUpgradedGift extends EmojiStatusType {
+        /**
+         * Identifier of the upgraded gift.
+         */
+        public long upgradedGiftId;
+        /**
+         * The title of the upgraded gift.
+         */
+        public String giftTitle;
+        /**
+         * Unique name of the upgraded gift that can be used with internalLinkTypeUpgradedGift.
+         */
+        public String giftName;
+        /**
+         * Custom emoji identifier of the model of the upgraded gift.
+         */
+        public long modelCustomEmojiId;
+        /**
+         * Custom emoji identifier of the symbol of the upgraded gift.
+         */
+        public long symbolCustomEmojiId;
+        /**
+         * Colors of the backdrop of the upgraded gift.
+         */
+        public UpgradedGiftBackdropColors backdropColors;
+
+        /**
+         * An upgraded gift set as emoji status.
+         */
+        public EmojiStatusTypeUpgradedGift() {
+        }
+
+        /**
+         * An upgraded gift set as emoji status.
+         *
+         * @param upgradedGiftId Identifier of the upgraded gift.
+         * @param giftTitle The title of the upgraded gift.
+         * @param giftName Unique name of the upgraded gift that can be used with internalLinkTypeUpgradedGift.
+         * @param modelCustomEmojiId Custom emoji identifier of the model of the upgraded gift.
+         * @param symbolCustomEmojiId Custom emoji identifier of the symbol of the upgraded gift.
+         * @param backdropColors Colors of the backdrop of the upgraded gift.
+         */
+        public EmojiStatusTypeUpgradedGift(long upgradedGiftId, String giftTitle, String giftName, long modelCustomEmojiId, long symbolCustomEmojiId, UpgradedGiftBackdropColors backdropColors) {
+            this.upgradedGiftId = upgradedGiftId;
+            this.giftTitle = giftTitle;
+            this.giftName = giftName;
+            this.modelCustomEmojiId = modelCustomEmojiId;
+            this.symbolCustomEmojiId = symbolCustomEmojiId;
+            this.backdropColors = backdropColors;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -837921804;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of emoji statuses.
+     */
+    public static class EmojiStatuses extends Object {
+        /**
+         * The list of emoji statuses identifiers.
+         */
+        public EmojiStatus[] emojiStatuses;
+
+        /**
+         * Contains a list of emoji statuses.
+         */
+        public EmojiStatuses() {
+        }
+
+        /**
+         * Contains a list of emoji statuses.
+         *
+         * @param emojiStatuses The list of emoji statuses identifiers.
+         */
+        public EmojiStatuses(EmojiStatus[] emojiStatuses) {
+            this.emojiStatuses = emojiStatuses;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1186104146;
 
         /**
          * @return this.CONSTRUCTOR
@@ -22712,7 +22891,7 @@ public class TdApi {
     }
 
     /**
-     * Describes a gift that can be sent to another user.
+     * Describes a gift that can be sent to another user or channel chat.
      */
     public static class Gift extends Object {
         /**
@@ -22740,11 +22919,11 @@ public class TdApi {
          */
         public boolean isForBirthday;
         /**
-         * Number of remaining times the gift can be purchased by all users; 0 if not limited or the gift was sold out.
+         * Number of remaining times the gift can be purchased; 0 if not limited or the gift was sold out.
          */
         public int remainingCount;
         /**
-         * Number of total times the gift can be purchased by all users; 0 if not limited.
+         * Number of total times the gift can be purchased; 0 if not limited.
          */
         public int totalCount;
         /**
@@ -22757,13 +22936,13 @@ public class TdApi {
         public int lastSendDate;
 
         /**
-         * Describes a gift that can be sent to another user.
+         * Describes a gift that can be sent to another user or channel chat.
          */
         public Gift() {
         }
 
         /**
-         * Describes a gift that can be sent to another user.
+         * Describes a gift that can be sent to another user or channel chat.
          *
          * @param id Unique identifier of the gift.
          * @param sticker The sticker representing the gift.
@@ -22771,8 +22950,8 @@ public class TdApi {
          * @param defaultSellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift by default. If the gift was paid with just bought Telegram Stars, then full value can be claimed.
          * @param upgradeStarCount Number of Telegram Stars that must be paid to upgrade the gift; 0 if upgrade isn't possible.
          * @param isForBirthday True, if the gift is a birthday gift.
-         * @param remainingCount Number of remaining times the gift can be purchased by all users; 0 if not limited or the gift was sold out.
-         * @param totalCount Number of total times the gift can be purchased by all users; 0 if not limited.
+         * @param remainingCount Number of remaining times the gift can be purchased; 0 if not limited or the gift was sold out.
+         * @param totalCount Number of total times the gift can be purchased; 0 if not limited.
          * @param firstSendDate Point in time (Unix timestamp) when the gift was send for the first time; for sold out gifts only.
          * @param lastSendDate Point in time (Unix timestamp) when the gift was send for the last time; for sold out gifts only.
          */
@@ -22854,7 +23033,7 @@ public class TdApi {
     }
 
     /**
-     * Contains a list of gifts that can be sent to another user.
+     * Contains a list of gifts that can be sent to another user or channel chat.
      */
     public static class Gifts extends Object {
         /**
@@ -22863,13 +23042,13 @@ public class TdApi {
         public Gift[] gifts;
 
         /**
-         * Contains a list of gifts that can be sent to another user.
+         * Contains a list of gifts that can be sent to another user or channel chat.
          */
         public Gifts() {
         }
 
         /**
-         * Contains a list of gifts that can be sent to another user.
+         * Contains a list of gifts that can be sent to another user or channel chat.
          *
          * @param gifts The list of gifts.
          */
@@ -28138,6 +28317,14 @@ public class TdApi {
          */
         public InputThumbnail thumbnail;
         /**
+         * Cover of the video; pass null to skip cover uploading; not supported in secret chats and for self-destructing messages.
+         */
+        public InputFile cover;
+        /**
+         * Timestamp from which the video playing must start, in seconds.
+         */
+        public int startTimestamp;
+        /**
          * File identifiers of the stickers added to the video, if applicable.
          */
         public int[] addedStickerFileIds;
@@ -28185,6 +28372,8 @@ public class TdApi {
          *
          * @param video Video to be sent. The video is expected to be re-encoded to MPEG4 format with H.264 codec by the sender.
          * @param thumbnail Video thumbnail; pass null to skip thumbnail uploading.
+         * @param cover Cover of the video; pass null to skip cover uploading; not supported in secret chats and for self-destructing messages.
+         * @param startTimestamp Timestamp from which the video playing must start, in seconds.
          * @param addedStickerFileIds File identifiers of the stickers added to the video, if applicable.
          * @param duration Duration of the video, in seconds.
          * @param width Video width.
@@ -28195,9 +28384,11 @@ public class TdApi {
          * @param selfDestructType Video self-destruct type; pass null if none; private chats only.
          * @param hasSpoiler True, if the video preview must be covered by a spoiler animation; not supported in secret chats.
          */
-        public InputMessageVideo(InputFile video, InputThumbnail thumbnail, int[] addedStickerFileIds, int duration, int width, int height, boolean supportsStreaming, FormattedText caption, boolean showCaptionAboveMedia, MessageSelfDestructType selfDestructType, boolean hasSpoiler) {
+        public InputMessageVideo(InputFile video, InputThumbnail thumbnail, InputFile cover, int startTimestamp, int[] addedStickerFileIds, int duration, int width, int height, boolean supportsStreaming, FormattedText caption, boolean showCaptionAboveMedia, MessageSelfDestructType selfDestructType, boolean hasSpoiler) {
             this.video = video;
             this.thumbnail = thumbnail;
+            this.cover = cover;
+            this.startTimestamp = startTimestamp;
             this.addedStickerFileIds = addedStickerFileIds;
             this.duration = duration;
             this.width = width;
@@ -28212,7 +28403,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 615537686;
+        public static final int CONSTRUCTOR = -605958271;
 
         /**
          * @return this.CONSTRUCTOR
@@ -28808,9 +28999,17 @@ public class TdApi {
          */
         public long messageId;
         /**
-         * True, if a game message is being shared from a launched game; applies only to game messages.
+         * Pass true if a game message is being shared from a launched game; applies only to game messages.
          */
         public boolean inGameShare;
+        /**
+         * Pass true to replace video start timestamp in the forwarded message.
+         */
+        public boolean replaceVideoStartTimestamp;
+        /**
+         * The new video start timestamp; ignored if replaceVideoStartTimestamp == false.
+         */
+        public int newVideoStartTimestamp;
         /**
          * Options to be used to copy content of the message without reference to the original sender; pass null to forward the message as usual.
          */
@@ -28827,20 +29026,24 @@ public class TdApi {
          *
          * @param fromChatId Identifier for the chat this forwarded message came from.
          * @param messageId Identifier of the message to forward. A message can be forwarded only if messageProperties.canBeForwarded.
-         * @param inGameShare True, if a game message is being shared from a launched game; applies only to game messages.
+         * @param inGameShare Pass true if a game message is being shared from a launched game; applies only to game messages.
+         * @param replaceVideoStartTimestamp Pass true to replace video start timestamp in the forwarded message.
+         * @param newVideoStartTimestamp The new video start timestamp; ignored if replaceVideoStartTimestamp == false.
          * @param copyOptions Options to be used to copy content of the message without reference to the original sender; pass null to forward the message as usual.
          */
-        public InputMessageForwarded(long fromChatId, long messageId, boolean inGameShare, MessageCopyOptions copyOptions) {
+        public InputMessageForwarded(long fromChatId, long messageId, boolean inGameShare, boolean replaceVideoStartTimestamp, int newVideoStartTimestamp, MessageCopyOptions copyOptions) {
             this.fromChatId = fromChatId;
             this.messageId = messageId;
             this.inGameShare = inGameShare;
+            this.replaceVideoStartTimestamp = replaceVideoStartTimestamp;
+            this.newVideoStartTimestamp = newVideoStartTimestamp;
             this.copyOptions = copyOptions;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1696232440;
+        public static final int CONSTRUCTOR = -1076506316;
 
         /**
          * @return this.CONSTRUCTOR
@@ -29144,6 +29347,14 @@ public class TdApi {
      */
     public static class InputPaidMediaTypeVideo extends InputPaidMediaType {
         /**
+         * Cover of the video; pass null to skip cover uploading.
+         */
+        public InputFile cover;
+        /**
+         * Timestamp from which the video playing must start, in seconds.
+         */
+        public int startTimestamp;
+        /**
          * Duration of the video, in seconds.
          */
         public int duration;
@@ -29161,10 +29372,14 @@ public class TdApi {
         /**
          * The media is a video.
          *
+         * @param cover Cover of the video; pass null to skip cover uploading.
+         * @param startTimestamp Timestamp from which the video playing must start, in seconds.
          * @param duration Duration of the video, in seconds.
          * @param supportsStreaming True, if the video is expected to be streamed.
          */
-        public InputPaidMediaTypeVideo(int duration, boolean supportsStreaming) {
+        public InputPaidMediaTypeVideo(InputFile cover, int startTimestamp, int duration, boolean supportsStreaming) {
+            this.cover = cover;
+            this.startTimestamp = startTimestamp;
             this.duration = duration;
             this.supportsStreaming = supportsStreaming;
         }
@@ -29172,7 +29387,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1336673796;
+        public static final int CONSTRUCTOR = 1793741625;
 
         /**
          * @return this.CONSTRUCTOR
@@ -30315,7 +30530,8 @@ public class TdApi {
             InputStoryAreaTypeSuggestedReaction.CONSTRUCTOR,
             InputStoryAreaTypeMessage.CONSTRUCTOR,
             InputStoryAreaTypeLink.CONSTRUCTOR,
-            InputStoryAreaTypeWeather.CONSTRUCTOR
+            InputStoryAreaTypeWeather.CONSTRUCTOR,
+            InputStoryAreaTypeUpgradedGift.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -30647,11 +30863,49 @@ public class TdApi {
     }
 
     /**
+     * An area with an upgraded gift.
+     */
+    public static class InputStoryAreaTypeUpgradedGift extends InputStoryAreaType {
+        /**
+         * Unique name of the upgraded gift.
+         */
+        public String giftName;
+
+        /**
+         * An area with an upgraded gift.
+         */
+        public InputStoryAreaTypeUpgradedGift() {
+        }
+
+        /**
+         * An area with an upgraded gift.
+         *
+         * @param giftName Unique name of the upgraded gift.
+         */
+        public InputStoryAreaTypeUpgradedGift(String giftName) {
+            this.giftName = giftName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 793059694;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains a list of story areas to be added.
      */
     public static class InputStoryAreas extends Object {
         /**
-         * List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation, inputStoryAreaTypeFoundVenue, and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, up to 1 inputStoryAreaTypeMessage area, up to getOption(&quot;story_link_area_count_max&quot;) inputStoryAreaTypeLink areas if the current user is a Telegram Premium user, and up to 3 inputStoryAreaTypeWeather areas.
+         * List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation, inputStoryAreaTypeFoundVenue, and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, up to 1 inputStoryAreaTypeMessage area, up to getOption(&quot;story_link_area_count_max&quot;) inputStoryAreaTypeLink areas if the current user is a Telegram Premium user, up to 3 inputStoryAreaTypeWeather areas, and up to 1 inputStoryAreaTypeUpgradedGift area.
          */
         public InputStoryArea[] areas;
 
@@ -30664,7 +30918,7 @@ public class TdApi {
         /**
          * Contains a list of story areas to be added.
          *
-         * @param areas List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation, inputStoryAreaTypeFoundVenue, and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, up to 1 inputStoryAreaTypeMessage area, up to getOption(&quot;story_link_area_count_max&quot;) inputStoryAreaTypeLink areas if the current user is a Telegram Premium user, and up to 3 inputStoryAreaTypeWeather areas.
+         * @param areas List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation, inputStoryAreaTypeFoundVenue, and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, up to 1 inputStoryAreaTypeMessage area, up to getOption(&quot;story_link_area_count_max&quot;) inputStoryAreaTypeLink areas if the current user is a Telegram Premium user, up to 3 inputStoryAreaTypeWeather areas, and up to 1 inputStoryAreaTypeUpgradedGift area.
          */
         public InputStoryAreas(InputStoryArea[] areas) {
             this.areas = areas;
@@ -30964,6 +31218,7 @@ public class TdApi {
             InternalLinkTypeThemeSettings.CONSTRUCTOR,
             InternalLinkTypeUnknownDeepLink.CONSTRUCTOR,
             InternalLinkTypeUnsupportedProxy.CONSTRUCTOR,
+            InternalLinkTypeUpgradedGift.CONSTRUCTOR,
             InternalLinkTypeUserPhoneNumber.CONSTRUCTOR,
             InternalLinkTypeUserToken.CONSTRUCTOR,
             InternalLinkTypeVideoChat.CONSTRUCTOR,
@@ -32564,6 +32819,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -566649079;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to an upgraded gift. Call getUpgradedGift with the given name to process the link.
+     */
+    public static class InternalLinkTypeUpgradedGift extends InternalLinkType {
+        /**
+         * Name of the unique gift.
+         */
+        public String name;
+
+        /**
+         * The link is a link to an upgraded gift. Call getUpgradedGift with the given name to process the link.
+         */
+        public InternalLinkTypeUpgradedGift() {
+        }
+
+        /**
+         * The link is a link to an upgraded gift. Call getUpgradedGift with the given name to process the link.
+         *
+         * @param name Name of the unique gift.
+         */
+        public InternalLinkTypeUpgradedGift(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -708405605;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34422,6 +34715,7 @@ public class TdApi {
             LinkPreviewTypeSupergroupBoost.CONSTRUCTOR,
             LinkPreviewTypeTheme.CONSTRUCTOR,
             LinkPreviewTypeUnsupported.CONSTRUCTOR,
+            LinkPreviewTypeUpgradedGift.CONSTRUCTOR,
             LinkPreviewTypeUser.CONSTRUCTOR,
             LinkPreviewTypeVideo.CONSTRUCTOR,
             LinkPreviewTypeVideoChat.CONSTRUCTOR,
@@ -35463,6 +35757,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1924738233;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link to an upgraded gift.
+     */
+    public static class LinkPreviewTypeUpgradedGift extends LinkPreviewType {
+        /**
+         * The gift.
+         */
+        public UpgradedGift gift;
+
+        /**
+         * The link is a link to an upgraded gift.
+         */
+        public LinkPreviewTypeUpgradedGift() {
+        }
+
+        /**
+         * The link is a link to an upgraded gift.
+         *
+         * @param gift The gift.
+         */
+        public LinkPreviewTypeUpgradedGift(UpgradedGift gift) {
+            this.gift = gift;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 293249807;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37351,6 +37683,14 @@ public class TdApi {
          */
         public AlternativeVideo[] alternativeVideos;
         /**
+         * Cover of the video; may be null if none.
+         */
+        @Nullable public Photo cover;
+        /**
+         * Timestamp from which the video playing must start, in seconds.
+         */
+        public int startTimestamp;
+        /**
          * Video caption.
          */
         public FormattedText caption;
@@ -37378,14 +37718,18 @@ public class TdApi {
          *
          * @param video The video description.
          * @param alternativeVideos Alternative qualities of the video.
+         * @param cover Cover of the video; may be null if none.
+         * @param startTimestamp Timestamp from which the video playing must start, in seconds.
          * @param caption Video caption.
          * @param showCaptionAboveMedia True, if the caption must be shown above the video; otherwise, the caption must be shown below the video.
          * @param hasSpoiler True, if the video preview must be covered by a spoiler animation.
          * @param isSecret True, if the video thumbnail must be blurred and the video must be shown only while tapped.
          */
-        public MessageVideo(Video video, AlternativeVideo[] alternativeVideos, FormattedText caption, boolean showCaptionAboveMedia, boolean hasSpoiler, boolean isSecret) {
+        public MessageVideo(Video video, AlternativeVideo[] alternativeVideos, Photo cover, int startTimestamp, FormattedText caption, boolean showCaptionAboveMedia, boolean hasSpoiler, boolean isSecret) {
             this.video = video;
             this.alternativeVideos = alternativeVideos;
+            this.cover = cover;
+            this.startTimestamp = startTimestamp;
             this.caption = caption;
             this.showCaptionAboveMedia = showCaptionAboveMedia;
             this.hasSpoiler = hasSpoiler;
@@ -37395,7 +37739,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1307143860;
+        public static final int CONSTRUCTOR = 374791437;
 
         /**
          * @return this.CONSTRUCTOR
@@ -40023,13 +40367,21 @@ public class TdApi {
     }
 
     /**
-     * A regular gift was received or sent by the current user.
+     * A regular gift was received or sent by the current user, or the current user was notified about a channel gift.
      */
     public static class MessageGift extends MessageContent {
         /**
          * The gift.
          */
         public Gift gift;
+        /**
+         * Sender of the gift.
+         */
+        public MessageSender senderId;
+        /**
+         * Unique identifier of the received gift for the current user; only for the receiver of the gift.
+         */
+        public String receivedGiftId;
         /**
          * Message added to the gift.
          */
@@ -40047,7 +40399,7 @@ public class TdApi {
          */
         public boolean isPrivate;
         /**
-         * True, if the gift is displayed on the user's profile page; only for the receiver of the gift.
+         * True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
          */
         public boolean isSaved;
         /**
@@ -40067,33 +40419,37 @@ public class TdApi {
          */
         public boolean wasRefunded;
         /**
-         * Identifier of the service message messageUpgradedGift or messageRefundedUpgradedGift with upgraded version of the gift; can be 0 if none or an identifier of a deleted message. Use getUserGift to get information about the gift.
+         * Identifier of the corresponding upgraded gift; may be empty if unknown. Use getReceivedGift to get information about the gift.
          */
-        public long upgradeMessageId;
+        public String upgradedReceivedGiftId;
 
         /**
-         * A regular gift was received or sent by the current user.
+         * A regular gift was received or sent by the current user, or the current user was notified about a channel gift.
          */
         public MessageGift() {
         }
 
         /**
-         * A regular gift was received or sent by the current user.
+         * A regular gift was received or sent by the current user, or the current user was notified about a channel gift.
          *
          * @param gift The gift.
+         * @param senderId Sender of the gift.
+         * @param receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
          * @param text Message added to the gift.
          * @param sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the receiver.
          * @param prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
          * @param isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them.
-         * @param isSaved True, if the gift is displayed on the user's profile page; only for the receiver of the gift.
+         * @param isSaved True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
          * @param canBeUpgraded True, if the gift can be upgraded to a unique gift; only for the receiver of the gift.
          * @param wasConverted True, if the gift was converted to Telegram Stars; only for the receiver of the gift.
          * @param wasUpgraded True, if the gift was upgraded to a unique gift.
          * @param wasRefunded True, if the gift was refunded and isn't available anymore.
-         * @param upgradeMessageId Identifier of the service message messageUpgradedGift or messageRefundedUpgradedGift with upgraded version of the gift; can be 0 if none or an identifier of a deleted message. Use getUserGift to get information about the gift.
+         * @param upgradedReceivedGiftId Identifier of the corresponding upgraded gift; may be empty if unknown. Use getReceivedGift to get information about the gift.
          */
-        public MessageGift(Gift gift, FormattedText text, long sellStarCount, long prepaidUpgradeStarCount, boolean isPrivate, boolean isSaved, boolean canBeUpgraded, boolean wasConverted, boolean wasUpgraded, boolean wasRefunded, long upgradeMessageId) {
+        public MessageGift(Gift gift, MessageSender senderId, String receivedGiftId, FormattedText text, long sellStarCount, long prepaidUpgradeStarCount, boolean isPrivate, boolean isSaved, boolean canBeUpgraded, boolean wasConverted, boolean wasUpgraded, boolean wasRefunded, String upgradedReceivedGiftId) {
             this.gift = gift;
+            this.senderId = senderId;
+            this.receivedGiftId = receivedGiftId;
             this.text = text;
             this.sellStarCount = sellStarCount;
             this.prepaidUpgradeStarCount = prepaidUpgradeStarCount;
@@ -40103,13 +40459,13 @@ public class TdApi {
             this.wasConverted = wasConverted;
             this.wasUpgraded = wasUpgraded;
             this.wasRefunded = wasRefunded;
-            this.upgradeMessageId = upgradeMessageId;
+            this.upgradedReceivedGiftId = upgradedReceivedGiftId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1645885558;
+        public static final int CONSTRUCTOR = 2090444659;
 
         /**
          * @return this.CONSTRUCTOR
@@ -40121,7 +40477,7 @@ public class TdApi {
     }
 
     /**
-     * An upgraded gift was received or sent by the current user.
+     * An upgraded gift was received or sent by the current user, or the current user was notified about a channel gift.
      */
     public static class MessageUpgradedGift extends MessageContent {
         /**
@@ -40129,19 +40485,27 @@ public class TdApi {
          */
         public UpgradedGift gift;
         /**
+         * Sender of the gift; may be null for anonymous gifts.
+         */
+        @Nullable public MessageSender senderId;
+        /**
+         * Unique identifier of the received gift for the current user; only for the receiver of the gift.
+         */
+        public String receivedGiftId;
+        /**
          * True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred gift.
          */
         public boolean isUpgrade;
         /**
-         * True, if the gift is displayed on the user's profile page; only for the receiver of the gift.
+         * True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
          */
         public boolean isSaved;
         /**
-         * True, if the gift can be transferred to another user; only for the receiver of the gift.
+         * True, if the gift can be transferred to another owner; only for the receiver of the gift.
          */
         public boolean canBeTransferred;
         /**
-         * True, if the gift was transferred to another user; only for the receiver of the gift.
+         * True, if the gift was transferred to another owner; only for the receiver of the gift.
          */
         public boolean wasTransferred;
         /**
@@ -40149,29 +40513,33 @@ public class TdApi {
          */
         public long transferStarCount;
         /**
-         * Point in time (Unix timestamp) when the gift can be transferred to TON blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the gift.
+         * Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the gift.
          */
         public int exportDate;
 
         /**
-         * An upgraded gift was received or sent by the current user.
+         * An upgraded gift was received or sent by the current user, or the current user was notified about a channel gift.
          */
         public MessageUpgradedGift() {
         }
 
         /**
-         * An upgraded gift was received or sent by the current user.
+         * An upgraded gift was received or sent by the current user, or the current user was notified about a channel gift.
          *
          * @param gift The gift.
+         * @param senderId Sender of the gift; may be null for anonymous gifts.
+         * @param receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
          * @param isUpgrade True, if the gift was obtained by upgrading of a previously received gift; otherwise, this is a transferred gift.
-         * @param isSaved True, if the gift is displayed on the user's profile page; only for the receiver of the gift.
-         * @param canBeTransferred True, if the gift can be transferred to another user; only for the receiver of the gift.
-         * @param wasTransferred True, if the gift was transferred to another user; only for the receiver of the gift.
+         * @param isSaved True, if the gift is displayed on the user's or the channel's profile page; only for the receiver of the gift.
+         * @param canBeTransferred True, if the gift can be transferred to another owner; only for the receiver of the gift.
+         * @param wasTransferred True, if the gift was transferred to another owner; only for the receiver of the gift.
          * @param transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
-         * @param exportDate Point in time (Unix timestamp) when the gift can be transferred to TON blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the gift.
+         * @param exportDate Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the gift.
          */
-        public MessageUpgradedGift(UpgradedGift gift, boolean isUpgrade, boolean isSaved, boolean canBeTransferred, boolean wasTransferred, long transferStarCount, int exportDate) {
+        public MessageUpgradedGift(UpgradedGift gift, MessageSender senderId, String receivedGiftId, boolean isUpgrade, boolean isSaved, boolean canBeTransferred, boolean wasTransferred, long transferStarCount, int exportDate) {
             this.gift = gift;
+            this.senderId = senderId;
+            this.receivedGiftId = receivedGiftId;
             this.isUpgrade = isUpgrade;
             this.isSaved = isSaved;
             this.canBeTransferred = canBeTransferred;
@@ -40183,7 +40551,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1228075541;
+        public static final int CONSTRUCTOR = -1068647053;
 
         /**
          * @return this.CONSTRUCTOR
@@ -40203,6 +40571,10 @@ public class TdApi {
          */
         public Gift gift;
         /**
+         * Sender of the gift.
+         */
+        public MessageSender senderId;
+        /**
          * True, if the gift was obtained by upgrading of a previously received gift.
          */
         public boolean isUpgrade;
@@ -40217,17 +40589,19 @@ public class TdApi {
          * A gift which purchase, upgrade or transfer were refunded.
          *
          * @param gift The gift.
+         * @param senderId Sender of the gift.
          * @param isUpgrade True, if the gift was obtained by upgrading of a previously received gift.
          */
-        public MessageRefundedUpgradedGift(Gift gift, boolean isUpgrade) {
+        public MessageRefundedUpgradedGift(Gift gift, MessageSender senderId, boolean isUpgrade) {
             this.gift = gift;
+            this.senderId = senderId;
             this.isUpgrade = isUpgrade;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -747403155;
+        public static final int CONSTRUCTOR = -1308949479;
 
         /**
          * @return this.CONSTRUCTOR
@@ -46709,6 +47083,14 @@ public class TdApi {
          * The video.
          */
         public Video video;
+        /**
+         * Cover of the video; may be null if none.
+         */
+        @Nullable public Photo cover;
+        /**
+         * Timestamp from which the video playing must start, in seconds.
+         */
+        public int startTimestamp;
 
         /**
          * The media is a video.
@@ -46720,15 +47102,19 @@ public class TdApi {
          * The media is a video.
          *
          * @param video The video.
+         * @param cover Cover of the video; may be null if none.
+         * @param startTimestamp Timestamp from which the video playing must start, in seconds.
          */
-        public PaidMediaVideo(Video video) {
+        public PaidMediaVideo(Video video, Photo cover, int startTimestamp) {
             this.video = video;
+            this.cover = cover;
+            this.startTimestamp = startTimestamp;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 464858633;
+        public static final int CONSTRUCTOR = 870838318;
 
         /**
          * @return this.CONSTRUCTOR
@@ -55094,6 +55480,178 @@ public class TdApi {
     }
 
     /**
+     * Represents a gift received by a user or a chat.
+     */
+    public static class ReceivedGift extends Object {
+        /**
+         * Unique identifier of the received gift for the current user; only for the receiver of the gift.
+         */
+        public String receivedGiftId;
+        /**
+         * Identifier of a user or a chat that sent the gift; may be null if unknown.
+         */
+        @Nullable public MessageSender senderId;
+        /**
+         * Message added to the gift.
+         */
+        public FormattedText text;
+        /**
+         * True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone are able to see them.
+         */
+        public boolean isPrivate;
+        /**
+         * True, if the gift is displayed on the chat's profile page; only for the receiver of the gift.
+         */
+        public boolean isSaved;
+        /**
+         * True, if the gift is a regular gift that can be upgraded to a unique gift; only for the receiver of the gift.
+         */
+        public boolean canBeUpgraded;
+        /**
+         * True, if the gift is an upgraded gift that can be transferred to another owner; only for the receiver of the gift.
+         */
+        public boolean canBeTransferred;
+        /**
+         * True, if the gift was refunded and isn't available anymore.
+         */
+        public boolean wasRefunded;
+        /**
+         * Point in time (Unix timestamp) when the gift was sent.
+         */
+        public int date;
+        /**
+         * The gift.
+         */
+        public SentGift gift;
+        /**
+         * Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the current user.
+         */
+        public long sellStarCount;
+        /**
+         * Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
+         */
+        public long prepaidUpgradeStarCount;
+        /**
+         * Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
+         */
+        public long transferStarCount;
+        /**
+         * Point in time (Unix timestamp) when the upgraded gift can be transferred to the TON blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the gift.
+         */
+        public int exportDate;
+
+        /**
+         * Represents a gift received by a user or a chat.
+         */
+        public ReceivedGift() {
+        }
+
+        /**
+         * Represents a gift received by a user or a chat.
+         *
+         * @param receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
+         * @param senderId Identifier of a user or a chat that sent the gift; may be null if unknown.
+         * @param text Message added to the gift.
+         * @param isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone are able to see them.
+         * @param isSaved True, if the gift is displayed on the chat's profile page; only for the receiver of the gift.
+         * @param canBeUpgraded True, if the gift is a regular gift that can be upgraded to a unique gift; only for the receiver of the gift.
+         * @param canBeTransferred True, if the gift is an upgraded gift that can be transferred to another owner; only for the receiver of the gift.
+         * @param wasRefunded True, if the gift was refunded and isn't available anymore.
+         * @param date Point in time (Unix timestamp) when the gift was sent.
+         * @param gift The gift.
+         * @param sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the current user.
+         * @param prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
+         * @param transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
+         * @param exportDate Point in time (Unix timestamp) when the upgraded gift can be transferred to the TON blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the gift.
+         */
+        public ReceivedGift(String receivedGiftId, MessageSender senderId, FormattedText text, boolean isPrivate, boolean isSaved, boolean canBeUpgraded, boolean canBeTransferred, boolean wasRefunded, int date, SentGift gift, long sellStarCount, long prepaidUpgradeStarCount, long transferStarCount, int exportDate) {
+            this.receivedGiftId = receivedGiftId;
+            this.senderId = senderId;
+            this.text = text;
+            this.isPrivate = isPrivate;
+            this.isSaved = isSaved;
+            this.canBeUpgraded = canBeUpgraded;
+            this.canBeTransferred = canBeTransferred;
+            this.wasRefunded = wasRefunded;
+            this.date = date;
+            this.gift = gift;
+            this.sellStarCount = sellStarCount;
+            this.prepaidUpgradeStarCount = prepaidUpgradeStarCount;
+            this.transferStarCount = transferStarCount;
+            this.exportDate = exportDate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -959296918;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of gifts received by a user or a chat.
+     */
+    public static class ReceivedGifts extends Object {
+        /**
+         * The total number of received gifts.
+         */
+        public int totalCount;
+        /**
+         * The list of gifts.
+         */
+        public ReceivedGift[] gifts;
+        /**
+         * True, if notifications about new gifts of the owner are enabled.
+         */
+        public boolean areNotificationsEnabled;
+        /**
+         * The offset for the next request. If empty, then there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Represents a list of gifts received by a user or a chat.
+         */
+        public ReceivedGifts() {
+        }
+
+        /**
+         * Represents a list of gifts received by a user or a chat.
+         *
+         * @param totalCount The total number of received gifts.
+         * @param gifts The list of gifts.
+         * @param areNotificationsEnabled True, if notifications about new gifts of the owner are enabled.
+         * @param nextOffset The offset for the next request. If empty, then there are no more results.
+         */
+        public ReceivedGifts(int totalCount, ReceivedGift[] gifts, boolean areNotificationsEnabled, String nextOffset) {
+            this.totalCount = totalCount;
+            this.gifts = gifts;
+            this.areNotificationsEnabled = areNotificationsEnabled;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1237114400;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes a recommended chat folder.
      */
     public static class RecommendedChatFolder extends Object {
@@ -58682,7 +59240,7 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Represents a gift received by a user.
+     * Represents content of a gift received by a user or a channel chat.
      */
     public abstract static class SentGift extends Object {
         /**
@@ -61630,39 +62188,39 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a purchase of a regular gift to another user; for regular users and bots only.
+     * The transaction is a purchase of a regular gift; for regular users and bots only.
      */
     public static class StarTransactionTypeGiftPurchase extends StarTransactionType {
         /**
-         * Identifier of the user that received the gift.
+         * Identifier of the user or the channel that received the gift.
          */
-        public long userId;
+        public MessageSender ownerId;
         /**
          * The gift.
          */
         public Gift gift;
 
         /**
-         * The transaction is a purchase of a regular gift to another user; for regular users and bots only.
+         * The transaction is a purchase of a regular gift; for regular users and bots only.
          */
         public StarTransactionTypeGiftPurchase() {
         }
 
         /**
-         * The transaction is a purchase of a regular gift to another user; for regular users and bots only.
+         * The transaction is a purchase of a regular gift; for regular users and bots only.
          *
-         * @param userId Identifier of the user that received the gift.
+         * @param ownerId Identifier of the user or the channel that received the gift.
          * @param gift The gift.
          */
-        public StarTransactionTypeGiftPurchase(long userId, Gift gift) {
-            this.userId = userId;
+        public StarTransactionTypeGiftPurchase(MessageSender ownerId, Gift gift) {
+            this.ownerId = ownerId;
             this.gift = gift;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -278979246;
+        public static final int CONSTRUCTOR = -1819045664;
 
         /**
          * @return this.CONSTRUCTOR
@@ -61674,39 +62232,39 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a transfer of an upgraded gift to another user; for regular users only.
+     * The transaction is a transfer of an upgraded gift; for regular users only.
      */
     public static class StarTransactionTypeGiftTransfer extends StarTransactionType {
         /**
-         * Identifier of the user that received the gift.
+         * Identifier of the user or the channel that received the gift.
          */
-        public long userId;
+        public MessageSender ownerId;
         /**
          * The gift.
          */
         public UpgradedGift gift;
 
         /**
-         * The transaction is a transfer of an upgraded gift to another user; for regular users only.
+         * The transaction is a transfer of an upgraded gift; for regular users only.
          */
         public StarTransactionTypeGiftTransfer() {
         }
 
         /**
-         * The transaction is a transfer of an upgraded gift to another user; for regular users only.
+         * The transaction is a transfer of an upgraded gift; for regular users only.
          *
-         * @param userId Identifier of the user that received the gift.
+         * @param ownerId Identifier of the user or the channel that received the gift.
          * @param gift The gift.
          */
-        public StarTransactionTypeGiftTransfer(long userId, UpgradedGift gift) {
-            this.userId = userId;
+        public StarTransactionTypeGiftTransfer(MessageSender ownerId, UpgradedGift gift) {
+            this.ownerId = ownerId;
             this.gift = gift;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -281920427;
+        public static final int CONSTRUCTOR = 9835767;
 
         /**
          * @return this.CONSTRUCTOR
@@ -61718,7 +62276,7 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a sale of a gift received from another user or bot; for regular users only.
+     * The transaction is a sale of a received gift; for regular users and channel chats only.
      */
     public static class StarTransactionTypeGiftSale extends StarTransactionType {
         /**
@@ -61731,13 +62289,13 @@ public class TdApi {
         public Gift gift;
 
         /**
-         * The transaction is a sale of a gift received from another user or bot; for regular users only.
+         * The transaction is a sale of a received gift; for regular users and channel chats only.
          */
         public StarTransactionTypeGiftSale() {
         }
 
         /**
-         * The transaction is a sale of a gift received from another user or bot; for regular users only.
+         * The transaction is a sale of a received gift; for regular users and channel chats only.
          *
          * @param userId Identifier of the user that sent the gift.
          * @param gift The gift.
@@ -63901,7 +64459,8 @@ public class TdApi {
             StoryAreaTypeSuggestedReaction.CONSTRUCTOR,
             StoryAreaTypeMessage.CONSTRUCTOR,
             StoryAreaTypeLink.CONSTRUCTOR,
-            StoryAreaTypeWeather.CONSTRUCTOR
+            StoryAreaTypeWeather.CONSTRUCTOR,
+            StoryAreaTypeUpgradedGift.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -64178,6 +64737,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1504150082;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An area with an upgraded gift.
+     */
+    public static class StoryAreaTypeUpgradedGift extends StoryAreaType {
+        /**
+         * Unique name of the upgraded gift.
+         */
+        public String giftName;
+
+        /**
+         * An area with an upgraded gift.
+         */
+        public StoryAreaTypeUpgradedGift() {
+        }
+
+        /**
+         * An area with an upgraded gift.
+         *
+         * @param giftName Unique name of the upgraded gift.
+         */
+        public StoryAreaTypeUpgradedGift(String giftName) {
+            this.giftName = giftName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 760281479;
 
         /**
          * @return this.CONSTRUCTOR
@@ -65936,6 +66533,10 @@ public class TdApi {
          */
         public boolean canGetStarRevenueStatistics;
         /**
+         * True, if the user can send a gift to the supergroup or channel using sendGift or transferGift.
+         */
+        public boolean canSendGift;
+        /**
          * True, if aggressive anti-spam checks can be enabled or disabled in the supergroup.
          */
         public boolean canToggleAggressiveAntiSpam;
@@ -65959,6 +66560,10 @@ public class TdApi {
          * True, if the supergroup or channel has pinned stories.
          */
         public boolean hasPinnedStories;
+        /**
+         * Number of saved to profile gifts for channels without canPostMessages administrator right, otherwise, the total number of received gifts.
+         */
+        public int giftCount;
         /**
          * Number of times the current user boosted the supergroup or channel.
          */
@@ -66027,12 +66632,14 @@ public class TdApi {
          * @param canGetStatistics True, if the supergroup or channel statistics are available.
          * @param canGetRevenueStatistics True, if the supergroup or channel revenue statistics are available.
          * @param canGetStarRevenueStatistics True, if the supergroup or channel Telegram Star revenue statistics are available.
+         * @param canSendGift True, if the user can send a gift to the supergroup or channel using sendGift or transferGift.
          * @param canToggleAggressiveAntiSpam True, if aggressive anti-spam checks can be enabled or disabled in the supergroup.
          * @param isAllHistoryAvailable True, if new chat members will have access to old messages. In public, discussion, of forum groups and all channels, old messages are always available, so this option affects only private non-forum supergroups without a linked chat. The value of this field is only available to chat administrators.
          * @param canHaveSponsoredMessages True, if the chat can have sponsored messages. The value of this field is only available to the owner of the chat.
          * @param hasAggressiveAntiSpamEnabled True, if aggressive anti-spam checks are enabled in the supergroup. The value of this field is only available to chat administrators.
          * @param hasPaidMediaAllowed True, if paid media can be sent and forwarded to the channel chat; for channels only.
          * @param hasPinnedStories True, if the supergroup or channel has pinned stories.
+         * @param giftCount Number of saved to profile gifts for channels without canPostMessages administrator right, otherwise, the total number of received gifts.
          * @param myBoostCount Number of times the current user boosted the supergroup or channel.
          * @param unrestrictBoostCount Number of times the supergroup must be boosted by a user to ignore slow mode and chat permission restrictions; 0 if unspecified.
          * @param stickerSetId Identifier of the supergroup sticker set that must be shown before user sticker sets; 0 if none.
@@ -66044,7 +66651,7 @@ public class TdApi {
          * @param upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
          * @param upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
          */
-        public SupergroupFullInfo(ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canEnablePaidReaction, boolean canGetMembers, boolean hasHiddenMembers, boolean canHideMembers, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean canGetRevenueStatistics, boolean canGetStarRevenueStatistics, boolean canToggleAggressiveAntiSpam, boolean isAllHistoryAvailable, boolean canHaveSponsoredMessages, boolean hasAggressiveAntiSpamEnabled, boolean hasPaidMediaAllowed, boolean hasPinnedStories, int myBoostCount, int unrestrictBoostCount, long stickerSetId, long customEmojiStickerSetId, ChatLocation location, ChatInviteLink inviteLink, BotCommands[] botCommands, BotVerification botVerification, long upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
+        public SupergroupFullInfo(ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canEnablePaidReaction, boolean canGetMembers, boolean hasHiddenMembers, boolean canHideMembers, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean canGetRevenueStatistics, boolean canGetStarRevenueStatistics, boolean canSendGift, boolean canToggleAggressiveAntiSpam, boolean isAllHistoryAvailable, boolean canHaveSponsoredMessages, boolean hasAggressiveAntiSpamEnabled, boolean hasPaidMediaAllowed, boolean hasPinnedStories, int giftCount, int myBoostCount, int unrestrictBoostCount, long stickerSetId, long customEmojiStickerSetId, ChatLocation location, ChatInviteLink inviteLink, BotCommands[] botCommands, BotVerification botVerification, long upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
             this.photo = photo;
             this.description = description;
             this.memberCount = memberCount;
@@ -66063,12 +66670,14 @@ public class TdApi {
             this.canGetStatistics = canGetStatistics;
             this.canGetRevenueStatistics = canGetRevenueStatistics;
             this.canGetStarRevenueStatistics = canGetStarRevenueStatistics;
+            this.canSendGift = canSendGift;
             this.canToggleAggressiveAntiSpam = canToggleAggressiveAntiSpam;
             this.isAllHistoryAvailable = isAllHistoryAvailable;
             this.canHaveSponsoredMessages = canHaveSponsoredMessages;
             this.hasAggressiveAntiSpamEnabled = hasAggressiveAntiSpamEnabled;
             this.hasPaidMediaAllowed = hasPaidMediaAllowed;
             this.hasPinnedStories = hasPinnedStories;
+            this.giftCount = giftCount;
             this.myBoostCount = myBoostCount;
             this.unrestrictBoostCount = unrestrictBoostCount;
             this.stickerSetId = stickerSetId;
@@ -66084,7 +66693,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1806222782;
+        public static final int CONSTRUCTOR = -1070689482;
 
         /**
          * @return this.CONSTRUCTOR
@@ -76578,11 +77187,15 @@ public class TdApi {
          */
         public UpgradedGift gift;
         /**
-         * True, if the gift is displayed on the user's profile page.
+         * Unique identifier of the received gift for the current user.
+         */
+        public String receivedGiftId;
+        /**
+         * True, if the gift is displayed on the user's or the channel's profile page.
          */
         public boolean isSaved;
         /**
-         * True, if the gift can be transferred to another user.
+         * True, if the gift can be transferred to another owner.
          */
         public boolean canBeTransferred;
         /**
@@ -76590,7 +77203,7 @@ public class TdApi {
          */
         public long transferStarCount;
         /**
-         * Point in time (Unix timestamp) when the gift can be transferred to TON blockchain as an NFT.
+         * Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT.
          */
         public int exportDate;
 
@@ -76604,13 +77217,15 @@ public class TdApi {
          * Contains result of gift upgrading.
          *
          * @param gift The upgraded gift.
-         * @param isSaved True, if the gift is displayed on the user's profile page.
-         * @param canBeTransferred True, if the gift can be transferred to another user.
+         * @param receivedGiftId Unique identifier of the received gift for the current user.
+         * @param isSaved True, if the gift is displayed on the user's or the channel's profile page.
+         * @param canBeTransferred True, if the gift can be transferred to another owner.
          * @param transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift.
-         * @param exportDate Point in time (Unix timestamp) when the gift can be transferred to TON blockchain as an NFT.
+         * @param exportDate Point in time (Unix timestamp) when the gift can be transferred to the TON blockchain as an NFT.
          */
-        public UpgradeGiftResult(UpgradedGift gift, boolean isSaved, boolean canBeTransferred, long transferStarCount, int exportDate) {
+        public UpgradeGiftResult(UpgradedGift gift, String receivedGiftId, boolean isSaved, boolean canBeTransferred, long transferStarCount, int exportDate) {
             this.gift = gift;
+            this.receivedGiftId = receivedGiftId;
             this.isSaved = isSaved;
             this.canBeTransferred = canBeTransferred;
             this.transferStarCount = transferStarCount;
@@ -76620,7 +77235,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1033798449;
+        public static final int CONSTRUCTOR = 664437354;
 
         /**
          * @return this.CONSTRUCTOR
@@ -76632,7 +77247,7 @@ public class TdApi {
     }
 
     /**
-     * Describes an upgraded gift that can be gifted to another user or transferred to TON blockchain as an NFT.
+     * Describes an upgraded gift that can be transferred to another owner or transferred to the TON blockchain as an NFT.
      */
     public static class UpgradedGift extends Object {
         /**
@@ -76643,6 +77258,10 @@ public class TdApi {
          * The title of the upgraded gift.
          */
         public String title;
+        /**
+         * Unique name of the upgraded gift that can be used with internalLinkTypeUpgradedGift.
+         */
+        public String name;
         /**
          * Unique number of the upgraded gift among gifts upgraded from the same gift.
          */
@@ -76656,9 +77275,17 @@ public class TdApi {
          */
         public int maxUpgradedCount;
         /**
-         * User identifier of the user that owns the upgraded gift; 0 if none.
+         * Identifier of the user or the chat that owns the upgraded gift; may be null if none or unknown.
          */
-        public long ownerUserId;
+        @Nullable public MessageSender ownerId;
+        /**
+         * Address of the gift NFT owner in TON blockchain; may be empty if none.
+         */
+        public String ownerAddress;
+        /**
+         * Name of the owner for the case when owner identifier and address aren't known.
+         */
+        public String ownerName;
         /**
          * Model of the upgraded gift.
          */
@@ -76677,32 +77304,38 @@ public class TdApi {
         @Nullable public UpgradedGiftOriginalDetails originalDetails;
 
         /**
-         * Describes an upgraded gift that can be gifted to another user or transferred to TON blockchain as an NFT.
+         * Describes an upgraded gift that can be transferred to another owner or transferred to the TON blockchain as an NFT.
          */
         public UpgradedGift() {
         }
 
         /**
-         * Describes an upgraded gift that can be gifted to another user or transferred to TON blockchain as an NFT.
+         * Describes an upgraded gift that can be transferred to another owner or transferred to the TON blockchain as an NFT.
          *
          * @param id Unique identifier of the gift.
          * @param title The title of the upgraded gift.
+         * @param name Unique name of the upgraded gift that can be used with internalLinkTypeUpgradedGift.
          * @param number Unique number of the upgraded gift among gifts upgraded from the same gift.
          * @param totalUpgradedCount Total number of gifts that were upgraded from the same gift.
          * @param maxUpgradedCount The maximum number of gifts that can be upgraded from the same gift.
-         * @param ownerUserId User identifier of the user that owns the upgraded gift; 0 if none.
+         * @param ownerId Identifier of the user or the chat that owns the upgraded gift; may be null if none or unknown.
+         * @param ownerAddress Address of the gift NFT owner in TON blockchain; may be empty if none.
+         * @param ownerName Name of the owner for the case when owner identifier and address aren't known.
          * @param model Model of the upgraded gift.
          * @param symbol Symbol of the upgraded gift.
          * @param backdrop Backdrop of the upgraded gift.
          * @param originalDetails Information about the originally sent gift; may be null if unknown.
          */
-        public UpgradedGift(long id, String title, int number, int totalUpgradedCount, int maxUpgradedCount, long ownerUserId, UpgradedGiftModel model, UpgradedGiftSymbol symbol, UpgradedGiftBackdrop backdrop, UpgradedGiftOriginalDetails originalDetails) {
+        public UpgradedGift(long id, String title, String name, int number, int totalUpgradedCount, int maxUpgradedCount, MessageSender ownerId, String ownerAddress, String ownerName, UpgradedGiftModel model, UpgradedGiftSymbol symbol, UpgradedGiftBackdrop backdrop, UpgradedGiftOriginalDetails originalDetails) {
             this.id = id;
             this.title = title;
+            this.name = name;
             this.number = number;
             this.totalUpgradedCount = totalUpgradedCount;
             this.maxUpgradedCount = maxUpgradedCount;
-            this.ownerUserId = ownerUserId;
+            this.ownerId = ownerId;
+            this.ownerAddress = ownerAddress;
+            this.ownerName = ownerName;
             this.model = model;
             this.symbol = symbol;
             this.backdrop = backdrop;
@@ -76712,7 +77345,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -436924776;
+        public static final int CONSTRUCTOR = 1203274603;
 
         /**
          * @return this.CONSTRUCTOR
@@ -76732,21 +77365,9 @@ public class TdApi {
          */
         public String name;
         /**
-         * A color in the center of the backdrop in the RGB format.
+         * Colors of the backdrop.
          */
-        public int centerColor;
-        /**
-         * A color on the edges of the backdrop in the RGB format.
-         */
-        public int edgeColor;
-        /**
-         * A color to be applied for the symbol in the RGB format.
-         */
-        public int symbolColor;
-        /**
-         * A color for the text on the backdrop in the RGB format.
-         */
-        public int textColor;
+        public UpgradedGiftBackdropColors colors;
         /**
          * The number of upgraded gift that receive this backdrop for each 1000 gifts upgraded.
          */
@@ -76762,25 +77383,75 @@ public class TdApi {
          * Describes a backdrop of an upgraded gift.
          *
          * @param name Name of the backdrop.
-         * @param centerColor A color in the center of the backdrop in the RGB format.
-         * @param edgeColor A color on the edges of the backdrop in the RGB format.
-         * @param symbolColor A color to be applied for the symbol in the RGB format.
-         * @param textColor A color for the text on the backdrop in the RGB format.
+         * @param colors Colors of the backdrop.
          * @param rarityPerMille The number of upgraded gift that receive this backdrop for each 1000 gifts upgraded.
          */
-        public UpgradedGiftBackdrop(String name, int centerColor, int edgeColor, int symbolColor, int textColor, int rarityPerMille) {
+        public UpgradedGiftBackdrop(String name, UpgradedGiftBackdropColors colors, int rarityPerMille) {
             this.name = name;
-            this.centerColor = centerColor;
-            this.edgeColor = edgeColor;
-            this.symbolColor = symbolColor;
-            this.textColor = textColor;
+            this.colors = colors;
             this.rarityPerMille = rarityPerMille;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -63497090;
+        public static final int CONSTRUCTOR = -334899886;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes colors of a backdrop of an upgraded gift.
+     */
+    public static class UpgradedGiftBackdropColors extends Object {
+        /**
+         * A color in the center of the backdrop in the RGB format.
+         */
+        public int centerColor;
+        /**
+         * A color on the edges of the backdrop in the RGB format.
+         */
+        public int edgeColor;
+        /**
+         * A color to be applied for the symbol in the RGB format.
+         */
+        public int symbolColor;
+        /**
+         * A color for the text on the backdrop in the RGB format.
+         */
+        public int textColor;
+
+        /**
+         * Describes colors of a backdrop of an upgraded gift.
+         */
+        public UpgradedGiftBackdropColors() {
+        }
+
+        /**
+         * Describes colors of a backdrop of an upgraded gift.
+         *
+         * @param centerColor A color in the center of the backdrop in the RGB format.
+         * @param edgeColor A color on the edges of the backdrop in the RGB format.
+         * @param symbolColor A color to be applied for the symbol in the RGB format.
+         * @param textColor A color for the text on the backdrop in the RGB format.
+         */
+        public UpgradedGiftBackdropColors(int centerColor, int edgeColor, int symbolColor, int textColor) {
+            this.centerColor = centerColor;
+            this.edgeColor = edgeColor;
+            this.symbolColor = symbolColor;
+            this.textColor = textColor;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 4227529;
 
         /**
          * @return this.CONSTRUCTOR
@@ -76846,13 +77517,13 @@ public class TdApi {
      */
     public static class UpgradedGiftOriginalDetails extends Object {
         /**
-         * Identifier of the user that sent the gift; 0 if the gift was private.
+         * Identifier of the user or the chat that sent the gift; may be null if the gift was private.
          */
-        public long senderUserId;
+        @Nullable public MessageSender senderId;
         /**
-         * Identifier of the user that received the gift.
+         * Identifier of the user or the chat that received the gift.
          */
-        public long receiverUserId;
+        public MessageSender receiverId;
         /**
          * Message added to the gift.
          */
@@ -76871,14 +77542,14 @@ public class TdApi {
         /**
          * Describes the original details about the gift.
          *
-         * @param senderUserId Identifier of the user that sent the gift; 0 if the gift was private.
-         * @param receiverUserId Identifier of the user that received the gift.
+         * @param senderId Identifier of the user or the chat that sent the gift; may be null if the gift was private.
+         * @param receiverId Identifier of the user or the chat that received the gift.
          * @param text Message added to the gift.
          * @param date Point in time (Unix timestamp) when the gift was sent.
          */
-        public UpgradedGiftOriginalDetails(long senderUserId, long receiverUserId, FormattedText text, int date) {
-            this.senderUserId = senderUserId;
-            this.receiverUserId = receiverUserId;
+        public UpgradedGiftOriginalDetails(MessageSender senderId, MessageSender receiverId, FormattedText text, int date) {
+            this.senderId = senderId;
+            this.receiverId = receiverId;
             this.text = text;
             this.date = date;
         }
@@ -76886,7 +77557,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1154659037;
+        public static final int CONSTRUCTOR = 55247728;
 
         /**
          * @return this.CONSTRUCTOR
@@ -77204,7 +77875,7 @@ public class TdApi {
          */
         public long personalChatId;
         /**
-         * Number of gifts saved to profile by the user.
+         * Number of saved to profile gifts for other users or the total number of received gifts for the current user.
          */
         public int giftCount;
         /**
@@ -77249,7 +77920,7 @@ public class TdApi {
          * @param bio A short user bio; may be null for bots.
          * @param birthdate Birthdate of the user; may be null if unknown.
          * @param personalChatId Identifier of the personal chat of the user; 0 if none.
-         * @param giftCount Number of gifts saved to profile by the user.
+         * @param giftCount Number of saved to profile gifts for other users or the total number of received gifts for the current user.
          * @param groupInCommonCount Number of group chats where both the other user and the current user are a member; 0 for the current user.
          * @param botVerification Information about verification status of the user provided by a bot; may be null if none or unknown.
          * @param businessInfo Information about business settings for Telegram Business accounts; may be null if none.
@@ -77283,172 +77954,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1366163006;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Represents a gift received by a user.
-     */
-    public static class UserGift extends Object {
-        /**
-         * Identifier of the user that sent the gift; 0 if unknown.
-         */
-        public long senderUserId;
-        /**
-         * Message added to the gift.
-         */
-        public FormattedText text;
-        /**
-         * True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone are able to see them.
-         */
-        public boolean isPrivate;
-        /**
-         * True, if the gift is displayed on the user's profile page; only for the receiver of the gift.
-         */
-        public boolean isSaved;
-        /**
-         * True, if the gift is a regular gift that can be upgraded to a unique gift; only for the receiver of the gift.
-         */
-        public boolean canBeUpgraded;
-        /**
-         * True, if the gift is an upgraded gift that can be transferred to another user; only for the receiver of the gift.
-         */
-        public boolean canBeTransferred;
-        /**
-         * True, if the gift was refunded and isn't available anymore.
-         */
-        public boolean wasRefunded;
-        /**
-         * Point in time (Unix timestamp) when the gift was sent.
-         */
-        public int date;
-        /**
-         * The gift.
-         */
-        public SentGift gift;
-        /**
-         * Identifier of the message with the gift in the chat with the sender of the gift; can be 0 or an identifier of a deleted message; only for the receiver of the gift.
-         */
-        public long messageId;
-        /**
-         * Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the current user.
-         */
-        public long sellStarCount;
-        /**
-         * Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
-         */
-        public long prepaidUpgradeStarCount;
-        /**
-         * Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
-         */
-        public long transferStarCount;
-        /**
-         * Point in time (Unix timestamp) when the upgraded gift can be transferred to TON blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the gift.
-         */
-        public int exportDate;
-
-        /**
-         * Represents a gift received by a user.
-         */
-        public UserGift() {
-        }
-
-        /**
-         * Represents a gift received by a user.
-         *
-         * @param senderUserId Identifier of the user that sent the gift; 0 if unknown.
-         * @param text Message added to the gift.
-         * @param isPrivate True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone are able to see them.
-         * @param isSaved True, if the gift is displayed on the user's profile page; only for the receiver of the gift.
-         * @param canBeUpgraded True, if the gift is a regular gift that can be upgraded to a unique gift; only for the receiver of the gift.
-         * @param canBeTransferred True, if the gift is an upgraded gift that can be transferred to another user; only for the receiver of the gift.
-         * @param wasRefunded True, if the gift was refunded and isn't available anymore.
-         * @param date Point in time (Unix timestamp) when the gift was sent.
-         * @param gift The gift.
-         * @param messageId Identifier of the message with the gift in the chat with the sender of the gift; can be 0 or an identifier of a deleted message; only for the receiver of the gift.
-         * @param sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the current user.
-         * @param prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
-         * @param transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
-         * @param exportDate Point in time (Unix timestamp) when the upgraded gift can be transferred to TON blockchain as an NFT; 0 if NFT export isn't possible; only for the receiver of the gift.
-         */
-        public UserGift(long senderUserId, FormattedText text, boolean isPrivate, boolean isSaved, boolean canBeUpgraded, boolean canBeTransferred, boolean wasRefunded, int date, SentGift gift, long messageId, long sellStarCount, long prepaidUpgradeStarCount, long transferStarCount, int exportDate) {
-            this.senderUserId = senderUserId;
-            this.text = text;
-            this.isPrivate = isPrivate;
-            this.isSaved = isSaved;
-            this.canBeUpgraded = canBeUpgraded;
-            this.canBeTransferred = canBeTransferred;
-            this.wasRefunded = wasRefunded;
-            this.date = date;
-            this.gift = gift;
-            this.messageId = messageId;
-            this.sellStarCount = sellStarCount;
-            this.prepaidUpgradeStarCount = prepaidUpgradeStarCount;
-            this.transferStarCount = transferStarCount;
-            this.exportDate = exportDate;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1549944736;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Represents a list of gifts received by a user.
-     */
-    public static class UserGifts extends Object {
-        /**
-         * The total number of received gifts.
-         */
-        public int totalCount;
-        /**
-         * The list of gifts.
-         */
-        public UserGift[] gifts;
-        /**
-         * The offset for the next request. If empty, then there are no more results.
-         */
-        public String nextOffset;
-
-        /**
-         * Represents a list of gifts received by a user.
-         */
-        public UserGifts() {
-        }
-
-        /**
-         * Represents a list of gifts received by a user.
-         *
-         * @param totalCount The total number of received gifts.
-         * @param gifts The list of gifts.
-         * @param nextOffset The offset for the next request. If empty, then there are no more results.
-         */
-        public UserGifts(int totalCount, UserGift[] gifts, String nextOffset) {
-            this.totalCount = totalCount;
-            this.gifts = gifts;
-            this.nextOffset = nextOffset;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1125548230;
 
         /**
          * @return this.CONSTRUCTOR
@@ -85587,7 +86092,7 @@ public class TdApi {
     }
 
     /**
-     * Deletes all messages sent by the specified message sender in a chat. Supported only for supergroups; requires canDeleteMessages administrator privileges.
+     * Deletes all messages sent by the specified message sender in a chat. Supported only for supergroups; requires canDeleteMessages administrator right.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -85602,7 +86107,7 @@ public class TdApi {
         public MessageSender senderId;
 
         /**
-         * Default constructor for a function, which deletes all messages sent by the specified message sender in a chat. Supported only for supergroups; requires canDeleteMessages administrator privileges.
+         * Default constructor for a function, which deletes all messages sent by the specified message sender in a chat. Supported only for supergroups; requires canDeleteMessages administrator right.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -85610,7 +86115,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which deletes all messages sent by the specified message sender in a chat. Supported only for supergroups; requires canDeleteMessages administrator privileges.
+         * Creates a function, which deletes all messages sent by the specified message sender in a chat. Supported only for supergroups; requires canDeleteMessages administrator right.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -89541,14 +90046,14 @@ public class TdApi {
     }
 
     /**
-     * Returns gifts that can be sent to other users.
+     * Returns gifts that can be sent to other users and channel chats.
      *
      * <p> Returns {@link Gifts Gifts} </p>
      */
     public static class GetAvailableGifts extends Function<Gifts> {
 
         /**
-         * Default constructor for a function, which returns gifts that can be sent to other users.
+         * Default constructor for a function, which returns gifts that can be sent to other users and channel chats.
          *
          * <p> Returns {@link Gifts Gifts} </p>
          */
@@ -90041,6 +90546,100 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1707118036;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns approximate number of bots similar to the given bot.
+     *
+     * <p> Returns {@link Count Count} </p>
+     */
+    public static class GetBotSimilarBotCount extends Function<Count> {
+        /**
+         * User identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * Pass true to get the number of bots without sending network requests, or -1 if the number of bots is unknown locally.
+         */
+        public boolean returnLocal;
+
+        /**
+         * Default constructor for a function, which returns approximate number of bots similar to the given bot.
+         *
+         * <p> Returns {@link Count Count} </p>
+         */
+        public GetBotSimilarBotCount() {
+        }
+
+        /**
+         * Creates a function, which returns approximate number of bots similar to the given bot.
+         *
+         * <p> Returns {@link Count Count} </p>
+         *
+         * @param botUserId User identifier of the target bot.
+         * @param returnLocal Pass true to get the number of bots without sending network requests, or -1 if the number of bots is unknown locally.
+         */
+        public GetBotSimilarBotCount(long botUserId, boolean returnLocal) {
+            this.botUserId = botUserId;
+            this.returnLocal = returnLocal;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1271545369;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns a list of bots similar to the given bot.
+     *
+     * <p> Returns {@link Users Users} </p>
+     */
+    public static class GetBotSimilarBots extends Function<Users> {
+        /**
+         * User identifier of the target bot.
+         */
+        public long botUserId;
+
+        /**
+         * Default constructor for a function, which returns a list of bots similar to the given bot.
+         *
+         * <p> Returns {@link Users Users} </p>
+         */
+        public GetBotSimilarBots() {
+        }
+
+        /**
+         * Creates a function, which returns a list of bots similar to the given bot.
+         *
+         * <p> Returns {@link Users Users} </p>
+         *
+         * @param botUserId User identifier of the target bot.
+         */
+        public GetBotSimilarBots(long botUserId) {
+            this.botUserId = botUserId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -825139275;
 
         /**
          * @return this.CONSTRUCTOR
@@ -93406,14 +94005,14 @@ public class TdApi {
     /**
      * Returns default emoji statuses for chats.
      *
-     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
      */
-    public static class GetDefaultChatEmojiStatuses extends Function<EmojiStatuses> {
+    public static class GetDefaultChatEmojiStatuses extends Function<EmojiStatusCustomEmojis> {
 
         /**
          * Default constructor for a function, which returns default emoji statuses for chats.
          *
-         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
          */
         public GetDefaultChatEmojiStatuses() {
         }
@@ -93421,7 +94020,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1481996570;
+        public static final int CONSTRUCTOR = 1553698018;
 
         /**
          * @return this.CONSTRUCTOR
@@ -93464,14 +94063,14 @@ public class TdApi {
     /**
      * Returns default emoji statuses for self status.
      *
-     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
      */
-    public static class GetDefaultEmojiStatuses extends Function<EmojiStatuses> {
+    public static class GetDefaultEmojiStatuses extends Function<EmojiStatusCustomEmojis> {
 
         /**
          * Default constructor for a function, which returns default emoji statuses for self status.
          *
-         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
          */
         public GetDefaultEmojiStatuses() {
         }
@@ -93479,7 +94078,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 618946243;
+        public static final int CONSTRUCTOR = -539392025;
 
         /**
          * @return this.CONSTRUCTOR
@@ -93551,14 +94150,14 @@ public class TdApi {
     /**
      * Returns the list of emoji statuses, which can't be used as chat emoji status, even they are from a sticker set with isAllowedAsChatEmojiStatus == true.
      *
-     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
      */
-    public static class GetDisallowedChatEmojiStatuses extends Function<EmojiStatuses> {
+    public static class GetDisallowedChatEmojiStatuses extends Function<EmojiStatusCustomEmojis> {
 
         /**
          * Default constructor for a function, which returns the list of emoji statuses, which can't be used as chat emoji status, even they are from a sticker set with isAllowedAsChatEmojiStatus == true.
          *
-         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
          */
         public GetDisallowedChatEmojiStatuses() {
         }
@@ -93566,7 +94165,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -770421344;
+        public static final int CONSTRUCTOR = -2004787831;
 
         /**
          * @return this.CONSTRUCTOR
@@ -98084,6 +98683,142 @@ public class TdApi {
     }
 
     /**
+     * Returns information about a received gift.
+     *
+     * <p> Returns {@link ReceivedGift ReceivedGift} </p>
+     */
+    public static class GetReceivedGift extends Function<ReceivedGift> {
+        /**
+         * Identifier of the gift.
+         */
+        public String receivedGiftId;
+
+        /**
+         * Default constructor for a function, which returns information about a received gift.
+         *
+         * <p> Returns {@link ReceivedGift ReceivedGift} </p>
+         */
+        public GetReceivedGift() {
+        }
+
+        /**
+         * Creates a function, which returns information about a received gift.
+         *
+         * <p> Returns {@link ReceivedGift ReceivedGift} </p>
+         *
+         * @param receivedGiftId Identifier of the gift.
+         */
+        public GetReceivedGift(String receivedGiftId) {
+            this.receivedGiftId = receivedGiftId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -446535239;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns gifts received by the given user or chat.
+     *
+     * <p> Returns {@link ReceivedGifts ReceivedGifts} </p>
+     */
+    public static class GetReceivedGifts extends Function<ReceivedGifts> {
+        /**
+         * Identifier of the gift receiver.
+         */
+        public MessageSender ownerId;
+        /**
+         * Pass true to exclude gifts that aren't saved to the chat's profile page. Always true for gifts received by other users and channel chats without canPostMessages administrator right.
+         */
+        public boolean excludeUnsaved;
+        /**
+         * Pass true to exclude gifts that are saved to the chat's profile page; for channel chats with canPostMessages administrator right only.
+         */
+        public boolean excludeSaved;
+        /**
+         * Pass true to exclude gifts that can be purchased unlimited number of times; for channel chats with canPostMessages administrator right only.
+         */
+        public boolean excludeUnlimited;
+        /**
+         * Pass true to exclude gifts that can be purchased limited number of times; for channel chats with canPostMessages administrator right only.
+         */
+        public boolean excludeLimited;
+        /**
+         * Pass true to exclude upgraded gifts; for channel chats with canPostMessages administrator right only.
+         */
+        public boolean excludeUpgraded;
+        /**
+         * Pass true to sort results by gift price instead of send date; for channel chats with canPostMessages administrator right only.
+         */
+        public boolean sortByPrice;
+        /**
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of gifts to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns gifts received by the given user or chat.
+         *
+         * <p> Returns {@link ReceivedGifts ReceivedGifts} </p>
+         */
+        public GetReceivedGifts() {
+        }
+
+        /**
+         * Creates a function, which returns gifts received by the given user or chat.
+         *
+         * <p> Returns {@link ReceivedGifts ReceivedGifts} </p>
+         *
+         * @param ownerId Identifier of the gift receiver.
+         * @param excludeUnsaved Pass true to exclude gifts that aren't saved to the chat's profile page. Always true for gifts received by other users and channel chats without canPostMessages administrator right.
+         * @param excludeSaved Pass true to exclude gifts that are saved to the chat's profile page; for channel chats with canPostMessages administrator right only.
+         * @param excludeUnlimited Pass true to exclude gifts that can be purchased unlimited number of times; for channel chats with canPostMessages administrator right only.
+         * @param excludeLimited Pass true to exclude gifts that can be purchased limited number of times; for channel chats with canPostMessages administrator right only.
+         * @param excludeUpgraded Pass true to exclude upgraded gifts; for channel chats with canPostMessages administrator right only.
+         * @param sortByPrice Pass true to sort results by gift price instead of send date; for channel chats with canPostMessages administrator right only.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of gifts to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
+         */
+        public GetReceivedGifts(MessageSender ownerId, boolean excludeUnsaved, boolean excludeSaved, boolean excludeUnlimited, boolean excludeLimited, boolean excludeUpgraded, boolean sortByPrice, String offset, int limit) {
+            this.ownerId = ownerId;
+            this.excludeUnsaved = excludeUnsaved;
+            this.excludeSaved = excludeSaved;
+            this.excludeUnlimited = excludeUnlimited;
+            this.excludeLimited = excludeLimited;
+            this.excludeUpgraded = excludeUpgraded;
+            this.sortByPrice = sortByPrice;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 224594611;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns recent emoji statuses for self status.
      *
      * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
@@ -100456,14 +101191,14 @@ public class TdApi {
     /**
      * Returns up to 8 emoji statuses, which must be shown in the emoji status list for chats.
      *
-     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
      */
-    public static class GetThemedChatEmojiStatuses extends Function<EmojiStatuses> {
+    public static class GetThemedChatEmojiStatuses extends Function<EmojiStatusCustomEmojis> {
 
         /**
          * Default constructor for a function, which returns up to 8 emoji statuses, which must be shown in the emoji status list for chats.
          *
-         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
          */
         public GetThemedChatEmojiStatuses() {
         }
@@ -100471,7 +101206,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -76325707;
+        public static final int CONSTRUCTOR = 1924568314;
 
         /**
          * @return this.CONSTRUCTOR
@@ -100485,14 +101220,14 @@ public class TdApi {
     /**
      * Returns up to 8 emoji statuses, which must be shown right after the default Premium Badge in the emoji status list for self status.
      *
-     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
      */
-    public static class GetThemedEmojiStatuses extends Function<EmojiStatuses> {
+    public static class GetThemedEmojiStatuses extends Function<EmojiStatusCustomEmojis> {
 
         /**
          * Default constructor for a function, which returns up to 8 emoji statuses, which must be shown right after the default Premium Badge in the emoji status list for self status.
          *
-         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         * <p> Returns {@link EmojiStatusCustomEmojis EmojiStatusCustomEmojis} </p>
          */
         public GetThemedEmojiStatuses() {
         }
@@ -100500,7 +101235,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1791346882;
+        public static final int CONSTRUCTOR = -1468220543;
 
         /**
          * @return this.CONSTRUCTOR
@@ -100647,6 +101382,129 @@ public class TdApi {
     }
 
     /**
+     * Returns information about an upgraded gift by its name.
+     *
+     * <p> Returns {@link UpgradedGift UpgradedGift} </p>
+     */
+    public static class GetUpgradedGift extends Function<UpgradedGift> {
+        /**
+         * Unique name of the upgraded gift.
+         */
+        public String name;
+
+        /**
+         * Default constructor for a function, which returns information about an upgraded gift by its name.
+         *
+         * <p> Returns {@link UpgradedGift UpgradedGift} </p>
+         */
+        public GetUpgradedGift() {
+        }
+
+        /**
+         * Creates a function, which returns information about an upgraded gift by its name.
+         *
+         * <p> Returns {@link UpgradedGift UpgradedGift} </p>
+         *
+         * @param name Unique name of the upgraded gift.
+         */
+        public GetUpgradedGift(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1331821135;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns available upgraded gift emoji statuses for self status.
+     *
+     * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+     */
+    public static class GetUpgradedGiftEmojiStatuses extends Function<EmojiStatuses> {
+
+        /**
+         * Default constructor for a function, which returns available upgraded gift emoji statuses for self status.
+         *
+         * <p> Returns {@link EmojiStatuses EmojiStatuses} </p>
+         */
+        public GetUpgradedGiftEmojiStatuses() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1748975723;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat.
+     *
+     * <p> Returns {@link HttpUrl HttpUrl} </p>
+     */
+    public static class GetUpgradedGiftWithdrawalUrl extends Function<HttpUrl> {
+        /**
+         * Identifier of the gift.
+         */
+        public String receivedGiftId;
+        /**
+         * The 2-step verification password of the current user.
+         */
+        public String password;
+
+        /**
+         * Default constructor for a function, which returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat.
+         *
+         * <p> Returns {@link HttpUrl HttpUrl} </p>
+         */
+        public GetUpgradedGiftWithdrawalUrl() {
+        }
+
+        /**
+         * Creates a function, which returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat.
+         *
+         * <p> Returns {@link HttpUrl HttpUrl} </p>
+         *
+         * @param receivedGiftId Identifier of the gift.
+         * @param password The 2-step verification password of the current user.
+         */
+        public GetUpgradedGiftWithdrawalUrl(String receivedGiftId, String password) {
+            this.receivedGiftId = receivedGiftId;
+            this.password = password;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -784331188;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns information about a user by their identifier. This is an offline request if the current user is not a bot.
      *
      * <p> Returns {@link User User} </p>
@@ -100774,106 +101632,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -776823720;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns information about a gift received or sent by the current user.
-     *
-     * <p> Returns {@link UserGift UserGift} </p>
-     */
-    public static class GetUserGift extends Function<UserGift> {
-        /**
-         * Identifier of the message with the gift.
-         */
-        public long messageId;
-
-        /**
-         * Default constructor for a function, which returns information about a gift received or sent by the current user.
-         *
-         * <p> Returns {@link UserGift UserGift} </p>
-         */
-        public GetUserGift() {
-        }
-
-        /**
-         * Creates a function, which returns information about a gift received or sent by the current user.
-         *
-         * <p> Returns {@link UserGift UserGift} </p>
-         *
-         * @param messageId Identifier of the message with the gift.
-         */
-        public GetUserGift(long messageId) {
-            this.messageId = messageId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1961273657;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns gifts saved to profile by the given user.
-     *
-     * <p> Returns {@link UserGifts UserGifts} </p>
-     */
-    public static class GetUserGifts extends Function<UserGifts> {
-        /**
-         * Identifier of the user.
-         */
-        public long userId;
-        /**
-         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
-         */
-        public String offset;
-        /**
-         * The maximum number of gifts to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
-         */
-        public int limit;
-
-        /**
-         * Default constructor for a function, which returns gifts saved to profile by the given user.
-         *
-         * <p> Returns {@link UserGifts UserGifts} </p>
-         */
-        public GetUserGifts() {
-        }
-
-        /**
-         * Creates a function, which returns gifts saved to profile by the given user.
-         *
-         * <p> Returns {@link UserGifts UserGifts} </p>
-         *
-         * @param userId Identifier of the user.
-         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
-         * @param limit The maximum number of gifts to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
-         */
-        public GetUserGifts(long userId, String offset, int limit) {
-            this.userId = userId;
-            this.offset = offset;
-            this.limit = limit;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1211253636;
 
         /**
          * @return this.CONSTRUCTOR
@@ -102190,6 +102948,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1581923301;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Informs TDLib that a bot was opened from the list of similar bots.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class OpenBotSimilarBot extends Function<Ok> {
+        /**
+         * Identifier of the original bot, which similar bots were requested.
+         */
+        public long botUserId;
+        /**
+         * Identifier of the opened bot.
+         */
+        public long openedBotUserId;
+
+        /**
+         * Default constructor for a function, which informs TDLib that a bot was opened from the list of similar bots.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public OpenBotSimilarBot() {
+        }
+
+        /**
+         * Creates a function, which informs TDLib that a bot was opened from the list of similar bots.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param botUserId Identifier of the original bot, which similar bots were requested.
+         * @param openedBotUserId Identifier of the opened bot.
+         */
+        public OpenBotSimilarBot(long botUserId, long openedBotUserId) {
+            this.botUserId = botUserId;
+            this.openedBotUserId = openedBotUserId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -369688872;
 
         /**
          * @return this.CONSTRUCTOR
@@ -108311,22 +109119,18 @@ public class TdApi {
     }
 
     /**
-     * Sells a gift received by the current user for Telegram Stars.
+     * Sells a gift for Telegram Stars.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class SellGift extends Function<Ok> {
         /**
-         * Identifier of the user that sent the gift.
+         * Identifier of the gift.
          */
-        public long senderUserId;
-        /**
-         * Identifier of the message with the gift in the chat with the user.
-         */
-        public long messageId;
+        public String receivedGiftId;
 
         /**
-         * Default constructor for a function, which sells a gift received by the current user for Telegram Stars.
+         * Default constructor for a function, which sells a gift for Telegram Stars.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -108334,22 +109138,20 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sells a gift received by the current user for Telegram Stars.
+         * Creates a function, which sells a gift for Telegram Stars.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param senderUserId Identifier of the user that sent the gift.
-         * @param messageId Identifier of the message with the gift in the chat with the user.
+         * @param receivedGiftId Identifier of the gift.
          */
-        public SellGift(long senderUserId, long messageId) {
-            this.senderUserId = senderUserId;
-            this.messageId = messageId;
+        public SellGift(String receivedGiftId) {
+            this.receivedGiftId = receivedGiftId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1729857716;
+        public static final int CONSTRUCTOR = 1046653967;
 
         /**
          * @return this.CONSTRUCTOR
@@ -108995,7 +109797,7 @@ public class TdApi {
     }
 
     /**
-     * Sends a gift to another user. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
+     * Sends a gift to another user or channel chat. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -109005,15 +109807,15 @@ public class TdApi {
          */
         public long giftId;
         /**
-         * Identifier of the user that will receive the gift.
+         * Identifier of the user or the channel chat that will receive the gift.
          */
-        public long userId;
+        public MessageSender ownerId;
         /**
          * Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
          */
         public FormattedText text;
         /**
-         * Pass true to show the current user as sender and gift text only to the gift receiver; otherwise, everyone will be able to see them.
+         * Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
          */
         public boolean isPrivate;
         /**
@@ -109022,7 +109824,7 @@ public class TdApi {
         public boolean payForUpgrade;
 
         /**
-         * Default constructor for a function, which sends a gift to another user. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
+         * Default constructor for a function, which sends a gift to another user or channel chat. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -109030,19 +109832,19 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sends a gift to another user. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
+         * Creates a function, which sends a gift to another user or channel chat. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param giftId Identifier of the gift to send.
-         * @param userId Identifier of the user that will receive the gift.
+         * @param ownerId Identifier of the user or the channel chat that will receive the gift.
          * @param text Text to show along with the gift; 0-getOption(&quot;gift_text_length_max&quot;) characters. Only Bold, Italic, Underline, Strikethrough, Spoiler, and CustomEmoji entities are allowed.
-         * @param isPrivate Pass true to show the current user as sender and gift text only to the gift receiver; otherwise, everyone will be able to see them.
+         * @param isPrivate Pass true to show gift text and sender only to the gift receiver; otherwise, everyone will be able to see them.
          * @param payForUpgrade Pass true to additionally pay for the gift upgrade and allow the receiver to upgrade it for free.
          */
-        public SendGift(long giftId, long userId, FormattedText text, boolean isPrivate, boolean payForUpgrade) {
+        public SendGift(long giftId, MessageSender ownerId, FormattedText text, boolean isPrivate, boolean payForUpgrade) {
             this.giftId = giftId;
-            this.userId = userId;
+            this.ownerId = ownerId;
             this.text = text;
             this.isPrivate = isPrivate;
             this.payForUpgrade = payForUpgrade;
@@ -109051,7 +109853,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 20617179;
+        public static final int CONSTRUCTOR = -1199356118;
 
         /**
          * @return this.CONSTRUCTOR
@@ -117046,6 +117848,56 @@ public class TdApi {
     }
 
     /**
+     * Toggles whether notifications for new gifts received by a channel chat are sent to the current user; requires canPostMessages administrator right in the chat.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ToggleChatGiftNotifications extends Function<Ok> {
+        /**
+         * Identifier of the channel chat.
+         */
+        public long chatId;
+        /**
+         * Pass true to enable notifications about new gifts owned by the channel chat; pass false to disable the notifications.
+         */
+        public boolean areEnabled;
+
+        /**
+         * Default constructor for a function, which toggles whether notifications for new gifts received by a channel chat are sent to the current user; requires canPostMessages administrator right in the chat.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ToggleChatGiftNotifications() {
+        }
+
+        /**
+         * Creates a function, which toggles whether notifications for new gifts received by a channel chat are sent to the current user; requires canPostMessages administrator right in the chat.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the channel chat.
+         * @param areEnabled Pass true to enable notifications about new gifts owned by the channel chat; pass false to disable the notifications.
+         */
+        public ToggleChatGiftNotifications(long chatId, boolean areEnabled) {
+            this.chatId = chatId;
+            this.areEnabled = areEnabled;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2069429154;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes the ability of users to save, forward, or copy chat content. Supported only for basic groups, supergroups and channels. Requires owner privileges.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -117514,26 +118366,22 @@ public class TdApi {
     }
 
     /**
-     * Toggles whether a gift is shown on the current user's profile page.
+     * Toggles whether a gift is shown on the current user's or the channel's profile page; requires canPostMessages administrator right in the chat.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class ToggleGiftIsSaved extends Function<Ok> {
         /**
-         * Identifier of the user that sent the gift.
+         * Identifier of the gift.
          */
-        public long senderUserId;
+        public String receivedGiftId;
         /**
-         * Identifier of the message with the gift in the chat with the user.
-         */
-        public long messageId;
-        /**
-         * Pass true to display the gift on the user's profile page; pass false to remove it from the profile page.
+         * Pass true to display the gift on the user's or the channel's profile page; pass false to remove it from the profile page.
          */
         public boolean isSaved;
 
         /**
-         * Default constructor for a function, which toggles whether a gift is shown on the current user's profile page.
+         * Default constructor for a function, which toggles whether a gift is shown on the current user's or the channel's profile page; requires canPostMessages administrator right in the chat.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -117541,24 +118389,22 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which toggles whether a gift is shown on the current user's profile page.
+         * Creates a function, which toggles whether a gift is shown on the current user's or the channel's profile page; requires canPostMessages administrator right in the chat.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param senderUserId Identifier of the user that sent the gift.
-         * @param messageId Identifier of the message with the gift in the chat with the user.
-         * @param isSaved Pass true to display the gift on the user's profile page; pass false to remove it from the profile page.
+         * @param receivedGiftId Identifier of the gift.
+         * @param isSaved Pass true to display the gift on the user's or the channel's profile page; pass false to remove it from the profile page.
          */
-        public ToggleGiftIsSaved(long senderUserId, long messageId, boolean isSaved) {
-            this.senderUserId = senderUserId;
-            this.messageId = messageId;
+        public ToggleGiftIsSaved(String receivedGiftId, boolean isSaved) {
+            this.receivedGiftId = receivedGiftId;
             this.isSaved = isSaved;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1849495165;
+        public static final int CONSTRUCTOR = 693198065;
 
         /**
          * @return this.CONSTRUCTOR
@@ -118850,30 +119696,26 @@ public class TdApi {
     }
 
     /**
-     * Sends a gift upgraded by the current user to another user.
+     * Sends an upgraded gift to another user or a channel chat.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class TransferGift extends Function<Ok> {
         /**
-         * Identifier of the user that sent the gift.
+         * Identifier of the gift.
          */
-        public long senderUserId;
+        public String receivedGiftId;
         /**
-         * Identifier of the message with the upgraded gift in the chat with the user.
+         * Identifier of the user or the channel chat that will receive the gift.
          */
-        public long messageId;
+        public MessageSender newOwnerId;
         /**
-         * Identifier of the user that will receive the gift.
-         */
-        public long receiverUserId;
-        /**
-         * The amount of Telegram Stars required for the transfer.
+         * The amount of Telegram Stars required to pay for the transfer.
          */
         public long starCount;
 
         /**
-         * Default constructor for a function, which sends a gift upgraded by the current user to another user.
+         * Default constructor for a function, which sends an upgraded gift to another user or a channel chat.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -118881,26 +119723,24 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sends a gift upgraded by the current user to another user.
+         * Creates a function, which sends an upgraded gift to another user or a channel chat.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param senderUserId Identifier of the user that sent the gift.
-         * @param messageId Identifier of the message with the upgraded gift in the chat with the user.
-         * @param receiverUserId Identifier of the user that will receive the gift.
-         * @param starCount The amount of Telegram Stars required for the transfer.
+         * @param receivedGiftId Identifier of the gift.
+         * @param newOwnerId Identifier of the user or the channel chat that will receive the gift.
+         * @param starCount The amount of Telegram Stars required to pay for the transfer.
          */
-        public TransferGift(long senderUserId, long messageId, long receiverUserId, long starCount) {
-            this.senderUserId = senderUserId;
-            this.messageId = messageId;
-            this.receiverUserId = receiverUserId;
+        public TransferGift(String receivedGiftId, MessageSender newOwnerId, long starCount) {
+            this.receivedGiftId = receivedGiftId;
+            this.newOwnerId = newOwnerId;
             this.starCount = starCount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2134350414;
+        public static final int CONSTRUCTOR = 1658538791;
 
         /**
          * @return this.CONSTRUCTOR
@@ -119206,26 +120046,26 @@ public class TdApi {
     }
 
     /**
-     * Upgrades a gift received by the current user. Unless the gift has prepaidUpgradeStarCount &gt; 0, the user must pay gift.upgradeStarCount Telegram Stars for the upgrade.
+     * Upgrades a regular gift.
      *
      * <p> Returns {@link UpgradeGiftResult UpgradeGiftResult} </p>
      */
     public static class UpgradeGift extends Function<UpgradeGiftResult> {
         /**
-         * Identifier of the user that sent the gift.
+         * Identifier of the gift.
          */
-        public long senderUserId;
-        /**
-         * Identifier of the message with the gift in the chat with the user.
-         */
-        public long messageId;
+        public String receivedGiftId;
         /**
          * Pass true to keep the original gift text, sender and receiver in the upgraded gift.
          */
         public boolean keepOriginalDetails;
+        /**
+         * The amount of Telegram Stars required to pay for the upgrade. It the gift has prepaidUpgradeStarCount &gt; 0, then pass 0, otherwise, pass gift.upgradeStarCount.
+         */
+        public long starCount;
 
         /**
-         * Default constructor for a function, which upgrades a gift received by the current user. Unless the gift has prepaidUpgradeStarCount &gt; 0, the user must pay gift.upgradeStarCount Telegram Stars for the upgrade.
+         * Default constructor for a function, which upgrades a regular gift.
          *
          * <p> Returns {@link UpgradeGiftResult UpgradeGiftResult} </p>
          */
@@ -119233,24 +120073,24 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which upgrades a gift received by the current user. Unless the gift has prepaidUpgradeStarCount &gt; 0, the user must pay gift.upgradeStarCount Telegram Stars for the upgrade.
+         * Creates a function, which upgrades a regular gift.
          *
          * <p> Returns {@link UpgradeGiftResult UpgradeGiftResult} </p>
          *
-         * @param senderUserId Identifier of the user that sent the gift.
-         * @param messageId Identifier of the message with the gift in the chat with the user.
+         * @param receivedGiftId Identifier of the gift.
          * @param keepOriginalDetails Pass true to keep the original gift text, sender and receiver in the upgraded gift.
+         * @param starCount The amount of Telegram Stars required to pay for the upgrade. It the gift has prepaidUpgradeStarCount &gt; 0, then pass 0, otherwise, pass gift.upgradeStarCount.
          */
-        public UpgradeGift(long senderUserId, long messageId, boolean keepOriginalDetails) {
-            this.senderUserId = senderUserId;
-            this.messageId = messageId;
+        public UpgradeGift(String receivedGiftId, boolean keepOriginalDetails, long starCount) {
+            this.receivedGiftId = receivedGiftId;
             this.keepOriginalDetails = keepOriginalDetails;
+            this.starCount = starCount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -524249794;
+        public static final int CONSTRUCTOR = 1191312523;
 
         /**
          * @return this.CONSTRUCTOR
