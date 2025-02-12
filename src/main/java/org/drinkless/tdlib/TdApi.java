@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "28c6f2e9c045372d50217919bf5768b7fbbe0294";
+    private static final String GIT_COMMIT_HASH = "8e29c4d7d21db3ab2c7a88c384626e95ef789f61";
 
     private TdApi() {
     }
@@ -277,6 +277,7 @@ public class TdApi {
             GetChatAdministrators.CONSTRUCTOR,
             GetChatArchivedStories.CONSTRUCTOR,
             GetChatAvailableMessageSenders.CONSTRUCTOR,
+            GetChatAvailablePaidMessageReactionSenders.CONSTRUCTOR,
             GetChatBoostFeatures.CONSTRUCTOR,
             GetChatBoostLevelFeatures.CONSTRUCTOR,
             GetChatBoostLink.CONSTRUCTOR,
@@ -757,6 +758,7 @@ public class TdApi {
             SetNetworkType.CONSTRUCTOR,
             SetNewChatPrivacySettings.CONSTRUCTOR,
             SetOption.CONSTRUCTOR,
+            SetPaidMessageReactionType.CONSTRUCTOR,
             SetPassportElement.CONSTRUCTOR,
             SetPassportElementErrors.CONSTRUCTOR,
             SetPassword.CONSTRUCTOR,
@@ -843,7 +845,6 @@ public class TdApi {
             ToggleGroupCallParticipantIsMuted.CONSTRUCTOR,
             ToggleGroupCallScreenSharingIsPaused.CONSTRUCTOR,
             ToggleHasSponsoredMessagesEnabled.CONSTRUCTOR,
-            TogglePaidMessageReactionIsAnonymous.CONSTRUCTOR,
             ToggleSavedMessagesTopicIsPinned.CONSTRUCTOR,
             ToggleSessionCanAcceptCalls.CONSTRUCTOR,
             ToggleSessionCanAcceptSecretChats.CONSTRUCTOR,
@@ -33006,7 +33007,7 @@ public class TdApi {
     }
 
     /**
-     * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being third-party applications instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
+     * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot. If the bot is restricted for the current user, then show an error message. Otherwise, call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being third-party applications instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
      */
     public static class InternalLinkTypeWebApp extends InternalLinkType {
         /**
@@ -33027,13 +33028,13 @@ public class TdApi {
         public WebAppOpenMode mode;
 
         /**
-         * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being third-party applications instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
+         * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot. If the bot is restricted for the current user, then show an error message. Otherwise, call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being third-party applications instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
          */
         public InternalLinkTypeWebApp() {
         }
 
         /**
-         * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot, then call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being third-party applications instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
+         * The link is a link to a Web App. Call searchPublicChat with the given bot username, check that the user is a bot. If the bot is restricted for the current user, then show an error message. Otherwise, call searchWebApp with the received bot and the given webAppShortName. Process received foundWebApp by showing a confirmation dialog if needed. If the bot can be added to attachment or side menu, but isn't added yet, then show a disclaimer about Mini Apps being third-party applications instead of the dialog and ask the user to accept their Terms of service. If the user accept the terms and confirms adding, then use toggleBotIsAddedToAttachmentMenu to add the bot. Then, call getWebAppLinkUrl and open the returned URL as a Web App.
          *
          * @param botUsername Username of the bot that owns the Web App.
          * @param webAppShortName Short name of the Web App.
@@ -35857,6 +35858,14 @@ public class TdApi {
          * The video description.
          */
         public Video video;
+        /**
+         * Cover of the video; may be null if none.
+         */
+        @Nullable public Photo cover;
+        /**
+         * Timestamp from which the video playing must start, in seconds.
+         */
+        public int startTimestamp;
 
         /**
          * The link is a link to a video.
@@ -35868,15 +35877,19 @@ public class TdApi {
          * The link is a link to a video.
          *
          * @param video The video description.
+         * @param cover Cover of the video; may be null if none.
+         * @param startTimestamp Timestamp from which the video playing must start, in seconds.
          */
-        public LinkPreviewTypeVideo(Video video) {
+        public LinkPreviewTypeVideo(Video video, Photo cover, int startTimestamp) {
             this.video = video;
+            this.cover = cover;
+            this.startTimestamp = startTimestamp;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 281672712;
+        public static final int CONSTRUCTOR = 1573057926;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47140,6 +47153,123 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 112999974;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes type of paid message reaction.
+     */
+    public abstract static class PaidReactionType extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            PaidReactionTypeRegular.CONSTRUCTOR,
+            PaidReactionTypeAnonymous.CONSTRUCTOR,
+            PaidReactionTypeChat.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public PaidReactionType() {
+        }
+    }
+
+    /**
+     * A paid reaction on behalf of the current user.
+     */
+    public static class PaidReactionTypeRegular extends PaidReactionType {
+
+        /**
+         * A paid reaction on behalf of the current user.
+         */
+        public PaidReactionTypeRegular() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1199187333;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An anonymous paid reaction.
+     */
+    public static class PaidReactionTypeAnonymous extends PaidReactionType {
+
+        /**
+         * An anonymous paid reaction.
+         */
+        public PaidReactionTypeAnonymous() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 47892621;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A paid reaction on behalf of an owned chat.
+     */
+    public static class PaidReactionTypeChat extends PaidReactionType {
+        /**
+         * Identifier of the chat.
+         */
+        public long chatId;
+
+        /**
+         * A paid reaction on behalf of an owned chat.
+         */
+        public PaidReactionTypeChat() {
+        }
+
+        /**
+         * A paid reaction on behalf of an owned chat.
+         *
+         * @param chatId Identifier of the chat.
+         */
+        public PaidReactionTypeChat(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -675782044;
 
         /**
          * @return this.CONSTRUCTOR
@@ -70135,6 +70265,7 @@ public class TdApi {
             UpdateFileDownload.CONSTRUCTOR,
             UpdateFileRemovedFromDownloads.CONSTRUCTOR,
             UpdateApplicationVerificationRequired.CONSTRUCTOR,
+            UpdateApplicationRecaptchaVerificationRequired.CONSTRUCTOR,
             UpdateCall.CONSTRUCTOR,
             UpdateGroupCall.CONSTRUCTOR,
             UpdateGroupCallParticipant.CONSTRUCTOR,
@@ -70170,6 +70301,7 @@ public class TdApi {
             UpdateActiveEmojiReactions.CONSTRUCTOR,
             UpdateAvailableMessageEffects.CONSTRUCTOR,
             UpdateDefaultReactionType.CONSTRUCTOR,
+            UpdateDefaultPaidReactionType.CONSTRUCTOR,
             UpdateSavedMessagesTags.CONSTRUCTOR,
             UpdateActiveLiveLocationMessages.CONSTRUCTOR,
             UpdateOwnedStarCount.CONSTRUCTOR,
@@ -73931,6 +74063,56 @@ public class TdApi {
     }
 
     /**
+     * A request can't be completed unless reCAPTCHA verification is performed; for official mobile applications only. The method setApplicationVerificationToken must be called once the verification is completed or failed.
+     */
+    public static class UpdateApplicationRecaptchaVerificationRequired extends Update {
+        /**
+         * Unique identifier for the verification process.
+         */
+        public long verificationId;
+        /**
+         * The action for the check.
+         */
+        public String action;
+        /**
+         * Identifier of the reCAPTCHA key.
+         */
+        public String recaptchaKeyId;
+
+        /**
+         * A request can't be completed unless reCAPTCHA verification is performed; for official mobile applications only. The method setApplicationVerificationToken must be called once the verification is completed or failed.
+         */
+        public UpdateApplicationRecaptchaVerificationRequired() {
+        }
+
+        /**
+         * A request can't be completed unless reCAPTCHA verification is performed; for official mobile applications only. The method setApplicationVerificationToken must be called once the verification is completed or failed.
+         *
+         * @param verificationId Unique identifier for the verification process.
+         * @param action The action for the check.
+         * @param recaptchaKeyId Identifier of the reCAPTCHA key.
+         */
+        public UpdateApplicationRecaptchaVerificationRequired(long verificationId, String action, String recaptchaKeyId) {
+            this.verificationId = verificationId;
+            this.action = action;
+            this.recaptchaKeyId = recaptchaKeyId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1796351554;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * New call was created or information about a call was updated.
      */
     public static class UpdateCall extends Update {
@@ -75412,6 +75594,44 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1264668933;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The type of default paid reaction has changed.
+     */
+    public static class UpdateDefaultPaidReactionType extends Update {
+        /**
+         * The new type of the default paid reaction.
+         */
+        public PaidReactionType type;
+
+        /**
+         * The type of default paid reaction has changed.
+         */
+        public UpdateDefaultPaidReactionType() {
+        }
+
+        /**
+         * The type of default paid reaction has changed.
+         *
+         * @param type The new type of the default paid reaction.
+         */
+        public UpdateDefaultPaidReactionType(PaidReactionType type) {
+            this.type = type;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 38198599;
 
         /**
          * @return this.CONSTRUCTOR
@@ -77287,6 +77507,10 @@ public class TdApi {
          */
         public String ownerName;
         /**
+         * Address of the gift NFT in TON blockchain; may be empty if none.
+         */
+        public String giftAddress;
+        /**
          * Model of the upgraded gift.
          */
         public UpgradedGiftModel model;
@@ -77321,12 +77545,13 @@ public class TdApi {
          * @param ownerId Identifier of the user or the chat that owns the upgraded gift; may be null if none or unknown.
          * @param ownerAddress Address of the gift NFT owner in TON blockchain; may be empty if none.
          * @param ownerName Name of the owner for the case when owner identifier and address aren't known.
+         * @param giftAddress Address of the gift NFT in TON blockchain; may be empty if none.
          * @param model Model of the upgraded gift.
          * @param symbol Symbol of the upgraded gift.
          * @param backdrop Backdrop of the upgraded gift.
          * @param originalDetails Information about the originally sent gift; may be null if unknown.
          */
-        public UpgradedGift(long id, String title, String name, int number, int totalUpgradedCount, int maxUpgradedCount, MessageSender ownerId, String ownerAddress, String ownerName, UpgradedGiftModel model, UpgradedGiftSymbol symbol, UpgradedGiftBackdrop backdrop, UpgradedGiftOriginalDetails originalDetails) {
+        public UpgradedGift(long id, String title, String name, int number, int totalUpgradedCount, int maxUpgradedCount, MessageSender ownerId, String ownerAddress, String ownerName, String giftAddress, UpgradedGiftModel model, UpgradedGiftSymbol symbol, UpgradedGiftBackdrop backdrop, UpgradedGiftOriginalDetails originalDetails) {
             this.id = id;
             this.title = title;
             this.name = name;
@@ -77336,6 +77561,7 @@ public class TdApi {
             this.ownerId = ownerId;
             this.ownerAddress = ownerAddress;
             this.ownerName = ownerName;
+            this.giftAddress = giftAddress;
             this.model = model;
             this.symbol = symbol;
             this.backdrop = backdrop;
@@ -77345,7 +77571,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1203274603;
+        public static final int CONSTRUCTOR = -473646818;
 
         /**
          * @return this.CONSTRUCTOR
@@ -81060,13 +81286,9 @@ public class TdApi {
          */
         public long starCount;
         /**
-         * Pass true if the user didn't choose anonymity explicitly, for example, the reaction is set from the message bubble.
+         * Type of the paid reaction; pass null if the user didn't choose reaction type explicitly, for example, the reaction is set from the message bubble.
          */
-        public boolean useDefaultIsAnonymous;
-        /**
-         * Pass true to make paid reaction of the user on the message anonymous; pass false to make the user's profile visible among top reactors. Ignored if useDefaultIsAnonymous == true.
-         */
-        public boolean isAnonymous;
+        public PaidReactionType type;
 
         /**
          * Default constructor for a function, which adds the paid message reaction to a message. Use getMessageAvailableReactions to check whether the reaction is available for the message.
@@ -81084,21 +81306,19 @@ public class TdApi {
          * @param chatId Identifier of the chat to which the message belongs.
          * @param messageId Identifier of the message.
          * @param starCount Number of Telegram Stars to be used for the reaction. The total number of pending paid reactions must not exceed getOption(&quot;paid_reaction_star_count_max&quot;).
-         * @param useDefaultIsAnonymous Pass true if the user didn't choose anonymity explicitly, for example, the reaction is set from the message bubble.
-         * @param isAnonymous Pass true to make paid reaction of the user on the message anonymous; pass false to make the user's profile visible among top reactors. Ignored if useDefaultIsAnonymous == true.
+         * @param type Type of the paid reaction; pass null if the user didn't choose reaction type explicitly, for example, the reaction is set from the message bubble.
          */
-        public AddPendingPaidMessageReaction(long chatId, long messageId, long starCount, boolean useDefaultIsAnonymous, boolean isAnonymous) {
+        public AddPendingPaidMessageReaction(long chatId, long messageId, long starCount, PaidReactionType type) {
             this.chatId = chatId;
             this.messageId = messageId;
             this.starCount = starCount;
-            this.useDefaultIsAnonymous = useDefaultIsAnonymous;
-            this.isAnonymous = isAnonymous;
+            this.type = type;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1716816153;
+        public static final int CONSTRUCTOR = -342110765;
 
         /**
          * @return this.CONSTRUCTOR
@@ -91185,6 +91405,50 @@ public class TdApi {
     }
 
     /**
+     * Returns the list of message sender identifiers, which can be used to send a paid reaction in a chat.
+     *
+     * <p> Returns {@link MessageSenders MessageSenders} </p>
+     */
+    public static class GetChatAvailablePaidMessageReactionSenders extends Function<MessageSenders> {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which returns the list of message sender identifiers, which can be used to send a paid reaction in a chat.
+         *
+         * <p> Returns {@link MessageSenders MessageSenders} </p>
+         */
+        public GetChatAvailablePaidMessageReactionSenders() {
+        }
+
+        /**
+         * Creates a function, which returns the list of message sender identifiers, which can be used to send a paid reaction in a chat.
+         *
+         * <p> Returns {@link MessageSenders MessageSenders} </p>
+         *
+         * @param chatId Chat identifier.
+         */
+        public GetChatAvailablePaidMessageReactionSenders(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1244619639;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns the list of features available for different chat boost levels; this is an offline request.
      *
      * <p> Returns {@link ChatBoostFeatures ChatBoostFeatures} </p>
@@ -96313,7 +96577,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Identifier of the target bot.
+         * Identifier of the target bot. If the bot is restricted for the current user, then show an error instead of calling the method.
          */
         public long botUserId;
         /**
@@ -96339,7 +96603,7 @@ public class TdApi {
          * <p> Returns {@link MainWebApp MainWebApp} </p>
          *
          * @param chatId Identifier of the chat in which the Web App is opened; pass 0 if none.
-         * @param botUserId Identifier of the target bot.
+         * @param botUserId Identifier of the target bot. If the bot is restricted for the current user, then show an error instead of calling the method.
          * @param startParameter Start parameter from internalLinkTypeMainWebApp.
          * @param parameters Parameters to use to open the Web App.
          */
@@ -98741,23 +99005,23 @@ public class TdApi {
          */
         public boolean excludeUnsaved;
         /**
-         * Pass true to exclude gifts that are saved to the chat's profile page; for channel chats with canPostMessages administrator right only.
+         * Pass true to exclude gifts that are saved to the chat's profile page. Always false for gifts received by other users and channel chats without canPostMessages administrator right.
          */
         public boolean excludeSaved;
         /**
-         * Pass true to exclude gifts that can be purchased unlimited number of times; for channel chats with canPostMessages administrator right only.
+         * Pass true to exclude gifts that can be purchased unlimited number of times.
          */
         public boolean excludeUnlimited;
         /**
-         * Pass true to exclude gifts that can be purchased limited number of times; for channel chats with canPostMessages administrator right only.
+         * Pass true to exclude gifts that can be purchased limited number of times.
          */
         public boolean excludeLimited;
         /**
-         * Pass true to exclude upgraded gifts; for channel chats with canPostMessages administrator right only.
+         * Pass true to exclude upgraded gifts.
          */
         public boolean excludeUpgraded;
         /**
-         * Pass true to sort results by gift price instead of send date; for channel chats with canPostMessages administrator right only.
+         * Pass true to sort results by gift price instead of send date.
          */
         public boolean sortByPrice;
         /**
@@ -98784,11 +99048,11 @@ public class TdApi {
          *
          * @param ownerId Identifier of the gift receiver.
          * @param excludeUnsaved Pass true to exclude gifts that aren't saved to the chat's profile page. Always true for gifts received by other users and channel chats without canPostMessages administrator right.
-         * @param excludeSaved Pass true to exclude gifts that are saved to the chat's profile page; for channel chats with canPostMessages administrator right only.
-         * @param excludeUnlimited Pass true to exclude gifts that can be purchased unlimited number of times; for channel chats with canPostMessages administrator right only.
-         * @param excludeLimited Pass true to exclude gifts that can be purchased limited number of times; for channel chats with canPostMessages administrator right only.
-         * @param excludeUpgraded Pass true to exclude upgraded gifts; for channel chats with canPostMessages administrator right only.
-         * @param sortByPrice Pass true to sort results by gift price instead of send date; for channel chats with canPostMessages administrator right only.
+         * @param excludeSaved Pass true to exclude gifts that are saved to the chat's profile page. Always false for gifts received by other users and channel chats without canPostMessages administrator right.
+         * @param excludeUnlimited Pass true to exclude gifts that can be purchased unlimited number of times.
+         * @param excludeLimited Pass true to exclude gifts that can be purchased limited number of times.
+         * @param excludeUpgraded Pass true to exclude upgraded gifts.
+         * @param sortByPrice Pass true to sort results by gift price instead of send date.
          * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
          * @param limit The maximum number of gifts to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned objects is chosen by TDLib and can be smaller than the specified limit.
          */
@@ -102028,7 +102292,7 @@ public class TdApi {
      */
     public static class GetWebAppUrl extends Function<HttpUrl> {
         /**
-         * Identifier of the target bot.
+         * Identifier of the target bot. If the bot is restricted for the current user, then show an error instead of calling the method.
          */
         public long botUserId;
         /**
@@ -102053,7 +102317,7 @@ public class TdApi {
          *
          * <p> Returns {@link HttpUrl HttpUrl} </p>
          *
-         * @param botUserId Identifier of the target bot.
+         * @param botUserId Identifier of the target bot. If the bot is restricted for the current user, then show an error instead of calling the method.
          * @param url The URL from a keyboardButtonTypeWebApp button, inlineQueryResultsButtonTypeWebApp button, or an empty string when the bot is opened from the side menu.
          * @param parameters Parameters to use to open the Web App.
          */
@@ -103213,7 +103477,7 @@ public class TdApi {
          */
         public long chatId;
         /**
-         * Identifier of the bot, providing the Web App.
+         * Identifier of the bot, providing the Web App. If the bot is restricted for the current user, then show an error instead of calling the method.
          */
         public long botUserId;
         /**
@@ -103247,7 +103511,7 @@ public class TdApi {
          * <p> Returns {@link WebAppInfo WebAppInfo} </p>
          *
          * @param chatId Identifier of the chat in which the Web App is opened. The Web App can't be opened in secret chats.
-         * @param botUserId Identifier of the bot, providing the Web App.
+         * @param botUserId Identifier of the bot, providing the Web App. If the bot is restricted for the current user, then show an error instead of calling the method.
          * @param url The URL from an inlineKeyboardButtonTypeWebApp button, a botMenuButton button, an internalLinkTypeAttachmentMenuBot link, or an empty string otherwise.
          * @param messageThreadId If not 0, the message thread identifier in which the message will be sent.
          * @param replyTo Information about the message or story to be replied in the message sent by the Web App; pass null if none.
@@ -110709,22 +110973,22 @@ public class TdApi {
     }
 
     /**
-     * Application verification has been completed. Can be called before authorization.
+     * Application or reCAPTCHA verification has been completed. Can be called before authorization.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
     public static class SetApplicationVerificationToken extends Function<Ok> {
         /**
-         * Unique identifier for the verification process as received from updateApplicationVerificationRequired.
+         * Unique identifier for the verification process as received from updateApplicationVerificationRequired or updateApplicationRecaptchaVerificationRequired.
          */
         public long verificationId;
         /**
-         * Play Integrity API token for the Android application, or secret from push notification for the iOS application; pass an empty string to abort verification and receive error VERIFICATIONFAILED for the request.
+         * Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive error VERIFICATIONFAILED for the request.
          */
         public String token;
 
         /**
-         * Default constructor for a function, which application verification has been completed. Can be called before authorization.
+         * Default constructor for a function, which application or reCAPTCHA verification has been completed. Can be called before authorization.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -110732,12 +110996,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which application verification has been completed. Can be called before authorization.
+         * Creates a function, which application or reCAPTCHA verification has been completed. Can be called before authorization.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param verificationId Unique identifier for the verification process as received from updateApplicationVerificationRequired.
-         * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application; pass an empty string to abort verification and receive error VERIFICATIONFAILED for the request.
+         * @param verificationId Unique identifier for the verification process as received from updateApplicationVerificationRequired or updateApplicationRecaptchaVerificationRequired.
+         * @param token Play Integrity API token for the Android application, or secret from push notification for the iOS application for application verification, or reCAPTCHA token for reCAPTCHA verifications; pass an empty string to abort verification and receive error VERIFICATIONFAILED for the request.
          */
         public SetApplicationVerificationToken(long verificationId, String token) {
             this.verificationId = verificationId;
@@ -114484,6 +114748,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 2114670322;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes type of paid message reaction of the current user on a message. The message must have paid reaction added by the current user.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetPaidMessageReactionType extends Function<Ok> {
+        /**
+         * Identifier of the chat to which the message belongs.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message.
+         */
+        public long messageId;
+        /**
+         * New type of the paid reaction.
+         */
+        public PaidReactionType type;
+
+        /**
+         * Default constructor for a function, which changes type of paid message reaction of the current user on a message. The message must have paid reaction added by the current user.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetPaidMessageReactionType() {
+        }
+
+        /**
+         * Creates a function, which changes type of paid message reaction of the current user on a message. The message must have paid reaction added by the current user.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Identifier of the chat to which the message belongs.
+         * @param messageId Identifier of the message.
+         * @param type New type of the paid reaction.
+         */
+        public SetPaidMessageReactionType(long chatId, long messageId, PaidReactionType type) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.type = type;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -829934930;
 
         /**
          * @return this.CONSTRUCTOR
@@ -118811,62 +119131,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1963285740;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Changes whether the paid message reaction of the user to a message is anonymous. The message must have paid reaction added by the user.
-     *
-     * <p> Returns {@link Ok Ok} </p>
-     */
-    public static class TogglePaidMessageReactionIsAnonymous extends Function<Ok> {
-        /**
-         * Identifier of the chat to which the message belongs.
-         */
-        public long chatId;
-        /**
-         * Identifier of the message.
-         */
-        public long messageId;
-        /**
-         * Pass true to make paid reaction of the user on the message anonymous; pass false to make the user's profile visible among top reactors.
-         */
-        public boolean isAnonymous;
-
-        /**
-         * Default constructor for a function, which changes whether the paid message reaction of the user to a message is anonymous. The message must have paid reaction added by the user.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         */
-        public TogglePaidMessageReactionIsAnonymous() {
-        }
-
-        /**
-         * Creates a function, which changes whether the paid message reaction of the user to a message is anonymous. The message must have paid reaction added by the user.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         *
-         * @param chatId Identifier of the chat to which the message belongs.
-         * @param messageId Identifier of the message.
-         * @param isAnonymous Pass true to make paid reaction of the user on the message anonymous; pass false to make the user's profile visible among top reactors.
-         */
-        public TogglePaidMessageReactionIsAnonymous(long chatId, long messageId, boolean isAnonymous) {
-            this.chatId = chatId;
-            this.messageId = messageId;
-            this.isAnonymous = isAnonymous;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1753949423;
 
         /**
          * @return this.CONSTRUCTOR
