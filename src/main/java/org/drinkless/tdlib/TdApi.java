@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "207f3be7b58b2a2b9f0a066b5b6ef18782b8b517";
+    private static final String GIT_COMMIT_HASH = "b498497bbfd6b80c86f800b3546a0170206317d3";
 
     private TdApi() {
     }
@@ -90963,14 +90963,14 @@ public class TdApi {
     }
 
     /**
-     * Returns the current authorization state; this is an offline request. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization.
+     * Returns the current authorization state. This is an offline method. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization.
      *
      * <p> Returns {@link AuthorizationState AuthorizationState} </p>
      */
     public static class GetAuthorizationState extends Function<AuthorizationState> {
 
         /**
-         * Default constructor for a function, which returns the current authorization state; this is an offline request. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization.
+         * Default constructor for a function, which returns the current authorization state. This is an offline method. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization.
          *
          * <p> Returns {@link AuthorizationState AuthorizationState} </p>
          */
@@ -91202,7 +91202,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a basic group by its identifier. This is an offline request if the current user is not a bot.
+     * Returns information about a basic group by its identifier. This is an offline method if the current user is not a bot.
      *
      * <p> Returns {@link BasicGroup BasicGroup} </p>
      */
@@ -91213,7 +91213,7 @@ public class TdApi {
         public long basicGroupId;
 
         /**
-         * Default constructor for a function, which returns information about a basic group by its identifier. This is an offline request if the current user is not a bot.
+         * Default constructor for a function, which returns information about a basic group by its identifier. This is an offline method if the current user is not a bot.
          *
          * <p> Returns {@link BasicGroup BasicGroup} </p>
          */
@@ -91221,7 +91221,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a basic group by its identifier. This is an offline request if the current user is not a bot.
+         * Creates a function, which returns information about a basic group by its identifier. This is an offline method if the current user is not a bot.
          *
          * <p> Returns {@link BasicGroup BasicGroup} </p>
          *
@@ -91986,7 +91986,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a chat by its identifier; this is an offline request if the current user is not a bot.
+     * Returns information about a chat by its identifier. This is an offline method if the current user is not a bot.
      *
      * <p> Returns {@link Chat Chat} </p>
      */
@@ -91997,7 +91997,7 @@ public class TdApi {
         public long chatId;
 
         /**
-         * Default constructor for a function, which returns information about a chat by its identifier; this is an offline request if the current user is not a bot.
+         * Default constructor for a function, which returns information about a chat by its identifier. This is an offline method if the current user is not a bot.
          *
          * <p> Returns {@link Chat Chat} </p>
          */
@@ -92005,7 +92005,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a chat by its identifier; this is an offline request if the current user is not a bot.
+         * Creates a function, which returns information about a chat by its identifier. This is an offline method if the current user is not a bot.
          *
          * <p> Returns {@link Chat Chat} </p>
          *
@@ -92262,7 +92262,7 @@ public class TdApi {
     }
 
     /**
-     * Returns the list of features available for different chat boost levels; this is an offline request.
+     * Returns the list of features available for different chat boost levels. This is an offline method.
      *
      * <p> Returns {@link ChatBoostFeatures ChatBoostFeatures} </p>
      */
@@ -92273,7 +92273,7 @@ public class TdApi {
         public boolean isChannel;
 
         /**
-         * Default constructor for a function, which returns the list of features available for different chat boost levels; this is an offline request.
+         * Default constructor for a function, which returns the list of features available for different chat boost levels. This is an offline method.
          *
          * <p> Returns {@link ChatBoostFeatures ChatBoostFeatures} </p>
          */
@@ -92281,7 +92281,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns the list of features available for different chat boost levels; this is an offline request.
+         * Creates a function, which returns the list of features available for different chat boost levels. This is an offline method.
          *
          * <p> Returns {@link ChatBoostFeatures ChatBoostFeatures} </p>
          *
@@ -92306,7 +92306,7 @@ public class TdApi {
     }
 
     /**
-     * Returns the list of features available on the specific chat boost level; this is an offline request.
+     * Returns the list of features available on the specific chat boost level. This is an offline method.
      *
      * <p> Returns {@link ChatBoostLevelFeatures ChatBoostLevelFeatures} </p>
      */
@@ -92321,7 +92321,7 @@ public class TdApi {
         public int level;
 
         /**
-         * Default constructor for a function, which returns the list of features available on the specific chat boost level; this is an offline request.
+         * Default constructor for a function, which returns the list of features available on the specific chat boost level. This is an offline method.
          *
          * <p> Returns {@link ChatBoostLevelFeatures ChatBoostLevelFeatures} </p>
          */
@@ -92329,7 +92329,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns the list of features available on the specific chat boost level; this is an offline request.
+         * Creates a function, which returns the list of features available on the specific chat boost level. This is an offline method.
          *
          * <p> Returns {@link ChatBoostLevelFeatures ChatBoostLevelFeatures} </p>
          *
@@ -92888,7 +92888,7 @@ public class TdApi {
     }
 
     /**
-     * Returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if onlyLocal is true.
+     * Returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -92915,7 +92915,7 @@ public class TdApi {
         public boolean onlyLocal;
 
         /**
-         * Default constructor for a function, which returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if onlyLocal is true.
+         * Default constructor for a function, which returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -92923,7 +92923,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if onlyLocal is true.
+         * Creates a function, which returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -93260,7 +93260,7 @@ public class TdApi {
     }
 
     /**
-     * Returns chat lists to which the chat can be added. This is an offline request.
+     * Returns chat lists to which the chat can be added. This is an offline method.
      *
      * <p> Returns {@link ChatLists ChatLists} </p>
      */
@@ -93271,7 +93271,7 @@ public class TdApi {
         public long chatId;
 
         /**
-         * Default constructor for a function, which returns chat lists to which the chat can be added. This is an offline request.
+         * Default constructor for a function, which returns chat lists to which the chat can be added. This is an offline method.
          *
          * <p> Returns {@link ChatLists ChatLists} </p>
          */
@@ -93279,7 +93279,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns chat lists to which the chat can be added. This is an offline request.
+         * Creates a function, which returns chat lists to which the chat can be added. This is an offline method.
          *
          * <p> Returns {@link ChatLists ChatLists} </p>
          *
@@ -95509,7 +95509,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a file; this is an offline request.
+     * Returns information about a file. This is an offline method.
      *
      * <p> Returns {@link File File} </p>
      */
@@ -95520,7 +95520,7 @@ public class TdApi {
         public int fileId;
 
         /**
-         * Default constructor for a function, which returns information about a file; this is an offline request.
+         * Default constructor for a function, which returns information about a file. This is an offline method.
          *
          * <p> Returns {@link File File} </p>
          */
@@ -95528,7 +95528,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a file; this is an offline request.
+         * Creates a function, which returns information about a file. This is an offline method.
          *
          * <p> Returns {@link File File} </p>
          *
@@ -95770,7 +95770,7 @@ public class TdApi {
     }
 
     /**
-     * Returns an HTTPS link to a topic in a forum chat. This is an offline request.
+     * Returns an HTTPS link to a topic in a forum chat. This is an offline method.
      *
      * <p> Returns {@link MessageLink MessageLink} </p>
      */
@@ -95785,7 +95785,7 @@ public class TdApi {
         public long messageThreadId;
 
         /**
-         * Default constructor for a function, which returns an HTTPS link to a topic in a forum chat. This is an offline request.
+         * Default constructor for a function, which returns an HTTPS link to a topic in a forum chat. This is an offline method.
          *
          * <p> Returns {@link MessageLink MessageLink} </p>
          */
@@ -95793,7 +95793,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an HTTPS link to a topic in a forum chat. This is an offline request.
+         * Creates a function, which returns an HTTPS link to a topic in a forum chat. This is an offline method.
          *
          * <p> Returns {@link MessageLink MessageLink} </p>
          *
@@ -97087,7 +97087,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about the current localization target. This is an offline request if onlyLocal is true. Can be called before authorization.
+     * Returns information about the current localization target. This is an offline method if onlyLocal is true. Can be called before authorization.
      *
      * <p> Returns {@link LocalizationTargetInfo LocalizationTargetInfo} </p>
      */
@@ -97098,7 +97098,7 @@ public class TdApi {
         public boolean onlyLocal;
 
         /**
-         * Default constructor for a function, which returns information about the current localization target. This is an offline request if onlyLocal is true. Can be called before authorization.
+         * Default constructor for a function, which returns information about the current localization target. This is an offline method if onlyLocal is true. Can be called before authorization.
          *
          * <p> Returns {@link LocalizationTargetInfo LocalizationTargetInfo} </p>
          */
@@ -97106,7 +97106,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about the current localization target. This is an offline request if onlyLocal is true. Can be called before authorization.
+         * Creates a function, which returns information about the current localization target. This is an offline method if onlyLocal is true. Can be called before authorization.
          *
          * <p> Returns {@link LocalizationTargetInfo LocalizationTargetInfo} </p>
          *
@@ -97995,7 +97995,7 @@ public class TdApi {
     }
 
     /**
-     * Returns an HTTPS link to a message in a chat. Available only if messageProperties.canGetLink, or if messageProperties.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline request.
+     * Returns an HTTPS link to a message in a chat. Available only if messageProperties.canGetLink, or if messageProperties.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline method.
      *
      * <p> Returns {@link MessageLink MessageLink} </p>
      */
@@ -98022,7 +98022,7 @@ public class TdApi {
         public boolean inMessageThread;
 
         /**
-         * Default constructor for a function, which returns an HTTPS link to a message in a chat. Available only if messageProperties.canGetLink, or if messageProperties.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline request.
+         * Default constructor for a function, which returns an HTTPS link to a message in a chat. Available only if messageProperties.canGetLink, or if messageProperties.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline method.
          *
          * <p> Returns {@link MessageLink MessageLink} </p>
          */
@@ -98030,7 +98030,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an HTTPS link to a message in a chat. Available only if messageProperties.canGetLink, or if messageProperties.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline request.
+         * Creates a function, which returns an HTTPS link to a message in a chat. Available only if messageProperties.canGetLink, or if messageProperties.canGetMediaTimestampLinks and a media timestamp link is generated. This is an offline method.
          *
          * <p> Returns {@link MessageLink MessageLink} </p>
          *
@@ -98107,7 +98107,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a message, if it is available without sending network request. Returns a 404 error if message isn't available locally. This is an offline request.
+     * Returns information about a message, if it is available without sending network request. Returns a 404 error if message isn't available locally. This is an offline method.
      *
      * <p> Returns {@link Message Message} </p>
      */
@@ -98122,7 +98122,7 @@ public class TdApi {
         public long messageId;
 
         /**
-         * Default constructor for a function, which returns information about a message, if it is available without sending network request. Returns a 404 error if message isn't available locally. This is an offline request.
+         * Default constructor for a function, which returns information about a message, if it is available without sending network request. Returns a 404 error if message isn't available locally. This is an offline method.
          *
          * <p> Returns {@link Message Message} </p>
          */
@@ -98130,7 +98130,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a message, if it is available without sending network request. Returns a 404 error if message isn't available locally. This is an offline request.
+         * Creates a function, which returns information about a message, if it is available without sending network request. Returns a 404 error if message isn't available locally. This is an offline method.
          *
          * <p> Returns {@link Message Message} </p>
          *
@@ -98157,7 +98157,7 @@ public class TdApi {
     }
 
     /**
-     * Returns properties of a message; this is an offline request.
+     * Returns properties of a message. This is an offline method.
      *
      * <p> Returns {@link MessageProperties MessageProperties} </p>
      */
@@ -98172,7 +98172,7 @@ public class TdApi {
         public long messageId;
 
         /**
-         * Default constructor for a function, which returns properties of a message; this is an offline request.
+         * Default constructor for a function, which returns properties of a message. This is an offline method.
          *
          * <p> Returns {@link MessageProperties MessageProperties} </p>
          */
@@ -98180,7 +98180,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns properties of a message; this is an offline request.
+         * Creates a function, which returns properties of a message. This is an offline method.
          *
          * <p> Returns {@link MessageProperties MessageProperties} </p>
          *
@@ -100071,7 +100071,7 @@ public class TdApi {
     }
 
     /**
-     * Returns recently opened chats; this is an offline request. Returns chats in the order of last opening.
+     * Returns recently opened chats. This is an offline method. Returns chats in the order of last opening.
      *
      * <p> Returns {@link Chats Chats} </p>
      */
@@ -100082,7 +100082,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns recently opened chats; this is an offline request. Returns chats in the order of last opening.
+         * Default constructor for a function, which returns recently opened chats. This is an offline method. Returns chats in the order of last opening.
          *
          * <p> Returns {@link Chats Chats} </p>
          */
@@ -100090,7 +100090,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns recently opened chats; this is an offline request. Returns chats in the order of last opening.
+         * Creates a function, which returns recently opened chats. This is an offline method. Returns chats in the order of last opening.
          *
          * <p> Returns {@link Chats Chats} </p>
          *
@@ -100261,7 +100261,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a file by its remote identifier; this is an offline request. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application.
+     * Returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application.
      *
      * <p> Returns {@link File File} </p>
      */
@@ -100276,7 +100276,7 @@ public class TdApi {
         public FileType fileType;
 
         /**
-         * Default constructor for a function, which returns information about a file by its remote identifier; this is an offline request. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application.
+         * Default constructor for a function, which returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application.
          *
          * <p> Returns {@link File File} </p>
          */
@@ -100284,7 +100284,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a file by its remote identifier; this is an offline request. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application.
+         * Creates a function, which returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application.
          *
          * <p> Returns {@link File File} </p>
          *
@@ -100742,7 +100742,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a secret chat by its identifier. This is an offline request.
+     * Returns information about a secret chat by its identifier. This is an offline method.
      *
      * <p> Returns {@link SecretChat SecretChat} </p>
      */
@@ -100753,7 +100753,7 @@ public class TdApi {
         public int secretChatId;
 
         /**
-         * Default constructor for a function, which returns information about a secret chat by its identifier. This is an offline request.
+         * Default constructor for a function, which returns information about a secret chat by its identifier. This is an offline method.
          *
          * <p> Returns {@link SecretChat SecretChat} </p>
          */
@@ -100761,7 +100761,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a secret chat by its identifier. This is an offline request.
+         * Creates a function, which returns information about a secret chat by its identifier. This is an offline method.
          *
          * <p> Returns {@link SecretChat SecretChat} </p>
          *
@@ -101256,7 +101256,7 @@ public class TdApi {
     }
 
     /**
-     * Returns outline of a sticker; this is an offline request. Returns a 404 error if the outline isn't known.
+     * Returns outline of a sticker. This is an offline method. Returns a 404 error if the outline isn't known.
      *
      * <p> Returns {@link Outline Outline} </p>
      */
@@ -101275,7 +101275,7 @@ public class TdApi {
         public boolean forClickedAnimatedEmojiMessage;
 
         /**
-         * Default constructor for a function, which returns outline of a sticker; this is an offline request. Returns a 404 error if the outline isn't known.
+         * Default constructor for a function, which returns outline of a sticker. This is an offline method. Returns a 404 error if the outline isn't known.
          *
          * <p> Returns {@link Outline Outline} </p>
          */
@@ -101283,7 +101283,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns outline of a sticker; this is an offline request. Returns a 404 error if the outline isn't known.
+         * Creates a function, which returns outline of a sticker. This is an offline method. Returns a 404 error if the outline isn't known.
          *
          * <p> Returns {@link Outline Outline} </p>
          *
@@ -102014,7 +102014,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a supergroup or a channel by its identifier. This is an offline request if the current user is not a bot.
+     * Returns information about a supergroup or a channel by its identifier. This is an offline method if the current user is not a bot.
      *
      * <p> Returns {@link Supergroup Supergroup} </p>
      */
@@ -102025,7 +102025,7 @@ public class TdApi {
         public long supergroupId;
 
         /**
-         * Default constructor for a function, which returns information about a supergroup or a channel by its identifier. This is an offline request if the current user is not a bot.
+         * Default constructor for a function, which returns information about a supergroup or a channel by its identifier. This is an offline method if the current user is not a bot.
          *
          * <p> Returns {@link Supergroup Supergroup} </p>
          */
@@ -102033,7 +102033,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a supergroup or a channel by its identifier. This is an offline request if the current user is not a bot.
+         * Creates a function, which returns information about a supergroup or a channel by its identifier. This is an offline method if the current user is not a bot.
          *
          * <p> Returns {@link Supergroup Supergroup} </p>
          *
@@ -102655,7 +102655,7 @@ public class TdApi {
     }
 
     /**
-     * Returns information about a user by their identifier. This is an offline request if the current user is not a bot.
+     * Returns information about a user by their identifier. This is an offline method if the current user is not a bot.
      *
      * <p> Returns {@link User User} </p>
      */
@@ -102666,7 +102666,7 @@ public class TdApi {
         public long userId;
 
         /**
-         * Default constructor for a function, which returns information about a user by their identifier. This is an offline request if the current user is not a bot.
+         * Default constructor for a function, which returns information about a user by their identifier. This is an offline method if the current user is not a bot.
          *
          * <p> Returns {@link User User} </p>
          */
@@ -102674,7 +102674,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns information about a user by their identifier. This is an offline request if the current user is not a bot.
+         * Creates a function, which returns information about a user by their identifier. This is an offline method if the current user is not a bot.
          *
          * <p> Returns {@link User User} </p>
          *
@@ -103128,7 +103128,7 @@ public class TdApi {
     }
 
     /**
-     * Returns a default placeholder for Web Apps of a bot; this is an offline request. Returns a 404 error if the placeholder isn't known.
+     * Returns a default placeholder for Web Apps of a bot. This is an offline method. Returns a 404 error if the placeholder isn't known.
      *
      * <p> Returns {@link Outline Outline} </p>
      */
@@ -103139,7 +103139,7 @@ public class TdApi {
         public long botUserId;
 
         /**
-         * Default constructor for a function, which returns a default placeholder for Web Apps of a bot; this is an offline request. Returns a 404 error if the placeholder isn't known.
+         * Default constructor for a function, which returns a default placeholder for Web Apps of a bot. This is an offline method. Returns a 404 error if the placeholder isn't known.
          *
          * <p> Returns {@link Outline Outline} </p>
          */
@@ -103147,7 +103147,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns a default placeholder for Web Apps of a bot; this is an offline request. Returns a 404 error if the placeholder isn't known.
+         * Creates a function, which returns a default placeholder for Web Apps of a bot. This is an offline method. Returns a 404 error if the placeholder isn't known.
          *
          * <p> Returns {@link Outline Outline} </p>
          *
@@ -103228,7 +103228,7 @@ public class TdApi {
     }
 
     /**
-     * Returns an instant view version of a web page if available. This is an offline request if onlyLocal is true. Returns a 404 error if the web page has no instant view page.
+     * Returns an instant view version of a web page if available. This is an offline method if onlyLocal is true. Returns a 404 error if the web page has no instant view page.
      *
      * <p> Returns {@link WebPageInstantView WebPageInstantView} </p>
      */
@@ -103243,7 +103243,7 @@ public class TdApi {
         public boolean onlyLocal;
 
         /**
-         * Default constructor for a function, which returns an instant view version of a web page if available. This is an offline request if onlyLocal is true. Returns a 404 error if the web page has no instant view page.
+         * Default constructor for a function, which returns an instant view version of a web page if available. This is an offline method if onlyLocal is true. Returns a 404 error if the web page has no instant view page.
          *
          * <p> Returns {@link WebPageInstantView WebPageInstantView} </p>
          */
@@ -103251,7 +103251,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an instant view version of a web page if available. This is an offline request if onlyLocal is true. Returns a 404 error if the web page has no instant view page.
+         * Creates a function, which returns an instant view version of a web page if available. This is an offline method if onlyLocal is true. Returns a 404 error if the web page has no instant view page.
          *
          * <p> Returns {@link WebPageInstantView WebPageInstantView} </p>
          *
@@ -108819,7 +108819,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for the specified query in the title and username of already known chats; this is an offline request. Returns chats in the order seen in the main chat list.
+     * Searches for the specified query in the title and username of already known chats. This is an offline method. Returns chats in the order seen in the main chat list.
      *
      * <p> Returns {@link Chats Chats} </p>
      */
@@ -108834,7 +108834,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which searches for the specified query in the title and username of already known chats; this is an offline request. Returns chats in the order seen in the main chat list.
+         * Default constructor for a function, which searches for the specified query in the title and username of already known chats. This is an offline method. Returns chats in the order seen in the main chat list.
          *
          * <p> Returns {@link Chats Chats} </p>
          */
@@ -108842,7 +108842,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for the specified query in the title and username of already known chats; this is an offline request. Returns chats in the order seen in the main chat list.
+         * Creates a function, which searches for the specified query in the title and username of already known chats. This is an offline method. Returns chats in the order seen in the main chat list.
          *
          * <p> Returns {@link Chats Chats} </p>
          *
@@ -109709,7 +109709,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for the specified query in the title and username of up to 50 recently found chats; this is an offline request.
+     * Searches for the specified query in the title and username of up to 50 recently found chats. This is an offline method.
      *
      * <p> Returns {@link Chats Chats} </p>
      */
@@ -109724,7 +109724,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which searches for the specified query in the title and username of up to 50 recently found chats; this is an offline request.
+         * Default constructor for a function, which searches for the specified query in the title and username of up to 50 recently found chats. This is an offline method.
          *
          * <p> Returns {@link Chats Chats} </p>
          */
@@ -109732,7 +109732,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for the specified query in the title and username of up to 50 recently found chats; this is an offline request.
+         * Creates a function, which searches for the specified query in the title and username of up to 50 recently found chats. This is an offline method.
          *
          * <p> Returns {@link Chats Chats} </p>
          *
