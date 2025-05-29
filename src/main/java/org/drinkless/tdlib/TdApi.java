@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "51743dfd01dff6179e2d8f7095729caa4e2222e9";
+    private static final String GIT_COMMIT_HASH = "e894536b2f46caad93f997448d2daff9431b19dd";
 
     private TdApi() {
     }
@@ -29882,7 +29882,7 @@ public class TdApi {
     }
 
     /**
-     * A message with a poll. Polls can't be sent to secret chats. Polls can be sent only to a private chat with a bot.
+     * A message with a poll. Polls can't be sent to secret chats. Polls can be sent only to a private chat with a bot or the Saved Messages chat.
      */
     public static class InputMessagePoll extends InputMessageContent {
         /**
@@ -29890,7 +29890,7 @@ public class TdApi {
          */
         public FormattedText question;
         /**
-         * List of poll answer options, 2-10 strings 1-100 characters each. Only custom emoji entities are allowed to be added and only by Premium users.
+         * List of poll answer options, 2-12 strings 1-100 characters each. Only custom emoji entities are allowed to be added and only by Premium users.
          */
         public FormattedText[] options;
         /**
@@ -29915,16 +29915,16 @@ public class TdApi {
         public boolean isClosed;
 
         /**
-         * A message with a poll. Polls can't be sent to secret chats. Polls can be sent only to a private chat with a bot.
+         * A message with a poll. Polls can't be sent to secret chats. Polls can be sent only to a private chat with a bot or the Saved Messages chat.
          */
         public InputMessagePoll() {
         }
 
         /**
-         * A message with a poll. Polls can't be sent to secret chats. Polls can be sent only to a private chat with a bot.
+         * A message with a poll. Polls can't be sent to secret chats. Polls can be sent only to a private chat with a bot or the Saved Messages chat.
          *
          * @param question Poll question; 1-255 characters (up to 300 characters for bots). Only custom emoji entities are allowed to be added and only by Premium users.
-         * @param options List of poll answer options, 2-10 strings 1-100 characters each. Only custom emoji entities are allowed to be added and only by Premium users.
+         * @param options List of poll answer options, 2-12 strings 1-100 characters each. Only custom emoji entities are allowed to be added and only by Premium users.
          * @param isAnonymous True, if the poll voters are anonymous. Non-anonymous polls can't be sent or forwarded to channels.
          * @param type Type of the poll.
          * @param openPeriod Amount of time the poll will be active after creation, in seconds; for bots only.
