@@ -3,7 +3,7 @@
 TDLIB_SOURCE_DIR=${1:-td}
 TDLIB_INSTALL_DIR=${2:-build/td}
 OPENSSL_INSTALL_DIR=${3:-build/openssl}
-ANDROID_STL=${4:-c++_shared}
+ANDROID_STL=${4:-c++_static}
 TDLIB_BUILD_SCRIPT="$(pwd)/build-tdlib-impl.sh"
 
 source "$(pwd)/setup.sh" --light
