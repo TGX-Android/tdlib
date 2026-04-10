@@ -32,4 +32,8 @@ android {
     }
 
   namespace = "org.drinkless.tdlib"
+
+  defaultConfig {
+    consumerProguardFiles("consumer-rules.pro")
+  }
 }
