@@ -7,7 +7,9 @@
 
 plugins {
     id(libs.plugins.android.library.get().pluginId)
-    id("tgx-module")
+    // Add
+    //alias(libs.plugins.kotlin.android)
+    //id("tgx-module")
 }
 
 dependencies {
@@ -15,6 +17,20 @@ dependencies {
 }
 
 android {
+    // Add
+    compileSdk {
+        version = release(36) {
+            minorApiLevel = 1
+        }
+    }
+
+    // Add
+    sourceSets {
+        getByName("main") {
+            jniLibs.srcDirs("src/main/libs")
+        }
+    }
+
   namespace = "org.drinkless.tdlib"
 
   defaultConfig {
