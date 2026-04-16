@@ -1,4 +1,12 @@
-# Prebuilt TDLib Java Bundle
+# B) (Optional) Create a new behavior template by typing </br>
+      
+      b.createAgentTemplate(agentTemplateName)
+      
+   where:  </br>   
+   - "ontologyTemplateName" is the name of the agent template name. </br>
+   
+   Then, create a new agent template behavior by typing: </br>
+ TDLib Java Bundle
 
 This repository is a prebuilt [TDLib](https://github.com/tdlib/td) Java bundle currently used in **Telegram X**.
 
