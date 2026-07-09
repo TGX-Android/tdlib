@@ -54,33 +54,30 @@ if [[ ${ANDROID_NDK_VERSION%%.*} -ge 26 ]] ; then
 fi
 
 for ABI in x86 armeabi-v7a x86_64 arm64-v8a ; do
+  rm -f libcryptox.so libsslx.so libssl.so libsslx.so
+
+  PARAMS="no-tests no-docs no-apps no-legacy no-deprecated no-engine"
+
   if [[ $ABI == "x86" ]] ; then
-    ./Configure android-x86 ${SHARED_BUILD_OPTION} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
+    ./Configure android-x86 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
   elif [[ $ABI == "x86_64" ]] ; then
-    LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-x86_64 ${SHARED_BUILD_OPTION} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+    LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-x86_64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
   elif [[ $ABI == "armeabi-v7a" ]] ; then
-    ./Configure android-arm ${SHARED_BUILD_OPTION} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 -D__ARM_MAX_ARCH__=8 || exit 1
+    ./Configure android-arm ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 -D__ARM_MAX_ARCH__=8 || exit 1
   elif [[ $ABI == "arm64-v8a" ]] ; then
-    LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-arm64 ${SHARED_BUILD_OPTION} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+    LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-arm64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
   fi
 
   sed -i.bak 's/-O3/-O3 -ffunction-sections -fdata-sections/g' Makefile || exit 1
+  sed -i.1.bak 's/libcrypto\.so/libcryptox.so/g' Makefile || exit 1
+  sed -i.2.bak 's/libssl\.so/libsslx.so/g' Makefile || exit 1
 
   make depend -s || exit 1
   make -j4 -s || exit 1
 
-  (test -f libcrypto.so && test -f libssl.so) || exit 1
+  (test -f libcryptox.so && test -f libsslx.so) || exit 1
 
-  echo "Patching SONAME..."
-
-  rm -f libcryptox.so libsslx.so
-
-  mv libcrypto.so libcryptox.so
-  mv libssl.so libsslx.so
-
-  patchelf --set-soname libcryptox.so libcryptox.so
-  patchelf --set-soname libsslx.so libsslx.so
-  patchelf --replace-needed libcrypto.so libcryptox.so libsslx.so
+  echo "Creating symlinks..."
 
   ln -sf libcryptox.so libcrypto.so
   ln -sf libsslx.so libssl.so
