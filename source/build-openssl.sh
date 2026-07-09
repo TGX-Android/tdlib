@@ -56,7 +56,7 @@ fi
 for ABI in x86 armeabi-v7a x86_64 arm64-v8a ; do
   rm -f libcryptox.so libsslx.so libssl.so libsslx.so
 
-  PARAMS="no-tests no-docs no-apps no-legacy no-deprecated no-engine"
+  PARAMS="no-tests no-docs no-apps no-legacy no-engine"
 
   if [[ $ABI == "x86" ]] ; then
     ./Configure android-x86 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
