@@ -56,7 +56,21 @@ fi
 for ABI in x86 armeabi-v7a x86_64 arm64-v8a ; do
   rm -f libcryptox.so libsslx.so libssl.so libsslx.so
 
-  PARAMS="no-tests no-docs no-apps no-legacy no-engine"
+    PARAMS="no-tests no-docs no-apps no-legacy no-engine \
+      no-ssl3 no-ssl3-method \
+      no-ml-kem no-ml-dsa no-slh-dsa \
+      no-sm2 no-sm3 no-sm4 \
+      no-camellia no-aria no-cast no-idea \
+      no-mdc2 no-md4 no-rc2 no-rc5 no-seed \
+      no-whirlpool no-siphash \
+      no-ocb no-siv \
+      no-srp no-psk \
+      no-cms no-ts \
+      no-comp no-nextprotoneg \
+      no-async no-uplink \
+      no-autoerrinit no-autoload-config \
+      no-http no-quic \
+      no-gost no-fips no-padlockeng"
 
   if [[ $ABI == "x86" ]] ; then
     ./Configure android-x86 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
