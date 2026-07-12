@@ -68,9 +68,15 @@ for ABI in x86 armeabi-v7a x86_64 arm64-v8a ; do
     LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-arm64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
   fi
 
-  sed -i.bak 's/-O3/-O3 -ffunction-sections -fdata-sections/g' Makefile || exit 1
-  sed -i.1.bak 's/libcrypto\.so/libcryptox.so/g' Makefile || exit 1
-  sed -i.2.bak 's/libssl\.so/libsslx.so/g' Makefile || exit 1
+  sed -i.bak \
+  -e 's/-O3/-O3 -ffunction-sections -fdata-sections/g' \
+  -e 's/libcrypto\.so/libcryptox.so/g' \
+  -e 's/libcrypto\.a/libcryptox.a/g' \
+  -e 's|-lcrypto |-lcryptox |g' \
+  -e 's|-lcrypto$|-lcryptox|g' \
+  -e 's/libssl\.so/libsslx.so/g' \
+  -e 's/libssl\.a/libsslx.a/g' \
+  Makefile || exit 1
 
   make depend -s || exit 1
   make -j4 -s || exit 1
