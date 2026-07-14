@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "a17f87c4cff7b90b278d12b91ba0614383aaee82";
+    private static final String GIT_COMMIT_HASH = "a9966eb3704a3351568c28013fed67d797c17828";
 
     private TdApi() {
     }
@@ -166,6 +166,7 @@ public class TdApi {
             CloseWebApp.CONSTRUCTOR,
             CommitPendingLiveStoryReactions.CONSTRUCTOR,
             CommitPendingPaidMessageReactions.CONSTRUCTOR,
+            ComposeRichMessageWithAi.CONSTRUCTOR,
             ComposeTextWithAi.CONSTRUCTOR,
             ConfirmBusinessConnectedBot.CONSTRUCTOR,
             ConfirmQrCodeAuthentication.CONSTRUCTOR,
@@ -189,6 +190,7 @@ public class TdApi {
             CreateNewStickerSet.CONSTRUCTOR,
             CreateNewSupergroupChat.CONSTRUCTOR,
             CreatePrivateChat.CONSTRUCTOR,
+            CreateRichMessageWithAi.CONSTRUCTOR,
             CreateSecretChat.CONSTRUCTOR,
             CreateStoryAlbum.CONSTRUCTOR,
             CreateSupergroupChat.CONSTRUCTOR,
@@ -220,6 +222,7 @@ public class TdApi {
             DeleteDefaultBackground.CONSTRUCTOR,
             DeleteDirectMessagesChatTopicHistory.CONSTRUCTOR,
             DeleteDirectMessagesChatTopicMessagesByDate.CONSTRUCTOR,
+            DeleteEphemeralMessage.CONSTRUCTOR,
             DeleteFile.CONSTRUCTOR,
             DeleteForumTopic.CONSTRUCTOR,
             DeleteGiftCollection.CONSTRUCTOR,
@@ -265,6 +268,7 @@ public class TdApi {
             EditChatInviteLink.CONSTRUCTOR,
             EditChatSubscriptionInviteLink.CONSTRUCTOR,
             EditCustomLanguagePackInfo.CONSTRUCTOR,
+            EditEphemeralMessage.CONSTRUCTOR,
             EditForumTopic.CONSTRUCTOR,
             EditInlineMessageCaption.CONSTRUCTOR,
             EditInlineMessageLiveLocation.CONSTRUCTOR,
@@ -291,6 +295,7 @@ public class TdApi {
             EndGroupCallRecording.CONSTRUCTOR,
             EndGroupCallScreenSharing.CONSTRUCTOR,
             FinishFileGeneration.CONSTRUCTOR,
+            FixRichMessageWithAi.CONSTRUCTOR,
             FixTextWithAi.CONSTRUCTOR,
             ForwardMessages.CONSTRUCTOR,
             GetAccountTtl.CONSTRUCTOR,
@@ -432,6 +437,8 @@ public class TdApi {
             GetGiftUpgradePreview.CONSTRUCTOR,
             GetGiftsForCrafting.CONSTRUCTOR,
             GetGiveawayInfo.CONSTRUCTOR,
+            GetGramRevenueStatistics.CONSTRUCTOR,
+            GetGramWithdrawalUrl.CONSTRUCTOR,
             GetGreetingStickers.CONSTRUCTOR,
             GetGrossingWebAppBots.CONSTRUCTOR,
             GetGroupCall.CONSTRUCTOR,
@@ -439,6 +446,7 @@ public class TdApi {
             GetGroupCallStreamSegment.CONSTRUCTOR,
             GetGroupCallStreams.CONSTRUCTOR,
             GetGroupsInCommon.CONSTRUCTOR,
+            GetGuardBotWebAppUrl.CONSTRUCTOR,
             GetImportedContactCount.CONSTRUCTOR,
             GetInactiveSupergroupChats.CONSTRUCTOR,
             GetInlineGameHighScores.CONSTRUCTOR,
@@ -592,9 +600,7 @@ public class TdApi {
             GetThemedChatEmojiStatuses.CONSTRUCTOR,
             GetThemedEmojiStatuses.CONSTRUCTOR,
             GetTimeZones.CONSTRUCTOR,
-            GetTonRevenueStatistics.CONSTRUCTOR,
             GetTonTransactions.CONSTRUCTOR,
-            GetTonWithdrawalUrl.CONSTRUCTOR,
             GetTopChats.CONSTRUCTOR,
             GetTrendingStickerSets.CONSTRUCTOR,
             GetUpgradedGift.CONSTRUCTOR,
@@ -810,6 +816,7 @@ public class TdApi {
             SendChatAction.CONSTRUCTOR,
             SendCustomRequest.CONSTRUCTOR,
             SendEmailAddressVerificationCode.CONSTRUCTOR,
+            SendEphemeralMessage.CONSTRUCTOR,
             SendGift.CONSTRUCTOR,
             SendGiftPurchaseOffer.CONSTRUCTOR,
             SendGroupCallMessage.CONSTRUCTOR,
@@ -1039,7 +1046,9 @@ public class TdApi {
             TransferBusinessAccountStars.CONSTRUCTOR,
             TransferChatOwnership.CONSTRUCTOR,
             TransferGift.CONSTRUCTOR,
+            TranslateMessageRichMessage.CONSTRUCTOR,
             TranslateMessageText.CONSTRUCTOR,
+            TranslateRichMessage.CONSTRUCTOR,
             TranslateText.CONSTRUCTOR,
             UnpinAllChatMessages.CONSTRUCTOR,
             UnpinAllDirectMessagesChatTopicMessages.CONSTRUCTOR,
@@ -5708,6 +5717,10 @@ public class TdApi {
          * Description of the bot command.
          */
         public String description;
+        /**
+         * True, if the command must send an ephemeral message instead of a regular one.
+         */
+        public boolean isEphemeral;
 
         /**
          * Represents a command supported by a bot.
@@ -5720,16 +5733,18 @@ public class TdApi {
          *
          * @param command Text of the bot command.
          * @param description Description of the bot command.
+         * @param isEphemeral True, if the command must send an ephemeral message instead of a regular one.
          */
-        public BotCommand(String command, String description) {
+        public BotCommand(String command, String description, boolean isEphemeral) {
             this.command = command;
             this.description = description;
+            this.isEphemeral = isEphemeral;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1032140601;
+        public static final int CONSTRUCTOR = -1614592393;
 
         /**
          * @return this.CONSTRUCTOR
@@ -11600,7 +11615,7 @@ public class TdApi {
          */
         public boolean canManageTopics;
         /**
-         * True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.
+         * True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them; applicable to supergroups and channels only.
          */
         public boolean canPromoteMembers;
         /**
@@ -11650,7 +11665,7 @@ public class TdApi {
          * @param canRestrictMembers True, if the administrator can restrict, ban, or unban chat members or view supergroup statistics.
          * @param canPinMessages True, if the administrator can pin messages; applicable to basic groups and supergroups only.
          * @param canManageTopics True, if the administrator can create, rename, close, reopen, hide, and unhide forum topics; applicable to forum supergroups only.
-         * @param canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.
+         * @param canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them; applicable to supergroups and channels only.
          * @param canManageVideoChats True, if the administrator can manage video chats.
          * @param canPostStories True, if the administrator can create new chat stories, or edit and delete posted stories; applicable to supergroups and channels only.
          * @param canEditStories True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access story archive; applicable to supergroups and channels only.
@@ -16393,11 +16408,7 @@ public class TdApi {
          */
         public long botUserId;
         /**
-         * The URL of the Web App to open.
-         */
-        public WebAppUrl url;
-        /**
-         * Unique identifier of the join request, which will be used in updateChatJoinResult.
+         * Unique identifier of the join request, which will be used in getGuardBotWebAppUrl and updateChatJoinResult.
          */
         public long queryId;
 
@@ -16411,19 +16422,17 @@ public class TdApi {
          * An approval from a guard bot through a Web App is required to join the chat.
          *
          * @param botUserId Identifier of the guard bot.
-         * @param url The URL of the Web App to open.
-         * @param queryId Unique identifier of the join request, which will be used in updateChatJoinResult.
+         * @param queryId Unique identifier of the join request, which will be used in getGuardBotWebAppUrl and updateChatJoinResult.
          */
-        public ChatJoinResultGuardBotApprovalRequired(long botUserId, WebAppUrl url, long queryId) {
+        public ChatJoinResultGuardBotApprovalRequired(long botUserId, long queryId) {
             this.botUserId = botUserId;
-            this.url = url;
             this.queryId = queryId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1110742849;
+        public static final int CONSTRUCTOR = -930056495;
 
         /**
          * @return this.CONSTRUCTOR
@@ -16797,7 +16806,7 @@ public class TdApi {
     }
 
     /**
-     * The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges.
+     * The user is a member of the chat and has some additional privileges. In basic groups, administrators have all applicable rights. In supergroups and channels, any subset of the rights can be chosen for an administrator.
      */
     public static class ChatMemberStatusAdministrator extends ChatMemberStatus {
         /**
@@ -16810,13 +16819,13 @@ public class TdApi {
         public ChatAdministratorRights rights;
 
         /**
-         * The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges.
+         * The user is a member of the chat and has some additional privileges. In basic groups, administrators have all applicable rights. In supergroups and channels, any subset of the rights can be chosen for an administrator.
          */
         public ChatMemberStatusAdministrator() {
         }
 
         /**
-         * The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges.
+         * The user is a member of the chat and has some additional privileges. In basic groups, administrators have all applicable rights. In supergroups and channels, any subset of the rights can be chosen for an administrator.
          *
          * @param canBeEdited True, if the current user can edit the administrator privileges for the called user.
          * @param rights Rights of the administrator.
@@ -18377,9 +18386,9 @@ public class TdApi {
      */
     public static class ChatRevenueTransactions extends Object {
         /**
-         * The amount of owned Toncoins; in the smallest units of the cryptocurrency.
+         * The amount of owned TON Grams; in the smallest units of the cryptocurrency.
          */
-        public long tonAmount;
+        public long gramAmount;
         /**
          * List of transactions.
          */
@@ -18398,12 +18407,12 @@ public class TdApi {
         /**
          * Contains a list of chat revenue transactions.
          *
-         * @param tonAmount The amount of owned Toncoins; in the smallest units of the cryptocurrency.
+         * @param gramAmount The amount of owned TON Grams; in the smallest units of the cryptocurrency.
          * @param transactions List of transactions.
          * @param nextOffset The offset for the next request. If empty, then there are no more results.
          */
-        public ChatRevenueTransactions(long tonAmount, ChatRevenueTransaction[] transactions, String nextOffset) {
-            this.tonAmount = tonAmount;
+        public ChatRevenueTransactions(long gramAmount, ChatRevenueTransaction[] transactions, String nextOffset) {
+            this.gramAmount = gramAmount;
             this.transactions = transactions;
             this.nextOffset = nextOffset;
         }
@@ -18411,7 +18420,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2017122771;
+        public static final int CONSTRUCTOR = 166743656;
 
         /**
          * @return this.CONSTRUCTOR
@@ -20156,6 +20165,355 @@ public class TdApi {
     }
 
     /**
+     * Represents a community consisting of supergroup chats, channel chats and chats with bots.
+     */
+    public static class Community extends Object {
+        /**
+         * Community identifier.
+         */
+        public long id;
+        /**
+         * If false, the community is inaccessible, and the only information known about the community is inside this class. Identifier of the community can't be passed to any method.
+         */
+        public boolean haveAccess;
+        /**
+         * Community name.
+         */
+        public String name;
+        /**
+         * Community photo; may be null.
+         */
+        @Nullable public ChatPhotoInfo photo;
+        /**
+         * Point in time (Unix timestamp) when the community was joined, or the point in time when the community was created, in case the user is not a member of any chat in the community.
+         */
+        public int date;
+        /**
+         * Status of the current user in the community.
+         */
+        public CommunityMemberStatus status;
+        /**
+         * Actions that non-administrator community members are allowed to take in the community.
+         */
+        public CommunityPermissions permissions;
+
+        /**
+         * Represents a community consisting of supergroup chats, channel chats and chats with bots.
+         */
+        public Community() {
+        }
+
+        /**
+         * Represents a community consisting of supergroup chats, channel chats and chats with bots.
+         *
+         * @param id Community identifier.
+         * @param haveAccess If false, the community is inaccessible, and the only information known about the community is inside this class. Identifier of the community can't be passed to any method.
+         * @param name Community name.
+         * @param photo Community photo; may be null.
+         * @param date Point in time (Unix timestamp) when the community was joined, or the point in time when the community was created, in case the user is not a member of any chat in the community.
+         * @param status Status of the current user in the community.
+         * @param permissions Actions that non-administrator community members are allowed to take in the community.
+         */
+        public Community(long id, boolean haveAccess, String name, ChatPhotoInfo photo, int date, CommunityMemberStatus status, CommunityPermissions permissions) {
+            this.id = id;
+            this.haveAccess = haveAccess;
+            this.name = name;
+            this.photo = photo;
+            this.date = date;
+            this.status = status;
+            this.permissions = permissions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1684827592;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes rights of the administrator in a community.
+     */
+    public static class CommunityAdministratorRights extends Object {
+        /**
+         * True, if the user is an administrator. Implied by any other privilege.
+         */
+        public boolean canManageCommunity;
+        /**
+         * True, if the administrator can change the community name, photo, and other settings.
+         */
+        public boolean canChangeInfo;
+        /**
+         * True, if the user can change the chats added to the community.
+         */
+        public boolean canEditChatList;
+        /**
+         * True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.
+         */
+        public boolean canPromoteMembers;
+        /**
+         * True, if the administrator can ban, or unban community members.
+         */
+        public boolean canBanMembers;
+
+        /**
+         * Describes rights of the administrator in a community.
+         */
+        public CommunityAdministratorRights() {
+        }
+
+        /**
+         * Describes rights of the administrator in a community.
+         *
+         * @param canManageCommunity True, if the user is an administrator. Implied by any other privilege.
+         * @param canChangeInfo True, if the administrator can change the community name, photo, and other settings.
+         * @param canEditChatList True, if the user can change the chats added to the community.
+         * @param canPromoteMembers True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them.
+         * @param canBanMembers True, if the administrator can ban, or unban community members.
+         */
+        public CommunityAdministratorRights(boolean canManageCommunity, boolean canChangeInfo, boolean canEditChatList, boolean canPromoteMembers, boolean canBanMembers) {
+            this.canManageCommunity = canManageCommunity;
+            this.canChangeInfo = canChangeInfo;
+            this.canEditChatList = canEditChatList;
+            this.canPromoteMembers = canPromoteMembers;
+            this.canBanMembers = canBanMembers;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -954068218;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Provides information about the status of a member in a community.
+     */
+    public abstract static class CommunityMemberStatus extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            CommunityMemberStatusCreator.CONSTRUCTOR,
+            CommunityMemberStatusAdministrator.CONSTRUCTOR,
+            CommunityMemberStatusMember.CONSTRUCTOR,
+            CommunityMemberStatusLeft.CONSTRUCTOR,
+            CommunityMemberStatusBanned.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public CommunityMemberStatus() {
+        }
+    }
+
+    /**
+     * The user is the owner of the community and has all the administrator privileges.
+     */
+    public static class CommunityMemberStatusCreator extends CommunityMemberStatus {
+
+        /**
+         * The user is the owner of the community and has all the administrator privileges.
+         */
+        public CommunityMemberStatusCreator() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 509736488;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user is a member of the community and has some additional privileges.
+     */
+    public static class CommunityMemberStatusAdministrator extends CommunityMemberStatus {
+        /**
+         * True, if the current user can edit the administrator privileges for the called user.
+         */
+        public boolean canBeEdited;
+        /**
+         * Rights of the administrator.
+         */
+        public CommunityAdministratorRights rights;
+
+        /**
+         * The user is a member of the community and has some additional privileges.
+         */
+        public CommunityMemberStatusAdministrator() {
+        }
+
+        /**
+         * The user is a member of the community and has some additional privileges.
+         *
+         * @param canBeEdited True, if the current user can edit the administrator privileges for the called user.
+         * @param rights Rights of the administrator.
+         */
+        public CommunityMemberStatusAdministrator(boolean canBeEdited, CommunityAdministratorRights rights) {
+            this.canBeEdited = canBeEdited;
+            this.rights = rights;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1328647725;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user is a member of the community, without any additional privileges or restrictions.
+     */
+    public static class CommunityMemberStatusMember extends CommunityMemberStatus {
+
+        /**
+         * The user is a member of the community, without any additional privileges or restrictions.
+         */
+        public CommunityMemberStatusMember() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1433420907;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user or the chat is not a community member.
+     */
+    public static class CommunityMemberStatusLeft extends CommunityMemberStatus {
+
+        /**
+         * The user or the chat is not a community member.
+         */
+        public CommunityMemberStatusLeft() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 102726479;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The user or the chat was banned in the community; implies ban in all chats in the community.
+     */
+    public static class CommunityMemberStatusBanned extends CommunityMemberStatus {
+
+        /**
+         * The user or the chat was banned in the community; implies ban in all chats in the community.
+         */
+        public CommunityMemberStatusBanned() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -496722083;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes actions that a user is allowed to take in a community.
+     */
+    public static class CommunityPermissions extends Object {
+        /**
+         * True, if the user can change the chats added to the community.
+         */
+        public boolean canEditChatList;
+
+        /**
+         * Describes actions that a user is allowed to take in a community.
+         */
+        public CommunityPermissions() {
+        }
+
+        /**
+         * Describes actions that a user is allowed to take in a community.
+         *
+         * @param canEditChatList True, if the user can change the chats added to the community.
+         */
+        public CommunityPermissions(boolean canEditChatList) {
+            this.canEditChatList = canEditChatList;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1885888761;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Describes an affiliate program that was connected to an affiliate.
      */
     public static class ConnectedAffiliateProgram extends Object {
@@ -20714,6 +21072,10 @@ public class TdApi {
          */
         public String englishName;
         /**
+         * An emoji for the flag of the country; may be empty if unknown.
+         */
+        public String flagEmoji;
+        /**
          * True, if the country must be hidden from the list of all countries.
          */
         public boolean isHidden;
@@ -20734,13 +21096,15 @@ public class TdApi {
          * @param countryCode A two-letter ISO 3166-1 alpha-2 country code.
          * @param name Native name of the country.
          * @param englishName English name of the country.
+         * @param flagEmoji An emoji for the flag of the country; may be empty if unknown.
          * @param isHidden True, if the country must be hidden from the list of all countries.
          * @param callingCodes List of country calling codes.
          */
-        public CountryInfo(String countryCode, String name, String englishName, boolean isHidden, String[] callingCodes) {
+        public CountryInfo(String countryCode, String name, String englishName, String flagEmoji, boolean isHidden, String[] callingCodes) {
             this.countryCode = countryCode;
             this.name = name;
             this.englishName = englishName;
+            this.flagEmoji = flagEmoji;
             this.isHidden = isHidden;
             this.callingCodes = callingCodes;
         }
@@ -20748,7 +21112,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1617195722;
+        public static final int CONSTRUCTOR = 465611797;
 
         /**
          * @return this.CONSTRUCTOR
@@ -27459,13 +27823,13 @@ public class TdApi {
          */
         public long starCount;
         /**
-         * Resale price of the gift in 1/100 of Toncoin.
+         * Resale price of the gift in 1/100 of TON Gram.
          */
-        public long toncoinCentCount;
+        public long gramCentCount;
         /**
-         * True, if the gift can be bought only using Toncoins.
+         * True, if the gift can be bought only using Grams.
          */
-        public boolean toncoinOnly;
+        public boolean gramOnly;
 
         /**
          * Describes parameters of a unique gift available for resale.
@@ -27477,19 +27841,19 @@ public class TdApi {
          * Describes parameters of a unique gift available for resale.
          *
          * @param starCount Resale price of the gift in Telegram Stars.
-         * @param toncoinCentCount Resale price of the gift in 1/100 of Toncoin.
-         * @param toncoinOnly True, if the gift can be bought only using Toncoins.
+         * @param gramCentCount Resale price of the gift in 1/100 of TON Gram.
+         * @param gramOnly True, if the gift can be bought only using Grams.
          */
-        public GiftResaleParameters(long starCount, long toncoinCentCount, boolean toncoinOnly) {
+        public GiftResaleParameters(long starCount, long gramCentCount, boolean gramOnly) {
             this.starCount = starCount;
-            this.toncoinCentCount = toncoinCentCount;
-            this.toncoinOnly = toncoinOnly;
+            this.gramCentCount = gramCentCount;
+            this.gramOnly = gramOnly;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2144380890;
+        public static final int CONSTRUCTOR = 1593292808;
 
         /**
          * @return this.CONSTRUCTOR
@@ -27511,7 +27875,7 @@ public class TdApi {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
             GiftResalePriceStar.CONSTRUCTOR,
-            GiftResalePriceTon.CONSTRUCTOR
+            GiftResalePriceGram.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -27567,33 +27931,33 @@ public class TdApi {
     }
 
     /**
-     * Describes price of a resold gift in Toncoins.
+     * Describes price of a resold gift in TON Grams.
      */
-    public static class GiftResalePriceTon extends GiftResalePrice {
+    public static class GiftResalePriceGram extends GiftResalePrice {
         /**
-         * The amount of 1/100 of Toncoin expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_toncoin_cent_count_min&quot;)-getOption(&quot;gift_resale_toncoin_cent_count_max&quot;).
+         * The amount of 1/100 of Gram expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_gram_cent_count_min&quot;)-getOption(&quot;gift_resale_gram_cent_count_max&quot;).
          */
-        public long toncoinCentCount;
+        public long gramCentCount;
 
         /**
-         * Describes price of a resold gift in Toncoins.
+         * Describes price of a resold gift in TON Grams.
          */
-        public GiftResalePriceTon() {
+        public GiftResalePriceGram() {
         }
 
         /**
-         * Describes price of a resold gift in Toncoins.
+         * Describes price of a resold gift in TON Grams.
          *
-         * @param toncoinCentCount The amount of 1/100 of Toncoin expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_toncoin_cent_count_min&quot;)-getOption(&quot;gift_resale_toncoin_cent_count_max&quot;).
+         * @param gramCentCount The amount of 1/100 of Gram expected to be paid for the gift. Must be in the range getOption(&quot;gift_resale_gram_cent_count_min&quot;)-getOption(&quot;gift_resale_gram_cent_count_max&quot;).
          */
-        public GiftResalePriceTon(long toncoinCentCount) {
-            this.toncoinCentCount = toncoinCentCount;
+        public GiftResalePriceGram(long gramCentCount) {
+            this.gramCentCount = gramCentCount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -415435950;
+        public static final int CONSTRUCTOR = -1801800532;
 
         /**
          * @return this.CONSTRUCTOR
@@ -28553,6 +28917,112 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1790173276;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A detailed statistics about TON Grams earned by the current user.
+     */
+    public static class GramRevenueStatistics extends Object {
+        /**
+         * A graph containing amount of revenue in a given day.
+         */
+        public StatisticalGraph revenueByDayGraph;
+        /**
+         * Amount of earned revenue.
+         */
+        public GramRevenueStatus status;
+        /**
+         * Current conversion rate of nanogram to USD cents.
+         */
+        public double usdRate;
+
+        /**
+         * A detailed statistics about TON Grams earned by the current user.
+         */
+        public GramRevenueStatistics() {
+        }
+
+        /**
+         * A detailed statistics about TON Grams earned by the current user.
+         *
+         * @param revenueByDayGraph A graph containing amount of revenue in a given day.
+         * @param status Amount of earned revenue.
+         * @param usdRate Current conversion rate of nanogram to USD cents.
+         */
+        public GramRevenueStatistics(StatisticalGraph revenueByDayGraph, GramRevenueStatus status, double usdRate) {
+            this.revenueByDayGraph = revenueByDayGraph;
+            this.status = status;
+            this.usdRate = usdRate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 44164778;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about TON Grams earned by the current user.
+     */
+    public static class GramRevenueStatus extends Object {
+        /**
+         * Total Gram amount earned; in the smallest units of the cryptocurrency.
+         */
+        public long totalAmount;
+        /**
+         * The Gram amount that isn't withdrawn yet; in the smallest units of the cryptocurrency.
+         */
+        public long balanceAmount;
+        /**
+         * The Gram amount that is available for withdrawal; in the smallest units of the cryptocurrency.
+         */
+        public long availableAmount;
+        /**
+         * True, if Grams can be withdrawn.
+         */
+        public boolean withdrawalEnabled;
+
+        /**
+         * Contains information about TON Grams earned by the current user.
+         */
+        public GramRevenueStatus() {
+        }
+
+        /**
+         * Contains information about TON Grams earned by the current user.
+         *
+         * @param totalAmount Total Gram amount earned; in the smallest units of the cryptocurrency.
+         * @param balanceAmount The Gram amount that isn't withdrawn yet; in the smallest units of the cryptocurrency.
+         * @param availableAmount The Gram amount that is available for withdrawal; in the smallest units of the cryptocurrency.
+         * @param withdrawalEnabled True, if Grams can be withdrawn.
+         */
+        public GramRevenueStatus(long totalAmount, long balanceAmount, long availableAmount, boolean withdrawalEnabled) {
+            this.totalAmount = totalAmount;
+            this.balanceAmount = balanceAmount;
+            this.availableAmount = availableAmount;
+            this.withdrawalEnabled = withdrawalEnabled;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1681650727;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34315,19 +34785,7 @@ public class TdApi {
         /**
          * Sticker to be sent.
          */
-        public InputFile sticker;
-        /**
-         * Sticker thumbnail; pass null to skip thumbnail uploading.
-         */
-        public InputThumbnail thumbnail;
-        /**
-         * Sticker width.
-         */
-        public int width;
-        /**
-         * Sticker height.
-         */
-        public int height;
+        public InputSticker sticker;
         /**
          * Emoji used to choose the sticker.
          */
@@ -34343,23 +34801,17 @@ public class TdApi {
          * A sticker message.
          *
          * @param sticker Sticker to be sent.
-         * @param thumbnail Sticker thumbnail; pass null to skip thumbnail uploading.
-         * @param width Sticker width.
-         * @param height Sticker height.
          * @param emoji Emoji used to choose the sticker.
          */
-        public InputMessageSticker(InputFile sticker, InputThumbnail thumbnail, int width, int height, String emoji) {
+        public InputMessageSticker(InputSticker sticker, String emoji) {
             this.sticker = sticker;
-            this.thumbnail = thumbnail;
-            this.width = width;
-            this.height = height;
             this.emoji = emoji;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1072805625;
+        public static final int CONSTRUCTOR = -1984702427;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34437,21 +34889,9 @@ public class TdApi {
      */
     public static class InputMessageVideoNote extends InputMessageContent {
         /**
-         * Video note to be sent. The video is expected to be encoded to MPEG4 format with H.264 codec and have no data outside of the visible circle.
+         * Video note to be sent.
          */
-        public InputFile videoNote;
-        /**
-         * Video thumbnail; may be null if empty; pass null to skip thumbnail uploading.
-         */
-        @Nullable public InputThumbnail thumbnail;
-        /**
-         * Duration of the video, in seconds; 0-60.
-         */
-        public int duration;
-        /**
-         * Video width and height; must be positive and not greater than 640.
-         */
-        public int length;
+        public InputVideoNote videoNote;
         /**
          * Video note self-destruct type; may be null if none; pass null if none; private chats only.
          */
@@ -34466,24 +34906,18 @@ public class TdApi {
         /**
          * A video note message.
          *
-         * @param videoNote Video note to be sent. The video is expected to be encoded to MPEG4 format with H.264 codec and have no data outside of the visible circle.
-         * @param thumbnail Video thumbnail; may be null if empty; pass null to skip thumbnail uploading.
-         * @param duration Duration of the video, in seconds; 0-60.
-         * @param length Video width and height; must be positive and not greater than 640.
+         * @param videoNote Video note to be sent.
          * @param selfDestructType Video note self-destruct type; may be null if none; pass null if none; private chats only.
          */
-        public InputMessageVideoNote(InputFile videoNote, InputThumbnail thumbnail, int duration, int length, MessageSelfDestructType selfDestructType) {
+        public InputMessageVideoNote(InputVideoNote videoNote, MessageSelfDestructType selfDestructType) {
             this.videoNote = videoNote;
-            this.thumbnail = thumbnail;
-            this.duration = duration;
-            this.length = length;
             this.selfDestructType = selfDestructType;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -714598691;
+        public static final int CONSTRUCTOR = -1148919075;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34499,17 +34933,9 @@ public class TdApi {
      */
     public static class InputMessageVoiceNote extends InputMessageContent {
         /**
-         * Voice note to be sent. The voice note must be encoded with the Opus codec and stored inside an OGG container with a single audio channel, or be in MP3 or M4A format as regular audio.
+         * Voice note to be sent.
          */
-        public InputFile voiceNote;
-        /**
-         * Duration of the voice note, in seconds.
-         */
-        public int duration;
-        /**
-         * Waveform representation of the voice note in 5-bit format.
-         */
-        public byte[] waveform;
+        public InputVoiceNote voiceNote;
         /**
          * Voice note caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
          */
@@ -34528,16 +34954,12 @@ public class TdApi {
         /**
          * A voice note message.
          *
-         * @param voiceNote Voice note to be sent. The voice note must be encoded with the Opus codec and stored inside an OGG container with a single audio channel, or be in MP3 or M4A format as regular audio.
-         * @param duration Duration of the voice note, in seconds.
-         * @param waveform Waveform representation of the voice note in 5-bit format.
+         * @param voiceNote Voice note to be sent.
          * @param caption Voice note caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
          * @param selfDestructType Voice note self-destruct type; may be null if none; pass null if none; private chats only.
          */
-        public InputMessageVoiceNote(InputFile voiceNote, int duration, byte[] waveform, FormattedText caption, MessageSelfDestructType selfDestructType) {
+        public InputMessageVoiceNote(InputVoiceNote voiceNote, FormattedText caption, MessageSelfDestructType selfDestructType) {
             this.voiceNote = voiceNote;
-            this.duration = duration;
-            this.waveform = waveform;
             this.caption = caption;
             this.selfDestructType = selfDestructType;
         }
@@ -34545,7 +34967,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1461977004;
+        public static final int CONSTRUCTOR = -1141435043;
 
         /**
          * @return this.CONSTRUCTOR
@@ -35037,9 +35459,9 @@ public class TdApi {
          */
         public String stateHash;
         /**
-         * The Toncoin amount that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake_dice_stake_amount_min&quot;)-getOption(&quot;stake_dice_stake_amount_max&quot;).
+         * The TON Gram amount that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake_dice_stake_amount_min&quot;)-getOption(&quot;stake_dice_stake_amount_max&quot;).
          */
-        public long stakeToncoinAmount;
+        public long stakeGramAmount;
         /**
          * Pass true to delete message draft in the chat.
          */
@@ -35055,19 +35477,19 @@ public class TdApi {
          * A stake dice message.
          *
          * @param stateHash Hash of the stake dice state. The state hash can be used only if it was received recently enough. Otherwise, a new state must be requested using getStakeDiceState.
-         * @param stakeToncoinAmount The Toncoin amount that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake_dice_stake_amount_min&quot;)-getOption(&quot;stake_dice_stake_amount_max&quot;).
+         * @param stakeGramAmount The TON Gram amount that will be staked; in the smallest units of the currency. Must be in the range getOption(&quot;stake_dice_stake_amount_min&quot;)-getOption(&quot;stake_dice_stake_amount_max&quot;).
          * @param clearDraft Pass true to delete message draft in the chat.
          */
-        public InputMessageStakeDice(String stateHash, long stakeToncoinAmount, boolean clearDraft) {
+        public InputMessageStakeDice(String stateHash, long stakeGramAmount, boolean clearDraft) {
             this.stateHash = stateHash;
-            this.stakeToncoinAmount = stakeToncoinAmount;
+            this.stakeGramAmount = stakeGramAmount;
             this.clearDraft = clearDraft;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1946603673;
+        public static final int CONSTRUCTOR = 223775694;
 
         /**
          * @return this.CONSTRUCTOR
@@ -35240,7 +35662,8 @@ public class TdApi {
         @IntDef({
             InputMessageReplyToMessage.CONSTRUCTOR,
             InputMessageReplyToExternalMessage.CONSTRUCTOR,
-            InputMessageReplyToStory.CONSTRUCTOR
+            InputMessageReplyToStory.CONSTRUCTOR,
+            InputMessageReplyToEphemeralMessage.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -35409,6 +35832,1076 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1723842320;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes an ephemeral message to be replied; for bots only.
+     */
+    public static class InputMessageReplyToEphemeralMessage extends InputMessageReplyTo {
+        /**
+         * The identifier of the ephemeral message to be replied.
+         */
+        public int ephemeralMessageId;
+
+        /**
+         * Describes an ephemeral message to be replied; for bots only.
+         */
+        public InputMessageReplyToEphemeralMessage() {
+        }
+
+        /**
+         * Describes an ephemeral message to be replied; for bots only.
+         *
+         * @param ephemeralMessageId The identifier of the ephemeral message to be replied.
+         */
+        public InputMessageReplyToEphemeralMessage(int ephemeralMessageId) {
+            this.ephemeralMessageId = ephemeralMessageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1865090403;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes a block of a rich message to send.
+     */
+    public abstract static class InputPageBlock extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            InputPageBlockSectionHeading.CONSTRUCTOR,
+            InputPageBlockParagraph.CONSTRUCTOR,
+            InputPageBlockPreformatted.CONSTRUCTOR,
+            InputPageBlockFooter.CONSTRUCTOR,
+            InputPageBlockThinking.CONSTRUCTOR,
+            InputPageBlockDivider.CONSTRUCTOR,
+            InputPageBlockMathematicalExpression.CONSTRUCTOR,
+            InputPageBlockAnchor.CONSTRUCTOR,
+            InputPageBlockList.CONSTRUCTOR,
+            InputPageBlockBlockQuote.CONSTRUCTOR,
+            InputPageBlockPullQuote.CONSTRUCTOR,
+            InputPageBlockAnimation.CONSTRUCTOR,
+            InputPageBlockAudio.CONSTRUCTOR,
+            InputPageBlockPhoto.CONSTRUCTOR,
+            InputPageBlockVideo.CONSTRUCTOR,
+            InputPageBlockVoiceNote.CONSTRUCTOR,
+            InputPageBlockCollage.CONSTRUCTOR,
+            InputPageBlockSlideshow.CONSTRUCTOR,
+            InputPageBlockTable.CONSTRUCTOR,
+            InputPageBlockDetails.CONSTRUCTOR,
+            InputPageBlockMap.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public InputPageBlock() {
+        }
+    }
+
+    /**
+     * A section heading.
+     */
+    public static class InputPageBlockSectionHeading extends InputPageBlock {
+        /**
+         * Text of the section heading.
+         */
+        public RichText text;
+        /**
+         * Relative size of the text font; 1-6, 1 is the largest, 6 is the smallest.
+         */
+        public int size;
+
+        /**
+         * A section heading.
+         */
+        public InputPageBlockSectionHeading() {
+        }
+
+        /**
+         * A section heading.
+         *
+         * @param text Text of the section heading.
+         * @param size Relative size of the text font; 1-6, 1 is the largest, 6 is the smallest.
+         */
+        public InputPageBlockSectionHeading(RichText text, int size) {
+            this.text = text;
+            this.size = size;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -990527072;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A text paragraph.
+     */
+    public static class InputPageBlockParagraph extends InputPageBlock {
+        /**
+         * Paragraph text.
+         */
+        public RichText text;
+
+        /**
+         * A text paragraph.
+         */
+        public InputPageBlockParagraph() {
+        }
+
+        /**
+         * A text paragraph.
+         *
+         * @param text Paragraph text.
+         */
+        public InputPageBlockParagraph(RichText text) {
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -766895937;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A preformatted text paragraph.
+     */
+    public static class InputPageBlockPreformatted extends InputPageBlock {
+        /**
+         * Paragraph text.
+         */
+        public RichText text;
+        /**
+         * Programming language for which the text needs to be formatted.
+         */
+        public String language;
+
+        /**
+         * A preformatted text paragraph.
+         */
+        public InputPageBlockPreformatted() {
+        }
+
+        /**
+         * A preformatted text paragraph.
+         *
+         * @param text Paragraph text.
+         * @param language Programming language for which the text needs to be formatted.
+         */
+        public InputPageBlockPreformatted(RichText text, String language) {
+            this.text = text;
+            this.language = language;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1640868278;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The footer of the page.
+     */
+    public static class InputPageBlockFooter extends InputPageBlock {
+        /**
+         * Footer.
+         */
+        public RichText footer;
+
+        /**
+         * The footer of the page.
+         */
+        public InputPageBlockFooter() {
+        }
+
+        /**
+         * The footer of the page.
+         *
+         * @param footer Footer.
+         */
+        public InputPageBlockFooter(RichText footer) {
+            this.footer = footer;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 321372553;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A &quot;Thinking...&quot; placeholder; for pending rich messages only; for bots only.
+     */
+    public static class InputPageBlockThinking extends InputPageBlock {
+        /**
+         * Text of the placeholder.
+         */
+        public RichText text;
+
+        /**
+         * A &quot;Thinking...&quot; placeholder; for pending rich messages only; for bots only.
+         */
+        public InputPageBlockThinking() {
+        }
+
+        /**
+         * A &quot;Thinking...&quot; placeholder; for pending rich messages only; for bots only.
+         *
+         * @param text Text of the placeholder.
+         */
+        public InputPageBlockThinking(RichText text) {
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 551028356;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An empty block separating the page.
+     */
+    public static class InputPageBlockDivider extends InputPageBlock {
+
+        /**
+         * An empty block separating the page.
+         */
+        public InputPageBlockDivider() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -447652807;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A mathematical expression.
+     */
+    public static class InputPageBlockMathematicalExpression extends InputPageBlock {
+        /**
+         * The expression in LaTeX format.
+         */
+        public String expression;
+
+        /**
+         * A mathematical expression.
+         */
+        public InputPageBlockMathematicalExpression() {
+        }
+
+        /**
+         * A mathematical expression.
+         *
+         * @param expression The expression in LaTeX format.
+         */
+        public InputPageBlockMathematicalExpression(String expression) {
+            this.expression = expression;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1177329767;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An invisible anchor.
+     */
+    public static class InputPageBlockAnchor extends InputPageBlock {
+        /**
+         * Name of the anchor.
+         */
+        public String name;
+
+        /**
+         * An invisible anchor.
+         */
+        public InputPageBlockAnchor() {
+        }
+
+        /**
+         * An invisible anchor.
+         *
+         * @param name Name of the anchor.
+         */
+        public InputPageBlockAnchor(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -870305959;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A list of data blocks.
+     */
+    public static class InputPageBlockList extends InputPageBlock {
+        /**
+         * The items of the list.
+         */
+        public InputPageBlockListItem[] items;
+
+        /**
+         * A list of data blocks.
+         */
+        public InputPageBlockList() {
+        }
+
+        /**
+         * A list of data blocks.
+         *
+         * @param items The items of the list.
+         */
+        public InputPageBlockList(InputPageBlockListItem[] items) {
+            this.items = items;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -84608677;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A block quote.
+     */
+    public static class InputPageBlockBlockQuote extends InputPageBlock {
+        /**
+         * Quote blocks.
+         */
+        public InputPageBlock[] blocks;
+        /**
+         * Quote credit; pass null if none.
+         */
+        public RichText credit;
+
+        /**
+         * A block quote.
+         */
+        public InputPageBlockBlockQuote() {
+        }
+
+        /**
+         * A block quote.
+         *
+         * @param blocks Quote blocks.
+         * @param credit Quote credit; pass null if none.
+         */
+        public InputPageBlockBlockQuote(InputPageBlock[] blocks, RichText credit) {
+            this.blocks = blocks;
+            this.credit = credit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -440940450;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A pull quote.
+     */
+    public static class InputPageBlockPullQuote extends InputPageBlock {
+        /**
+         * Quote text.
+         */
+        public RichText text;
+        /**
+         * Quote credit; pass null if none.
+         */
+        public RichText credit;
+
+        /**
+         * A pull quote.
+         */
+        public InputPageBlockPullQuote() {
+        }
+
+        /**
+         * A pull quote.
+         *
+         * @param text Quote text.
+         * @param credit Quote credit; pass null if none.
+         */
+        public InputPageBlockPullQuote(RichText text, RichText credit) {
+            this.text = text;
+            this.credit = credit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 86080004;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An animation.
+     */
+    public static class InputPageBlockAnimation extends InputPageBlock {
+        /**
+         * The animation to be sent.
+         */
+        public InputAnimation animation;
+        /**
+         * Animation caption; pass null if none.
+         */
+        public PageBlockCaption caption;
+        /**
+         * True, if the animation preview must be covered by a spoiler animation.
+         */
+        public boolean hasSpoiler;
+
+        /**
+         * An animation.
+         */
+        public InputPageBlockAnimation() {
+        }
+
+        /**
+         * An animation.
+         *
+         * @param animation The animation to be sent.
+         * @param caption Animation caption; pass null if none.
+         * @param hasSpoiler True, if the animation preview must be covered by a spoiler animation.
+         */
+        public InputPageBlockAnimation(InputAnimation animation, PageBlockCaption caption, boolean hasSpoiler) {
+            this.animation = animation;
+            this.caption = caption;
+            this.hasSpoiler = hasSpoiler;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1405041485;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An audio file.
+     */
+    public static class InputPageBlockAudio extends InputPageBlock {
+        /**
+         * The audio to be sent.
+         */
+        public InputAudio audio;
+        /**
+         * Audio file caption; pass null if none.
+         */
+        public PageBlockCaption caption;
+
+        /**
+         * An audio file.
+         */
+        public InputPageBlockAudio() {
+        }
+
+        /**
+         * An audio file.
+         *
+         * @param audio The audio to be sent.
+         * @param caption Audio file caption; pass null if none.
+         */
+        public InputPageBlockAudio(InputAudio audio, PageBlockCaption caption) {
+            this.audio = audio;
+            this.caption = caption;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -652853196;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A photo.
+     */
+    public static class InputPageBlockPhoto extends InputPageBlock {
+        /**
+         * The photo to be sent.
+         */
+        public InputPhoto photo;
+        /**
+         * Photo caption; pass null if none.
+         */
+        public PageBlockCaption caption;
+        /**
+         * True, if the photo preview must be covered by a spoiler animation.
+         */
+        public boolean hasSpoiler;
+
+        /**
+         * A photo.
+         */
+        public InputPageBlockPhoto() {
+        }
+
+        /**
+         * A photo.
+         *
+         * @param photo The photo to be sent.
+         * @param caption Photo caption; pass null if none.
+         * @param hasSpoiler True, if the photo preview must be covered by a spoiler animation.
+         */
+        public InputPageBlockPhoto(InputPhoto photo, PageBlockCaption caption, boolean hasSpoiler) {
+            this.photo = photo;
+            this.caption = caption;
+            this.hasSpoiler = hasSpoiler;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -322327456;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A video.
+     */
+    public static class InputPageBlockVideo extends InputPageBlock {
+        /**
+         * The video to be sent.
+         */
+        public InputVideo video;
+        /**
+         * Video caption; pass null if none.
+         */
+        public PageBlockCaption caption;
+        /**
+         * True, if the video preview must be covered by a spoiler animation.
+         */
+        public boolean hasSpoiler;
+
+        /**
+         * A video.
+         */
+        public InputPageBlockVideo() {
+        }
+
+        /**
+         * A video.
+         *
+         * @param video The video to be sent.
+         * @param caption Video caption; pass null if none.
+         * @param hasSpoiler True, if the video preview must be covered by a spoiler animation.
+         */
+        public InputPageBlockVideo(InputVideo video, PageBlockCaption caption, boolean hasSpoiler) {
+            this.video = video;
+            this.caption = caption;
+            this.hasSpoiler = hasSpoiler;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -364001716;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A voice note.
+     */
+    public static class InputPageBlockVoiceNote extends InputPageBlock {
+        /**
+         * The voice note to be sent.
+         */
+        public InputVoiceNote voiceNote;
+        /**
+         * Voice note caption; pass null if none.
+         */
+        public PageBlockCaption caption;
+
+        /**
+         * A voice note.
+         */
+        public InputPageBlockVoiceNote() {
+        }
+
+        /**
+         * A voice note.
+         *
+         * @param voiceNote The voice note to be sent.
+         * @param caption Voice note caption; pass null if none.
+         */
+        public InputPageBlockVoiceNote(InputVoiceNote voiceNote, PageBlockCaption caption) {
+            this.voiceNote = voiceNote;
+            this.caption = caption;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1336626255;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A collage.
+     */
+    public static class InputPageBlockCollage extends InputPageBlock {
+        /**
+         * Collage item contents.
+         */
+        public InputPageBlock[] blocks;
+        /**
+         * Block caption; pass null if none.
+         */
+        public PageBlockCaption caption;
+
+        /**
+         * A collage.
+         */
+        public InputPageBlockCollage() {
+        }
+
+        /**
+         * A collage.
+         *
+         * @param blocks Collage item contents.
+         * @param caption Block caption; pass null if none.
+         */
+        public InputPageBlockCollage(InputPageBlock[] blocks, PageBlockCaption caption) {
+            this.blocks = blocks;
+            this.caption = caption;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1311353404;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A slideshow.
+     */
+    public static class InputPageBlockSlideshow extends InputPageBlock {
+        /**
+         * Slideshow item contents.
+         */
+        public InputPageBlock[] blocks;
+        /**
+         * Block caption; pass null if none.
+         */
+        public PageBlockCaption caption;
+
+        /**
+         * A slideshow.
+         */
+        public InputPageBlockSlideshow() {
+        }
+
+        /**
+         * A slideshow.
+         *
+         * @param blocks Slideshow item contents.
+         * @param caption Block caption; pass null if none.
+         */
+        public InputPageBlockSlideshow(InputPageBlock[] blocks, PageBlockCaption caption) {
+            this.blocks = blocks;
+            this.caption = caption;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -979922320;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A table.
+     */
+    public static class InputPageBlockTable extends InputPageBlock {
+        /**
+         * Table caption.
+         */
+        public RichText caption;
+        /**
+         * Table cells.
+         */
+        public PageBlockTableCell[][] cells;
+        /**
+         * True, if the table is bordered.
+         */
+        public boolean isBordered;
+        /**
+         * True, if the table is striped.
+         */
+        public boolean isStriped;
+
+        /**
+         * A table.
+         */
+        public InputPageBlockTable() {
+        }
+
+        /**
+         * A table.
+         *
+         * @param caption Table caption.
+         * @param cells Table cells.
+         * @param isBordered True, if the table is bordered.
+         * @param isStriped True, if the table is striped.
+         */
+        public InputPageBlockTable(RichText caption, PageBlockTableCell[][] cells, boolean isBordered, boolean isStriped) {
+            this.caption = caption;
+            this.cells = cells;
+            this.isBordered = isBordered;
+            this.isStriped = isStriped;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 817721599;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A collapsible block.
+     */
+    public static class InputPageBlockDetails extends InputPageBlock {
+        /**
+         * Always visible heading for the block.
+         */
+        public RichText header;
+        /**
+         * Block contents.
+         */
+        public InputPageBlock[] blocks;
+        /**
+         * True, if the block is open by default.
+         */
+        public boolean isOpen;
+
+        /**
+         * A collapsible block.
+         */
+        public InputPageBlockDetails() {
+        }
+
+        /**
+         * A collapsible block.
+         *
+         * @param header Always visible heading for the block.
+         * @param blocks Block contents.
+         * @param isOpen True, if the block is open by default.
+         */
+        public InputPageBlockDetails(RichText header, InputPageBlock[] blocks, boolean isOpen) {
+            this.header = header;
+            this.blocks = blocks;
+            this.isOpen = isOpen;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -517140887;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A map. The map's width and height must not exceed 10000 in total. Width and height ratio must be at most 20.
+     */
+    public static class InputPageBlockMap extends InputPageBlock {
+        /**
+         * Location of the map center.
+         */
+        public Location location;
+        /**
+         * Map zoom level; 0-24.
+         */
+        public int zoom;
+        /**
+         * Map width; 0-10000.
+         */
+        public int width;
+        /**
+         * Map height; 0-10000.
+         */
+        public int height;
+        /**
+         * Block caption; pass null if none.
+         */
+        public PageBlockCaption caption;
+
+        /**
+         * A map. The map's width and height must not exceed 10000 in total. Width and height ratio must be at most 20.
+         */
+        public InputPageBlockMap() {
+        }
+
+        /**
+         * A map. The map's width and height must not exceed 10000 in total. Width and height ratio must be at most 20.
+         *
+         * @param location Location of the map center.
+         * @param zoom Map zoom level; 0-24.
+         * @param width Map width; 0-10000.
+         * @param height Map height; 0-10000.
+         * @param caption Block caption; pass null if none.
+         */
+        public InputPageBlockMap(Location location, int zoom, int width, int height, PageBlockCaption caption) {
+            this.location = location;
+            this.zoom = zoom;
+            this.width = width;
+            this.height = height;
+            this.caption = caption;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2051912833;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes an item of a list page block to be sent.
+     */
+    public static class InputPageBlockListItem extends Object {
+        /**
+         * Item blocks.
+         */
+        public InputPageBlock[] blocks;
+        /**
+         * True, if the item has a checkbox.
+         */
+        public boolean hasCheckbox;
+        /**
+         * True, if the item is checked.
+         */
+        public boolean isChecked;
+        /**
+         * Value of the item; pass 0 for unordered lists.
+         */
+        public int value;
+        /**
+         * Type of the item numbering type; must be one of &quot;a&quot; for a lowercase letter, &quot;A&quot; for an uppercase letter, &quot;i&quot; for lowercase Roman numerals, &quot;I&quot; for uppercase Roman numerals, &quot;1&quot; for decimal numbers, or empty for unordered lists.
+         */
+        public String type;
+
+        /**
+         * Describes an item of a list page block to be sent.
+         */
+        public InputPageBlockListItem() {
+        }
+
+        /**
+         * Describes an item of a list page block to be sent.
+         *
+         * @param blocks Item blocks.
+         * @param hasCheckbox True, if the item has a checkbox.
+         * @param isChecked True, if the item is checked.
+         * @param value Value of the item; pass 0 for unordered lists.
+         * @param type Type of the item numbering type; must be one of &quot;a&quot; for a lowercase letter, &quot;A&quot; for an uppercase letter, &quot;i&quot; for lowercase Roman numerals, &quot;I&quot; for uppercase Roman numerals, &quot;1&quot; for decimal numbers, or empty for unordered lists.
+         */
+        public InputPageBlockListItem(InputPageBlock[] blocks, boolean hasCheckbox, boolean isChecked, int value, String type) {
+            this.blocks = blocks;
+            this.hasCheckbox = hasCheckbox;
+            this.isChecked = isChecked;
+            this.value = value;
+            this.type = type;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -994904638;
 
         /**
          * @return this.CONSTRUCTOR
@@ -36957,19 +38450,7 @@ public class TdApi {
         /**
          * Sticker to be sent.
          */
-        public InputFile sticker;
-        /**
-         * Sticker thumbnail; pass null to skip thumbnail uploading.
-         */
-        public InputThumbnail thumbnail;
-        /**
-         * Sticker width.
-         */
-        public int width;
-        /**
-         * Sticker height.
-         */
-        public int height;
+        public InputSticker sticker;
 
         /**
          * A sticker.
@@ -36981,21 +38462,15 @@ public class TdApi {
          * A sticker.
          *
          * @param sticker Sticker to be sent.
-         * @param thumbnail Sticker thumbnail; pass null to skip thumbnail uploading.
-         * @param width Sticker width.
-         * @param height Sticker height.
          */
-        public InputPollMediaSticker(InputFile sticker, InputThumbnail thumbnail, int width, int height) {
+        public InputPollMediaSticker(InputSticker sticker) {
             this.sticker = sticker;
-            this.thumbnail = thumbnail;
-            this.width = width;
-            this.height = height;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1948870442;
+        public static final int CONSTRUCTOR = -1605019153;
 
         /**
          * @return this.CONSTRUCTOR
@@ -37243,7 +38718,7 @@ public class TdApi {
     }
 
     /**
-     * A rich message to send.
+     * A rich message to send. Total length of all texts, including custom emoji alternative text and formula source, must not exceed getOption(&quot;rich_message_text_length_max&quot;). The total number of all blocks, list items and table rows must not exceed getOption(&quot;rich_message_block_count_max&quot;). The maximum allowed depth of nested blocks and rich texts is getOption(&quot;rich_message_depth_max&quot;). The total number of media in all blocks must not exceed getOption(&quot;rich_message_media_count_max&quot;). The maximum allowed number of table columns is getOption(&quot;rich_message_table_column_count_max&quot;).
      */
     public static class InputRichMessage extends Object {
         /**
@@ -37260,13 +38735,13 @@ public class TdApi {
         public boolean detectAutomaticBlocks;
 
         /**
-         * A rich message to send.
+         * A rich message to send. Total length of all texts, including custom emoji alternative text and formula source, must not exceed getOption(&quot;rich_message_text_length_max&quot;). The total number of all blocks, list items and table rows must not exceed getOption(&quot;rich_message_block_count_max&quot;). The maximum allowed depth of nested blocks and rich texts is getOption(&quot;rich_message_depth_max&quot;). The total number of media in all blocks must not exceed getOption(&quot;rich_message_media_count_max&quot;). The maximum allowed number of table columns is getOption(&quot;rich_message_table_column_count_max&quot;).
          */
         public InputRichMessage() {
         }
 
         /**
-         * A rich message to send.
+         * A rich message to send. Total length of all texts, including custom emoji alternative text and formula source, must not exceed getOption(&quot;rich_message_text_length_max&quot;). The total number of all blocks, list items and table rows must not exceed getOption(&quot;rich_message_block_count_max&quot;). The maximum allowed depth of nested blocks and rich texts is getOption(&quot;rich_message_depth_max&quot;). The total number of media in all blocks must not exceed getOption(&quot;rich_message_media_count_max&quot;). The maximum allowed number of table columns is getOption(&quot;rich_message_table_column_count_max&quot;).
          *
          * @param source Source of the rich message.
          * @param isRtl Pass true if the message must be shown from right to left.
@@ -37293,57 +38768,95 @@ public class TdApi {
     }
 
     /**
-     * A sticker to be added to a sticker set.
+     * Describes a media to be used in a sent rich message.
      */
-    public static class InputSticker extends Object {
+    public static class InputRichMessageMedia extends Object {
         /**
-         * File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+         * Unique identifier of the media; 1-64 base64url characters.
          */
-        public InputFile sticker;
+        public String id;
         /**
-         * Format of the sticker.
+         * The media to send. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessagePhoto, inputMessageVideo, or inputMessageVoiceNote.
          */
-        public StickerFormat format;
-        /**
-         * String with 1-20 emoji corresponding to the sticker.
-         */
-        public String emojis;
-        /**
-         * Position where the mask is placed; pass null if not specified.
-         */
-        public MaskPosition maskPosition;
-        /**
-         * List of up to 20 keywords with total length up to 64 characters, which can be used to find the sticker.
-         */
-        public String[] keywords;
+        public InputMessageContent media;
 
         /**
-         * A sticker to be added to a sticker set.
+         * Describes a media to be used in a sent rich message.
          */
-        public InputSticker() {
+        public InputRichMessageMedia() {
         }
 
         /**
-         * A sticker to be added to a sticker set.
+         * Describes a media to be used in a sent rich message.
          *
-         * @param sticker File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
-         * @param format Format of the sticker.
-         * @param emojis String with 1-20 emoji corresponding to the sticker.
-         * @param maskPosition Position where the mask is placed; pass null if not specified.
-         * @param keywords List of up to 20 keywords with total length up to 64 characters, which can be used to find the sticker.
+         * @param id Unique identifier of the media; 1-64 base64url characters.
+         * @param media The media to send. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessagePhoto, inputMessageVideo, or inputMessageVoiceNote.
          */
-        public InputSticker(InputFile sticker, StickerFormat format, String emojis, MaskPosition maskPosition, String[] keywords) {
-            this.sticker = sticker;
-            this.format = format;
-            this.emojis = emojis;
-            this.maskPosition = maskPosition;
-            this.keywords = keywords;
+        public InputRichMessageMedia(String id, InputMessageContent media) {
+            this.id = id;
+            this.media = media;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1589392402;
+        public static final int CONSTRUCTOR = -1449915987;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A sticker to be sent.
+     */
+    public static class InputSticker extends Object {
+        /**
+         * Sticker to be sent.
+         */
+        public InputFile sticker;
+        /**
+         * Sticker thumbnail; pass null to skip thumbnail uploading.
+         */
+        public InputThumbnail thumbnail;
+        /**
+         * Sticker width.
+         */
+        public int width;
+        /**
+         * Sticker height.
+         */
+        public int height;
+
+        /**
+         * A sticker to be sent.
+         */
+        public InputSticker() {
+        }
+
+        /**
+         * A sticker to be sent.
+         *
+         * @param sticker Sticker to be sent.
+         * @param thumbnail Sticker thumbnail; pass null to skip thumbnail uploading.
+         * @param width Sticker width.
+         * @param height Sticker height.
+         */
+        public InputSticker(InputFile sticker, InputThumbnail thumbnail, int width, int height) {
+            this.sticker = sticker;
+            this.thumbnail = thumbnail;
+            this.width = width;
+            this.height = height;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -956316144;
 
         /**
          * @return this.CONSTRUCTOR
@@ -38170,6 +39683,112 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -102022197;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A video note to be sent.
+     */
+    public static class InputVideoNote extends Object {
+        /**
+         * Video note file to be sent. The video is expected to be encoded to MPEG4 format with H.264 codec and have no data outside of the visible circle.
+         */
+        public InputFile videoNote;
+        /**
+         * Video thumbnail; may be null if empty; pass null to skip thumbnail uploading.
+         */
+        @Nullable public InputThumbnail thumbnail;
+        /**
+         * Duration of the video, in seconds; 0-60.
+         */
+        public int duration;
+        /**
+         * Video width and height; must be positive and not greater than 640.
+         */
+        public int length;
+
+        /**
+         * A video note to be sent.
+         */
+        public InputVideoNote() {
+        }
+
+        /**
+         * A video note to be sent.
+         *
+         * @param videoNote Video note file to be sent. The video is expected to be encoded to MPEG4 format with H.264 codec and have no data outside of the visible circle.
+         * @param thumbnail Video thumbnail; may be null if empty; pass null to skip thumbnail uploading.
+         * @param duration Duration of the video, in seconds; 0-60.
+         * @param length Video width and height; must be positive and not greater than 640.
+         */
+        public InputVideoNote(InputFile videoNote, InputThumbnail thumbnail, int duration, int length) {
+            this.videoNote = videoNote;
+            this.thumbnail = thumbnail;
+            this.duration = duration;
+            this.length = length;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 462853190;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A video note to be sent.
+     */
+    public static class InputVoiceNote extends Object {
+        /**
+         * Voice note file to be sent. The voice note must be encoded with the Opus codec and stored inside an OGG container with a single audio channel, or be in MP3 or M4A format as regular audio.
+         */
+        public InputFile voiceNote;
+        /**
+         * Duration of the voice note, in seconds.
+         */
+        public int duration;
+        /**
+         * Waveform representation of the voice note in 5-bit format.
+         */
+        public byte[] waveform;
+
+        /**
+         * A video note to be sent.
+         */
+        public InputVoiceNote() {
+        }
+
+        /**
+         * A video note to be sent.
+         *
+         * @param voiceNote Voice note file to be sent. The voice note must be encoded with the Opus codec and stored inside an OGG container with a single audio channel, or be in MP3 or M4A format as regular audio.
+         * @param duration Duration of the voice note, in seconds.
+         * @param waveform Waveform representation of the voice note in 5-bit format.
+         */
+        public InputVoiceNote(InputFile voiceNote, int duration, byte[] waveform) {
+            this.voiceNote = voiceNote;
+            this.duration = duration;
+            this.waveform = waveform;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1965682819;
 
         /**
          * @return this.CONSTRUCTOR
@@ -45081,6 +46700,10 @@ public class TdApi {
          */
         public MessageSender senderId;
         /**
+         * Identifier of the user or the chat which received the ephemeral message; may be null. Always null for non-ephemeral messages.
+         */
+        @Nullable public MessageSender receiverId;
+        /**
          * Chat identifier.
          */
         public long chatId;
@@ -45121,9 +46744,9 @@ public class TdApi {
          */
         public boolean isPaidStarSuggestedPost;
         /**
-         * True, if the message is a suggested channel post which was paid in Toncoins; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
+         * True, if the message is a suggested channel post which was paid in TON Grams; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
          */
-        public boolean isPaidTonSuggestedPost;
+        public boolean isPaidGramSuggestedPost;
         /**
          * True, if the message contains an unread mention for the current user.
          */
@@ -45137,7 +46760,7 @@ public class TdApi {
          */
         public int date;
         /**
-         * Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages.
+         * Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages. If getOption(&quot;show_message_edit_date_by_default&quot;) is true, then the date must be shown along with the message instead of the date when the message was sent.
          */
         public int editDate;
         /**
@@ -45236,6 +46859,10 @@ public class TdApi {
          * Reply markup for the message; may be null if none.
          */
         @Nullable public ReplyMarkup replyMarkup;
+        /**
+         * Unique identifier of the ephemeral message if the message is ephemeral; for bots only.
+         */
+        public int ephemeralMessageId;
 
         /**
          * Describes a message.
@@ -45248,6 +46875,7 @@ public class TdApi {
          *
          * @param id Message identifier; unique for the chat to which the message belongs.
          * @param senderId Identifier of the sender of the message.
+         * @param receiverId Identifier of the user or the chat which received the ephemeral message; may be null. Always null for non-ephemeral messages.
          * @param chatId Chat identifier.
          * @param sendingState The sending state of the message; may be null if the message isn't being sent and didn't fail to be sent.
          * @param schedulingState The scheduling state of the message; may be null if the message isn't scheduled.
@@ -45258,11 +46886,11 @@ public class TdApi {
          * @param hasTimestampedMedia True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message.
          * @param isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
          * @param isPaidStarSuggestedPost True, if the message is a suggested channel post which was paid in Telegram Stars; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
-         * @param isPaidTonSuggestedPost True, if the message is a suggested channel post which was paid in Toncoins; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
+         * @param isPaidGramSuggestedPost True, if the message is a suggested channel post which was paid in TON Grams; a warning must be shown if the message is deleted in less than getOption(&quot;suggested_post_lifetime_min&quot;) seconds after sending.
          * @param containsUnreadMention True, if the message contains an unread mention for the current user.
          * @param containsUnreadPollVotes True, if the message is a poll message with unread votes.
          * @param date Point in time (Unix timestamp) when the message was sent; 0 for scheduled messages.
-         * @param editDate Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages.
+         * @param editDate Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages. If getOption(&quot;show_message_edit_date_by_default&quot;) is true, then the date must be shown along with the message instead of the date when the message was sent.
          * @param forwardInfo Information about the initial message sender; may be null if none or unknown.
          * @param importInfo Information about the initial message for messages created with importMessages; may be null if the message isn't imported.
          * @param interactionInfo Information about interactions with the message; may be null if none.
@@ -45287,10 +46915,12 @@ public class TdApi {
          * @param summaryLanguageCode IETF language tag of the message language on which it can be summarized; empty if summary isn't available for the message.
          * @param content Content of the message.
          * @param replyMarkup Reply markup for the message; may be null if none.
+         * @param ephemeralMessageId Unique identifier of the ephemeral message if the message is ephemeral; for bots only.
          */
-        public Message(long id, MessageSender senderId, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean isFromOffline, boolean canBeSaved, boolean hasTimestampedMedia, boolean isChannelPost, boolean isPaidStarSuggestedPost, boolean isPaidTonSuggestedPost, boolean containsUnreadMention, boolean containsUnreadPollVotes, int date, int editDate, MessageForwardInfo forwardInfo, MessageImportInfo importInfo, MessageInteractionInfo interactionInfo, UnreadReaction[] unreadReactions, FactCheck factCheck, SuggestedPostInfo suggestedPostInfo, MessageReplyTo replyTo, MessageTopic topicId, MessageSelfDestructType selfDestructType, double selfDestructIn, double autoDeleteIn, long viaBotUserId, MessageSender guestBotCallerId, long senderBusinessBotUserId, int senderBoostCount, String senderTag, long paidMessageStarCount, String authorSignature, long mediaAlbumId, long effectId, RestrictionInfo restrictionInfo, String summaryLanguageCode, MessageContent content, ReplyMarkup replyMarkup) {
+        public Message(long id, MessageSender senderId, MessageSender receiverId, long chatId, MessageSendingState sendingState, MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean isFromOffline, boolean canBeSaved, boolean hasTimestampedMedia, boolean isChannelPost, boolean isPaidStarSuggestedPost, boolean isPaidGramSuggestedPost, boolean containsUnreadMention, boolean containsUnreadPollVotes, int date, int editDate, MessageForwardInfo forwardInfo, MessageImportInfo importInfo, MessageInteractionInfo interactionInfo, UnreadReaction[] unreadReactions, FactCheck factCheck, SuggestedPostInfo suggestedPostInfo, MessageReplyTo replyTo, MessageTopic topicId, MessageSelfDestructType selfDestructType, double selfDestructIn, double autoDeleteIn, long viaBotUserId, MessageSender guestBotCallerId, long senderBusinessBotUserId, int senderBoostCount, String senderTag, long paidMessageStarCount, String authorSignature, long mediaAlbumId, long effectId, RestrictionInfo restrictionInfo, String summaryLanguageCode, MessageContent content, ReplyMarkup replyMarkup, int ephemeralMessageId) {
             this.id = id;
             this.senderId = senderId;
+            this.receiverId = receiverId;
             this.chatId = chatId;
             this.sendingState = sendingState;
             this.schedulingState = schedulingState;
@@ -45301,7 +46931,7 @@ public class TdApi {
             this.hasTimestampedMedia = hasTimestampedMedia;
             this.isChannelPost = isChannelPost;
             this.isPaidStarSuggestedPost = isPaidStarSuggestedPost;
-            this.isPaidTonSuggestedPost = isPaidTonSuggestedPost;
+            this.isPaidGramSuggestedPost = isPaidGramSuggestedPost;
             this.containsUnreadMention = containsUnreadMention;
             this.containsUnreadPollVotes = containsUnreadPollVotes;
             this.date = date;
@@ -45330,12 +46960,13 @@ public class TdApi {
             this.summaryLanguageCode = summaryLanguageCode;
             this.content = content;
             this.replyMarkup = replyMarkup;
+            this.ephemeralMessageId = ephemeralMessageId;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -609581767;
+        public static final int CONSTRUCTOR = -1553901480;
 
         /**
          * @return this.CONSTRUCTOR
@@ -45530,6 +47161,8 @@ public class TdApi {
             MessageChatJoinByLink.CONSTRUCTOR,
             MessageChatJoinByRequest.CONSTRUCTOR,
             MessageChatDeleteMember.CONSTRUCTOR,
+            MessageChatAddedToCommunity.CONSTRUCTOR,
+            MessageChatRemovedFromCommunity.CONSTRUCTOR,
             MessageChatUpgradeTo.CONSTRUCTOR,
             MessageChatUpgradeFrom.CONSTRUCTOR,
             MessagePinMessage.CONSTRUCTOR,
@@ -46667,13 +48300,13 @@ public class TdApi {
          */
         public int value;
         /**
-         * The Toncoin amount that was staked; in the smallest units of the currency.
+         * The TON Gram amount that was staked; in the smallest units of the currency.
          */
-        public long stakeToncoinAmount;
+        public long stakeGramAmount;
         /**
-         * The Toncoin amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet.
+         * The TON Gram amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet.
          */
-        public long prizeToncoinAmount;
+        public long prizeGramAmount;
 
         /**
          * A stake dice message. The dice value is randomly generated by the server.
@@ -46687,21 +48320,21 @@ public class TdApi {
          * @param initialState The animated stickers with the initial dice animation; may be null if unknown. The update updateMessageContent will be sent when the sticker became known.
          * @param finalState The animated stickers with the final dice animation; may be null if unknown. The update updateMessageContent will be sent when the sticker became known.
          * @param value The dice value. If the value is 0, then the dice don't have final state yet.
-         * @param stakeToncoinAmount The Toncoin amount that was staked; in the smallest units of the currency.
-         * @param prizeToncoinAmount The Toncoin amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet.
+         * @param stakeGramAmount The TON Gram amount that was staked; in the smallest units of the currency.
+         * @param prizeGramAmount The TON Gram amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet.
          */
-        public MessageStakeDice(DiceStickers initialState, DiceStickers finalState, int value, long stakeToncoinAmount, long prizeToncoinAmount) {
+        public MessageStakeDice(DiceStickers initialState, DiceStickers finalState, int value, long stakeGramAmount, long prizeGramAmount) {
             this.initialState = initialState;
             this.finalState = finalState;
             this.value = value;
-            this.stakeToncoinAmount = stakeToncoinAmount;
-            this.prizeToncoinAmount = prizeToncoinAmount;
+            this.stakeGramAmount = stakeGramAmount;
+            this.prizeGramAmount = prizeGramAmount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 844428448;
+        public static final int CONSTRUCTOR = 846324273;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47737,6 +49370,69 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 938029481;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat was added to a community.
+     */
+    public static class MessageChatAddedToCommunity extends MessageContent {
+        /**
+         * Identifier of the community to which the chat was added.
+         */
+        public long communityId;
+
+        /**
+         * The chat was added to a community.
+         */
+        public MessageChatAddedToCommunity() {
+        }
+
+        /**
+         * The chat was added to a community.
+         *
+         * @param communityId Identifier of the community to which the chat was added.
+         */
+        public MessageChatAddedToCommunity(long communityId) {
+            this.communityId = communityId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1000122284;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The chat was removed from a community.
+     */
+    public static class MessageChatRemovedFromCommunity extends MessageContent {
+
+        /**
+         * The chat was removed from a community.
+         */
+        public MessageChatRemovedFromCommunity() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 583449813;
 
         /**
          * @return this.CONSTRUCTOR
@@ -49211,23 +50907,23 @@ public class TdApi {
     }
 
     /**
-     * Toncoins were gifted to a user.
+     * TON Grams were gifted to a user.
      */
     public static class MessageGiftedTon extends MessageContent {
         /**
-         * The identifier of a user who gifted Toncoins; 0 if the gift was anonymous or is outgoing.
+         * The identifier of a user who gifted Grams; 0 if the gift was anonymous or is outgoing.
          */
         public long gifterUserId;
         /**
-         * The identifier of a user who received Toncoins; 0 if the gift is incoming.
+         * The identifier of a user who received Grams; 0 if the gift is incoming.
          */
         public long receiverUserId;
         /**
-         * The received Toncoin amount, in the smallest units of the cryptocurrency.
+         * The received Gram amount, in the smallest units of the cryptocurrency.
          */
-        public long tonAmount;
+        public long gramAmount;
         /**
-         * Identifier of the transaction for Toncoin credit; for receiver only.
+         * Identifier of the transaction for Gram credit; for receiver only.
          */
         public String transactionId;
         /**
@@ -49236,24 +50932,24 @@ public class TdApi {
         @Nullable public Sticker sticker;
 
         /**
-         * Toncoins were gifted to a user.
+         * TON Grams were gifted to a user.
          */
         public MessageGiftedTon() {
         }
 
         /**
-         * Toncoins were gifted to a user.
+         * TON Grams were gifted to a user.
          *
-         * @param gifterUserId The identifier of a user who gifted Toncoins; 0 if the gift was anonymous or is outgoing.
-         * @param receiverUserId The identifier of a user who received Toncoins; 0 if the gift is incoming.
-         * @param tonAmount The received Toncoin amount, in the smallest units of the cryptocurrency.
-         * @param transactionId Identifier of the transaction for Toncoin credit; for receiver only.
+         * @param gifterUserId The identifier of a user who gifted Grams; 0 if the gift was anonymous or is outgoing.
+         * @param receiverUserId The identifier of a user who received Grams; 0 if the gift is incoming.
+         * @param gramAmount The received Gram amount, in the smallest units of the cryptocurrency.
+         * @param transactionId Identifier of the transaction for Gram credit; for receiver only.
          * @param sticker A sticker to be shown in the message; may be null if unknown.
          */
-        public MessageGiftedTon(long gifterUserId, long receiverUserId, long tonAmount, String transactionId, Sticker sticker) {
+        public MessageGiftedTon(long gifterUserId, long receiverUserId, long gramAmount, String transactionId, Sticker sticker) {
             this.gifterUserId = gifterUserId;
             this.receiverUserId = receiverUserId;
-            this.tonAmount = tonAmount;
+            this.gramAmount = gramAmount;
             this.transactionId = transactionId;
             this.sticker = sticker;
         }
@@ -49261,7 +50957,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 766483995;
+        public static final int CONSTRUCTOR = 941235753;
 
         /**
          * @return this.CONSTRUCTOR
@@ -50141,9 +51837,9 @@ public class TdApi {
          */
         public StarAmount starAmount;
         /**
-         * The amount of received Toncoins; in the smallest units of the cryptocurrency.
+         * The amount of received TON Grams; in the smallest units of the cryptocurrency.
          */
-        public long tonAmount;
+        public long gramAmount;
 
         /**
          * A suggested post was published for getOption(&quot;suggested_post_lifetime_min&quot;) seconds and payment for the post was received.
@@ -50156,18 +51852,18 @@ public class TdApi {
          *
          * @param suggestedPostMessageId Identifier of the message with the suggested post; may be 0 or an identifier of a deleted message.
          * @param starAmount The amount of received Telegram Stars.
-         * @param tonAmount The amount of received Toncoins; in the smallest units of the cryptocurrency.
+         * @param gramAmount The amount of received TON Grams; in the smallest units of the cryptocurrency.
          */
-        public MessageSuggestedPostPaid(long suggestedPostMessageId, StarAmount starAmount, long tonAmount) {
+        public MessageSuggestedPostPaid(long suggestedPostMessageId, StarAmount starAmount, long gramAmount) {
             this.suggestedPostMessageId = suggestedPostMessageId;
             this.starAmount = starAmount;
-            this.tonAmount = tonAmount;
+            this.gramAmount = gramAmount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1575439273;
+        public static final int CONSTRUCTOR = -556762859;
 
         /**
          * @return this.CONSTRUCTOR
@@ -51597,7 +53293,7 @@ public class TdApi {
          */
         public boolean canBePinned;
         /**
-         * True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage.
+         * True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage. Ephemeral messages can be replied only by other ephemeral messages.
          */
         public boolean canBeReplied;
         /**
@@ -51726,7 +53422,7 @@ public class TdApi {
          * @param canBeForwarded True, if the message can be forwarded using inputMessageForwarded or forwardMessages without copy options.
          * @param canBePaid True, if the message can be paid using inputInvoiceMessage.
          * @param canBePinned True, if the message can be pinned or unpinned in the chat using pinChatMessage or unpinChatMessage.
-         * @param canBeReplied True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage.
+         * @param canBeReplied True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage. Ephemeral messages can be replied only by other ephemeral messages.
          * @param canBeRepliedInAnotherChat True, if the message can be replied in another chat or forum topic using inputMessageReplyToExternalMessage.
          * @param canBeSaved True, if content of the message can be saved locally.
          * @param canBeSharedInStory True, if the message can be shared in a story using inputStoryAreaTypeMessage.
@@ -54091,6 +55787,68 @@ public class TdApi {
     }
 
     /**
+     * A sticker to be added to a sticker set.
+     */
+    public static class NewSticker extends Object {
+        /**
+         * File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+         */
+        public InputFile sticker;
+        /**
+         * Format of the sticker.
+         */
+        public StickerFormat format;
+        /**
+         * String with 1-20 emoji corresponding to the sticker.
+         */
+        public String emojis;
+        /**
+         * Position where the mask is placed; pass null if not specified.
+         */
+        public MaskPosition maskPosition;
+        /**
+         * List of up to 20 keywords with total length up to 64 characters, which can be used to find the sticker.
+         */
+        public String[] keywords;
+
+        /**
+         * A sticker to be added to a sticker set.
+         */
+        public NewSticker() {
+        }
+
+        /**
+         * A sticker to be added to a sticker set.
+         *
+         * @param sticker File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements.
+         * @param format Format of the sticker.
+         * @param emojis String with 1-20 emoji corresponding to the sticker.
+         * @param maskPosition Position where the mask is placed; pass null if not specified.
+         * @param keywords List of up to 20 keywords with total length up to 64 characters, which can be used to find the sticker.
+         */
+        public NewSticker(InputFile sticker, StickerFormat format, String emojis, MaskPosition maskPosition, String[] keywords) {
+            this.sticker = sticker;
+            this.format = format;
+            this.emojis = emojis;
+            this.maskPosition = maskPosition;
+            this.keywords = keywords;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2147463841;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains information about a notification.
      */
     public static class Notification extends Object {
@@ -55153,7 +56911,7 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Describes a block of an instant view for a web page.
+     * Describes a block of an instant view for a web page or a block of a rich message.
      */
     public abstract static class PageBlock extends Object {
         /**
@@ -61568,7 +63326,8 @@ public class TdApi {
             PremiumFeatureChecklists.CONSTRUCTOR,
             PremiumFeaturePaidMessages.CONSTRUCTOR,
             PremiumFeatureProtectPrivateChatContent.CONSTRUCTOR,
-            PremiumFeatureTextComposition.CONSTRUCTOR
+            PremiumFeatureTextComposition.CONSTRUCTOR,
+            PremiumFeatureRichMessages.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -62275,6 +64034,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 210899877;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The ability to send rich messages.
+     */
+    public static class PremiumFeatureRichMessages extends PremiumFeature {
+
+        /**
+         * The ability to send rich messages.
+         */
+        public PremiumFeatureRichMessages() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 796479291;
 
         /**
          * @return this.CONSTRUCTOR
@@ -69555,6 +71339,7 @@ public class TdApi {
          */
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
+            RichMessageSourceBlocks.CONSTRUCTOR,
             RichMessageSourceMarkdown.CONSTRUCTOR,
             RichMessageSourceHtml.CONSTRUCTOR
         })
@@ -69574,6 +71359,44 @@ public class TdApi {
     }
 
     /**
+     * A rich message defined by blocks.
+     */
+    public static class RichMessageSourceBlocks extends RichMessageSource {
+        /**
+         * Content of the message.
+         */
+        public InputPageBlock[] blocks;
+
+        /**
+         * A rich message defined by blocks.
+         */
+        public RichMessageSourceBlocks() {
+        }
+
+        /**
+         * A rich message defined by blocks.
+         *
+         * @param blocks Content of the message.
+         */
+        public RichMessageSourceBlocks(InputPageBlock[] blocks) {
+            this.blocks = blocks;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 711854237;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * A Markdown-formatted rich message; for bots only.
      */
     public static class RichMessageSourceMarkdown extends RichMessageSource {
@@ -69581,6 +71404,10 @@ public class TdApi {
          * Markdown-formatted text of the message.
          */
         public String text;
+        /**
+         * Media used in the message.
+         */
+        public InputRichMessageMedia[] media;
 
         /**
          * A Markdown-formatted rich message; for bots only.
@@ -69592,15 +71419,17 @@ public class TdApi {
          * A Markdown-formatted rich message; for bots only.
          *
          * @param text Markdown-formatted text of the message.
+         * @param media Media used in the message.
          */
-        public RichMessageSourceMarkdown(String text) {
+        public RichMessageSourceMarkdown(String text, InputRichMessageMedia[] media) {
             this.text = text;
+            this.media = media;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 340844665;
+        public static final int CONSTRUCTOR = 1525069830;
 
         /**
          * @return this.CONSTRUCTOR
@@ -69619,6 +71448,10 @@ public class TdApi {
          * HTML-formatted text of the message.
          */
         public String text;
+        /**
+         * Media used in the message.
+         */
+        public InputRichMessageMedia[] media;
 
         /**
          * An HTML-formatted rich message; for bots only.
@@ -69630,15 +71463,17 @@ public class TdApi {
          * An HTML-formatted rich message; for bots only.
          *
          * @param text HTML-formatted text of the message.
+         * @param media Media used in the message.
          */
-        public RichMessageSourceHtml(String text) {
+        public RichMessageSourceHtml(String text, InputRichMessageMedia[] media) {
             this.text = text;
+            this.media = media;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1851206828;
+        public static final int CONSTRUCTOR = -1607458262;
 
         /**
          * @return this.CONSTRUCTOR
@@ -69665,23 +71500,24 @@ public class TdApi {
             RichTextUnderline.CONSTRUCTOR,
             RichTextStrikethrough.CONSTRUCTOR,
             RichTextSpoiler.CONSTRUCTOR,
+            RichTextSubscript.CONSTRUCTOR,
+            RichTextSuperscript.CONSTRUCTOR,
+            RichTextMarked.CONSTRUCTOR,
             RichTextDateTime.CONSTRUCTOR,
             RichTextMention.CONSTRUCTOR,
             RichTextHashtag.CONSTRUCTOR,
             RichTextCashtag.CONSTRUCTOR,
+            RichTextBankCardNumber.CONSTRUCTOR,
             RichTextBotCommand.CONSTRUCTOR,
             RichTextFixed.CONSTRUCTOR,
             RichTextMentionName.CONSTRUCTOR,
             RichTextUrl.CONSTRUCTOR,
             RichTextEmailAddress.CONSTRUCTOR,
-            RichTextBankCardNumber.CONSTRUCTOR,
-            RichTextSubscript.CONSTRUCTOR,
-            RichTextSuperscript.CONSTRUCTOR,
-            RichTextMarked.CONSTRUCTOR,
             RichTextPhoneNumber.CONSTRUCTOR,
             RichTextCustomEmoji.CONSTRUCTOR,
             RichTextIcon.CONSTRUCTOR,
             RichTextMathematicalExpression.CONSTRUCTOR,
+            RichTextDiff.CONSTRUCTOR,
             RichTextReference.CONSTRUCTOR,
             RichTextReferenceLink.CONSTRUCTOR,
             RichTextAnchor.CONSTRUCTOR,
@@ -69932,6 +71768,120 @@ public class TdApi {
     }
 
     /**
+     * A subscript rich text.
+     */
+    public static class RichTextSubscript extends RichText {
+        /**
+         * Text.
+         */
+        public RichText text;
+
+        /**
+         * A subscript rich text.
+         */
+        public RichTextSubscript() {
+        }
+
+        /**
+         * A subscript rich text.
+         *
+         * @param text Text.
+         */
+        public RichTextSubscript(RichText text) {
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -868197812;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A superscript rich text.
+     */
+    public static class RichTextSuperscript extends RichText {
+        /**
+         * Text.
+         */
+        public RichText text;
+
+        /**
+         * A superscript rich text.
+         */
+        public RichTextSuperscript() {
+        }
+
+        /**
+         * A superscript rich text.
+         *
+         * @param text Text.
+         */
+        public RichTextSuperscript(RichText text) {
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -382241437;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A marked rich text.
+     */
+    public static class RichTextMarked extends RichText {
+        /**
+         * Text.
+         */
+        public RichText text;
+
+        /**
+         * A marked rich text.
+         */
+        public RichTextMarked() {
+        }
+
+        /**
+         * A marked rich text.
+         *
+         * @param text Text.
+         */
+        public RichTextMarked(RichText text) {
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1271999614;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * A date and time.
      */
     public static class RichTextDateTime extends RichText {
@@ -70103,6 +72053,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1293987712;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A bank card number.
+     */
+    public static class RichTextBankCardNumber extends RichText {
+        /**
+         * Text.
+         */
+        public RichText text;
+        /**
+         * The number of the bank card.
+         */
+        public String bankCardNumber;
+
+        /**
+         * A bank card number.
+         */
+        public RichTextBankCardNumber() {
+        }
+
+        /**
+         * A bank card number.
+         *
+         * @param text Text.
+         * @param bankCardNumber The number of the bank card.
+         */
+        public RichTextBankCardNumber(RichText text, String bankCardNumber) {
+            this.text = text;
+            this.bankCardNumber = bankCardNumber;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1587991130;
 
         /**
          * @return this.CONSTRUCTOR
@@ -70334,164 +72328,6 @@ public class TdApi {
     }
 
     /**
-     * A bank card number.
-     */
-    public static class RichTextBankCardNumber extends RichText {
-        /**
-         * Text.
-         */
-        public RichText text;
-        /**
-         * The number of the bank card.
-         */
-        public String bankCardNumber;
-
-        /**
-         * A bank card number.
-         */
-        public RichTextBankCardNumber() {
-        }
-
-        /**
-         * A bank card number.
-         *
-         * @param text Text.
-         * @param bankCardNumber The number of the bank card.
-         */
-        public RichTextBankCardNumber(RichText text, String bankCardNumber) {
-            this.text = text;
-            this.bankCardNumber = bankCardNumber;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 1587991130;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * A subscript rich text.
-     */
-    public static class RichTextSubscript extends RichText {
-        /**
-         * Text.
-         */
-        public RichText text;
-
-        /**
-         * A subscript rich text.
-         */
-        public RichTextSubscript() {
-        }
-
-        /**
-         * A subscript rich text.
-         *
-         * @param text Text.
-         */
-        public RichTextSubscript(RichText text) {
-            this.text = text;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -868197812;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * A superscript rich text.
-     */
-    public static class RichTextSuperscript extends RichText {
-        /**
-         * Text.
-         */
-        public RichText text;
-
-        /**
-         * A superscript rich text.
-         */
-        public RichTextSuperscript() {
-        }
-
-        /**
-         * A superscript rich text.
-         *
-         * @param text Text.
-         */
-        public RichTextSuperscript(RichText text) {
-            this.text = text;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -382241437;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * A marked rich text.
-     */
-    public static class RichTextMarked extends RichText {
-        /**
-         * Text.
-         */
-        public RichText text;
-
-        /**
-         * A marked rich text.
-         */
-        public RichTextMarked() {
-        }
-
-        /**
-         * A marked rich text.
-         *
-         * @param text Text.
-         */
-        public RichTextMarked(RichText text) {
-            this.text = text;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1271999614;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * A rich text phone number.
      */
     public static class RichTextPhoneNumber extends RichText {
@@ -70657,6 +72493,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1247702820;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A rich text replacing another rich text; not supported in inputRichMessage.
+     */
+    public static class RichTextDiff extends RichText {
+        /**
+         * Text.
+         */
+        public RichText text;
+        /**
+         * The old text.
+         */
+        public RichText oldText;
+
+        /**
+         * A rich text replacing another rich text; not supported in inputRichMessage.
+         */
+        public RichTextDiff() {
+        }
+
+        /**
+         * A rich text replacing another rich text; not supported in inputRichMessage.
+         *
+         * @param text Text.
+         * @param oldText The old text.
+         */
+        public RichTextDiff(RichText text, RichText oldText) {
+            this.text = text;
+            this.oldText = oldText;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1685283658;
 
         /**
          * @return this.CONSTRUCTOR
@@ -73178,7 +75058,7 @@ public class TdApi {
             SettingsSectionInAppBrowser.CONSTRUCTOR,
             SettingsSectionLanguage.CONSTRUCTOR,
             SettingsSectionMyStars.CONSTRUCTOR,
-            SettingsSectionMyToncoins.CONSTRUCTOR,
+            SettingsSectionMyGrams.CONSTRUCTOR,
             SettingsSectionNotifications.CONSTRUCTOR,
             SettingsSectionPowerSaving.CONSTRUCTOR,
             SettingsSectionPremium.CONSTRUCTOR,
@@ -73621,20 +75501,20 @@ public class TdApi {
     }
 
     /**
-     * The Toncoin balance and transaction section.
+     * The TON Gram balance and transaction section.
      */
-    public static class SettingsSectionMyToncoins extends SettingsSection {
+    public static class SettingsSectionMyGrams extends SettingsSection {
 
         /**
-         * The Toncoin balance and transaction section.
+         * The TON Gram balance and transaction section.
          */
-        public SettingsSectionMyToncoins() {
+        public SettingsSectionMyGrams() {
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1628818474;
+        public static final int CONSTRUCTOR = -2071203246;
 
         /**
          * @return this.CONSTRUCTOR
@@ -74460,23 +76340,23 @@ public class TdApi {
          */
         public String stateHash;
         /**
-         * The Toncoin amount that was staked in the previous roll; in the smallest units of the currency.
+         * The amount of TON Grams staked in the previous roll; in the smallest units of the currency.
          */
-        public long stakeToncoinAmount;
+        public long stakeGramAmount;
         /**
-         * The amounts of Toncoins that are suggested to be staked; in the smallest units of the currency.
+         * The amounts of Grams that are suggested to be staked; in the smallest units of the currency.
          */
-        public long[] suggestedStakeToncoinAmounts;
+        public long[] suggestedStakeGramAmounts;
         /**
          * The number of rolled sixes towards the streak; 0-2.
          */
         public int currentStreak;
         /**
-         * The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user.
+         * The number of Grams received by the user for each 1000 Grams staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user.
          */
         public int[] prizePerMille;
         /**
-         * The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 6 three times in a row with the same stake.
+         * The number of Grams received by the user for each 1000 Grams staked if the dice outcome is 6 three times in a row with the same stake.
          */
         public int streakPrizePerMille;
 
@@ -74490,16 +76370,16 @@ public class TdApi {
          * Describes state of the stake dice.
          *
          * @param stateHash Hash of the state to use for sending the next dice; may be empty if the stake dice can't be sent by the current user.
-         * @param stakeToncoinAmount The Toncoin amount that was staked in the previous roll; in the smallest units of the currency.
-         * @param suggestedStakeToncoinAmounts The amounts of Toncoins that are suggested to be staked; in the smallest units of the currency.
+         * @param stakeGramAmount The amount of TON Grams staked in the previous roll; in the smallest units of the currency.
+         * @param suggestedStakeGramAmounts The amounts of Grams that are suggested to be staked; in the smallest units of the currency.
          * @param currentStreak The number of rolled sixes towards the streak; 0-2.
-         * @param prizePerMille The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user.
-         * @param streakPrizePerMille The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 6 three times in a row with the same stake.
+         * @param prizePerMille The number of Grams received by the user for each 1000 Grams staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user.
+         * @param streakPrizePerMille The number of Grams received by the user for each 1000 Grams staked if the dice outcome is 6 three times in a row with the same stake.
          */
-        public StakeDiceState(String stateHash, long stakeToncoinAmount, long[] suggestedStakeToncoinAmounts, int currentStreak, int[] prizePerMille, int streakPrizePerMille) {
+        public StakeDiceState(String stateHash, long stakeGramAmount, long[] suggestedStakeGramAmounts, int currentStreak, int[] prizePerMille, int streakPrizePerMille) {
             this.stateHash = stateHash;
-            this.stakeToncoinAmount = stakeToncoinAmount;
-            this.suggestedStakeToncoinAmounts = suggestedStakeToncoinAmounts;
+            this.stakeGramAmount = stakeGramAmount;
+            this.suggestedStakeGramAmounts = suggestedStakeGramAmounts;
             this.currentStreak = currentStreak;
             this.prizePerMille = prizePerMille;
             this.streakPrizePerMille = streakPrizePerMille;
@@ -74508,7 +76388,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 2004711564;
+        public static final int CONSTRUCTOR = 560859690;
 
         /**
          * @return this.CONSTRUCTOR
@@ -81872,7 +83752,7 @@ public class TdApi {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
             SuggestedPostPriceStar.CONSTRUCTOR,
-            SuggestedPostPriceTon.CONSTRUCTOR
+            SuggestedPostPriceGram.CONSTRUCTOR
         })
         public @interface Constructors {}
 
@@ -81928,33 +83808,33 @@ public class TdApi {
     }
 
     /**
-     * Describes price of a suggested post in Toncoins.
+     * Describes price of a suggested post in TON Grams.
      */
-    public static class SuggestedPostPriceTon extends SuggestedPostPrice {
+    public static class SuggestedPostPriceGram extends SuggestedPostPrice {
         /**
-         * The amount of 1/100 of Toncoin expected to be paid for the post; getOption(&quot;suggested_post_toncoin_cent_count_min&quot;)-getOption(&quot;suggested_post_toncoin_cent_count_max&quot;).
+         * The amount of 1/100 of Gram expected to be paid for the post; getOption(&quot;suggested_post_gram_cent_count_min&quot;)-getOption(&quot;suggested_post_gram_cent_count_max&quot;).
          */
-        public long toncoinCentCount;
+        public long gramCentCount;
 
         /**
-         * Describes price of a suggested post in Toncoins.
+         * Describes price of a suggested post in TON Grams.
          */
-        public SuggestedPostPriceTon() {
+        public SuggestedPostPriceGram() {
         }
 
         /**
-         * Describes price of a suggested post in Toncoins.
+         * Describes price of a suggested post in TON Grams.
          *
-         * @param toncoinCentCount The amount of 1/100 of Toncoin expected to be paid for the post; getOption(&quot;suggested_post_toncoin_cent_count_min&quot;)-getOption(&quot;suggested_post_toncoin_cent_count_max&quot;).
+         * @param gramCentCount The amount of 1/100 of Gram expected to be paid for the post; getOption(&quot;suggested_post_gram_cent_count_min&quot;)-getOption(&quot;suggested_post_gram_cent_count_max&quot;).
          */
-        public SuggestedPostPriceTon(long toncoinCentCount) {
-            this.toncoinCentCount = toncoinCentCount;
+        public SuggestedPostPriceGram(long gramCentCount) {
+            this.gramCentCount = gramCentCount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1095222334;
+        public static final int CONSTRUCTOR = -986392265;
 
         /**
          * @return this.CONSTRUCTOR
@@ -82148,7 +84028,7 @@ public class TdApi {
     }
 
     /**
-     * Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers.
+     * Represents a supergroup or channel with zero or more members (subscribers in the case of channels).
      */
     public static class Supergroup extends Object {
         /**
@@ -82208,7 +84088,7 @@ public class TdApi {
          */
         public boolean isSlowModeEnabled;
         /**
-         * True, if the supergroup is a channel.
+         * True, if the supergroup is a channel, which can have an unlimited number of subscribers, but only administrators can post there and see the list of subscribers.
          */
         public boolean isChannel;
         /**
@@ -82253,13 +84133,13 @@ public class TdApi {
         @Nullable public ActiveStoryState activeStoryState;
 
         /**
-         * Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers.
+         * Represents a supergroup or channel with zero or more members (subscribers in the case of channels).
          */
         public Supergroup() {
         }
 
         /**
-         * Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers.
+         * Represents a supergroup or channel with zero or more members (subscribers in the case of channels).
          *
          * @param id Supergroup or channel identifier.
          * @param usernames Usernames of the supergroup or channel; may be null.
@@ -82275,7 +84155,7 @@ public class TdApi {
          * @param joinToSendMessages True, if users need to join the supergroup before they can send messages. May be false only for discussion supergroups and channel direct messages groups.
          * @param joinByRequest True, if all users directly joining the supergroup need to be approved by supergroup administrators.
          * @param isSlowModeEnabled True, if the slow mode is enabled in the supergroup.
-         * @param isChannel True, if the supergroup is a channel.
+         * @param isChannel True, if the supergroup is a channel, which can have an unlimited number of subscribers, but only administrators can post there and see the list of subscribers.
          * @param isBroadcastGroup True, if the supergroup is a broadcast group, i.e. only administrators can send messages and there is no limit on the number of members.
          * @param isForum True, if the supergroup is a forum with topics.
          * @param isDirectMessagesGroup True, if the supergroup is a direct message group for a channel chat.
@@ -82337,6 +84217,10 @@ public class TdApi {
          * Chat photo; may be null if empty or unknown. If non-null, then it is the same photo as in chat.photo.
          */
         @Nullable public ChatPhoto photo;
+        /**
+         * Identifier of the community to which the corresponding chat was added.
+         */
+        public long communityId;
         /**
          * Supergroup or channel description.
          */
@@ -82508,6 +84392,7 @@ public class TdApi {
          * Contains full information about a supergroup or channel.
          *
          * @param photo Chat photo; may be null if empty or unknown. If non-null, then it is the same photo as in chat.photo.
+         * @param communityId Identifier of the community to which the corresponding chat was added.
          * @param description Supergroup or channel description.
          * @param memberCount Number of members in the supergroup or channel; 0 if unknown.
          * @param administratorCount Number of privileged users in the supergroup or channel; 0 if unknown.
@@ -82549,8 +84434,9 @@ public class TdApi {
          * @param upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
          * @param upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
          */
-        public SupergroupFullInfo(ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, long directMessagesChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canEnablePaidMessages, boolean canEnablePaidReaction, boolean canGetMembers, boolean hasHiddenMembers, boolean canHideMembers, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean canGetRevenueStatistics, boolean canGetStarRevenueStatistics, boolean canSendGift, boolean canToggleAggressiveAntiSpam, boolean isAllHistoryAvailable, boolean canHaveSponsoredMessages, boolean hasAggressiveAntiSpamEnabled, boolean hasPaidMediaAllowed, boolean hasPinnedStories, int giftCount, int myBoostCount, int unrestrictBoostCount, long outgoingPaidMessageStarCount, long stickerSetId, long customEmojiStickerSetId, ChatLocation location, ChatInviteLink inviteLink, long guardBotUserId, BotCommands[] botCommands, BotVerification botVerification, ProfileTab mainProfileTab, long upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
+        public SupergroupFullInfo(ChatPhoto photo, long communityId, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, long directMessagesChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canEnablePaidMessages, boolean canEnablePaidReaction, boolean canGetMembers, boolean hasHiddenMembers, boolean canHideMembers, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean canGetRevenueStatistics, boolean canGetStarRevenueStatistics, boolean canSendGift, boolean canToggleAggressiveAntiSpam, boolean isAllHistoryAvailable, boolean canHaveSponsoredMessages, boolean hasAggressiveAntiSpamEnabled, boolean hasPaidMediaAllowed, boolean hasPinnedStories, int giftCount, int myBoostCount, int unrestrictBoostCount, long outgoingPaidMessageStarCount, long stickerSetId, long customEmojiStickerSetId, ChatLocation location, ChatInviteLink inviteLink, long guardBotUserId, BotCommands[] botCommands, BotVerification botVerification, ProfileTab mainProfileTab, long upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
             this.photo = photo;
+            this.communityId = communityId;
             this.description = description;
             this.memberCount = memberCount;
             this.administratorCount = administratorCount;
@@ -82596,7 +84482,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1087672723;
+        public static final int CONSTRUCTOR = -1489590969;
 
         /**
          * @return this.CONSTRUCTOR
@@ -85807,113 +87693,7 @@ public class TdApi {
     }
 
     /**
-     * A detailed statistics about Toncoins earned by the current user.
-     */
-    public static class TonRevenueStatistics extends Object {
-        /**
-         * A graph containing amount of revenue in a given day.
-         */
-        public StatisticalGraph revenueByDayGraph;
-        /**
-         * Amount of earned revenue.
-         */
-        public TonRevenueStatus status;
-        /**
-         * Current conversion rate of nanotoncoin to USD cents.
-         */
-        public double usdRate;
-
-        /**
-         * A detailed statistics about Toncoins earned by the current user.
-         */
-        public TonRevenueStatistics() {
-        }
-
-        /**
-         * A detailed statistics about Toncoins earned by the current user.
-         *
-         * @param revenueByDayGraph A graph containing amount of revenue in a given day.
-         * @param status Amount of earned revenue.
-         * @param usdRate Current conversion rate of nanotoncoin to USD cents.
-         */
-        public TonRevenueStatistics(StatisticalGraph revenueByDayGraph, TonRevenueStatus status, double usdRate) {
-            this.revenueByDayGraph = revenueByDayGraph;
-            this.status = status;
-            this.usdRate = usdRate;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 565933594;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Contains information about Toncoins earned by the current user.
-     */
-    public static class TonRevenueStatus extends Object {
-        /**
-         * Total Toncoin amount earned; in the smallest units of the cryptocurrency.
-         */
-        public long totalAmount;
-        /**
-         * The Toncoin amount that isn't withdrawn yet; in the smallest units of the cryptocurrency.
-         */
-        public long balanceAmount;
-        /**
-         * The Toncoin amount that is available for withdrawal; in the smallest units of the cryptocurrency.
-         */
-        public long availableAmount;
-        /**
-         * True, if Toncoins can be withdrawn.
-         */
-        public boolean withdrawalEnabled;
-
-        /**
-         * Contains information about Toncoins earned by the current user.
-         */
-        public TonRevenueStatus() {
-        }
-
-        /**
-         * Contains information about Toncoins earned by the current user.
-         *
-         * @param totalAmount Total Toncoin amount earned; in the smallest units of the cryptocurrency.
-         * @param balanceAmount The Toncoin amount that isn't withdrawn yet; in the smallest units of the cryptocurrency.
-         * @param availableAmount The Toncoin amount that is available for withdrawal; in the smallest units of the cryptocurrency.
-         * @param withdrawalEnabled True, if Toncoins can be withdrawn.
-         */
-        public TonRevenueStatus(long totalAmount, long balanceAmount, long availableAmount, boolean withdrawalEnabled) {
-            this.totalAmount = totalAmount;
-            this.balanceAmount = balanceAmount;
-            this.availableAmount = availableAmount;
-            this.withdrawalEnabled = withdrawalEnabled;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1437514030;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Represents a transaction changing the amount of owned Toncoins.
+     * Represents a transaction changing the amount of owned TON Grams.
      */
     public static class TonTransaction extends Object {
         /**
@@ -85921,9 +87701,9 @@ public class TdApi {
          */
         public String id;
         /**
-         * The amount of added owned Toncoins; negative for outgoing transactions.
+         * The amount of added owned Grams, in the smallest units of the cryptocurrency; negative for outgoing transactions.
          */
-        public long tonAmount;
+        public long gramAmount;
         /**
          * True, if the transaction is a refund of a previous transaction.
          */
@@ -85938,23 +87718,23 @@ public class TdApi {
         public TonTransactionType type;
 
         /**
-         * Represents a transaction changing the amount of owned Toncoins.
+         * Represents a transaction changing the amount of owned TON Grams.
          */
         public TonTransaction() {
         }
 
         /**
-         * Represents a transaction changing the amount of owned Toncoins.
+         * Represents a transaction changing the amount of owned TON Grams.
          *
          * @param id Unique identifier of the transaction.
-         * @param tonAmount The amount of added owned Toncoins; negative for outgoing transactions.
+         * @param gramAmount The amount of added owned Grams, in the smallest units of the cryptocurrency; negative for outgoing transactions.
          * @param isRefund True, if the transaction is a refund of a previous transaction.
          * @param date Point in time (Unix timestamp) when the transaction was completed.
          * @param type Type of the transaction.
          */
-        public TonTransaction(String id, long tonAmount, boolean isRefund, int date, TonTransactionType type) {
+        public TonTransaction(String id, long gramAmount, boolean isRefund, int date, TonTransactionType type) {
             this.id = id;
-            this.tonAmount = tonAmount;
+            this.gramAmount = gramAmount;
             this.isRefund = isRefund;
             this.date = date;
             this.type = type;
@@ -85963,7 +87743,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1562036527;
+        public static final int CONSTRUCTOR = -412943290;
 
         /**
          * @return this.CONSTRUCTOR
@@ -85976,7 +87756,7 @@ public class TdApi {
 
     /**
      * This class is an abstract base class.
-     * Describes type of transaction with Toncoins.
+     * Describes type of transaction with TON Grams.
      */
     public abstract static class TonTransactionType extends Object {
         /**
@@ -86010,7 +87790,7 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a deposit of Toncoins from Fragment.
+     * The transaction is a deposit of Grams from Fragment.
      */
     public static class TonTransactionTypeFragmentDeposit extends TonTransactionType {
         /**
@@ -86023,13 +87803,13 @@ public class TdApi {
         @Nullable public Sticker sticker;
 
         /**
-         * The transaction is a deposit of Toncoins from Fragment.
+         * The transaction is a deposit of Grams from Fragment.
          */
         public TonTransactionTypeFragmentDeposit() {
         }
 
         /**
-         * The transaction is a deposit of Toncoins from Fragment.
+         * The transaction is a deposit of Grams from Fragment.
          *
          * @param isGift True, if the transaction is a gift from another user.
          * @param sticker The sticker to be shown in the transaction information; may be null if unknown.
@@ -86054,7 +87834,7 @@ public class TdApi {
     }
 
     /**
-     * The transaction is a withdrawal of earned Toncoins to Fragment.
+     * The transaction is a withdrawal of earned Grams to Fragment.
      */
     public static class TonTransactionTypeFragmentWithdrawal extends TonTransactionType {
         /**
@@ -86063,13 +87843,13 @@ public class TdApi {
         @Nullable public RevenueWithdrawalState withdrawalState;
 
         /**
-         * The transaction is a withdrawal of earned Toncoins to Fragment.
+         * The transaction is a withdrawal of earned Grams to Fragment.
          */
         public TonTransactionTypeFragmentWithdrawal() {
         }
 
         /**
-         * The transaction is a withdrawal of earned Toncoins to Fragment.
+         * The transaction is a withdrawal of earned Grams to Fragment.
          *
          * @param withdrawalState State of the withdrawal; may be null for refunds from Fragment.
          */
@@ -86224,13 +88004,13 @@ public class TdApi {
          */
         public UpgradedGift gift;
         /**
-         * The number of Toncoins received by the Telegram for each 1000 Toncoins received by the seller of the gift.
+         * The number of Grams received by the Telegram for each 1000 Grams received by the seller of the gift.
          */
         public int commissionPerMille;
         /**
-         * The Toncoin amount that was received by the Telegram; in the smallest units of the currency.
+         * The Gram amount that was received by the Telegram; in the smallest units of the currency.
          */
-        public long commissionToncoinAmount;
+        public long commissionGramAmount;
         /**
          * True, if the gift was sold through a purchase offer.
          */
@@ -86247,22 +88027,22 @@ public class TdApi {
          *
          * @param userId Identifier of the user who bought the gift.
          * @param gift The gift.
-         * @param commissionPerMille The number of Toncoins received by the Telegram for each 1000 Toncoins received by the seller of the gift.
-         * @param commissionToncoinAmount The Toncoin amount that was received by the Telegram; in the smallest units of the currency.
+         * @param commissionPerMille The number of Grams received by the Telegram for each 1000 Grams received by the seller of the gift.
+         * @param commissionGramAmount The Gram amount that was received by the Telegram; in the smallest units of the currency.
          * @param viaOffer True, if the gift was sold through a purchase offer.
          */
-        public TonTransactionTypeUpgradedGiftSale(long userId, UpgradedGift gift, int commissionPerMille, long commissionToncoinAmount, boolean viaOffer) {
+        public TonTransactionTypeUpgradedGiftSale(long userId, UpgradedGift gift, int commissionPerMille, long commissionGramAmount, boolean viaOffer) {
             this.userId = userId;
             this.gift = gift;
             this.commissionPerMille = commissionPerMille;
-            this.commissionToncoinAmount = commissionToncoinAmount;
+            this.commissionGramAmount = commissionGramAmount;
             this.viaOffer = viaOffer;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1162099275;
+        public static final int CONSTRUCTOR = -1711667156;
 
         /**
          * @return this.CONSTRUCTOR
@@ -86349,15 +88129,15 @@ public class TdApi {
     }
 
     /**
-     * Represents a list of Toncoin transactions.
+     * Represents a list of TON Gram transactions.
      */
     public static class TonTransactions extends Object {
         /**
-         * The total amount of owned Toncoins.
+         * The total amount of owned Grams, in the smallest units of the cryptocurrency.
          */
-        public long tonAmount;
+        public long gramAmount;
         /**
-         * List of Toncoin transactions.
+         * List of Gram transactions.
          */
         public TonTransaction[] transactions;
         /**
@@ -86366,20 +88146,20 @@ public class TdApi {
         public String nextOffset;
 
         /**
-         * Represents a list of Toncoin transactions.
+         * Represents a list of TON Gram transactions.
          */
         public TonTransactions() {
         }
 
         /**
-         * Represents a list of Toncoin transactions.
+         * Represents a list of TON Gram transactions.
          *
-         * @param tonAmount The total amount of owned Toncoins.
-         * @param transactions List of Toncoin transactions.
+         * @param gramAmount The total amount of owned Grams, in the smallest units of the cryptocurrency.
+         * @param transactions List of Gram transactions.
          * @param nextOffset The offset for the next request. If empty, then there are no more results.
          */
-        public TonTransactions(long tonAmount, TonTransaction[] transactions, String nextOffset) {
-            this.tonAmount = tonAmount;
+        public TonTransactions(long gramAmount, TonTransaction[] transactions, String nextOffset) {
+            this.gramAmount = gramAmount;
             this.transactions = transactions;
             this.nextOffset = nextOffset;
         }
@@ -86387,7 +88167,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1317235021;
+        public static final int CONSTRUCTOR = -1391918595;
 
         /**
          * @return this.CONSTRUCTOR
@@ -86974,6 +88754,7 @@ public class TdApi {
             UpdateDeleteMessages.CONSTRUCTOR,
             UpdateChatAction.CONSTRUCTOR,
             UpdatePendingMessage.CONSTRUCTOR,
+            UpdateCommunity.CONSTRUCTOR,
             UpdateUserStatus.CONSTRUCTOR,
             UpdateUser.CONSTRUCTOR,
             UpdateBasicGroup.CONSTRUCTOR,
@@ -87046,10 +88827,10 @@ public class TdApi {
             UpdateSavedMessagesTags.CONSTRUCTOR,
             UpdateActiveLiveLocationMessages.CONSTRUCTOR,
             UpdateOwnedStarCount.CONSTRUCTOR,
-            UpdateOwnedTonCount.CONSTRUCTOR,
+            UpdateOwnedGramCount.CONSTRUCTOR,
             UpdateChatRevenueAmount.CONSTRUCTOR,
             UpdateStarRevenueStatus.CONSTRUCTOR,
-            UpdateTonRevenueStatus.CONSTRUCTOR,
+            UpdateGramRevenueStatus.CONSTRUCTOR,
             UpdateSpeechRecognitionTrial.CONSTRUCTOR,
             UpdateGroupCallMessageLevels.CONSTRUCTOR,
             UpdateDiceEmojis.CONSTRUCTOR,
@@ -87075,6 +88856,7 @@ public class TdApi {
             UpdateNewPreCheckoutQuery.CONSTRUCTOR,
             UpdateNewCustomEvent.CONSTRUCTOR,
             UpdateNewCustomQuery.CONSTRUCTOR,
+            UpdateUserSubscription.CONSTRUCTOR,
             UpdatePoll.CONSTRUCTOR,
             UpdatePollAnswer.CONSTRUCTOR,
             UpdateManagedBot.CONSTRUCTOR,
@@ -90449,6 +92231,44 @@ public class TdApi {
     }
 
     /**
+     * Some data of a community has changed. This update is guaranteed to come before the community identifier is returned to the application.
+     */
+    public static class UpdateCommunity extends Update {
+        /**
+         * New data about the community.
+         */
+        public Community community;
+
+        /**
+         * Some data of a community has changed. This update is guaranteed to come before the community identifier is returned to the application.
+         */
+        public UpdateCommunity() {
+        }
+
+        /**
+         * Some data of a community has changed. This update is guaranteed to come before the community identifier is returned to the application.
+         *
+         * @param community New data about the community.
+         */
+        public UpdateCommunity(Community community) {
+            this.community = community;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1429785989;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * The user went online or offline.
      */
     public static class UpdateUserStatus extends Update {
@@ -93575,33 +95395,33 @@ public class TdApi {
     }
 
     /**
-     * The number of Toncoins owned by the current user has changed.
+     * The number of TON Grams owned by the current user has changed.
      */
-    public static class UpdateOwnedTonCount extends Update {
+    public static class UpdateOwnedGramCount extends Update {
         /**
-         * The new amount of owned Toncoins; in the smallest units of the cryptocurrency.
+         * The new amount of owned Grams; in the smallest units of the cryptocurrency.
          */
-        public long tonAmount;
+        public long gramAmount;
 
         /**
-         * The number of Toncoins owned by the current user has changed.
+         * The number of TON Grams owned by the current user has changed.
          */
-        public UpdateOwnedTonCount() {
+        public UpdateOwnedGramCount() {
         }
 
         /**
-         * The number of Toncoins owned by the current user has changed.
+         * The number of TON Grams owned by the current user has changed.
          *
-         * @param tonAmount The new amount of owned Toncoins; in the smallest units of the cryptocurrency.
+         * @param gramAmount The new amount of owned Grams; in the smallest units of the cryptocurrency.
          */
-        public UpdateOwnedTonCount(long tonAmount) {
-            this.tonAmount = tonAmount;
+        public UpdateOwnedGramCount(long gramAmount) {
+            this.gramAmount = gramAmount;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1102136345;
+        public static final int CONSTRUCTOR = -2126618955;
 
         /**
          * @return this.CONSTRUCTOR
@@ -93701,33 +95521,33 @@ public class TdApi {
     }
 
     /**
-     * The Toncoin revenue earned by the current user has changed. If Toncoin transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
+     * The TON Gram revenue earned by the current user has changed. If Gram transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
      */
-    public static class UpdateTonRevenueStatus extends Update {
+    public static class UpdateGramRevenueStatus extends Update {
         /**
-         * New Toncoin revenue status.
+         * New Gram revenue status.
          */
-        public TonRevenueStatus status;
+        public GramRevenueStatus status;
 
         /**
-         * The Toncoin revenue earned by the current user has changed. If Toncoin transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
+         * The TON Gram revenue earned by the current user has changed. If Gram transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
          */
-        public UpdateTonRevenueStatus() {
+        public UpdateGramRevenueStatus() {
         }
 
         /**
-         * The Toncoin revenue earned by the current user has changed. If Toncoin transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
+         * The TON Gram revenue earned by the current user has changed. If Gram transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions.
          *
-         * @param status New Toncoin revenue status.
+         * @param status New Gram revenue status.
          */
-        public UpdateTonRevenueStatus(TonRevenueStatus status) {
+        public UpdateGramRevenueStatus(GramRevenueStatus status) {
             this.status = status;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1832579994;
+        public static final int CONSTRUCTOR = -417460519;
 
         /**
          * @return this.CONSTRUCTOR
@@ -94966,6 +96786,68 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -687670874;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Subscription of a user to the bot was changed; for bots only.
+     */
+    public static class UpdateUserSubscription extends Update {
+        /**
+         * Identifier of the user.
+         */
+        public long userId;
+        /**
+         * Bot-specified subscription invoice payload.
+         */
+        public String payload;
+        /**
+         * True, if the subscription was canceled.
+         */
+        public boolean isCanceled;
+        /**
+         * True, if the subscription was restored.
+         */
+        public boolean isRestored;
+        /**
+         * True, if the payment for the subscription has failed.
+         */
+        public boolean isPaymentFailed;
+
+        /**
+         * Subscription of a user to the bot was changed; for bots only.
+         */
+        public UpdateUserSubscription() {
+        }
+
+        /**
+         * Subscription of a user to the bot was changed; for bots only.
+         *
+         * @param userId Identifier of the user.
+         * @param payload Bot-specified subscription invoice payload.
+         * @param isCanceled True, if the subscription was canceled.
+         * @param isRestored True, if the subscription was restored.
+         * @param isPaymentFailed True, if the payment for the subscription has failed.
+         */
+        public UpdateUserSubscription(long userId, String payload, boolean isCanceled, boolean isRestored, boolean isPaymentFailed) {
+            this.userId = userId;
+            this.payload = payload;
+            this.isCanceled = isCanceled;
+            this.isRestored = isRestored;
+            this.isPaymentFailed = isPaymentFailed;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -861199645;
 
         /**
          * @return this.CONSTRUCTOR
@@ -97226,6 +99108,10 @@ public class TdApi {
          */
         @Nullable public ChatPhoto publicPhoto;
         /**
+         * Identifier of the community to which chat with the bot was added; for bots only.
+         */
+        public long communityId;
+        /**
          * Block list to which the user is added; may be null if none.
          */
         @Nullable public BlockList blockList;
@@ -97350,6 +99236,7 @@ public class TdApi {
          * @param personalPhoto User profile photo set by the current user for the contact; may be null. If null and user.profilePhoto is null, then the photo is empty; otherwise, it is unknown. If non-null, then it is the same photo as in user.profilePhoto and chat.photo. This photo isn't returned in the list of user photos.
          * @param photo User profile photo; may be null. If null and user.profilePhoto is null, then the photo is empty; otherwise, it is unknown. If non-null and personalPhoto is null, then it is the same photo as in user.profilePhoto and chat.photo.
          * @param publicPhoto User profile photo visible if the main photo is hidden by privacy settings; may be null. If null and user.profilePhoto is null, then the photo is empty; otherwise, it is unknown. If non-null and both photo and personalPhoto are null, then it is the same photo as in user.profilePhoto and chat.photo. This photo isn't returned in the list of user photos.
+         * @param communityId Identifier of the community to which chat with the bot was added; for bots only.
          * @param blockList Block list to which the user is added; may be null if none.
          * @param canBeCalled True, if the user can be called.
          * @param supportsVideoCalls True, if a video call can be created with the user.
@@ -97379,10 +99266,11 @@ public class TdApi {
          * @param businessInfo Information about business settings for Telegram Business accounts; may be null if none.
          * @param botInfo For bots, information about the bot; may be null if the user isn't a bot.
          */
-        public UserFullInfo(ChatPhoto personalPhoto, ChatPhoto photo, ChatPhoto publicPhoto, BlockList blockList, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean hasPrivateForwards, boolean hasRestrictedVoiceAndVideoNoteMessages, boolean hasPostedToProfileStories, boolean hasSponsoredMessagesEnabled, boolean needPhoneNumberPrivacyException, boolean setChatBackground, boolean usesUnofficialApp, FormattedText bio, Birthdate birthdate, long personalChatId, int giftCount, int groupInCommonCount, long incomingPaidMessageStarCount, long outgoingPaidMessageStarCount, GiftSettings giftSettings, BotVerification botVerification, ProfileTab mainProfileTab, Audio firstProfileAudio, UserRating rating, UserRating pendingRating, int pendingRatingDate, FormattedText note, BusinessInfo businessInfo, BotInfo botInfo) {
+        public UserFullInfo(ChatPhoto personalPhoto, ChatPhoto photo, ChatPhoto publicPhoto, long communityId, BlockList blockList, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean hasPrivateForwards, boolean hasRestrictedVoiceAndVideoNoteMessages, boolean hasPostedToProfileStories, boolean hasSponsoredMessagesEnabled, boolean needPhoneNumberPrivacyException, boolean setChatBackground, boolean usesUnofficialApp, FormattedText bio, Birthdate birthdate, long personalChatId, int giftCount, int groupInCommonCount, long incomingPaidMessageStarCount, long outgoingPaidMessageStarCount, GiftSettings giftSettings, BotVerification botVerification, ProfileTab mainProfileTab, Audio firstProfileAudio, UserRating rating, UserRating pendingRating, int pendingRatingDate, FormattedText note, BusinessInfo businessInfo, BotInfo botInfo) {
             this.personalPhoto = personalPhoto;
             this.photo = photo;
             this.publicPhoto = publicPhoto;
+            this.communityId = communityId;
             this.blockList = blockList;
             this.canBeCalled = canBeCalled;
             this.supportsVideoCalls = supportsVideoCalls;
@@ -97416,7 +99304,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1176229971;
+        public static final int CONSTRUCTOR = -852016007;
 
         /**
          * @return this.CONSTRUCTOR
@@ -101535,21 +103423,9 @@ public class TdApi {
      */
     public static class AddProfileAudio extends Function<Ok> {
         /**
-         * The audio file to be added.
+         * The audio to add.
          */
-        public InputFile audio;
-        /**
-         * Duration of the audio, in seconds; may be replaced by the server; ignored for already uploaded files.
-         */
-        public int duration;
-        /**
-         * Title of the audio; 0-64 characters; may be replaced by the server; ignored for already uploaded files.
-         */
-        public String title;
-        /**
-         * Performer of the audio; 0-64 characters, may be replaced by the server; ignored for already uploaded files.
-         */
-        public String performer;
+        public InputAudio audio;
 
         /**
          * Default constructor for a function, which adds an audio file to the beginning of the profile audio files of the current user.
@@ -101564,22 +103440,16 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param audio The audio file to be added.
-         * @param duration Duration of the audio, in seconds; may be replaced by the server; ignored for already uploaded files.
-         * @param title Title of the audio; 0-64 characters; may be replaced by the server; ignored for already uploaded files.
-         * @param performer Performer of the audio; 0-64 characters, may be replaced by the server; ignored for already uploaded files.
+         * @param audio The audio to add.
          */
-        public AddProfileAudio(InputFile audio, int duration, String title, String performer) {
+        public AddProfileAudio(InputAudio audio) {
             this.audio = audio;
-            this.duration = duration;
-            this.title = title;
-            this.performer = performer;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 919192907;
+        public static final int CONSTRUCTOR = -325879164;
 
         /**
          * @return this.CONSTRUCTOR
@@ -102025,7 +103895,7 @@ public class TdApi {
         /**
          * Sticker to add to the set.
          */
-        public InputSticker sticker;
+        public NewSticker sticker;
 
         /**
          * Default constructor for a function, which adds a new sticker to a set.
@@ -102044,7 +103914,7 @@ public class TdApi {
          * @param name Sticker set name. The sticker set must be owned by the current user, and contain less than 200 stickers for custom emoji sticker sets and less than 120 otherwise.
          * @param sticker Sticker to add to the set.
          */
-        public AddStickerToSet(long userId, String name, InputSticker sticker) {
+        public AddStickerToSet(long userId, String name, NewSticker sticker) {
             this.userId = userId;
             this.name = name;
             this.sticker = sticker;
@@ -102053,7 +103923,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1457266235;
+        public static final int CONSTRUCTOR = 1291178274;
 
         /**
          * @return this.CONSTRUCTOR
@@ -102121,7 +103991,7 @@ public class TdApi {
     }
 
     /**
-     * Adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles has been reached.
+     * Adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles getOption(&quot;added_text_composition_style_count_max&quot;) has been reached.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -102132,7 +104002,7 @@ public class TdApi {
         public String name;
 
         /**
-         * Default constructor for a function, which adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles has been reached.
+         * Default constructor for a function, which adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles getOption(&quot;added_text_composition_style_count_max&quot;) has been reached.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -102140,7 +104010,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles has been reached.
+         * Creates a function, which adds a custom text composition style to the list of used by the user styles. May return an error with a message &quot;TONES_SAVED_TOO_MANY&quot; if the maximum number of added custom styles getOption(&quot;added_text_composition_style_count_max&quot;) has been reached.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -105683,6 +107553,74 @@ public class TdApi {
     }
 
     /**
+     * Changes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * <p> Returns {@link RichMessage RichMessage} </p>
+     */
+    public static class ComposeRichMessageWithAi extends Function<RichMessage> {
+        /**
+         * The original message.
+         */
+        public InputRichMessage message;
+        /**
+         * Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.toLanguageCode for the list of supported values.
+         */
+        public String translateToLanguageCode;
+        /**
+         * Name of the style of the resulted text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text or if a custom prompt is used.
+         */
+        public String styleName;
+        /**
+         * Custom prompt that will be used instead of styleName; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+         */
+        public String customPrompt;
+        /**
+         * Pass true to add emoji to the text.
+         */
+        public boolean addEmojis;
+
+        /**
+         * Default constructor for a function, which changes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         */
+        public ComposeRichMessageWithAi() {
+        }
+
+        /**
+         * Creates a function, which changes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         *
+         * @param message The original message.
+         * @param translateToLanguageCode Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.toLanguageCode for the list of supported values.
+         * @param styleName Name of the style of the resulted text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text or if a custom prompt is used.
+         * @param customPrompt Custom prompt that will be used instead of styleName; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+         * @param addEmojis Pass true to add emoji to the text.
+         */
+        public ComposeRichMessageWithAi(InputRichMessage message, String translateToLanguageCode, String styleName, String customPrompt, boolean addEmojis) {
+            this.message = message;
+            this.translateToLanguageCode = translateToLanguageCode;
+            this.styleName = styleName;
+            this.customPrompt = customPrompt;
+            this.addEmojis = addEmojis;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1974326457;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Changes text using an AI model; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
      *
      * <p> Returns {@link FormattedText FormattedText} </p>
@@ -106021,7 +107959,7 @@ public class TdApi {
     }
 
     /**
-     * Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per premiumLimitTypeOwnedBotCount. An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
+     * Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per getOption(&quot;owned_bot_count_max&quot;). An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
      *
      * <p> Returns {@link User User} </p>
      */
@@ -106044,7 +107982,7 @@ public class TdApi {
         public boolean viaLink;
 
         /**
-         * Default constructor for a function, which creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per premiumLimitTypeOwnedBotCount. An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
+         * Default constructor for a function, which creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per getOption(&quot;owned_bot_count_max&quot;). An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
          *
          * <p> Returns {@link User User} </p>
          */
@@ -106052,7 +107990,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per premiumLimitTypeOwnedBotCount. An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
+         * Creates a function, which creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message &quot;BOT_CREATE_LIMIT_EXCEEDED&quot; if the user already owns the maximum allowed number of bots as per getOption(&quot;owned_bot_count_max&quot;). An internal link &quot;https://t.me/BotFather?start=deletebot&quot; can be processed to handle the error.
          *
          * <p> Returns {@link User User} </p>
          *
@@ -106747,7 +108685,7 @@ public class TdApi {
         /**
          * List of stickers to be added to the set; 1-200 stickers for custom emoji sticker sets, and 1-120 stickers otherwise. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
          */
-        public InputSticker[] stickers;
+        public NewSticker[] stickers;
         /**
          * Source of the sticker set; may be empty if unknown.
          */
@@ -106774,7 +108712,7 @@ public class TdApi {
          * @param stickers List of stickers to be added to the set; 1-200 stickers for custom emoji sticker sets, and 1-120 stickers otherwise. For TGS stickers, uploadStickerFile must be used before the sticker is shown.
          * @param source Source of the sticker set; may be empty if unknown.
          */
-        public CreateNewStickerSet(long userId, String title, String name, StickerType stickerType, boolean needsRepainting, InputSticker[] stickers, String source) {
+        public CreateNewStickerSet(long userId, String title, String name, StickerType stickerType, boolean needsRepainting, NewSticker[] stickers, String source) {
             this.userId = userId;
             this.title = title;
             this.name = name;
@@ -106787,7 +108725,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -481065727;
+        public static final int CONSTRUCTOR = -472608519;
 
         /**
          * @return this.CONSTRUCTOR
@@ -106918,6 +108856,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -947758327;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Creates a new rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * <p> Returns {@link RichMessage RichMessage} </p>
+     */
+    public static class CreateRichMessageWithAi extends Function<RichMessage> {
+        /**
+         * Prompt that will be used to create the message; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+         */
+        public String prompt;
+        /**
+         * Pass a language code in which the text will be created.
+         */
+        public String languageCode;
+        /**
+         * Pass true to add emoji to the text.
+         */
+        public boolean addEmojis;
+
+        /**
+         * Default constructor for a function, which creates a new rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         */
+        public CreateRichMessageWithAi() {
+        }
+
+        /**
+         * Creates a function, which creates a new rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         *
+         * @param prompt Prompt that will be used to create the message; 0-getOption(&quot;text_composition_style_prompt_length_max&quot;) characters.
+         * @param languageCode Pass a language code in which the text will be created.
+         * @param addEmojis Pass true to add emoji to the text.
+         */
+        public CreateRichMessageWithAi(String prompt, String languageCode, boolean addEmojis) {
+            this.prompt = prompt;
+            this.languageCode = languageCode;
+            this.addEmojis = addEmojis;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1458459041;
 
         /**
          * @return this.CONSTRUCTOR
@@ -108510,6 +110504,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 945080841;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Deletes an ephemeral message; for bots only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteEphemeralMessage extends Function<Ok> {
+        /**
+         * Chat identifier.
+         */
+        public long chatId;
+        /**
+         * Identifier of the user who received the message.
+         */
+        public long receiverUserId;
+        /**
+         * Identifiers of the message to be deleted.
+         */
+        public int ephemeralMessageId;
+
+        /**
+         * Default constructor for a function, which deletes an ephemeral message; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteEphemeralMessage() {
+        }
+
+        /**
+         * Creates a function, which deletes an ephemeral message; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId Chat identifier.
+         * @param receiverUserId Identifier of the user who received the message.
+         * @param ephemeralMessageId Identifiers of the message to be deleted.
+         */
+        public DeleteEphemeralMessage(long chatId, long receiverUserId, int ephemeralMessageId) {
+            this.chatId = chatId;
+            this.receiverUserId = receiverUserId;
+            this.ephemeralMessageId = ephemeralMessageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -866146266;
 
         /**
          * @return this.CONSTRUCTOR
@@ -110864,6 +112914,74 @@ public class TdApi {
     }
 
     /**
+     * Edits the text, caption or reply markup of an ephemeral message sent by the bot; for bots only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class EditEphemeralMessage extends Function<Ok> {
+        /**
+         * The chat the message belongs to.
+         */
+        public long chatId;
+        /**
+         * Identifier of the user who received the message.
+         */
+        public long receiverUserId;
+        /**
+         * Identifier of the ephemeral message.
+         */
+        public int ephemeralMessageId;
+        /**
+         * The new message reply markup; pass null if none.
+         */
+        public ReplyMarkup replyMarkup;
+        /**
+         * New content of the message; pass null to edit only reply markup. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+         */
+        public InputMessageContent inputMessageContent;
+
+        /**
+         * Default constructor for a function, which edits the text, caption or reply markup of an ephemeral message sent by the bot; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public EditEphemeralMessage() {
+        }
+
+        /**
+         * Creates a function, which edits the text, caption or reply markup of an ephemeral message sent by the bot; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId The chat the message belongs to.
+         * @param receiverUserId Identifier of the user who received the message.
+         * @param ephemeralMessageId Identifier of the ephemeral message.
+         * @param replyMarkup The new message reply markup; pass null if none.
+         * @param inputMessageContent New content of the message; pass null to edit only reply markup. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+         */
+        public EditEphemeralMessage(long chatId, long receiverUserId, int ephemeralMessageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
+            this.chatId = chatId;
+            this.receiverUserId = receiverUserId;
+            this.ephemeralMessageId = ephemeralMessageId;
+            this.replyMarkup = replyMarkup;
+            this.inputMessageContent = inputMessageContent;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 92758875;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Edits title and icon of a topic in a forum supergroup chat or a chat with a bot with topics; for supergroup chats requires canManageTopics administrator right unless the user is creator of the topic.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -111156,7 +113274,7 @@ public class TdApi {
     }
 
     /**
-     * Edits the text of an inline text or game message sent via a bot; for bots only.
+     * Edits the text of an inline text or game message sent via the bot; for bots only.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -111170,12 +113288,12 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * New text content of the message. Must be of type inputMessageText or inputMessageRichMessage.
+         * New text content of the message. Must be of type inputMessageText or inputMessageRichMessage; file upload isn't supported.
          */
         public InputMessageContent inputMessageContent;
 
         /**
-         * Default constructor for a function, which edits the text of an inline text or game message sent via a bot; for bots only.
+         * Default constructor for a function, which edits the text of an inline text or game message sent via the bot; for bots only.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -111183,13 +113301,13 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which edits the text of an inline text or game message sent via a bot; for bots only.
+         * Creates a function, which edits the text of an inline text or game message sent via the bot; for bots only.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param inlineMessageId Inline message identifier.
          * @param replyMarkup The new message reply markup; pass null if none.
-         * @param inputMessageContent New text content of the message. Must be of type inputMessageText or inputMessageRichMessage.
+         * @param inputMessageContent New text content of the message. Must be of type inputMessageText or inputMessageRichMessage; file upload isn't supported.
          */
         public EditInlineMessageText(String inlineMessageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.inlineMessageId = inlineMessageId;
@@ -112333,6 +114451,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1055060835;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Fixes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * <p> Returns {@link RichMessage RichMessage} </p>
+     */
+    public static class FixRichMessageWithAi extends Function<RichMessage> {
+        /**
+         * The original message.
+         */
+        public InputRichMessage message;
+
+        /**
+         * Default constructor for a function, which fixes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         */
+        public FixRichMessageWithAi() {
+        }
+
+        /**
+         * Creates a function, which fixes a rich message using an AI model. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         *
+         * @param message The original message.
+         */
+        public FixRichMessageWithAi(InputRichMessage message) {
+            this.message = message;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1644383227;
 
         /**
          * @return this.CONSTRUCTOR
@@ -116887,7 +119049,7 @@ public class TdApi {
     }
 
     /**
-     * Returns an emoji for the given country. Returns an empty string on failure. Can be called synchronously.
+     * Returns an emoji for the flag of the given country. Returns an empty string on failure. Can be called synchronously.
      *
      * <p> Returns {@link Text Text} </p>
      */
@@ -116898,7 +119060,7 @@ public class TdApi {
         public String countryCode;
 
         /**
-         * Default constructor for a function, which returns an emoji for the given country. Returns an empty string on failure. Can be called synchronously.
+         * Default constructor for a function, which returns an emoji for the flag of the given country. Returns an empty string on failure. Can be called synchronously.
          *
          * <p> Returns {@link Text Text} </p>
          */
@@ -116906,7 +119068,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an emoji for the given country. Returns an empty string on failure. Can be called synchronously.
+         * Creates a function, which returns an emoji for the flag of the given country. Returns an empty string on failure. Can be called synchronously.
          *
          * <p> Returns {@link Text Text} </p>
          *
@@ -118767,6 +120929,94 @@ public class TdApi {
     }
 
     /**
+     * Returns detailed TON Gram revenue statistics of the current user.
+     *
+     * <p> Returns {@link GramRevenueStatistics GramRevenueStatistics} </p>
+     */
+    public static class GetGramRevenueStatistics extends Function<GramRevenueStatistics> {
+        /**
+         * Pass true if a dark theme is used by the application.
+         */
+        public boolean isDark;
+
+        /**
+         * Default constructor for a function, which returns detailed TON Gram revenue statistics of the current user.
+         *
+         * <p> Returns {@link GramRevenueStatistics GramRevenueStatistics} </p>
+         */
+        public GetGramRevenueStatistics() {
+        }
+
+        /**
+         * Creates a function, which returns detailed TON Gram revenue statistics of the current user.
+         *
+         * <p> Returns {@link GramRevenueStatistics GramRevenueStatistics} </p>
+         *
+         * @param isDark Pass true if a dark theme is used by the application.
+         */
+        public GetGramRevenueStatistics(boolean isDark) {
+            this.isDark = isDark;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2096609551;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns a URL for TON Gram withdrawal from the current user's account. The user must have at least 10 Grams to withdraw and can withdraw up to 100000 Grams in one transaction.
+     *
+     * <p> Returns {@link HttpUrl HttpUrl} </p>
+     */
+    public static class GetGramWithdrawalUrl extends Function<HttpUrl> {
+        /**
+         * The 2-step verification password of the current user.
+         */
+        public String password;
+
+        /**
+         * Default constructor for a function, which returns a URL for TON Gram withdrawal from the current user's account. The user must have at least 10 Grams to withdraw and can withdraw up to 100000 Grams in one transaction.
+         *
+         * <p> Returns {@link HttpUrl HttpUrl} </p>
+         */
+        public GetGramWithdrawalUrl() {
+        }
+
+        /**
+         * Creates a function, which returns a URL for TON Gram withdrawal from the current user's account. The user must have at least 10 Grams to withdraw and can withdraw up to 100000 Grams in one transaction.
+         *
+         * <p> Returns {@link HttpUrl HttpUrl} </p>
+         *
+         * @param password The 2-step verification password of the current user.
+         */
+        public GetGramWithdrawalUrl(String password) {
+            this.password = password;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -834016009;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns greeting stickers from regular sticker sets that can be used for the start page of other users.
      *
      * <p> Returns {@link Stickers Stickers} </p>
@@ -119097,6 +121347,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 381539178;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns an HTTPS URL of a Web App of a guard bot to open after receiving chatJoinResultGuardBotApprovalRequired.
+     *
+     * <p> Returns {@link WebAppUrl WebAppUrl} </p>
+     */
+    public static class GetGuardBotWebAppUrl extends Function<WebAppUrl> {
+        /**
+         * Unique identifier of the join request as received in chatJoinResultGuardBotApprovalRequired.
+         */
+        public long queryId;
+        /**
+         * Parameters to use to open the Web App.
+         */
+        public WebAppOpenParameters parameters;
+
+        /**
+         * Default constructor for a function, which returns an HTTPS URL of a Web App of a guard bot to open after receiving chatJoinResultGuardBotApprovalRequired.
+         *
+         * <p> Returns {@link WebAppUrl WebAppUrl} </p>
+         */
+        public GetGuardBotWebAppUrl() {
+        }
+
+        /**
+         * Creates a function, which returns an HTTPS URL of a Web App of a guard bot to open after receiving chatJoinResultGuardBotApprovalRequired.
+         *
+         * <p> Returns {@link WebAppUrl WebAppUrl} </p>
+         *
+         * @param queryId Unique identifier of the join request as received in chatJoinResultGuardBotApprovalRequired.
+         * @param parameters Parameters to use to open the Web App.
+         */
+        public GetGuardBotWebAppUrl(long queryId, WebAppOpenParameters parameters) {
+            this.queryId = queryId;
+            this.parameters = parameters;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 793719488;
 
         /**
          * @return this.CONSTRUCTOR
@@ -126116,51 +128416,7 @@ public class TdApi {
     }
 
     /**
-     * Returns detailed Toncoin revenue statistics of the current user.
-     *
-     * <p> Returns {@link TonRevenueStatistics TonRevenueStatistics} </p>
-     */
-    public static class GetTonRevenueStatistics extends Function<TonRevenueStatistics> {
-        /**
-         * Pass true if a dark theme is used by the application.
-         */
-        public boolean isDark;
-
-        /**
-         * Default constructor for a function, which returns detailed Toncoin revenue statistics of the current user.
-         *
-         * <p> Returns {@link TonRevenueStatistics TonRevenueStatistics} </p>
-         */
-        public GetTonRevenueStatistics() {
-        }
-
-        /**
-         * Creates a function, which returns detailed Toncoin revenue statistics of the current user.
-         *
-         * <p> Returns {@link TonRevenueStatistics TonRevenueStatistics} </p>
-         *
-         * @param isDark Pass true if a dark theme is used by the application.
-         */
-        public GetTonRevenueStatistics(boolean isDark) {
-            this.isDark = isDark;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1315591160;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns the list of Toncoin transactions of the current user.
+     * Returns the list of TON blockchain transactions of the current user.
      *
      * <p> Returns {@link TonTransactions TonTransactions} </p>
      */
@@ -126179,7 +128435,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns the list of Toncoin transactions of the current user.
+         * Default constructor for a function, which returns the list of TON blockchain transactions of the current user.
          *
          * <p> Returns {@link TonTransactions TonTransactions} </p>
          */
@@ -126187,7 +128443,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns the list of Toncoin transactions of the current user.
+         * Creates a function, which returns the list of TON blockchain transactions of the current user.
          *
          * <p> Returns {@link TonTransactions TonTransactions} </p>
          *
@@ -126205,50 +128461,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1935011115;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Returns a URL for Toncoin withdrawal from the current user's account. The user must have at least 10 toncoins to withdraw and can withdraw up to 100000 Toncoins in one transaction.
-     *
-     * <p> Returns {@link HttpUrl HttpUrl} </p>
-     */
-    public static class GetTonWithdrawalUrl extends Function<HttpUrl> {
-        /**
-         * The 2-step verification password of the current user.
-         */
-        public String password;
-
-        /**
-         * Default constructor for a function, which returns a URL for Toncoin withdrawal from the current user's account. The user must have at least 10 toncoins to withdraw and can withdraw up to 100000 Toncoins in one transaction.
-         *
-         * <p> Returns {@link HttpUrl HttpUrl} </p>
-         */
-        public GetTonWithdrawalUrl() {
-        }
-
-        /**
-         * Creates a function, which returns a URL for Toncoin withdrawal from the current user's account. The user must have at least 10 toncoins to withdraw and can withdraw up to 100000 Toncoins in one transaction.
-         *
-         * <p> Returns {@link HttpUrl HttpUrl} </p>
-         *
-         * @param password The 2-step verification password of the current user.
-         */
-        public GetTonWithdrawalUrl(String password) {
-            this.password = password;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1482519601;
 
         /**
          * @return this.CONSTRUCTOR
@@ -132872,7 +135084,7 @@ public class TdApi {
         /**
          * Sticker to add to the set.
          */
-        public InputSticker newSticker;
+        public NewSticker newSticker;
 
         /**
          * Default constructor for a function, which replaces existing sticker in a set. The function is equivalent to removeStickerFromSet, then addStickerToSet, then setStickerPositionInSet.
@@ -132892,7 +135104,7 @@ public class TdApi {
          * @param oldSticker Sticker to remove from the set.
          * @param newSticker Sticker to add to the set.
          */
-        public ReplaceStickerInSet(long userId, String name, InputFile oldSticker, InputSticker newSticker) {
+        public ReplaceStickerInSet(long userId, String name, InputFile oldSticker, NewSticker newSticker) {
             this.userId = userId;
             this.name = name;
             this.oldSticker = oldSticker;
@@ -132902,7 +135114,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -406311399;
+        public static final int CONSTRUCTOR = 1332774129;
 
         /**
          * @return this.CONSTRUCTOR
@@ -137094,6 +139306,98 @@ public class TdApi {
     }
 
     /**
+     * Sends an ephemeral message which will be received only by one bot in a chat. Currently, only ephemeral bot commands and replies to bot ephemeral messages can be sent using the method. The message is persistent across application restarts only if the message database is used. Returns the sent message.
+     *
+     * <p> Returns {@link Message Message} </p>
+     */
+    public static class SendEphemeralMessage extends Function<Message> {
+        /**
+         * Target chat.
+         */
+        public long chatId;
+        /**
+         * Topic in which the message will be sent; pass null if none.
+         */
+        public MessageTopic topicId;
+        /**
+         * Identifier of the user who will receive the message.
+         */
+        public long receiverUserId;
+        /**
+         * Identifier of the callback query which triggered the message; for bots only.
+         */
+        public long callbackQueryId;
+        /**
+         * Information about the message to be replied; pass null if none. The message can be an incoming ephemeral message.
+         */
+        public InputMessageReplyTo replyTo;
+        /**
+         * Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
+         */
+        public int sendingId;
+        /**
+         * Pass true to get a fake message instead of actually sending them.
+         */
+        public boolean onlyPreview;
+        /**
+         * Markup for replying to the message; pass null if none; for bots only.
+         */
+        public ReplyMarkup replyMarkup;
+        /**
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
+         */
+        public InputMessageContent inputMessageContent;
+
+        /**
+         * Default constructor for a function, which sends an ephemeral message which will be received only by one bot in a chat. Currently, only ephemeral bot commands and replies to bot ephemeral messages can be sent using the method. The message is persistent across application restarts only if the message database is used. Returns the sent message.
+         *
+         * <p> Returns {@link Message Message} </p>
+         */
+        public SendEphemeralMessage() {
+        }
+
+        /**
+         * Creates a function, which sends an ephemeral message which will be received only by one bot in a chat. Currently, only ephemeral bot commands and replies to bot ephemeral messages can be sent using the method. The message is persistent across application restarts only if the message database is used. Returns the sent message.
+         *
+         * <p> Returns {@link Message Message} </p>
+         *
+         * @param chatId Target chat.
+         * @param topicId Topic in which the message will be sent; pass null if none.
+         * @param receiverUserId Identifier of the user who will receive the message.
+         * @param callbackQueryId Identifier of the callback query which triggered the message; for bots only.
+         * @param replyTo Information about the message to be replied; pass null if none. The message can be an incoming ephemeral message.
+         * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
+         * @param onlyPreview Pass true to get a fake message instead of actually sending them.
+         * @param replyMarkup Markup for replying to the message; pass null if none; for bots only.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
+         */
+        public SendEphemeralMessage(long chatId, MessageTopic topicId, long receiverUserId, long callbackQueryId, InputMessageReplyTo replyTo, int sendingId, boolean onlyPreview, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
+            this.chatId = chatId;
+            this.topicId = topicId;
+            this.receiverUserId = receiverUserId;
+            this.callbackQueryId = callbackQueryId;
+            this.replyTo = replyTo;
+            this.sendingId = sendingId;
+            this.onlyPreview = onlyPreview;
+            this.replyMarkup = replyMarkup;
+            this.inputMessageContent = inputMessageContent;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 222469530;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Sends a gift to another user or channel chat. May return an error with a message &quot;STARGIFT_USAGE_LIMITED&quot; if the gift was sold out.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -137936,7 +140240,7 @@ public class TdApi {
          */
         public long draftId;
         /**
-         * Draft of the message.
+         * Draft of the message; file upload isn't supported.
          */
         public InputRichMessage message;
 
@@ -137956,7 +140260,7 @@ public class TdApi {
          * @param chatId Chat identifier.
          * @param forumTopicId The forum topic identifier in which the message will be sent; pass 0 if none.
          * @param draftId Unique identifier of the draft.
-         * @param message Draft of the message.
+         * @param message Draft of the message; file upload isn't supported.
          */
         public SendRichMessageDraft(long chatId, int forumTopicId, long draftId, InputRichMessage message) {
             this.chatId = chatId;
@@ -141774,7 +144078,7 @@ public class TdApi {
          */
         public String receivedGiftId;
         /**
-         * The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) Toncoins for each 1000 Toncoins paid for the gift if the gift price is in Toncoins.
+         * The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
          */
         public GiftResalePrice price;
 
@@ -141792,7 +144096,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param receivedGiftId Identifier of the unique gift.
-         * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) Toncoins for each 1000 Toncoins paid for the gift if the gift price is in Toncoins.
+         * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
          */
         public SetGiftResalePrice(String receivedGiftId, GiftResalePrice price) {
             this.receivedGiftId = receivedGiftId;
@@ -148925,6 +151229,68 @@ public class TdApi {
     }
 
     /**
+     * Extracts rich message of the given message and translates it to the given language.
+     *
+     * <p> Returns {@link RichMessage RichMessage} </p>
+     */
+    public static class TranslateMessageRichMessage extends Function<RichMessage> {
+        /**
+         * Identifier of the chat to which the message belongs.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message.
+         */
+        public long messageId;
+        /**
+         * Language code of the language to which the message is translated. See translateText.toLanguageCode for the list of supported values.
+         */
+        public String toLanguageCode;
+        /**
+         * Tone of the translation; see translateText.tone for the list of supported values.
+         */
+        public String tone;
+
+        /**
+         * Default constructor for a function, which extracts rich message of the given message and translates it to the given language.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         */
+        public TranslateMessageRichMessage() {
+        }
+
+        /**
+         * Creates a function, which extracts rich message of the given message and translates it to the given language.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         *
+         * @param chatId Identifier of the chat to which the message belongs.
+         * @param messageId Identifier of the message.
+         * @param toLanguageCode Language code of the language to which the message is translated. See translateText.toLanguageCode for the list of supported values.
+         * @param tone Tone of the translation; see translateText.tone for the list of supported values.
+         */
+        public TranslateMessageRichMessage(long chatId, long messageId, String toLanguageCode, String tone) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.toLanguageCode = toLanguageCode;
+            this.tone = tone;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1656749178;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Extracts text or caption of the given message and translates it to the given language; must not be used in secret chats. If the current user is a Telegram Premium user, then text formatting is preserved.
      *
      * <p> Returns {@link FormattedText FormattedText} </p>
@@ -148976,6 +151342,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1995371403;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Translates a rich message to the given language.
+     *
+     * <p> Returns {@link RichMessage RichMessage} </p>
+     */
+    public static class TranslateRichMessage extends Function<RichMessage> {
+        /**
+         * Rich message to translate.
+         */
+        public InputRichMessage message;
+        /**
+         * Language code of the language to which the message is translated. See translateText.toLanguageCode for the list of supported values.
+         */
+        public String toLanguageCode;
+        /**
+         * Tone of the translation; see translateText.tone for the list of supported values.
+         */
+        public String tone;
+
+        /**
+         * Default constructor for a function, which translates a rich message to the given language.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         */
+        public TranslateRichMessage() {
+        }
+
+        /**
+         * Creates a function, which translates a rich message to the given language.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         *
+         * @param message Rich message to translate.
+         * @param toLanguageCode Language code of the language to which the message is translated. See translateText.toLanguageCode for the list of supported values.
+         * @param tone Tone of the translation; see translateText.tone for the list of supported values.
+         */
+        public TranslateRichMessage(InputRichMessage message, String toLanguageCode, String tone) {
+            this.message = message;
+            this.toLanguageCode = toLanguageCode;
+            this.tone = tone;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2127851321;
 
         /**
          * @return this.CONSTRUCTOR
