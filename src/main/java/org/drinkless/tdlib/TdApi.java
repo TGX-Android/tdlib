@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "a9966eb3704a3351568c28013fed67d797c17828";
+    private static final String GIT_COMMIT_HASH = "022d60202e446ad1287b9fb68e687c8a0760788b";
 
     private TdApi() {
     }
@@ -28786,7 +28786,7 @@ public class TdApi {
     }
 
     /**
-     * The user can't participate in the giveaway, because they phone number is from a disallowed country.
+     * The user can't participate in the giveaway, because their phone number is from a disallowed country.
      */
     public static class GiveawayParticipantStatusDisallowedCountry extends GiveawayParticipantStatus {
         /**
@@ -28795,13 +28795,13 @@ public class TdApi {
         public String userCountryCode;
 
         /**
-         * The user can't participate in the giveaway, because they phone number is from a disallowed country.
+         * The user can't participate in the giveaway, because their phone number is from a disallowed country.
          */
         public GiveawayParticipantStatusDisallowedCountry() {
         }
 
         /**
-         * The user can't participate in the giveaway, because they phone number is from a disallowed country.
+         * The user can't participate in the giveaway, because their phone number is from a disallowed country.
          *
          * @param userCountryCode A two-letter ISO 3166-1 alpha-2 country code of the user's country.
          */
@@ -82645,12 +82645,12 @@ public class TdApi {
     }
 
     /**
-     * The list of stories, shown in the Arvhive chat list.
+     * The list of stories, shown in the Archive chat list.
      */
     public static class StoryListArchive extends StoryList {
 
         /**
-         * The list of stories, shown in the Arvhive chat list.
+         * The list of stories, shown in the Archive chat list.
          */
         public StoryListArchive() {
         }
@@ -102495,7 +102495,7 @@ public class TdApi {
     }
 
     /**
-     * Adds multiple new members to a chat; requires canInviteUsers member right. Currently, this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added.
+     * Adds multiple new members to a chat; requires canInviteUsers member right. Currently, this method is available only in supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added.
      *
      * <p> Returns {@link FailedToAddMembers FailedToAddMembers} </p>
      */
@@ -102510,7 +102510,7 @@ public class TdApi {
         public long[] userIds;
 
         /**
-         * Default constructor for a function, which adds multiple new members to a chat; requires canInviteUsers member right. Currently, this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added.
+         * Default constructor for a function, which adds multiple new members to a chat; requires canInviteUsers member right. Currently, this method is available only in supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added.
          *
          * <p> Returns {@link FailedToAddMembers FailedToAddMembers} </p>
          */
@@ -102518,7 +102518,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which adds multiple new members to a chat; requires canInviteUsers member right. Currently, this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added.
+         * Creates a function, which adds multiple new members to a chat; requires canInviteUsers member right. Currently, this method is available only in supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added.
          *
          * <p> Returns {@link FailedToAddMembers FailedToAddMembers} </p>
          *
@@ -112740,7 +112740,7 @@ public class TdApi {
     }
 
     /**
-     * Edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
+     * Edits a non-primary invite link for a chat. Available in basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
      *
      * <p> Returns {@link ChatInviteLink ChatInviteLink} </p>
      */
@@ -112771,7 +112771,7 @@ public class TdApi {
         public boolean createsJoinRequest;
 
         /**
-         * Default constructor for a function, which edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
+         * Default constructor for a function, which edits a non-primary invite link for a chat. Available in basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
          *
          * <p> Returns {@link ChatInviteLink ChatInviteLink} </p>
          */
@@ -112779,7 +112779,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
+         * Creates a function, which edits a non-primary invite link for a chat. Available in basic groups, supergroups, and channels. If the link creates a subscription, then expirationDate, memberLimit and createsJoinRequest must not be used. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links.
          *
          * <p> Returns {@link ChatInviteLink ChatInviteLink} </p>
          *
@@ -116729,7 +116729,7 @@ public class TdApi {
     }
 
     /**
-     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
+     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
      *
      * <p> Returns {@link ChatEvents ChatEvents} </p>
      */
@@ -116760,7 +116760,7 @@ public class TdApi {
         public long[] userIds;
 
         /**
-         * Default constructor for a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
+         * Default constructor for a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
          *
          * <p> Returns {@link ChatEvents ChatEvents} </p>
          */
@@ -116768,7 +116768,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
+         * Creates a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
          *
          * <p> Returns {@link ChatEvents ChatEvents} </p>
          *
@@ -132701,7 +132701,7 @@ public class TdApi {
     }
 
     /**
-     * Readds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.canRetry is true and after specified in messageSendingStateFailed.retryAfter time passed. If a message is readded, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in messageIds. If a message can't be readded, null will be returned instead of the message.
+     * Re-adds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.canRetry is true and after specified in messageSendingStateFailed.retryAfter time passed. If a message is re-added, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in messageIds. If a message can't be readded, null will be returned instead of the message.
      *
      * <p> Returns {@link QuickReplyMessages QuickReplyMessages} </p>
      */
@@ -132711,12 +132711,12 @@ public class TdApi {
          */
         public String shortcutName;
         /**
-         * Identifiers of the quick reply messages to readd. Message identifiers must be in a strictly increasing order.
+         * Identifiers of the quick reply messages to re-add. Message identifiers must be in a strictly increasing order.
          */
         public long[] messageIds;
 
         /**
-         * Default constructor for a function, which readds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.canRetry is true and after specified in messageSendingStateFailed.retryAfter time passed. If a message is readded, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in messageIds. If a message can't be readded, null will be returned instead of the message.
+         * Default constructor for a function, which re-adds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.canRetry is true and after specified in messageSendingStateFailed.retryAfter time passed. If a message is re-added, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in messageIds. If a message can't be readded, null will be returned instead of the message.
          *
          * <p> Returns {@link QuickReplyMessages QuickReplyMessages} </p>
          */
@@ -132724,12 +132724,12 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which readds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.canRetry is true and after specified in messageSendingStateFailed.retryAfter time passed. If a message is readded, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in messageIds. If a message can't be readded, null will be returned instead of the message.
+         * Creates a function, which re-adds quick reply messages which failed to add. Can be called only for messages for which messageSendingStateFailed.canRetry is true and after specified in messageSendingStateFailed.retryAfter time passed. If a message is re-added, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in messageIds. If a message can't be readded, null will be returned instead of the message.
          *
          * <p> Returns {@link QuickReplyMessages QuickReplyMessages} </p>
          *
          * @param shortcutName Name of the target shortcut.
-         * @param messageIds Identifiers of the quick reply messages to readd. Message identifiers must be in a strictly increasing order.
+         * @param messageIds Identifiers of the quick reply messages to re-add. Message identifiers must be in a strictly increasing order.
          */
         public ReaddQuickReplyShortcutMessages(String shortcutName, long[] messageIds) {
             this.shortcutName = shortcutName;
@@ -136284,7 +136284,7 @@ public class TdApi {
     }
 
     /**
-     * Revokes invite link for a chat. Available for basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links. If a primary link is revoked, then additionally to the revoked link returns new primary link.
+     * Revokes invite link for a chat. Available in basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links. If a primary link is revoked, then additionally to the revoked link returns new primary link.
      *
      * <p> Returns {@link ChatInviteLinks ChatInviteLinks} </p>
      */
@@ -136299,7 +136299,7 @@ public class TdApi {
         public String inviteLink;
 
         /**
-         * Default constructor for a function, which revokes invite link for a chat. Available for basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links. If a primary link is revoked, then additionally to the revoked link returns new primary link.
+         * Default constructor for a function, which revokes invite link for a chat. Available in basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links. If a primary link is revoked, then additionally to the revoked link returns new primary link.
          *
          * <p> Returns {@link ChatInviteLinks ChatInviteLinks} </p>
          */
@@ -136307,7 +136307,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which revokes invite link for a chat. Available for basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links. If a primary link is revoked, then additionally to the revoked link returns new primary link.
+         * Creates a function, which revokes invite link for a chat. Available in basic groups, supergroups, and channels. Requires administrator privileges and canInviteUsers right in the chat for own links and owner privileges for other links. If a primary link is revoked, then additionally to the revoked link returns new primary link.
          *
          * <p> Returns {@link ChatInviteLinks ChatInviteLinks} </p>
          *
@@ -144078,7 +144078,7 @@ public class TdApi {
          */
         public String receivedGiftId;
         /**
-         * The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
+         * The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_gram_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
          */
         public GiftResalePrice price;
 
@@ -144096,7 +144096,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param receivedGiftId Identifier of the unique gift.
-         * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_ton_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
+         * @param price The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(&quot;gift_resale_star_earnings_per_mille&quot;) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(&quot;gift_resale_gram_earnings_per_mille&quot;) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams.
          */
         public SetGiftResalePrice(String receivedGiftId, GiftResalePrice price) {
             this.receivedGiftId = receivedGiftId;
