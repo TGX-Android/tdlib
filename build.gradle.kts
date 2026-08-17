@@ -21,4 +21,8 @@ android {
   defaultConfig {
     consumerProguardFiles("consumer-rules.pro")
   }
+
+  lint {
+    disable += "ScopedStorage"
+  }
 }
