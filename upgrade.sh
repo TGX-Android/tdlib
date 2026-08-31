@@ -16,7 +16,7 @@ fi
 
 pushd source > /dev/null || exit 1
 ./clean.sh
-popd
+popd > /dev/null
 
 git checkout main > /dev/null
 git pull origin main > /dev/null
