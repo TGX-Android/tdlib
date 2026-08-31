@@ -8,3 +8,5 @@ rm -rf build
 
 rm -rf ~/tdlib-symbols
 ./install.sh ~/tdlib-symbols
+
+./clean.sh

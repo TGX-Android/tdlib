@@ -14,6 +14,10 @@ else
   REMOTE="https://${USERNAME}:${PASSWORD}@${ORIGINAL_REMOTE}"
 fi
 
+pushd source > /dev/null || exit 1
+./clean.sh
+popd
+
 git checkout main > /dev/null
 git pull origin main > /dev/null
 cd source/td
