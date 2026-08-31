@@ -6,6 +6,9 @@ OPENSSL_INSTALL_DIR=${3:-third-party/openssl}
 ANDROID_STL=${4:-c++_static}
 TDLIB_INTERFACE=${5:-Java}
 ANDROID_SDK_PACKAGE=${6:-android-34}
+ABIS=${7:-"arm64-v8a armeabi-v7a x86_64 x86"}
+ANDROID_API32=${8:-16}
+ANDROID_API64=${9:-16}
 
 if [ "$ANDROID_STL" != "c++_static" ] && [ "$ANDROID_STL" != "c++_shared" ] ; then
   echo 'Error: ANDROID_STL must be either "c++_static" or "c++_shared".'
@@ -70,13 +73,20 @@ if [ "$TDLIB_INTERFACE" == "JSONJava" ] ; then
   cp -p {..,tdlib}/java/org/drinkless/tdlib/JsonClient.java || exit 1
 fi
 
-echo "Building TDLib..."
-for ABI in arm64-v8a armeabi-v7a x86_64 x86 ; do
+for ABI in $ABIS ; do
   mkdir -p tdlib/libs/$ABI/ || exit 1
+
+  if [[ "$ABI" == "arm64-v8a" || "$ABI" == "x86_64" ]]; then
+    ANDROID_API=$ANDROID_API64
+  else
+    ANDROID_API=$ANDROID_API32
+  fi
+
+  echo "Building TDLib ABI: $ABI, android-${ANDROID_API}, ndk: ${ANDROID_NDK_VERSION}"
 
   mkdir -p build-$ABI-$TDLIB_INTERFACE || exit 1
   cd build-$ABI-$TDLIB_INTERFACE
-  cmake -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake" -DOPENSSL_ROOT_DIR="$OPENSSL_INSTALL_DIR/$ABI" -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja -DANDROID_ABI=$ABI -DANDROID_STL=$ANDROID_STL -DANDROID_PLATFORM=android-16 $TDLIB_INTERFACE_OPTION .. || exit 1
+  cmake -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake" -DOPENSSL_ROOT_DIR="$OPENSSL_INSTALL_DIR/$ANDROID_NDK_VERSION/$ABI" -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja -DANDROID_ABI=$ABI -DANDROID_STL=$ANDROID_STL -DANDROID_PLATFORM=android-${ANDROID_API} $TDLIB_INTERFACE_OPTION .. || exit 1
   if [ "$TDLIB_INTERFACE" == "Java" ] || [ "$TDLIB_INTERFACE" == "JSONJava" ] ; then
     cmake --build . --target tdjni || exit 1
     cp -p libtd*.so* ../tdlib/libs/$ABI/ || exit 1

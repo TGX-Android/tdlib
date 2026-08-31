@@ -24,92 +24,111 @@ ANDROID_SDK_ROOT="$(cd "$(dirname -- "$ANDROID_SDK_ROOT")" >/dev/null; pwd -P)/$
 OPENSSL_INSTALL_DIR="$(cd "$(dirname -- "$OPENSSL_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$OPENSSL_INSTALL_DIR")"
 OPENSSL_SOURCE_DIR="$(cd "$(dirname -- "$OPENSSL_SOURCE_DIR")" >/dev/null; pwd -P)/$(basename -- "$OPENSSL_SOURCE_DIR")"
 
-cd $(dirname $0)
+cd $(dirname $0) || exit 1
 
-pushd "$OPENSSL_SOURCE_DIR" > /dev/null
+pushd "$OPENSSL_SOURCE_DIR" > /dev/null || exit 1
 
 # Make sure it's clean build
 make distclean > /dev/null 2>&1 || true
 
-ANDROID_NDK_VERSION=$ANDROID_NDK_VERSION_PRIMARY
-export ANDROID_NDK_ROOT="$ANDROID_SDK_ROOT/ndk/$ANDROID_NDK_VERSION"  # for OpenSSL 3.*.*
-export ANDROID_NDK_HOME="$ANDROID_NDK_ROOT "                          # for OpenSSL 1.1.1
-PATH="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/$HOST_ARCH/bin:$PATH"
+ORIGINAL_PATH="$PATH"
 
-if ! clang --help >/dev/null 2>&1 ; then
-  echo "Error: failed to run clang from Android NDK."
-  if [[ "$OS_NAME" == "linux" ]] ; then
-    echo "Prebuilt Android NDK binaries are linked against glibc, so glibc must be installed."
-  fi
-  exit 1
+NDK_VERSIONS="$ANDROID_NDK_VERSION_PRIMARY"
+if [ "${ANDROID_NDK_VERSION_LEGACY}" != "${ANDROID_NDK_VERSION_PRIMARY}" ]; then
+  NDK_VERSIONS="${NDK_VERSIONS} ${ANDROID_NDK_VERSION_LEGACY}"
 fi
 
-ANDROID_API32=16
-ANDROID_API64=21
-if [[ ${ANDROID_NDK_VERSION%%.*} -ge 24 ]] ; then
-  ANDROID_API32=19
-fi
-if [[ ${ANDROID_NDK_VERSION%%.*} -ge 26 ]] ; then
-  ANDROID_API32=21
-fi
+for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
+  # Make sure configurations from different NDKs are not reused
+  pushd "${OPENSSL_SOURCE_DIR:?}" > /dev/null || exit 1
+  git clean -ffdx
+  popd > /dev/null || exit 1
 
-for ABI in x86 armeabi-v7a x86_64 arm64-v8a ; do
-  rm -f libcryptox.so libsslx.so libssl.so libsslx.so
+  export ANDROID_NDK_ROOT="$ANDROID_SDK_ROOT/ndk/$ANDROID_NDK_VERSION"  # for OpenSSL 3.*.*
+  export ANDROID_NDK_HOME="$ANDROID_NDK_ROOT "                          # for OpenSSL 1.1.1
+  PATH="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/$HOST_ARCH/bin:$ORIGINAL_PATH"
 
-    PARAMS="no-tests no-docs no-apps no-legacy no-engine \
-      no-ssl3 no-ssl3-method \
-      no-ml-kem no-ml-dsa no-slh-dsa \
-      no-sm2 no-sm3 no-sm4 \
-      no-camellia no-aria no-cast no-idea \
-      no-mdc2 no-md4 no-rc2 no-rc5 no-seed \
-      no-whirlpool no-siphash \
-      no-ocb no-siv \
-      no-srp no-psk \
-      no-cms no-ts \
-      no-comp no-nextprotoneg \
-      no-async no-uplink \
-      no-autoerrinit no-autoload-config \
-      no-http no-quic \
-      no-gost no-fips no-padlockeng"
-
-  if [[ $ABI == "x86" ]] ; then
-    ./Configure android-x86 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
-  elif [[ $ABI == "x86_64" ]] ; then
-    LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-x86_64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
-  elif [[ $ABI == "armeabi-v7a" ]] ; then
-    ./Configure android-arm ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 -D__ARM_MAX_ARCH__=8 || exit 1
-  elif [[ $ABI == "arm64-v8a" ]] ; then
-    LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-arm64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+  if ! clang --help >/dev/null 2>&1 ; then
+    echo "Error: failed to run clang from Android NDK."
+    if [[ "$OS_NAME" == "linux" ]] ; then
+      echo "Prebuilt Android NDK binaries are linked against glibc, so glibc must be installed."
+    fi
+    exit 1
   fi
 
-  sed -i.bak \
-  -e 's/-O3/-O3 -ffunction-sections -fdata-sections/g' \
-  -e 's/libcrypto\.so/libcryptox.so/g' \
-  -e 's/libcrypto\.a/libcryptox.a/g' \
-  -e 's|-lcrypto |-lcryptox |g' \
-  -e 's|-lcrypto$|-lcryptox|g' \
-  -e 's/libssl\.so/libsslx.so/g' \
-  -e 's/libssl\.a/libsslx.a/g' \
-  Makefile || exit 1
+  ANDROID_API32=16
+  ANDROID_API64=21
+  if [[ ${ANDROID_NDK_VERSION%%.*} -ge 24 ]] ; then
+    ANDROID_API32=19
+  fi
+  if [[ ${ANDROID_NDK_VERSION%%.*} -ge 26 ]] ; then
+    ANDROID_API32=21
+  fi
 
-  make depend -s || exit 1
-  make -j4 -s || exit 1
+  ABIS="x86 armeabi-v7a"
+  if [ "${ANDROID_NDK_VERSION}" == "${ANDROID_NDK_VERSION_PRIMARY}" ]; then
+    ABIS="$ABIS x86_64 arm64-v8a"
+  fi
 
-  (test -f libcryptox.so && test -f libsslx.so) || exit 1
+  for ABI in $ABIS ; do
+    rm -f libcryptox.so libsslx.so libssl.so libsslx.so
 
-  echo "Creating symlinks..."
+      PARAMS="no-tests no-docs no-apps no-legacy no-engine \
+        no-ssl3 no-ssl3-method \
+        no-ml-kem no-ml-dsa no-slh-dsa \
+        no-sm2 no-sm3 no-sm4 \
+        no-camellia no-aria no-cast no-idea \
+        no-mdc2 no-md4 no-rc2 no-rc5 no-seed \
+        no-whirlpool no-siphash \
+        no-ocb no-siv \
+        no-srp no-psk \
+        no-cms no-ts \
+        no-comp no-nextprotoneg \
+        no-async no-uplink \
+        no-autoerrinit no-autoload-config \
+        no-http no-quic \
+        no-gost no-fips no-padlockeng"
 
-  ln -sf libcryptox.so libcrypto.so
-  ln -sf libsslx.so libssl.so
+    if [[ $ABI == "x86" ]] ; then
+      ./Configure android-x86 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
+    elif [[ $ABI == "x86_64" ]] ; then
+      LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-x86_64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+    elif [[ $ABI == "armeabi-v7a" ]] ; then
+      ./Configure android-arm ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 -D__ARM_MAX_ARCH__=8 || exit 1
+    elif [[ $ABI == "arm64-v8a" ]] ; then
+      LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-arm64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+    fi
 
-  echo "Copying to $OPENSSL_INSTALL_DIR/$ABI"
-  mkdir -p "$OPENSSL_INSTALL_DIR/$ABI/lib" || exit 1
-  (cp -a libcryptox.so libcrypto.so libsslx.so libssl.so "$OPENSSL_INSTALL_DIR/$ABI/lib/.") || exit 1
-  cp -r include "$OPENSSL_INSTALL_DIR/$ABI/." || exit 1
+    sed -i.bak \
+    -e 's/-O3/-O3 -ffunction-sections -fdata-sections/g' \
+    -e 's/libcrypto\.so/libcryptox.so/g' \
+    -e 's/libcrypto\.a/libcryptox.a/g' \
+    -e 's|-lcrypto |-lcryptox |g' \
+    -e 's|-lcrypto$|-lcryptox|g' \
+    -e 's/libssl\.so/libsslx.so/g' \
+    -e 's/libssl\.a/libsslx.a/g' \
+    Makefile || exit 1
 
-  echo "Built OpenSSL for $ABI with NDK $ANDROID_NDK_VERSION: $OPENSSL_INSTALL_DIR/$ABI"
+    make depend -s || exit 1
+    make -j4 -s || exit 1
 
-  make distclean || exit 1
+    (test -f libcryptox.so && test -f libsslx.so) || exit 1
+
+    echo "Creating symlinks..."
+
+    ln -sf libcryptox.so libcrypto.so
+    ln -sf libsslx.so libssl.so
+
+    INSTALL_DIR="$OPENSSL_INSTALL_DIR/${ANDROID_NDK_VERSION}/$ABI"
+    echo "Copying to ${INSTALL_DIR}"
+    mkdir -p "${INSTALL_DIR}/lib" || exit 1
+    (cp -a libcryptox.so libcrypto.so libsslx.so libssl.so "${INSTALL_DIR}/lib/.") || exit 1
+    cp -r include "${INSTALL_DIR}/." || exit 1
+
+    echo "Built OpenSSL for $ABI with NDK $ANDROID_NDK_VERSION: ${INSTALL_DIR}"
+
+    make distclean || exit 1
+  done
 done
 
 OPENSSL_COMMIT="$(git rev-parse HEAD)"

@@ -1,4 +1,10 @@
 #!/bin/bash
 set -e
 
-rm -rf build && ./build-openssl.sh && ./build-tdlib.sh && rm -rf ~/tdlib-symbols/native-debug-symbols/ && ./install.sh ~/tdlib-symbols/
+rm -rf build
+
+./build-openssl.sh || (echo "OpenSSL build failed" && exit 1)
+./build-tdlib.sh || (echo "TDLib build failed" && exit 1)
+
+rm -rf ~/tdlib-symbols
+./install.sh ~/tdlib-symbols
