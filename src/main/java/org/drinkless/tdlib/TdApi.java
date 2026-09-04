@@ -13,14 +13,6 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    static {
-        try {
-            System.loadLibrary("tdjni");
-        } catch (UnsatisfiedLinkError e) {
-            e.printStackTrace();
-        }
-    }
-
     private static final String GIT_COMMIT_HASH = "d1085f9cebc5a62379991ae1652673954f229c1f";
 
     private TdApi() {
