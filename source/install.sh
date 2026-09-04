@@ -28,11 +28,6 @@ if [ "${ANDROID_NDK_VERSION_LEGACY:?}" != "${ANDROID_NDK_VERSION_PRIMARY:?}" ]; 
   NDK_VERSIONS="${NDK_VERSIONS} ${ANDROID_NDK_VERSION_LEGACY}"
 fi
 
-pushd ../src/main > /dev/null
-rm -rf java
-cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION_PRIMARY/tdlib/java" .
-popd > /dev/null
-
 for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
   # Delete System.loadLibrary("tdjni")
   pushd "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/tdlib/java/org/drinkless/tdlib" > /dev/null || exit 1
@@ -71,16 +66,18 @@ for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
   popd > /dev/null
 done
 
-pushd .. > /dev/null
+pushd ../src/main > /dev/null
+rm -rf java
+cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION_PRIMARY/tdlib/java" .
+popd > /dev/null
 
+pushd .. > /dev/null
 if [ -e "$OPENSSL_INSTALL_DIR" ] ; then
   rm -rf openssl
   cp -R "$OPENSSL_INSTALL_DIR" ./openssl
 fi
-
 rm -rf version.txt
 cp "$TDLIB_INSTALL_DIR/version.txt" .
-
 popd > /dev/null
 
 echo "Done! OpenSSL: $(cat "$OPENSSL_INSTALL_DIR/version.txt") TDLib: $(cat "$TDLIB_INSTALL_DIR/version.txt")"
