@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "d1085f9cebc5a62379991ae1652673954f229c1f";
+    private static final String GIT_COMMIT_HASH = "42e6a5259551178d1dab54a22ad96d14bd906e20";
 
     private TdApi() {
     }
@@ -14171,7 +14171,7 @@ public class TdApi {
     }
 
     /**
-     * The hasProtectedContent setting of a channel was toggled.
+     * The hasProtectedContent setting of a chat was toggled.
      */
     public static class ChatEventHasProtectedContentToggled extends ChatEventAction {
         /**
@@ -14180,13 +14180,13 @@ public class TdApi {
         public boolean hasProtectedContent;
 
         /**
-         * The hasProtectedContent setting of a channel was toggled.
+         * The hasProtectedContent setting of a chat was toggled.
          */
         public ChatEventHasProtectedContentToggled() {
         }
 
         /**
-         * The hasProtectedContent setting of a channel was toggled.
+         * The hasProtectedContent setting of a chat was toggled.
          *
          * @param hasProtectedContent New value of hasProtectedContent.
          */
@@ -14759,7 +14759,7 @@ public class TdApi {
     }
 
     /**
-     * The isForum setting of a channel was toggled.
+     * The isForum setting of a supergroup was toggled.
      */
     public static class ChatEventIsForumToggled extends ChatEventAction {
         /**
@@ -14768,13 +14768,13 @@ public class TdApi {
         public boolean isForum;
 
         /**
-         * The isForum setting of a channel was toggled.
+         * The isForum setting of a supergroup was toggled.
          */
         public ChatEventIsForumToggled() {
         }
 
         /**
-         * The isForum setting of a channel was toggled.
+         * The isForum setting of a supergroup was toggled.
          *
          * @param isForum New value of isForum.
          */
@@ -15659,7 +15659,7 @@ public class TdApi {
          */
         public boolean createsJoinRequest;
         /**
-         * True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
+         * True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. Primary link can create join requests only if this is set up using toggleSupergroupJoinByRequest. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
          */
         public boolean isPrimary;
         /**
@@ -15688,7 +15688,7 @@ public class TdApi {
          * @param expiredMemberCount Number of chat members, which joined the chat using the link, but have already left because of expired subscription; for subscription links only.
          * @param pendingJoinRequestCount Number of pending join requests created using this link.
          * @param createsJoinRequest True, if the link only creates join request. If true, total number of joining members will be unlimited.
-         * @param isPrimary True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
+         * @param isPrimary True, if the link is primary. Primary invite link can't have name, expiration date, or usage limit. Primary link can create join requests only if this is set up using toggleSupergroupJoinByRequest. There is exactly one primary invite link for each administrator with canInviteUsers right at a given time.
          * @param isRevoked True, if the link was revoked.
          */
         public ChatInviteLink(String inviteLink, String name, long creatorUserId, int date, int editDate, int expirationDate, StarSubscriptionPricing subscriptionPricing, int memberLimit, int memberCount, int expiredMemberCount, int pendingJoinRequestCount, boolean createsJoinRequest, boolean isPrimary, boolean isRevoked) {
