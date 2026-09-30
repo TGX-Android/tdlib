@@ -61,7 +61,7 @@ for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
   popd > /dev/null
 
   pushd ../src/main > /dev/null
-  rm -rf ./libs/arm64-v8a ./libs/armeabi-v7a ./libs/x86 libs/x86_64 "./libs/$ANDROID_NDK_VERSION}"
+  rm -rf ./libs/arm64-v8a ./libs/armeabi-v7a ./libs/x86 libs/x86_64 "./libs/$ANDROID_NDK_VERSION"
   cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/tdlib/libs" "./libs/$ANDROID_NDK_VERSION"
   popd > /dev/null
 done
