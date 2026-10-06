@@ -18,7 +18,7 @@ fi
 
 source ./td/example/android/check-environment.sh || exit 1
 
-mkdir -p $OPENSSL_INSTALL_DIR || exit 1
+mkdir -p "$OPENSSL_INSTALL_DIR" || exit 1
 
 ANDROID_SDK_ROOT="$(cd "$(dirname -- "$ANDROID_SDK_ROOT")" >/dev/null; pwd -P)/$(basename -- "$ANDROID_SDK_ROOT")"
 OPENSSL_INSTALL_DIR="$(cd "$(dirname -- "$OPENSSL_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$OPENSSL_INSTALL_DIR")"
@@ -32,11 +32,6 @@ pushd "$OPENSSL_SOURCE_DIR" > /dev/null || exit 1
 make distclean > /dev/null 2>&1 || true
 
 ORIGINAL_PATH="$PATH"
-
-NDK_VERSIONS="$ANDROID_NDK_VERSION_PRIMARY"
-if [ "${ANDROID_NDK_VERSION_LEGACY}" != "${ANDROID_NDK_VERSION_PRIMARY}" ]; then
-  NDK_VERSIONS="${NDK_VERSIONS} ${ANDROID_NDK_VERSION_LEGACY}"
-fi
 
 for TGX_FLAVOR in $TGX_FLAVORS; do
   if [ "${TGX_FLAVOR}" != "legacy" ]; then
