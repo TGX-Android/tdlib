@@ -110,13 +110,13 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
         no-gost no-fips no-padlockeng"
 
     if [[ $ABI == "x86" ]] ; then
-      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-x86 ${ANDROID_STL} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
+      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-x86 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
     elif [[ $ABI == "x86_64" ]] ; then
-      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-x86_64 ${ANDROID_STL} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
+      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-x86_64 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
     elif [[ $ABI == "armeabi-v7a" ]] ; then
-      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-arm ${ANDROID_STL} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API -D__ARM_MAX_ARCH__=8 || exit 1
+      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-arm shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API -D__ARM_MAX_ARCH__=8 || exit 1
     elif [[ $ABI == "arm64-v8a" ]] ; then
-      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-arm64 ${ANDROID_STL} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
+      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-arm64 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
     fi
 
     sed -i.bak \
