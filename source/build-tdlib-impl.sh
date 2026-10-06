@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
+set -e
+
 ANDROID_SDK_ROOT=${1:-SDK}
 ANDROID_NDK_VERSION=${2:-23.2.8568313}
 OPENSSL_INSTALL_DIR=${3:-third-party/openssl}
 ANDROID_STL=${4:-c++_static}
 TDLIB_INTERFACE=${5:-Java}
-ANDROID_SDK_PACKAGE=${6:-android-34}
+ANDROID_SDK_PACKAGE=${6:-android-37.2}
 ABIS=${7:-"arm64-v8a armeabi-v7a x86_64 x86"}
-ANDROID_API32=${8:-16}
-ANDROID_API64=${9:-16}
+ANDROID_API=${8:-16}
 
 if [ "$ANDROID_STL" != "c++_static" ] && [ "$ANDROID_STL" != "c++_shared" ] ; then
   echo 'Error: ANDROID_STL must be either "c++_static" or "c++_shared".'
@@ -41,9 +42,9 @@ TDLIB_INTERFACE_OPTION=$([ "$TDLIB_INTERFACE" == "JSON" ] && echo "-DTD_ANDROID_
 cd $(dirname $0)
 
 echo "Generating TDLib source files..."
-mkdir -p build-native-$TDLIB_INTERFACE || exit 1
-cd build-native-$TDLIB_INTERFACE
-cmake $TDLIB_INTERFACE_OPTION -DTD_GENERATE_SOURCE_FILES=ON .. || exit 1
+mkdir -p "build-native-$TDLIB_INTERFACE" || exit 1
+cd "build-native-$TDLIB_INTERFACE" || exit 1
+cmake "$TDLIB_INTERFACE_OPTION" -DTD_GENERATE_SOURCE_FILES=ON .. || exit 1
 cmake --build . || exit 1
 cd ..
 
@@ -73,44 +74,30 @@ if [ "$TDLIB_INTERFACE" == "JSONJava" ] ; then
   cp -p {..,tdlib}/java/org/drinkless/tdlib/JsonClient.java || exit 1
 fi
 
+if [ "$ANDROID_API" -ge 23 ]; then
+  EXTRA_LDFLAGS="-Wl,--pack-dyn-relocs=android";
+else
+  EXTRA_LDFLAGS="";
+fi
+
 for ABI in $ABIS ; do
-  mkdir -p tdlib/libs/$ABI/ || exit 1
+  mkdir -p "tdlib/libs/$ABI/" || exit 1
 
-  if [[ "$ABI" == "arm64-v8a" || "$ABI" == "x86_64" ]]; then
-    ANDROID_API=$ANDROID_API64
-  else
-    ANDROID_API=$ANDROID_API32
-  fi
+  echo "Building TDLib... Android: $ANDROID_API, ABI: $ABI, ndk: $ANDROID_NDK_VERSION"
 
-  echo "Building TDLib ABI: $ABI, android-${ANDROID_API}, ndk: ${ANDROID_NDK_VERSION}"
-
-  mkdir -p build-$ABI-$TDLIB_INTERFACE || exit 1
-  cd build-$ABI-$TDLIB_INTERFACE
-  cmake -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake" -DOPENSSL_ROOT_DIR="$OPENSSL_INSTALL_DIR/$ANDROID_NDK_VERSION/$ABI" -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja -DANDROID_ABI=$ABI -DANDROID_STL=$ANDROID_STL -DANDROID_PLATFORM=android-${ANDROID_API} $TDLIB_INTERFACE_OPTION .. || exit 1
+  mkdir -p "build-android-$ANDROID_API-$ABI-$TDLIB_INTERFACE" || exit 1
+  cd "build-android-$ANDROID_API-$ABI-$TDLIB_INTERFACE" || exit 1
+  LDFLAGS="$EXTRA_LDFLAGS" cmake -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake" -DOPENSSL_ROOT_DIR="$OPENSSL_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API/$ABI" -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja -DANDROID_ABI="$ABI" -DANDROID_STL="$ANDROID_STL" -DANDROID_PLATFORM="android-$ANDROID_API" "$TDLIB_INTERFACE_OPTION" .. || exit 1
   if [ "$TDLIB_INTERFACE" == "Java" ] || [ "$TDLIB_INTERFACE" == "JSONJava" ] ; then
     cmake --build . --target tdjni || exit 1
-    cp -p libtd*.so* ../tdlib/libs/$ABI/ || exit 1
+    cp -p libtd*.so* "../tdlib/libs/$ABI/." || exit 1
   fi
   if [ "$TDLIB_INTERFACE" == "JSON" ] ; then
     cmake --build . --target tdjson || exit 1
-    cp -p td/libtdjson.so ../tdlib/libs/$ABI/libtdjson.so.debug || exit 1
-    "$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/$HOST_ARCH/bin/llvm-strip" --strip-debug --strip-unneeded ../tdlib/libs/$ABI/libtdjson.so.debug -o ../tdlib/libs/$ABI/libtdjson.so || exit 1
+    cp -p td/libtdjson.so "../tdlib/libs/$ABI/libtdjson.so.debug" || exit 1
+    "$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/$HOST_ARCH/bin/llvm-strip" --strip-debug --strip-unneeded "../tdlib/libs/$ABI/libtdjson.so.debug" -o "../tdlib/libs/$ABI/libtdjson.so" || exit 1
   fi
   cd ..
-
-  if [[ "$ANDROID_STL" == "c++_shared" ]] ; then
-    if [[ "$ABI" == "arm64-v8a" ]] ; then
-      FULL_ABI="aarch64-linux-android"
-    elif [[ "$ABI" == "armeabi-v7a" ]] ; then
-      FULL_ABI="arm-linux-androideabi"
-    elif [[ "$ABI" == "x86_64" ]] ; then
-      FULL_ABI="x86_64-linux-android"
-    elif [[ "$ABI" == "x86" ]] ; then
-      FULL_ABI="i686-linux-android"
-    fi
-    cp "$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/$HOST_ARCH/sysroot/usr/lib/$FULL_ABI/libc++_shared.so" tdlib/libs/$ABI/ || exit 1
-    "$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/$HOST_ARCH/bin/llvm-strip" tdlib/libs/$ABI/libc++_shared.so || exit 1
-  fi
 done
 
 echo "Compressing..."

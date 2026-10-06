@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-SHARED_BUILD_OPTION=${1:-shared}
-OPENSSL_SOURCE_DIR=${2:-openssl}
-OPENSSL_INSTALL_DIR=${3:-build/openssl}
+OPENSSL_SOURCE_DIR=${1:-openssl}
+OPENSSL_INSTALL_DIR=${2:-build/openssl}
+TGX_FLAVORS=${3:-"latest marshmallow lollipop legacy"}
 
 source "$(pwd)/setup.sh" || exit 1
 
@@ -38,7 +38,46 @@ if [ "${ANDROID_NDK_VERSION_LEGACY}" != "${ANDROID_NDK_VERSION_PRIMARY}" ]; then
   NDK_VERSIONS="${NDK_VERSIONS} ${ANDROID_NDK_VERSION_LEGACY}"
 fi
 
-for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
+for TGX_FLAVOR in $TGX_FLAVORS; do
+  if [ "${TGX_FLAVOR}" != "legacy" ]; then
+    ANDROID_NDK_VERSION="$ANDROID_NDK_VERSION_PRIMARY"
+    ABIS="arm64-v8a armeabi-v7a x86_64 x86"
+  else
+    ANDROID_NDK_VERSION="$ANDROID_NDK_VERSION_LEGACY"
+    ABIS="armeabi-v7a x86"
+  fi
+
+  if [[ ${ANDROID_NDK_VERSION%%.*} -ge 27 ]] ; then
+    ANDROID_STL="c++_shared"
+  else
+    ANDROID_STL="c++_static"
+  fi
+
+  case "${TGX_FLAVOR}" in
+    latest)
+      ANDROID_API=24
+      ;;
+    marshmallow)
+      ANDROID_API=23
+      ;;
+    lollipop)
+      ANDROID_API=21
+      ;;
+    legacy)
+      ANDROID_API=16
+      ;;
+    *)
+      echo -e "${STYLE_ERROR}Unsupported flavor: ${TGX_FLAVOR}.${STYLE_END}"
+      exit 1
+      ;;
+  esac
+
+  if [ "$ANDROID_API" -ge 23 ]; then
+    EXTRA_LDFLAGS="-Wl,--pack-dyn-relocs=android";
+  else
+    EXTRA_LDFLAGS="";
+  fi
+
   # Make sure configurations from different NDKs are not reused
   pushd "${OPENSSL_SOURCE_DIR:?}" > /dev/null || exit 1
   git clean -ffdx
@@ -54,20 +93,6 @@ for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
       echo "Prebuilt Android NDK binaries are linked against glibc, so glibc must be installed."
     fi
     exit 1
-  fi
-
-  ANDROID_API32=16
-  ANDROID_API64=21
-  if [[ ${ANDROID_NDK_VERSION%%.*} -ge 24 ]] ; then
-    ANDROID_API32=19
-  fi
-  if [[ ${ANDROID_NDK_VERSION%%.*} -ge 26 ]] ; then
-    ANDROID_API32=21
-  fi
-
-  ABIS="x86 armeabi-v7a"
-  if [ "${ANDROID_NDK_VERSION}" == "${ANDROID_NDK_VERSION_PRIMARY}" ]; then
-    ABIS="$ABIS x86_64 arm64-v8a"
   fi
 
   for ABI in $ABIS ; do
@@ -90,13 +115,13 @@ for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
         no-gost no-fips no-padlockeng"
 
     if [[ $ABI == "x86" ]] ; then
-      ./Configure android-x86 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 || exit 1
+      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-x86 ${ANDROID_STL} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
     elif [[ $ABI == "x86_64" ]] ; then
-      LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-x86_64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-x86_64 ${ANDROID_STL} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
     elif [[ $ABI == "armeabi-v7a" ]] ; then
-      ./Configure android-arm ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API32 -D__ARM_MAX_ARCH__=8 || exit 1
+      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-arm ${ANDROID_STL} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API -D__ARM_MAX_ARCH__=8 || exit 1
     elif [[ $ABI == "arm64-v8a" ]] ; then
-      LDFLAGS=-Wl,-z,max-page-size=16384 ./Configure android-arm64 ${SHARED_BUILD_OPTION} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API64 || exit 1
+      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-arm64 ${ANDROID_STL} ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
     fi
 
     sed -i.bak \
@@ -112,14 +137,14 @@ for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
     make depend -s || exit 1
     make -j4 -s || exit 1
 
-    (test -f libcryptox.so && test -f libsslx.so) || exit 1
+    test -f libcryptox.so && test -f libsslx.so || exit 1
 
     echo "Creating symlinks..."
 
     ln -sf libcryptox.so libcrypto.so
     ln -sf libsslx.so libssl.so
 
-    INSTALL_DIR="$OPENSSL_INSTALL_DIR/${ANDROID_NDK_VERSION}/$ABI"
+    INSTALL_DIR="$OPENSSL_INSTALL_DIR/${ANDROID_NDK_VERSION}/android-${ANDROID_API}/$ABI"
     echo "Copying to ${INSTALL_DIR}"
     mkdir -p "${INSTALL_DIR}/lib" || exit 1
     (cp -a libcryptox.so libcrypto.so libsslx.so libssl.so "${INSTALL_DIR}/lib/.") || exit 1

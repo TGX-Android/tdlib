@@ -4,6 +4,7 @@ set -e
 SYMBOLS_INSTALL_DIR=${1:-build}
 TDLIB_INSTALL_DIR=${2:-build/td}
 OPENSSL_INSTALL_DIR=${3:-build/openssl}
+TGX_FLAVORS=${4:-"latest marshmallow lollipop legacy"}
 
 source "$(pwd)/setup.sh" --light
 
@@ -23,14 +24,34 @@ if [ -e "$OPENSSL_INSTALL_DIR" ] ; then
   OPENSSL_INSTALL_DIR="$(cd "$(dirname -- "$OPENSSL_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$OPENSSL_INSTALL_DIR")"
 fi
 
-NDK_VERSIONS="${ANDROID_NDK_VERSION_PRIMARY:?}"
-if [ "${ANDROID_NDK_VERSION_LEGACY:?}" != "${ANDROID_NDK_VERSION_PRIMARY:?}" ]; then
-  NDK_VERSIONS="${NDK_VERSIONS} ${ANDROID_NDK_VERSION_LEGACY}"
-fi
+rm -rf ../src/main/libs
+mkdir ../src/main/libs
 
-for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
+rm -rf "${SYMBOLS_INSTALL_DIR:?}"
+mkdir -p "$SYMBOLS_INSTALL_DIR"
+
+for TGX_FLAVOR in $TGX_FLAVORS; do
+  case "${TGX_FLAVOR}" in
+    latest)
+      ANDROID_API=24
+      ;;
+    marshmallow)
+      ANDROID_API=23
+      ;;
+    lollipop)
+      ANDROID_API=21
+      ;;
+    legacy)
+      ANDROID_API=16
+      ;;
+    *)
+      echo -e "${STYLE_ERROR}Unsupported flavor: ${TGX_FLAVOR}.${STYLE_END}"
+      exit 1
+      ;;
+  esac
+
   # Delete System.loadLibrary("tdjni")
-  pushd "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/tdlib/java/org/drinkless/tdlib" > /dev/null || exit 1
+  pushd "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API/tdlib/java/org/drinkless/tdlib" > /dev/null || exit 1
   sed -i".bak" -E '/ {4}static \{/,+7d' TdApi.java || exit 1
   sed -i".bak" "s/&#039;/'/g" TdApi.java || exit 1
   sed -i".bak" -E '/ {4}static \{/,+7d' Client.java || exit 1
@@ -38,9 +59,9 @@ for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
   rm ./*.bak
   popd > /dev/null
 
-  pushd "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION" > /dev/null
+  pushd "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API" > /dev/null
   rm -rf native-debug-symbols
-  echo "Unzipping tdlib/tdlib-debug.zip to $TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION"
+  echo "Unzipping tdlib/tdlib-debug.zip to $TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API"
   unzip tdlib/tdlib-debug.zip -d native-debug-symbols
 
   cd native-debug-symbols
@@ -55,20 +76,18 @@ for ANDROID_NDK_VERSION in $NDK_VERSIONS; do
     done
   cd ..
 
-  rm -rf "${SYMBOLS_INSTALL_DIR:?}/${ANDROID_NDK_VERSION?:}"
-  mkdir -p "$SYMBOLS_INSTALL_DIR/$ANDROID_NDK_VERSION"
-  mv native-debug-symbols "$SYMBOLS_INSTALL_DIR/$ANDROID_NDK_VERSION/."
+  mkdir -p "$SYMBOLS_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API"
+  mv native-debug-symbols "$SYMBOLS_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API/."
   popd > /dev/null
 
   pushd ../src/main > /dev/null
-  rm -rf ./libs/arm64-v8a ./libs/armeabi-v7a ./libs/x86 libs/x86_64 "./libs/$ANDROID_NDK_VERSION"
-  cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/tdlib/libs" "./libs/$ANDROID_NDK_VERSION"
+  cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API/tdlib/libs" "./libs/$ANDROID_NDK_VERSION/android-$ANDROID_API"
   popd > /dev/null
 done
 
 pushd ../src/main > /dev/null
 rm -rf java
-cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION_PRIMARY/tdlib/java" .
+cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION_PRIMARY/android-24/tdlib/java" .
 popd > /dev/null
 
 pushd .. > /dev/null
