@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 TDLIB_SOURCE_DIR=${1:-td}
 TDLIB_INSTALL_DIR=${2:-build/td}

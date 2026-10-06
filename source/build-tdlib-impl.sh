@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 set -e
 
 ANDROID_SDK_ROOT=${1:-SDK}
@@ -62,6 +61,10 @@ if [ "$TDLIB_INTERFACE" == "Java" ] ; then
   cp -p {..,tdlib}/java/org/drinkless/tdlib/Client.java || exit 1
   mv {,tdlib/java/}org/drinkless/tdlib/TdApi.java || exit 1
   rm -rf org || exit 1
+
+  if [ ! -f "$ANDROID_SDK_ROOT/platforms/$ANDROID_SDK_PACKAGE/android.jar" ]; then
+    sdkmanager --install "platforms;$ANDROID_SDK_PACKAGE"
+  fi
 
   echo "Generating Javadoc documentation..."
   cp "$ANDROID_SDK_ROOT/platforms/$ANDROID_SDK_PACKAGE/android.jar" . || exit 1

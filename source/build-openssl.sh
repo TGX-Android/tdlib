@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+set -e
 
 OPENSSL_SOURCE_DIR=${1:-openssl}
 OPENSSL_INSTALL_DIR=${2:-build/openssl}
