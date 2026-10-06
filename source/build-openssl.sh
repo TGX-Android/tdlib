@@ -107,7 +107,10 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
         no-async no-uplink \
         no-autoerrinit no-autoload-config \
         no-http no-quic \
-        no-gost no-fips no-padlockeng"
+        no-gost no-fips no-padlockeng \
+        no-ct no-dsa no-http no-ocsp no-des \
+        no-blake2 no-bf no-rmd160 no-scrypt \
+        no-seed no-ts no-quic no-rc4"
 
     if [[ $ABI == "x86" ]] ; then
       LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-x86 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
