@@ -1,3 +1,4 @@
 .DS_Store
 /build
 libc++_shared.so
+rebuild.log

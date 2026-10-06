@@ -25,7 +25,7 @@ git checkout master > /dev/null
 git pull origin master
 cd ..
 echo "Building..."
-./rebuild.sh > /dev/null 2>&1
+./rebuild.sh > rebuild.log 2>&1
 git add --all
 echo "Build finished."
 cd ..
