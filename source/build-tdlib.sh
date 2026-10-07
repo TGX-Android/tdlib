@@ -49,11 +49,6 @@ pushd "$TDLIB_SOURCE_DIR" > /dev/null || exit 1
 TDLIB_COMMIT="$(git rev-parse HEAD)"
 popd > /dev/null || exit 1
 
-NDK_VERSIONS="$ANDROID_NDK_VERSION_PRIMARY"
-if [ "${ANDROID_NDK_VERSION_LEGACY}" != "${ANDROID_NDK_VERSION_PRIMARY}" ]; then
-  NDK_VERSIONS="${NDK_VERSIONS} ${ANDROID_NDK_VERSION_LEGACY}"
-fi
-
 for TGX_FLAVOR in $TGX_FLAVORS; do
   if [ "${TGX_FLAVOR}" != "legacy" ]; then
     ANDROID_NDK_VERSION="$ANDROID_NDK_VERSION_PRIMARY"

@@ -31,6 +31,14 @@ rm -rf "${SYMBOLS_INSTALL_DIR:?}/*"
 mkdir -p "$SYMBOLS_INSTALL_DIR"
 
 for TGX_FLAVOR in $TGX_FLAVORS; do
+  if [ "${TGX_FLAVOR}" != "legacy" ]; then
+    ANDROID_NDK_VERSION="$ANDROID_NDK_VERSION_PRIMARY"
+    ABIS="arm64-v8a armeabi-v7a x86_64 x86"
+  else
+    ANDROID_NDK_VERSION="$ANDROID_NDK_VERSION_LEGACY"
+    ABIS="armeabi-v7a x86"
+  fi
+
   case "${TGX_FLAVOR}" in
     latest)
       ANDROID_API=24
@@ -51,7 +59,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
   esac
 
   # Delete System.loadLibrary("tdjni")
-  pushd "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API/tdlib/java/org/drinkless/tdlib" > /dev/null || exit 1
+  pushd "$TDLIB_INSTALL_DIR/${ANDROID_NDK_VERSION:?}/android-$ANDROID_API/tdlib/java/org/drinkless/tdlib" > /dev/null || exit 1
   sed -i".bak" -E '/ {4}static \{/,+7d' TdApi.java || exit 1
   sed -i".bak" "s/&#039;/'/g" TdApi.java || exit 1
   sed -i".bak" -E '/ {4}static \{/,+7d' Client.java || exit 1
