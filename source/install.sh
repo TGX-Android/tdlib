@@ -89,7 +89,8 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
   popd > /dev/null
 
   pushd ../src/main > /dev/null
-  cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API/tdlib/libs" "./libs/$ANDROID_NDK_VERSION/android-$ANDROID_API"
+  test -d "libs/$ANDROID_NDK_VERSION" || mkdir "libs/$ANDROID_NDK_VERSION"
+  cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API/tdlib/libs" "libs/$ANDROID_NDK_VERSION/android-$ANDROID_API"
   popd > /dev/null
 done
 
