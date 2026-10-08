@@ -27,7 +27,8 @@ fi
 rm -rf ../src/main/libs
 mkdir ../src/main/libs
 
-rm -rf "${SYMBOLS_INSTALL_DIR:?}/*"
+rm -rf "${SYMBOLS_INSTALL_DIR:?}/${ANDROID_NDK_VERSION_PRIMARY:?}"
+rm -rf "${SYMBOLS_INSTALL_DIR:?}/${ANDROID_NDK_VERSION_LEGACY:?}"
 mkdir -p "$SYMBOLS_INSTALL_DIR"
 
 for TGX_FLAVOR in $TGX_FLAVORS; do
