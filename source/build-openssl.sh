@@ -43,12 +43,6 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
     ABIS="armeabi-v7a x86"
   fi
 
-  if [[ ${ANDROID_NDK_VERSION%%.*} -ge 27 ]] ; then
-    ANDROID_STL="c++_shared"
-  else
-    ANDROID_STL="c++_static"
-  fi
-
   case "${TGX_FLAVOR}" in
     latest)
       ANDROID_API=24
@@ -90,6 +84,9 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
     fi
     exit 1
   fi
+
+  SOURCE_DATE_EPOCH="$(git -C "$OPENSSL_SOURCE_DIR" log -1 --format=%ct)"
+  export SOURCE_DATE_EPOCH
 
   for ABI in $ABIS ; do
     rm -f libcryptox.so libsslx.so libssl.so libsslx.so
