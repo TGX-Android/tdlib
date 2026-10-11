@@ -66,16 +66,16 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
 
   case "${TGX_FLAVOR}" in
     latest)
-      ANDROID_API=24
+      ANDROID_API_LEVEL=24
       ;;
     marshmallow)
-      ANDROID_API=23
+      ANDROID_API_LEVEL=23
       ;;
     lollipop)
-      ANDROID_API=21
+      ANDROID_API_LEVEL=21
       ;;
     legacy)
-      ANDROID_API=16
+      ANDROID_API_LEVEL=16
       ;;
     *)
       echo -e "${STYLE_ERROR}Unsupported flavor: ${TGX_FLAVOR}.${STYLE_END}"
@@ -83,7 +83,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
       ;;
   esac
 
-  echo "Start build TDLib, flavor: $TGX_FLAVOR ndk: $ANDROID_NDK_VERSION, abi: $ABIS, api: $ANDROID_API"
+  echo "Start build TDLib, flavor: $TGX_FLAVOR ndk: $ANDROID_NDK_VERSION, abi: $ABIS, api: $ANDROID_API_LEVEL"
 
   # Make sure configurations from different NDKs are not reused
   pushd "${TDLIB_SOURCE_DIR:?}" > /dev/null || exit 1
@@ -93,11 +93,11 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
   pushd "$TDLIB_SOURCE_DIR/example/android" > /dev/null || exit 1
   rm build-tdlib.sh
   cp "$TDLIB_BUILD_SCRIPT" build-tdlib.sh
-  ./build-tdlib.sh "$ANDROID_SDK_ROOT" "$ANDROID_NDK_VERSION" "$OPENSSL_INSTALL_DIR" "$ANDROID_STL" Java "$ANDROID_SDK_PACKAGE" "$ABIS" "$ANDROID_API" || exit 1
+  ./build-tdlib.sh "$ANDROID_SDK_ROOT" "$ANDROID_NDK_VERSION" "$OPENSSL_INSTALL_DIR" "$ANDROID_STL" Java "$ANDROID_API_LEVEL" "$ABIS" "$ANDROID_SDK_PACKAGE" || exit 1
   popd > /dev/null || exit 1
 
-  mkdir -p "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API"
-  mv "$TDLIB_SOURCE_DIR/example/android/tdlib" "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API/tdlib" || exit 1
+  mkdir -p "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API_LEVEL"
+  mv "$TDLIB_SOURCE_DIR/example/android/tdlib" "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API_LEVEL/tdlib" || exit 1
 
 done
 
