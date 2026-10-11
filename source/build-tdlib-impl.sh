@@ -77,14 +77,28 @@ if [ "$TDLIB_INTERFACE" == "JSONJava" ] ; then
   cp -p {..,tdlib}/java/org/drinkless/tdlib/JsonClient.java || exit 1
 fi
 
+TDLIB_SOURCE_DIR="$(pwd -P)"
+TDLIB_PREFIX_MAP="-ffile-prefix-map=$TDLIB_SOURCE_DIR/= -ffile-prefix-map=$OPENSSL_INSTALL_DIR/=openssl/ -ffile-prefix-map=$ANDROID_NDK_ROOT/=ndk/"
+
 for ABI in $ABIS ; do
   mkdir -p "tdlib/libs/$ABI/" || exit 1
 
   echo "Building TDLib for $ABI at API level $ANDROID_API_LEVEL with NDK $ANDROID_NDK_VERSION..."
 
-  mkdir -p "build-$ANDROID_API_LEVEL-$ABI-$TDLIB_INTERFACE" || exit 1
-  cd "build-$ANDROID_API_LEVEL-$ABI-$TDLIB_INTERFACE"
-  cmake -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake" -DOPENSSL_ROOT_DIR="$OPENSSL_INSTALL_DIR/$ABI" -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja -DANDROID_ABI="$ABI" -DANDROID_STL="$ANDROID_STL" -DANDROID_PLATFORM="android-$ANDROID_API_LEVEL" "$TDLIB_INTERFACE_OPTION" .. || exit 1
+  TDLIB_BUILD_DIR="build-$ANDROID_API_LEVEL-$ABI-$TDLIB_INTERFACE"
+  mkdir -p "$TDLIB_BUILD_DIR" || exit 1
+  cd "$TDLIB_BUILD_DIR"
+  cmake -S "$TDLIB_SOURCE_DIR" \
+        -B "$TDLIB_SOURCE_DIR/$TDLIB_BUILD_DIR" \
+        -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake" \
+        -DOPENSSL_ROOT_DIR="$OPENSSL_INSTALL_DIR/$ABI" \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -GNinja \
+        -DANDROID_ABI="$ABI" \
+        -DANDROID_STL="$ANDROID_STL" \
+        -DANDROID_PLATFORM="android-$ANDROID_API_LEVEL" \
+        -DCMAKE_C_FLAGS="$TDLIB_PREFIX_MAP" -DCMAKE_CXX_FLAGS="$TDLIB_PREFIX_MAP" \
+        ${TDLIB_INTERFACE_OPTION:+"$TDLIB_INTERFACE_OPTION"} || exit 1
   if [ "$TDLIB_INTERFACE" == "Java" ] || [ "$TDLIB_INTERFACE" == "JSONJava" ] ; then
     cmake --build . --target tdjni || exit 1
     cp -p libtd*.so* "../tdlib/libs/$ABI/" || exit 1
