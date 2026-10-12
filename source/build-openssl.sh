@@ -3,7 +3,7 @@ set -e
 
 OPENSSL_SOURCE_DIR=${1:-openssl}
 OPENSSL_INSTALL_DIR=${2:-build/openssl}
-TGX_FLAVORS=${3:-"latest marshmallow lollipop legacy"}
+TGX_FLAVORS=${3:-"latest nopq marshmallow lollipop legacy"}
 
 source "$(pwd)/setup.sh" || exit 1
 
@@ -45,16 +45,19 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
 
   case "${TGX_FLAVOR}" in
     latest)
-      ANDROID_API=24
+      ANDROID_API_LEVEL=30
+      ;;
+    nopq)
+      ANDROID_API_LEVEL=24
       ;;
     marshmallow)
-      ANDROID_API=23
+      ANDROID_API_LEVEL=23
       ;;
     lollipop)
-      ANDROID_API=21
+      ANDROID_API_LEVEL=21
       ;;
     legacy)
-      ANDROID_API=16
+      ANDROID_API_LEVEL=16
       ;;
     *)
       echo -e "${STYLE_ERROR}Unsupported flavor: ${TGX_FLAVOR}.${STYLE_END}"
@@ -62,7 +65,11 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
       ;;
   esac
 
-  if [ "$ANDROID_API" -ge 23 ]; then
+  if [ "$ANDROID_API_LEVEL" -ge 30 ]; then
+    EXTRA_LDFLAGS="-Wl,--pack-dyn-relocs=android+relr -Wl,--no-use-android-relr-tags";
+  elif [ "$ANDROID_API_LEVEL" -ge 28 ]; then
+    EXTRA_LDFLAGS="-Wl,--pack-dyn-relocs=android+relr -Wl,--use-android-relr-tags";
+  elif [ "$ANDROID_API_LEVEL" -ge 23 ]; then
     EXTRA_LDFLAGS="-Wl,--pack-dyn-relocs=android";
   else
     EXTRA_LDFLAGS="";
@@ -111,13 +118,13 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
         no-seed no-ts no-quic no-rc4"
 
     if [[ $ABI == "x86" ]] ; then
-      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-x86 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
+      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-x86 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API_LEVEL || exit 1
     elif [[ $ABI == "x86_64" ]] ; then
-      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-x86_64 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
+      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-x86_64 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API_LEVEL || exit 1
     elif [[ $ABI == "armeabi-v7a" ]] ; then
-      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-arm shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API -D__ARM_MAX_ARCH__=8 || exit 1
+      LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-arm shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API_LEVEL -D__ARM_MAX_ARCH__=8 || exit 1
     elif [[ $ABI == "arm64-v8a" ]] ; then
-      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-arm64 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API || exit 1
+      LDFLAGS="-Wl,-z,max-page-size=16384 $EXTRA_LDFLAGS" ./Configure android-arm64 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API_LEVEL || exit 1
     fi
 
     sed -i.bak \
