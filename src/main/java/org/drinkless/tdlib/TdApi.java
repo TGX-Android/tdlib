@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "42e6a5259551178d1dab54a22ad96d14bd906e20";
+    private static final String GIT_COMMIT_HASH = "c15d3f5a5de6e3ba5839822c451152e5e18bb700";
 
     private TdApi() {
     }
@@ -59,6 +59,7 @@ public class TdApi {
             AcceptTermsOfService.CONSTRUCTOR,
             ActivateStoryStealthMode.CONSTRUCTOR,
             AddBotMediaPreview.CONSTRUCTOR,
+            AddBotSecondaryUsername.CONSTRUCTOR,
             AddChatFolderByInviteLink.CONSTRUCTOR,
             AddChatMember.CONSTRUCTOR,
             AddChatMembers.CONSTRUCTOR,
@@ -101,6 +102,7 @@ public class TdApi {
             AnswerInlineQuery.CONSTRUCTOR,
             AnswerPreCheckoutQuery.CONSTRUCTOR,
             AnswerShippingQuery.CONSTRUCTOR,
+            AnswerTonConnectRequest.CONSTRUCTOR,
             AnswerWebAppQuery.CONSTRUCTOR,
             ApplyPremiumGiftCode.CONSTRUCTOR,
             ApproveSuggestedPost.CONSTRUCTOR,
@@ -145,7 +147,9 @@ public class TdApi {
             CheckQuickReplyShortcutName.CONSTRUCTOR,
             CheckRecoveryEmailAddressCode.CONSTRUCTOR,
             CheckStickerSetName.CONSTRUCTOR,
+            CheckWalletBotBalance.CONSTRUCTOR,
             CheckWebAppFileDownload.CONSTRUCTOR,
+            ClaimTonConnectRequest.CONSTRUCTOR,
             CleanFileName.CONSTRUCTOR,
             ClearAllDraftMessages.CONSTRUCTOR,
             ClearAutosaveSettingsExceptions.CONSTRUCTOR,
@@ -191,6 +195,7 @@ public class TdApi {
             CreateNewSecretChat.CONSTRUCTOR,
             CreateNewStickerSet.CONSTRUCTOR,
             CreateNewSupergroupChat.CONSTRUCTOR,
+            CreateOnRampPaymentSession.CONSTRUCTOR,
             CreatePrivateChat.CONSTRUCTOR,
             CreateRichMessageWithAi.CONSTRUCTOR,
             CreateSecretChat.CONSTRUCTOR,
@@ -198,6 +203,8 @@ public class TdApi {
             CreateSupergroupChat.CONSTRUCTOR,
             CreateTemporaryPassword.CONSTRUCTOR,
             CreateTextCompositionStyle.CONSTRUCTOR,
+            CreateTonConnectSession.CONSTRUCTOR,
+            CreateUserTonWallet.CONSTRUCTOR,
             CreateVideoChat.CONSTRUCTOR,
             DeclineGroupCallInvitation.CONSTRUCTOR,
             DeclineOauthRequest.CONSTRUCTOR,
@@ -209,6 +216,7 @@ public class TdApi {
             DeleteAllRecentMessageReactionsFromSender.CONSTRUCTOR,
             DeleteAllRevokedChatInviteLinks.CONSTRUCTOR,
             DeleteBotMediaPreviews.CONSTRUCTOR,
+            DeleteBotSecondaryUsername.CONSTRUCTOR,
             DeleteBusinessChatLink.CONSTRUCTOR,
             DeleteBusinessConnectedBot.CONSTRUCTOR,
             DeleteBusinessMessages.CONSTRUCTOR,
@@ -223,6 +231,7 @@ public class TdApi {
             DeleteChatReplyMarkup.CONSTRUCTOR,
             DeleteChatWelcomeMessage.CONSTRUCTOR,
             DeleteCommands.CONSTRUCTOR,
+            DeleteCommunity.CONSTRUCTOR,
             DeleteDefaultBackground.CONSTRUCTOR,
             DeleteDirectMessagesChatTopicHistory.CONSTRUCTOR,
             DeleteDirectMessagesChatTopicMessagesByDate.CONSTRUCTOR,
@@ -250,13 +259,18 @@ public class TdApi {
             DeleteStory.CONSTRUCTOR,
             DeleteStoryAlbum.CONSTRUCTOR,
             DeleteTextCompositionStyle.CONSTRUCTOR,
+            DeleteTonWallet.CONSTRUCTOR,
             Destroy.CONSTRUCTOR,
             DisableAllSupergroupUsernames.CONSTRUCTOR,
             DisableProxy.CONSTRUCTOR,
+            DisableTonWalletBackup.CONSTRUCTOR,
+            DisableTonWalletBackupWithProof.CONSTRUCTOR,
             DiscardCall.CONSTRUCTOR,
             DisconnectAffiliateProgram.CONSTRUCTOR,
             DisconnectAllWebsites.CONSTRUCTOR,
+            DisconnectTonConnectSession.CONSTRUCTOR,
             DisconnectWebsite.CONSTRUCTOR,
+            DismissWebToken.CONSTRUCTOR,
             DownloadFile.CONSTRUCTOR,
             DropGiftOriginalDetails.CONSTRUCTOR,
             EditBotMediaPreview.CONSTRUCTOR,
@@ -268,7 +282,6 @@ public class TdApi {
             EditBusinessMessageReplyMarkup.CONSTRUCTOR,
             EditBusinessMessageText.CONSTRUCTOR,
             EditBusinessStory.CONSTRUCTOR,
-            EditCallbackQueryMessage.CONSTRUCTOR,
             EditChatFolder.CONSTRUCTOR,
             EditChatFolderInviteLink.CONSTRUCTOR,
             EditChatInviteLink.CONSTRUCTOR,
@@ -298,6 +311,7 @@ public class TdApi {
             EditTextCompositionStyle.CONSTRUCTOR,
             EditUserStarSubscription.CONSTRUCTOR,
             EnableProxy.CONSTRUCTOR,
+            EnableTonWalletBackup.CONSTRUCTOR,
             EncryptGroupCallData.CONSTRUCTOR,
             EndGroupCall.CONSTRUCTOR,
             EndGroupCallRecording.CONSTRUCTOR,
@@ -308,6 +322,7 @@ public class TdApi {
             ForwardMessages.CONSTRUCTOR,
             GetAccountTtl.CONSTRUCTOR,
             GetActiveSessions.CONSTRUCTOR,
+            GetAddressTonWallet.CONSTRUCTOR,
             GetAllPassportElements.CONSTRUCTOR,
             GetAllStickerEmojis.CONSTRUCTOR,
             GetAnimatedEmoji.CONSTRUCTOR,
@@ -395,6 +410,7 @@ public class TdApi {
             GetCloseFriends.CONSTRUCTOR,
             GetCollectibleItemInfo.CONSTRUCTOR,
             GetCommands.CONSTRUCTOR,
+            GetCommunityFullInfo.CONSTRUCTOR,
             GetConnectedAffiliateProgram.CONSTRUCTOR,
             GetConnectedAffiliatePrograms.CONSTRUCTOR,
             GetConnectedWebsites.CONSTRUCTOR,
@@ -404,6 +420,7 @@ public class TdApi {
             GetCountryCode.CONSTRUCTOR,
             GetCountryFlagEmoji.CONSTRUCTOR,
             GetCreatedPublicChats.CONSTRUCTOR,
+            GetCurrencyExchangeRates.CONSTRUCTOR,
             GetCurrentState.CONSTRUCTOR,
             GetCurrentWeather.CONSTRUCTOR,
             GetCustomEmojiReactionAnimations.CONSTRUCTOR,
@@ -512,6 +529,11 @@ public class TdApi {
             GetNetworkStatistics.CONSTRUCTOR,
             GetNewChatPrivacySettings.CONSTRUCTOR,
             GetOauthLinkInfo.CONSTRUCTOR,
+            GetOnRampPaymentAvailability.CONSTRUCTOR,
+            GetOnRampPaymentLimits.CONSTRUCTOR,
+            GetOnRampPaymentQuote.CONSTRUCTOR,
+            GetOnRampProviderBaseCurrencies.CONSTRUCTOR,
+            GetOnRampProviders.CONSTRUCTOR,
             GetOption.CONSTRUCTOR,
             GetOwnedBots.CONSTRUCTOR,
             GetOwnedStickerSets.CONSTRUCTOR,
@@ -608,7 +630,18 @@ public class TdApi {
             GetThemedChatEmojiStatuses.CONSTRUCTOR,
             GetThemedEmojiStatuses.CONSTRUCTOR,
             GetTimeZones.CONSTRUCTOR,
+            GetTonCenterStreamingApiUrl.CONSTRUCTOR,
+            GetTonConnectDAppPendingRequests.CONSTRUCTOR,
+            GetTonConnectSessionNextEventId.CONSTRUCTOR,
+            GetTonConnectSessionPendingRequests.CONSTRUCTOR,
+            GetTonConnectSessions.CONSTRUCTOR,
             GetTonTransactions.CONSTRUCTOR,
+            GetTonWalletNfts.CONSTRUCTOR,
+            GetTonWalletOwnershipProofChallenge.CONSTRUCTOR,
+            GetTonWalletSecretPhrase.CONSTRUCTOR,
+            GetTonWalletTransaction.CONSTRUCTOR,
+            GetTonWalletTransactionByMsgHash.CONSTRUCTOR,
+            GetTonWalletTransactions.CONSTRUCTOR,
             GetTopChats.CONSTRUCTOR,
             GetTrendingStickerSets.CONSTRUCTOR,
             GetUpgradedGift.CONSTRUCTOR,
@@ -625,6 +658,7 @@ public class TdApi {
             GetUserProfileAudios.CONSTRUCTOR,
             GetUserProfilePhotos.CONSTRUCTOR,
             GetUserSupportInfo.CONSTRUCTOR,
+            GetUserTonWalletAddresses.CONSTRUCTOR,
             GetVideoChatAvailableParticipants.CONSTRUCTOR,
             GetVideoChatInviteLink.CONSTRUCTOR,
             GetVideoChatRtmpUrl.CONSTRUCTOR,
@@ -655,12 +689,13 @@ public class TdApi {
             LoadActiveStories.CONSTRUCTOR,
             LoadChatWelcomeMessages.CONSTRUCTOR,
             LoadChats.CONSTRUCTOR,
-            LoadCommunityFullInfo.CONSTRUCTOR,
             LoadDirectMessagesChatTopics.CONSTRUCTOR,
             LoadGroupCallParticipants.CONSTRUCTOR,
             LoadQuickReplyShortcutMessages.CONSTRUCTOR,
             LoadQuickReplyShortcuts.CONSTRUCTOR,
             LoadSavedMessagesTopics.CONSTRUCTOR,
+            LoadTonWalletGaslessTransfersInfo.CONSTRUCTOR,
+            LoadTonWalletState.CONSTRUCTOR,
             LogOut.CONSTRUCTOR,
             MarkChecklistTasksAsDone.CONSTRUCTOR,
             OpenBotSimilarBot.CONSTRUCTOR,
@@ -746,7 +781,9 @@ public class TdApi {
             ReplaceLiveStoryRtmpUrl.CONSTRUCTOR,
             ReplacePrimaryChatInviteLink.CONSTRUCTOR,
             ReplaceStickerInSet.CONSTRUCTOR,
+            ReplaceTonWallet.CONSTRUCTOR,
             ReplaceVideoChatRtmpUrl.CONSTRUCTOR,
+            ReplyToCallbackQueryWithEphemeralMessage.CONSTRUCTOR,
             ReportAuthenticationCodeMissing.CONSTRUCTOR,
             ReportChat.CONSTRUCTOR,
             ReportChatPhoto.CONSTRUCTOR,
@@ -842,6 +879,9 @@ public class TdApi {
             SendResoldGift.CONSTRUCTOR,
             SendRichMessageDraft.CONSTRUCTOR,
             SendTextMessageDraft.CONSTRUCTOR,
+            SendTonCenterApiRequest.CONSTRUCTOR,
+            SendTonConnectSessionConnectResult.CONSTRUCTOR,
+            SendTonWalletTransfer.CONSTRUCTOR,
             SendWebAppCustomRequest.CONSTRUCTOR,
             SendWebAppData.CONSTRUCTOR,
             SetAccentColor.CONSTRUCTOR,
@@ -901,6 +941,8 @@ public class TdApi {
             SetCloseFriends.CONSTRUCTOR,
             SetCommands.CONSTRUCTOR,
             SetCommunityName.CONSTRUCTOR,
+            SetCommunityPermissions.CONSTRUCTOR,
+            SetCommunityPhoto.CONSTRUCTOR,
             SetCustomEmojiStickerSetThumbnail.CONSTRUCTOR,
             SetCustomLanguagePack.CONSTRUCTOR,
             SetCustomLanguagePackString.CONSTRUCTOR,
@@ -973,6 +1015,7 @@ public class TdApi {
             SetSupergroupUnrestrictBoostCount.CONSTRUCTOR,
             SetSupergroupUsername.CONSTRUCTOR,
             SetTdlibParameters.CONSTRUCTOR,
+            SetTonConnectSessionWalletClientId.CONSTRUCTOR,
             SetUpgradedGiftColors.CONSTRUCTOR,
             SetUserEmojiStatus.CONSTRUCTOR,
             SetUserNote.CONSTRUCTOR,
@@ -2334,6 +2377,10 @@ public class TdApi {
          * File containing the sound to be played when the sticker is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
          */
         @Nullable public File sound;
+        /**
+         * True, if the emoji is a regular emoji.
+         */
+        public boolean isRegularEmoji;
 
         /**
          * Describes an animated or custom representation of an emoji.
@@ -2349,19 +2396,21 @@ public class TdApi {
          * @param stickerHeight Expected height of the sticker, which can be used if the sticker is null.
          * @param fitzpatrickType Emoji modifier fitzpatrick type; 0-6; 0 if none.
          * @param sound File containing the sound to be played when the sticker is clicked; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container.
+         * @param isRegularEmoji True, if the emoji is a regular emoji.
          */
-        public AnimatedEmoji(Sticker sticker, int stickerWidth, int stickerHeight, int fitzpatrickType, File sound) {
+        public AnimatedEmoji(Sticker sticker, int stickerWidth, int stickerHeight, int fitzpatrickType, File sound, boolean isRegularEmoji) {
             this.sticker = sticker;
             this.stickerWidth = stickerWidth;
             this.stickerHeight = stickerHeight;
             this.fitzpatrickType = fitzpatrickType;
             this.sound = sound;
+            this.isRegularEmoji = isRegularEmoji;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1378918079;
+        public static final int CONSTRUCTOR = 664777067;
 
         /**
          * @return this.CONSTRUCTOR
@@ -6417,7 +6466,7 @@ public class TdApi {
          */
         public long iconCustomEmojiId;
         /**
-         * Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, Url, and EmailAddress entities.
+         * Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, TonAddress, Url, and EmailAddress entities.
          */
         public FormattedText customDescription;
 
@@ -6432,7 +6481,7 @@ public class TdApi {
          *
          * @param botUserId Identifier of the bot that provided the verification.
          * @param iconCustomEmojiId Identifier of the custom emoji that is used as the verification sign.
-         * @param customDescription Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, Url, and EmailAddress entities.
+         * @param customDescription Custom description of verification reason set by the bot. Can contain only Mention, Hashtag, Cashtag, PhoneNumber, BankCardNumber, TonAddress, Url, and EmailAddress entities.
          */
         public BotVerification(long botUserId, long iconCustomEmojiId, FormattedText customDescription) {
             this.botUserId = botUserId;
@@ -18122,7 +18171,7 @@ public class TdApi {
          */
         public ChatRevenueAmount revenueAmount;
         /**
-         * Current conversion rate of the cryptocurrency in which revenue is calculated to USD.
+         * Current exchange rate of the cryptocurrency in which revenue is calculated to USD.
          */
         public double usdRate;
 
@@ -18138,7 +18187,7 @@ public class TdApi {
          * @param revenueByHourGraph A graph containing amount of revenue in a given hour.
          * @param revenueGraph A graph containing amount of revenue.
          * @param revenueAmount Amount of earned revenue.
-         * @param usdRate Current conversion rate of the cryptocurrency in which revenue is calculated to USD.
+         * @param usdRate Current exchange rate of the cryptocurrency in which revenue is calculated to USD.
          */
         public ChatRevenueStatistics(StatisticalGraph revenueByHourGraph, StatisticalGraph revenueGraph, ChatRevenueAmount revenueAmount, double usdRate) {
             this.revenueByHourGraph = revenueByHourGraph;
@@ -21519,6 +21568,126 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -20417068;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of currencies.
+     */
+    public static class Currencies extends Object {
+        /**
+         * A list of ISO 4217 currency codes.
+         */
+        public String[] currencies;
+
+        /**
+         * Represents a list of currencies.
+         */
+        public Currencies() {
+        }
+
+        /**
+         * Represents a list of currencies.
+         *
+         * @param currencies A list of ISO 4217 currency codes.
+         */
+        public Currencies(String[] currencies) {
+            this.currencies = currencies;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1505110915;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes exchange rate of a currency to USD.
+     */
+    public static class CurrencyExchangeRate extends Object {
+        /**
+         * ISO 4217 currency code of the payment currency.
+         */
+        public String currency;
+        /**
+         * Exchange rate of the currency to USD.
+         */
+        public double rate;
+
+        /**
+         * Describes exchange rate of a currency to USD.
+         */
+        public CurrencyExchangeRate() {
+        }
+
+        /**
+         * Describes exchange rate of a currency to USD.
+         *
+         * @param currency ISO 4217 currency code of the payment currency.
+         * @param rate Exchange rate of the currency to USD.
+         */
+        public CurrencyExchangeRate(String currency, double rate) {
+            this.currency = currency;
+            this.rate = rate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1584927178;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of currency exchange rates.
+     */
+    public static class CurrencyExchangeRates extends Object {
+        /**
+         * A list of currency exchange rates.
+         */
+        public CurrencyExchangeRate[] rates;
+
+        /**
+         * Represents a list of currency exchange rates.
+         */
+        public CurrencyExchangeRates() {
+        }
+
+        /**
+         * Represents a list of currency exchange rates.
+         *
+         * @param rates A list of currency exchange rates.
+         */
+        public CurrencyExchangeRates(CurrencyExchangeRate[] rates) {
+            this.rates = rates;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -443719949;
 
         /**
          * @return this.CONSTRUCTOR
@@ -29235,7 +29404,7 @@ public class TdApi {
          */
         public GramRevenueStatus status;
         /**
-         * Current conversion rate of nanogram to USD cents.
+         * Current exchange rate of nanogram to USD cents.
          */
         public double usdRate;
 
@@ -29250,7 +29419,7 @@ public class TdApi {
          *
          * @param revenueByDayGraph A graph containing amount of revenue in a given day.
          * @param status Amount of earned revenue.
-         * @param usdRate Current conversion rate of nanogram to USD cents.
+         * @param usdRate Current exchange rate of nanogram to USD cents.
          */
         public GramRevenueStatistics(StatisticalGraph revenueByDayGraph, GramRevenueStatus status, double usdRate) {
             this.revenueByDayGraph = revenueByDayGraph;
@@ -40372,6 +40541,8 @@ public class TdApi {
             InternalLinkTypeStoryAlbum.CONSTRUCTOR,
             InternalLinkTypeTextCompositionStyle.CONSTRUCTOR,
             InternalLinkTypeTheme.CONSTRUCTOR,
+            InternalLinkTypeTonConnect.CONSTRUCTOR,
+            InternalLinkTypeTonWalletTransfer.CONSTRUCTOR,
             InternalLinkTypeUnknownDeepLink.CONSTRUCTOR,
             InternalLinkTypeUpgradedGift.CONSTRUCTOR,
             InternalLinkTypeUserPhoneNumber.CONSTRUCTOR,
@@ -41984,7 +42155,7 @@ public class TdApi {
          */
         public String managerBotUsername;
         /**
-         * Suggested username for the bot; always ends with &quot;bot&quot; case-insensitive.
+         * Suggested username for the bot; always ends with &quot;bot&quot; or a string from updateAllowedBotUsernamePremiumSuffixes case-insensitive.
          */
         public String suggestedBotUsername;
         /**
@@ -42002,7 +42173,7 @@ public class TdApi {
          * The link is a link to a dialog for creating of a managed bot. Call searchPublicChat with the given manager bot username. If the chat is found, the chat is a chat with a bot and the bot has canManageBots == true, then show bot creation confirmation dialog with the given suggestedBotUsername and suggestedBotName. If user agrees, call createBot with viaLink == true to create the bot.
          *
          * @param managerBotUsername Username of the bot which will manage the new bot.
-         * @param suggestedBotUsername Suggested username for the bot; always ends with &quot;bot&quot; case-insensitive.
+         * @param suggestedBotUsername Suggested username for the bot; always ends with &quot;bot&quot; or a string from updateAllowedBotUsernamePremiumSuffixes case-insensitive.
          * @param suggestedBotName Suggested name for the bot; may be empty if not specified.
          */
         public InternalLinkTypeRequestManagedBot(String managerBotUsername, String suggestedBotUsername, String suggestedBotName) {
@@ -42380,6 +42551,118 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -200935417;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a universal TON Connect link.
+     */
+    public static class InternalLinkTypeTonConnect extends InternalLinkType {
+        /**
+         * TON Connect version.
+         */
+        public int version;
+        /**
+         * Hex-encoded public X25519 key of the dApp.
+         */
+        public String dappClientId;
+        /**
+         * TON Connect connect request.
+         */
+        public TonConnectConnectRequest connectRequest;
+        /**
+         * Request return strategy; one of &quot;back&quot;, &quot;none&quot;, or a URL to open.
+         */
+        public String returnStrategy;
+        /**
+         * Embedded RPC request represented as base64url-encoded JSON.
+         */
+        public String rpcRequest;
+        /**
+         * Identifier to trace the connection request.
+         */
+        public String traceId;
+
+        /**
+         * The link is a universal TON Connect link.
+         */
+        public InternalLinkTypeTonConnect() {
+        }
+
+        /**
+         * The link is a universal TON Connect link.
+         *
+         * @param version TON Connect version.
+         * @param dappClientId Hex-encoded public X25519 key of the dApp.
+         * @param connectRequest TON Connect connect request.
+         * @param returnStrategy Request return strategy; one of &quot;back&quot;, &quot;none&quot;, or a URL to open.
+         * @param rpcRequest Embedded RPC request represented as base64url-encoded JSON.
+         * @param traceId Identifier to trace the connection request.
+         */
+        public InternalLinkTypeTonConnect(int version, String dappClientId, TonConnectConnectRequest connectRequest, String returnStrategy, String rpcRequest, String traceId) {
+            this.version = version;
+            this.dappClientId = dappClientId;
+            this.connectRequest = connectRequest;
+            this.returnStrategy = returnStrategy;
+            this.rpcRequest = rpcRequest;
+            this.traceId = traceId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -637887696;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The link is a link for sending Grams from the user's TON wallet.
+     */
+    public static class InternalLinkTypeTonWalletTransfer extends InternalLinkType {
+        /**
+         * Chosen receiver of the transfer; may be null if none.
+         */
+        @Nullable public TonWalletTransferReceiver receiver;
+        /**
+         * The pre-filled amount of TON Grams to send; in the smallest units of the cryptocurrency.
+         */
+        public long gramAmount;
+
+        /**
+         * The link is a link for sending Grams from the user's TON wallet.
+         */
+        public InternalLinkTypeTonWalletTransfer() {
+        }
+
+        /**
+         * The link is a link for sending Grams from the user's TON wallet.
+         *
+         * @param receiver Chosen receiver of the transfer; may be null if none.
+         * @param gramAmount The pre-filled amount of TON Grams to send; in the smallest units of the cryptocurrency.
+         */
+        public InternalLinkTypeTonWalletTransfer(TonWalletTransferReceiver receiver, long gramAmount) {
+            this.receiver = receiver;
+            this.gramAmount = gramAmount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1697768710;
 
         /**
          * @return this.CONSTRUCTOR
@@ -47717,6 +48000,8 @@ public class TdApi {
             MessageGiftedStars.CONSTRUCTOR,
             MessageGiftedGrams.CONSTRUCTOR,
             MessageGiveawayPrizeStars.CONSTRUCTOR,
+            MessageTonWalletTransfer.CONSTRUCTOR,
+            MessageTonConnectRequest.CONSTRUCTOR,
             MessageGift.CONSTRUCTOR,
             MessageUpgradedGift.CONSTRUCTOR,
             MessageRefundedUpgradedGift.CONSTRUCTOR,
@@ -51606,6 +51891,136 @@ public class TdApi {
     }
 
     /**
+     * Represents a transfer with the TON wallet of the current user.
+     */
+    public static class MessageTonWalletTransfer extends MessageContent {
+        /**
+         * Sender of the transfer; 0 if unknown.
+         */
+        public long senderUserId;
+        /**
+         * Unique identifier of the transaction; may be empty if the transfer isn't send yet. Use getTonWalletTransaction to get additional information about the transaction.
+         */
+        public String transactionId;
+        /**
+         * Address in the TON blockchain of the transaction peer.
+         */
+        public String peerAddress;
+        /**
+         * The amount of received cryptocurrency, in the smallest units of the cryptocurrency; negative for outgoing transactions.
+         */
+        public long amount;
+        /**
+         * Comment added to the transaction.
+         */
+        public String comment;
+        /**
+         * True, if the comment is encrypted and must be decrypted using the receiver's or sender's private key.
+         */
+        public boolean isCommentEncrypted;
+
+        /**
+         * Represents a transfer with the TON wallet of the current user.
+         */
+        public MessageTonWalletTransfer() {
+        }
+
+        /**
+         * Represents a transfer with the TON wallet of the current user.
+         *
+         * @param senderUserId Sender of the transfer; 0 if unknown.
+         * @param transactionId Unique identifier of the transaction; may be empty if the transfer isn't send yet. Use getTonWalletTransaction to get additional information about the transaction.
+         * @param peerAddress Address in the TON blockchain of the transaction peer.
+         * @param amount The amount of received cryptocurrency, in the smallest units of the cryptocurrency; negative for outgoing transactions.
+         * @param comment Comment added to the transaction.
+         * @param isCommentEncrypted True, if the comment is encrypted and must be decrypted using the receiver's or sender's private key.
+         */
+        public MessageTonWalletTransfer(long senderUserId, String transactionId, String peerAddress, long amount, String comment, boolean isCommentEncrypted) {
+            this.senderUserId = senderUserId;
+            this.transactionId = transactionId;
+            this.peerAddress = peerAddress;
+            this.amount = amount;
+            this.comment = comment;
+            this.isCommentEncrypted = isCommentEncrypted;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1872034960;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A request from a dApp was received through TON Connect.
+     */
+    public static class MessageTonConnectRequest extends MessageContent {
+        /**
+         * Unique identifier of the TON Connect session.
+         */
+        public long sessionId;
+        /**
+         * State of the request.
+         */
+        public TonConnectRequestState state;
+        /**
+         * Name of the dApp; may be empty if unknown.
+         */
+        public String dappName;
+        /**
+         * Topic of the request; may be empty if none.
+         */
+        public String topic;
+        /**
+         * Identifier to trace the request; may be empty if none.
+         */
+        public String traceId;
+
+        /**
+         * A request from a dApp was received through TON Connect.
+         */
+        public MessageTonConnectRequest() {
+        }
+
+        /**
+         * A request from a dApp was received through TON Connect.
+         *
+         * @param sessionId Unique identifier of the TON Connect session.
+         * @param state State of the request.
+         * @param dappName Name of the dApp; may be empty if unknown.
+         * @param topic Topic of the request; may be empty if none.
+         * @param traceId Identifier to trace the request; may be empty if none.
+         */
+        public MessageTonConnectRequest(long sessionId, TonConnectRequestState state, String dappName, String topic, String traceId) {
+            this.sessionId = sessionId;
+            this.state = state;
+            this.dappName = dappName;
+            this.topic = topic;
+            this.traceId = traceId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 405695624;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * A regular gift was received or sent by the current user, or the current user was notified about a channel gift.
      */
     public static class MessageGift extends MessageContent {
@@ -53970,6 +54385,10 @@ public class TdApi {
          */
         public boolean canSetFactCheck;
         /**
+         * Identifiers of custom emoji used in the message.
+         */
+        public long[] customEmojiIds;
+        /**
          * True, if content of the message can't be saved locally, because it is protected by the current user; if true, then canBeSaved is false.
          */
         public boolean hasProtectedContentByCurrentUser;
@@ -54027,11 +54446,12 @@ public class TdApi {
          * @param canReportReactions True, if reactions on the message can be reported through reportMessageReactions.
          * @param canReportSupergroupSpam True, if the message can be reported using reportSupergroupSpam.
          * @param canSetFactCheck True, if fact check for the message can be changed through setMessageFactCheck.
+         * @param customEmojiIds Identifiers of custom emoji used in the message.
          * @param hasProtectedContentByCurrentUser True, if content of the message can't be saved locally, because it is protected by the current user; if true, then canBeSaved is false.
          * @param hasProtectedContentByOtherUser True, if content of the message can't be saved locally, because it is protected by the other user; if true, then canBeSaved is false.
          * @param needShowStatistics True, if message statistics must be available from context menu of the message.
          */
-        public MessageProperties(boolean canAddOffer, boolean canAddTasks, boolean canBeApproved, boolean canBeCopied, boolean canBeCopiedToSecretChat, boolean canBeDeclined, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeEdited, boolean canBeForwarded, boolean canBePaid, boolean canBePinned, boolean canBeReplied, boolean canBeRepliedInAnotherChat, boolean canBeSaved, boolean canBeSharedInStory, boolean canDeleteReactions, boolean canEditMedia, boolean canEditSchedulingState, boolean canEditSuggestedPostInfo, boolean canGetAuthor, boolean canGetEmbeddingCode, boolean canGetLink, boolean canGetMediaTimestampLinks, boolean canGetMessageThread, boolean canGetPollVoteStatistics, boolean canGetReadDate, boolean canGetStatistics, boolean canGetVideoAdvertisements, boolean canGetViewers, boolean canMarkTasksAsDone, boolean canRecognizeSpeech, boolean canReportChat, boolean canReportReactions, boolean canReportSupergroupSpam, boolean canSetFactCheck, boolean hasProtectedContentByCurrentUser, boolean hasProtectedContentByOtherUser, boolean needShowStatistics) {
+        public MessageProperties(boolean canAddOffer, boolean canAddTasks, boolean canBeApproved, boolean canBeCopied, boolean canBeCopiedToSecretChat, boolean canBeDeclined, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeEdited, boolean canBeForwarded, boolean canBePaid, boolean canBePinned, boolean canBeReplied, boolean canBeRepliedInAnotherChat, boolean canBeSaved, boolean canBeSharedInStory, boolean canDeleteReactions, boolean canEditMedia, boolean canEditSchedulingState, boolean canEditSuggestedPostInfo, boolean canGetAuthor, boolean canGetEmbeddingCode, boolean canGetLink, boolean canGetMediaTimestampLinks, boolean canGetMessageThread, boolean canGetPollVoteStatistics, boolean canGetReadDate, boolean canGetStatistics, boolean canGetVideoAdvertisements, boolean canGetViewers, boolean canMarkTasksAsDone, boolean canRecognizeSpeech, boolean canReportChat, boolean canReportReactions, boolean canReportSupergroupSpam, boolean canSetFactCheck, long[] customEmojiIds, boolean hasProtectedContentByCurrentUser, boolean hasProtectedContentByOtherUser, boolean needShowStatistics) {
             this.canAddOffer = canAddOffer;
             this.canAddTasks = canAddTasks;
             this.canBeApproved = canBeApproved;
@@ -54068,6 +54488,7 @@ public class TdApi {
             this.canReportReactions = canReportReactions;
             this.canReportSupergroupSpam = canReportSupergroupSpam;
             this.canSetFactCheck = canSetFactCheck;
+            this.customEmojiIds = customEmojiIds;
             this.hasProtectedContentByCurrentUser = hasProtectedContentByCurrentUser;
             this.hasProtectedContentByOtherUser = hasProtectedContentByOtherUser;
             this.needShowStatistics = needShowStatistics;
@@ -54076,7 +54497,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -688751636;
+        public static final int CONSTRUCTOR = 595813664;
 
         /**
          * @return this.CONSTRUCTOR
@@ -57217,6 +57638,416 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -722616727;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes availability of cryptocurrency purchase through an on-ramp provider.
+     */
+    public static class OnRampPaymentAvailability extends Object {
+        /**
+         * True, if the current user can use the provider.
+         */
+        public boolean isAllowed;
+        /**
+         * True, if the current user can purchase through the provider.
+         */
+        public boolean isPurchaseAllowed;
+        /**
+         * The list of available payment methods.
+         */
+        public OnRampPaymentMethod[] methods;
+        /**
+         * A two-letter ISO 3166-1 alpha-2 country code of the current user's country.
+         */
+        public String countryCode;
+        /**
+         * Code of the state of the current user; may be empty if unknown.
+         */
+        public String state;
+
+        /**
+         * Describes availability of cryptocurrency purchase through an on-ramp provider.
+         */
+        public OnRampPaymentAvailability() {
+        }
+
+        /**
+         * Describes availability of cryptocurrency purchase through an on-ramp provider.
+         *
+         * @param isAllowed True, if the current user can use the provider.
+         * @param isPurchaseAllowed True, if the current user can purchase through the provider.
+         * @param methods The list of available payment methods.
+         * @param countryCode A two-letter ISO 3166-1 alpha-2 country code of the current user's country.
+         * @param state Code of the state of the current user; may be empty if unknown.
+         */
+        public OnRampPaymentAvailability(boolean isAllowed, boolean isPurchaseAllowed, OnRampPaymentMethod[] methods, String countryCode, String state) {
+            this.isAllowed = isAllowed;
+            this.isPurchaseAllowed = isPurchaseAllowed;
+            this.methods = methods;
+            this.countryCode = countryCode;
+            this.state = state;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1511244690;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes limits for an on-ramp purchase.
+     */
+    public static class OnRampPaymentLimits extends Object {
+        /**
+         * The payment method to be used.
+         */
+        public String paymentMethod;
+        /**
+         * The minimum allowed amount of the base currency.
+         */
+        public String baseCurrencyMinAmount;
+        /**
+         * The maximum allowed amount of the base currency.
+         */
+        public String baseCurrencyMaxAmount;
+        /**
+         * The minimum allowed amount of the bought cryptocurrency.
+         */
+        public String cryptocurrencyMinAmount;
+        /**
+         * The maximum allowed amount of the bought cryptocurrency.
+         */
+        public String cryptocurrencyMaxAmount;
+
+        /**
+         * Describes limits for an on-ramp purchase.
+         */
+        public OnRampPaymentLimits() {
+        }
+
+        /**
+         * Describes limits for an on-ramp purchase.
+         *
+         * @param paymentMethod The payment method to be used.
+         * @param baseCurrencyMinAmount The minimum allowed amount of the base currency.
+         * @param baseCurrencyMaxAmount The maximum allowed amount of the base currency.
+         * @param cryptocurrencyMinAmount The minimum allowed amount of the bought cryptocurrency.
+         * @param cryptocurrencyMaxAmount The maximum allowed amount of the bought cryptocurrency.
+         */
+        public OnRampPaymentLimits(String paymentMethod, String baseCurrencyMinAmount, String baseCurrencyMaxAmount, String cryptocurrencyMinAmount, String cryptocurrencyMaxAmount) {
+            this.paymentMethod = paymentMethod;
+            this.baseCurrencyMinAmount = baseCurrencyMinAmount;
+            this.baseCurrencyMaxAmount = baseCurrencyMaxAmount;
+            this.cryptocurrencyMinAmount = cryptocurrencyMinAmount;
+            this.cryptocurrencyMaxAmount = cryptocurrencyMaxAmount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1052282492;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a payment method of an on-ramp provider.
+     */
+    public static class OnRampPaymentMethod extends Object {
+        /**
+         * Name of the method.
+         */
+        public String name;
+        /**
+         * True, if the method is available to the user.
+         */
+        public boolean isAvailable;
+
+        /**
+         * Describes a payment method of an on-ramp provider.
+         */
+        public OnRampPaymentMethod() {
+        }
+
+        /**
+         * Describes a payment method of an on-ramp provider.
+         *
+         * @param name Name of the method.
+         * @param isAvailable True, if the method is available to the user.
+         */
+        public OnRampPaymentMethod(String name, boolean isAvailable) {
+            this.name = name;
+            this.isAvailable = isAvailable;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 929694083;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a quote for an on-ramp purchase.
+     */
+    public static class OnRampPaymentQuote extends Object {
+        /**
+         * The payment method to be used.
+         */
+        public String paymentMethod;
+        /**
+         * Point in time (Unix timestamp) when the quote will expire.
+         */
+        public int expirationDate;
+        /**
+         * Paid amount of the base currency.
+         */
+        public String baseCurrencyAmount;
+        /**
+         * Purchased amount of the cryptocurrency.
+         */
+        public String cryptocurrencyAmount;
+        /**
+         * The price of the cryptocurrency.
+         */
+        public String cryptocurrencyPrice;
+        /**
+         * Fee amount.
+         */
+        public String feeAmount;
+        /**
+         * Extra fee amount.
+         */
+        public String extraFeeAmount;
+        /**
+         * Network fee amount.
+         */
+        public String networkFeeAmount;
+        /**
+         * Total paid amount.
+         */
+        public String totalAmount;
+
+        /**
+         * Describes a quote for an on-ramp purchase.
+         */
+        public OnRampPaymentQuote() {
+        }
+
+        /**
+         * Describes a quote for an on-ramp purchase.
+         *
+         * @param paymentMethod The payment method to be used.
+         * @param expirationDate Point in time (Unix timestamp) when the quote will expire.
+         * @param baseCurrencyAmount Paid amount of the base currency.
+         * @param cryptocurrencyAmount Purchased amount of the cryptocurrency.
+         * @param cryptocurrencyPrice The price of the cryptocurrency.
+         * @param feeAmount Fee amount.
+         * @param extraFeeAmount Extra fee amount.
+         * @param networkFeeAmount Network fee amount.
+         * @param totalAmount Total paid amount.
+         */
+        public OnRampPaymentQuote(String paymentMethod, int expirationDate, String baseCurrencyAmount, String cryptocurrencyAmount, String cryptocurrencyPrice, String feeAmount, String extraFeeAmount, String networkFeeAmount, String totalAmount) {
+            this.paymentMethod = paymentMethod;
+            this.expirationDate = expirationDate;
+            this.baseCurrencyAmount = baseCurrencyAmount;
+            this.cryptocurrencyAmount = cryptocurrencyAmount;
+            this.cryptocurrencyPrice = cryptocurrencyPrice;
+            this.feeAmount = feeAmount;
+            this.extraFeeAmount = extraFeeAmount;
+            this.networkFeeAmount = networkFeeAmount;
+            this.totalAmount = totalAmount;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 583798655;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a session for an on-ramp purchase.
+     */
+    public static class OnRampPaymentSession extends Object {
+        /**
+         * Identifier of the session.
+         */
+        public String sessionId;
+        /**
+         * Point in time (Unix timestamp) when the session will expire.
+         */
+        public int expirationDate;
+        /**
+         * HTTPS URL to be opened in a WebView to complete the purchase.
+         */
+        public String url;
+
+        /**
+         * Describes a session for an on-ramp purchase.
+         */
+        public OnRampPaymentSession() {
+        }
+
+        /**
+         * Describes a session for an on-ramp purchase.
+         *
+         * @param sessionId Identifier of the session.
+         * @param expirationDate Point in time (Unix timestamp) when the session will expire.
+         * @param url HTTPS URL to be opened in a WebView to complete the purchase.
+         */
+        public OnRampPaymentSession(String sessionId, int expirationDate, String url) {
+            this.sessionId = sessionId;
+            this.expirationDate = expirationDate;
+            this.url = url;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1419623629;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes an on-ramp provider.
+     */
+    public static class OnRampProvider extends Object {
+        /**
+         * Unique identifier of the provider.
+         */
+        public String id;
+        /**
+         * Name of the provider.
+         */
+        public String name;
+        /**
+         * List of cryptocurrencies supported by the provider.
+         */
+        public String[] cryptocurrencies;
+        /**
+         * True, if the provider supports base currencies and can be used in the method getOnRampProviderBaseCurrencies.
+         */
+        public boolean supportsBaseCurrencies;
+        /**
+         * True, if the provider supports limits retrieval using the method getOnRampPaymentLimits.
+         */
+        public boolean supportsLimits;
+        /**
+         * True, if the provider supports quote retrieval using the method getOnRampPaymentQuote.
+         */
+        public boolean supportsQuote;
+
+        /**
+         * Describes an on-ramp provider.
+         */
+        public OnRampProvider() {
+        }
+
+        /**
+         * Describes an on-ramp provider.
+         *
+         * @param id Unique identifier of the provider.
+         * @param name Name of the provider.
+         * @param cryptocurrencies List of cryptocurrencies supported by the provider.
+         * @param supportsBaseCurrencies True, if the provider supports base currencies and can be used in the method getOnRampProviderBaseCurrencies.
+         * @param supportsLimits True, if the provider supports limits retrieval using the method getOnRampPaymentLimits.
+         * @param supportsQuote True, if the provider supports quote retrieval using the method getOnRampPaymentQuote.
+         */
+        public OnRampProvider(String id, String name, String[] cryptocurrencies, boolean supportsBaseCurrencies, boolean supportsLimits, boolean supportsQuote) {
+            this.id = id;
+            this.name = name;
+            this.cryptocurrencies = cryptocurrencies;
+            this.supportsBaseCurrencies = supportsBaseCurrencies;
+            this.supportsLimits = supportsLimits;
+            this.supportsQuote = supportsQuote;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -425745766;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of on-ramp providers.
+     */
+    public static class OnRampProviders extends Object {
+        /**
+         * A list of providers.
+         */
+        public OnRampProvider[] providers;
+
+        /**
+         * Represents a list of on-ramp providers.
+         */
+        public OnRampProviders() {
+        }
+
+        /**
+         * Represents a list of on-ramp providers.
+         *
+         * @param providers A list of providers.
+         */
+        public OnRampProviders(OnRampProvider[] providers) {
+            this.providers = providers;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -258041669;
 
         /**
          * @return this.CONSTRUCTOR
@@ -67642,6 +68473,8 @@ public class TdApi {
             PushMessageContentPoll.CONSTRUCTOR,
             PushMessageContentPremiumGiftCode.CONSTRUCTOR,
             PushMessageContentGiveaway.CONSTRUCTOR,
+            PushMessageContentTonWalletTransfer.CONSTRUCTOR,
+            PushMessageContentTonConnectRequest.CONSTRUCTOR,
             PushMessageContentGift.CONSTRUCTOR,
             PushMessageContentUpgradedGift.CONSTRUCTOR,
             PushMessageContentScreenshotTaken.CONSTRUCTOR,
@@ -68357,6 +69190,94 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -700547186;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A message with a TON wallet transfer.
+     */
+    public static class PushMessageContentTonWalletTransfer extends PushMessageContent {
+        /**
+         * Sender of the transfer; 0 if unknown.
+         */
+        public long senderUserId;
+        /**
+         * String representation of the received amount.
+         */
+        public String amount;
+        /**
+         * Comment added to the transaction if it is public.
+         */
+        public String comment;
+
+        /**
+         * A message with a TON wallet transfer.
+         */
+        public PushMessageContentTonWalletTransfer() {
+        }
+
+        /**
+         * A message with a TON wallet transfer.
+         *
+         * @param senderUserId Sender of the transfer; 0 if unknown.
+         * @param amount String representation of the received amount.
+         * @param comment Comment added to the transaction if it is public.
+         */
+        public PushMessageContentTonWalletTransfer(long senderUserId, String amount, String comment) {
+            this.senderUserId = senderUserId;
+            this.amount = amount;
+            this.comment = comment;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1170923657;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A message with a request from a dApp was received through TON Connect.
+     */
+    public static class PushMessageContentTonConnectRequest extends PushMessageContent {
+        /**
+         * Name of the dApp; may be empty if unknown.
+         */
+        public String dappName;
+
+        /**
+         * A message with a request from a dApp was received through TON Connect.
+         */
+        public PushMessageContentTonConnectRequest() {
+        }
+
+        /**
+         * A message with a request from a dApp was received through TON Connect.
+         *
+         * @param dappName Name of the dApp; may be empty if unknown.
+         */
+        public PushMessageContentTonConnectRequest(String dappName) {
+            this.dappName = dappName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1277626552;
 
         /**
          * @return this.CONSTRUCTOR
@@ -72268,6 +73189,7 @@ public class TdApi {
             RichTextHashtag.CONSTRUCTOR,
             RichTextCashtag.CONSTRUCTOR,
             RichTextBankCardNumber.CONSTRUCTOR,
+            RichTextTonAddress.CONSTRUCTOR,
             RichTextBotCommand.CONSTRUCTOR,
             RichTextFixed.CONSTRUCTOR,
             RichTextMentionName.CONSTRUCTOR,
@@ -72858,6 +73780,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1587991130;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An address in the TON blockchain.
+     */
+    public static class RichTextTonAddress extends RichText {
+        /**
+         * Text.
+         */
+        public RichText text;
+        /**
+         * The address.
+         */
+        public String address;
+
+        /**
+         * An address in the TON blockchain.
+         */
+        public RichTextTonAddress() {
+        }
+
+        /**
+         * An address in the TON blockchain.
+         *
+         * @param text Text.
+         * @param address The address.
+         */
+        public RichTextTonAddress(RichText text, String address) {
+            this.text = text;
+            this.address = address;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1434939320;
 
         /**
          * @return this.CONSTRUCTOR
@@ -77600,7 +78566,7 @@ public class TdApi {
          */
         public StarRevenueStatus status;
         /**
-         * Current conversion rate of a Telegram Star to USD.
+         * Current exchange rate of a Telegram Star to USD.
          */
         public double usdRate;
 
@@ -77615,7 +78581,7 @@ public class TdApi {
          *
          * @param revenueByDayGraph A graph containing amount of revenue in a given day.
          * @param status Telegram Star revenue status.
-         * @param usdRate Current conversion rate of a Telegram Star to USD.
+         * @param usdRate Current exchange rate of a Telegram Star to USD.
          */
         public StarRevenueStatistics(StatisticalGraph revenueByDayGraph, StarRevenueStatus status, double usdRate) {
             this.revenueByDayGraph = revenueByDayGraph;
@@ -83980,6 +84946,7 @@ public class TdApi {
             SuggestedActionCheckPassword.CONSTRUCTOR,
             SuggestedActionCheckPhoneNumber.CONSTRUCTOR,
             SuggestedActionViewChecksHint.CONSTRUCTOR,
+            SuggestedActionViewFirstTonWalletTransferHint.CONSTRUCTOR,
             SuggestedActionConvertToBroadcastGroup.CONSTRUCTOR,
             SuggestedActionSetPassword.CONSTRUCTOR,
             SuggestedActionUpgradePremium.CONSTRUCTOR,
@@ -84099,6 +85066,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 891303239;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Suggests the user to view a hint about receiving of the first TON wallet transfer.
+     */
+    public static class SuggestedActionViewFirstTonWalletTransferHint extends SuggestedAction {
+
+        /**
+         * Suggests the user to view a hint about receiving of the first TON wallet transfer.
+         */
+        public SuggestedActionViewFirstTonWalletTransferHint() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 734140787;
 
         /**
          * @return this.CONSTRUCTOR
@@ -86328,7 +87320,7 @@ public class TdApi {
          */
         public long starCount;
         /**
-         * Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none.
+         * Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none. If non-zero and getOption(&quot;star_top_up_disabled&quot;), then the payment isn't allowed and the user can't buy Telegram Stars in this place.
          */
         public long chatId;
 
@@ -86344,7 +87336,7 @@ public class TdApi {
          * @param currency ISO 4217 currency code of the payment currency.
          * @param amount Paid amount, in the smallest units of the currency.
          * @param starCount Number of bought Telegram Stars.
-         * @param chatId Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none.
+         * @param chatId Identifier of the chat that is supposed to receive the Telegram Stars; pass 0 if none. If non-zero and getOption(&quot;star_top_up_disabled&quot;), then the payment isn't allowed and the user can't buy Telegram Stars in this place.
          */
         public TelegramPaymentPurposeStars(String currency, long amount, long starCount, long chatId) {
             this.currency = currency;
@@ -87157,6 +88149,7 @@ public class TdApi {
             TextEntityTypeEmailAddress.CONSTRUCTOR,
             TextEntityTypePhoneNumber.CONSTRUCTOR,
             TextEntityTypeBankCardNumber.CONSTRUCTOR,
+            TextEntityTypeTonAddress.CONSTRUCTOR,
             TextEntityTypeBold.CONSTRUCTOR,
             TextEntityTypeItalic.CONSTRUCTOR,
             TextEntityTypeUnderline.CONSTRUCTOR,
@@ -87378,6 +88371,31 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 105986320;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * An address in the TON blockchain.
+     */
+    public static class TextEntityTypeTonAddress extends TextEntityType {
+
+        /**
+         * An address in the TON blockchain.
+         */
+        public TextEntityTypeTonAddress() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 516305059;
 
         /**
          * @return this.CONSTRUCTOR
@@ -88135,7 +89153,11 @@ public class TdApi {
          */
         public boolean animateOutgoingMessageFill;
         /**
-         * Accent color of outgoing messages in ARGB format.
+         * True, if there is chosen accent color for outgoing messages; otherwise, the color must be deduced from other theme settings.
+         */
+        public boolean hasOutgoingMessageAccentColor;
+        /**
+         * Accent color of outgoing messages in ARGB format; must be ignored if hasOutgoingMessageAccentColor is false.
          */
         public int outgoingMessageAccentColor;
 
@@ -88153,21 +89175,23 @@ public class TdApi {
          * @param background The background to be used in chats; may be null.
          * @param outgoingMessageFill The fill to be used as a background for outgoing messages; may be null if the fill from the base theme must be used instead.
          * @param animateOutgoingMessageFill If true, the freeform gradient fill needs to be animated on every sent message.
-         * @param outgoingMessageAccentColor Accent color of outgoing messages in ARGB format.
+         * @param hasOutgoingMessageAccentColor True, if there is chosen accent color for outgoing messages; otherwise, the color must be deduced from other theme settings.
+         * @param outgoingMessageAccentColor Accent color of outgoing messages in ARGB format; must be ignored if hasOutgoingMessageAccentColor is false.
          */
-        public ThemeSettings(BuiltInTheme baseTheme, int accentColor, Background background, BackgroundFill outgoingMessageFill, boolean animateOutgoingMessageFill, int outgoingMessageAccentColor) {
+        public ThemeSettings(BuiltInTheme baseTheme, int accentColor, Background background, BackgroundFill outgoingMessageFill, boolean animateOutgoingMessageFill, boolean hasOutgoingMessageAccentColor, int outgoingMessageAccentColor) {
             this.baseTheme = baseTheme;
             this.accentColor = accentColor;
             this.background = background;
             this.outgoingMessageFill = outgoingMessageFill;
             this.animateOutgoingMessageFill = animateOutgoingMessageFill;
+            this.hasOutgoingMessageAccentColor = hasOutgoingMessageAccentColor;
             this.outgoingMessageAccentColor = outgoingMessageAccentColor;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1935106938;
+        public static final int CONSTRUCTOR = -68123817;
 
         /**
          * @return this.CONSTRUCTOR
@@ -88520,6 +89544,1202 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -334655570;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes state of active stories posted by a chat.
+     */
+    public abstract static class TonCenterApiRequestType extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            TonCenterApiRequestTypeGet.CONSTRUCTOR,
+            TonCenterApiRequestTypePost.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public TonCenterApiRequestType() {
+        }
+    }
+
+    /**
+     * A GET request.
+     */
+    public static class TonCenterApiRequestTypeGet extends TonCenterApiRequestType {
+        /**
+         * URL-encoded query of the request.
+         */
+        public String query;
+
+        /**
+         * A GET request.
+         */
+        public TonCenterApiRequestTypeGet() {
+        }
+
+        /**
+         * A GET request.
+         *
+         * @param query URL-encoded query of the request.
+         */
+        public TonCenterApiRequestTypeGet(String query) {
+            this.query = query;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1645018545;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A POST request.
+     */
+    public static class TonCenterApiRequestTypePost extends TonCenterApiRequestType {
+        /**
+         * Payload of the request.
+         */
+        public String payload;
+
+        /**
+         * A POST request.
+         */
+        public TonCenterApiRequestTypePost() {
+        }
+
+        /**
+         * A POST request.
+         *
+         * @param payload Payload of the request.
+         */
+        public TonCenterApiRequestTypePost(String payload) {
+            this.payload = payload;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 114401332;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains an HTTP URL for TON Center Streaming API.
+     */
+    public static class TonCenterStreamingApiUrl extends Object {
+        /**
+         * The URL.
+         */
+        public String url;
+        /**
+         * Time after which the URL expires.
+         */
+        public int expiresIn;
+
+        /**
+         * Contains an HTTP URL for TON Center Streaming API.
+         */
+        public TonCenterStreamingApiUrl() {
+        }
+
+        /**
+         * Contains an HTTP URL for TON Center Streaming API.
+         *
+         * @param url The URL.
+         * @param expiresIn Time after which the URL expires.
+         */
+        public TonCenterStreamingApiUrl(String url, int expiresIn) {
+            this.url = url;
+            this.expiresIn = expiresIn;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1824200355;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a TON Connect challenge.
+     */
+    public static class TonConnectChallenge extends Object {
+        /**
+         * 104-byte challenge.
+         */
+        public byte[] challenge;
+        /**
+         * Unique identifier of the first outgoing event.
+         */
+        public long eventId;
+
+        /**
+         * Represents a TON Connect challenge.
+         */
+        public TonConnectChallenge() {
+        }
+
+        /**
+         * Represents a TON Connect challenge.
+         *
+         * @param challenge 104-byte challenge.
+         * @param eventId Unique identifier of the first outgoing event.
+         */
+        public TonConnectChallenge(byte[] challenge, long eventId) {
+            this.challenge = challenge;
+            this.eventId = eventId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1178935783;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Represents a data item to share with a dApp.
+     */
+    public abstract static class TonConnectConnectItem extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            TonConnectConnectItemAddress.CONSTRUCTOR,
+            TonConnectConnectItemProof.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public TonConnectConnectItem() {
+        }
+    }
+
+    /**
+     * Address of the wallet.
+     */
+    public static class TonConnectConnectItemAddress extends TonConnectConnectItem {
+        /**
+         * Stringified TON network globalId (e.g. &quot;-239&quot; for mainnet); may be empty.
+         */
+        public String network;
+
+        /**
+         * Address of the wallet.
+         */
+        public TonConnectConnectItemAddress() {
+        }
+
+        /**
+         * Address of the wallet.
+         *
+         * @param network Stringified TON network globalId (e.g. &quot;-239&quot; for mainnet); may be empty.
+         */
+        public TonConnectConnectItemAddress(String network) {
+            this.network = network;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -931047459;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Proof of the wallet ownership.
+     */
+    public static class TonConnectConnectItemProof extends TonConnectConnectItem {
+        /**
+         * Payload to be used for the proof (e.g. nonce + expiration timestamp).
+         */
+        public String payload;
+
+        /**
+         * Proof of the wallet ownership.
+         */
+        public TonConnectConnectItemProof() {
+        }
+
+        /**
+         * Proof of the wallet ownership.
+         *
+         * @param payload Payload to be used for the proof (e.g. nonce + expiration timestamp).
+         */
+        public TonConnectConnectItemProof(String payload) {
+            this.payload = payload;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -612391170;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about a request to connect the user's TON wallet to a dApp using TON Connect.
+     */
+    public static class TonConnectConnectRequest extends Object {
+        /**
+         * URL of the manifest of the dApp.
+         */
+        public String manifestUrl;
+        /**
+         * Items requested from the wallet.
+         */
+        public TonConnectConnectItem[] items;
+
+        /**
+         * Contains information about a request to connect the user's TON wallet to a dApp using TON Connect.
+         */
+        public TonConnectConnectRequest() {
+        }
+
+        /**
+         * Contains information about a request to connect the user's TON wallet to a dApp using TON Connect.
+         *
+         * @param manifestUrl URL of the manifest of the dApp.
+         * @param items Items requested from the wallet.
+         */
+        public TonConnectConnectRequest(String manifestUrl, TonConnectConnectItem[] items) {
+            this.manifestUrl = manifestUrl;
+            this.items = items;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1770854951;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes manifest of the dApp that is being connected using TON Connect.
+     */
+    public abstract static class TonConnectManifest extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            TonConnectManifestPending.CONSTRUCTOR,
+            TonConnectManifestInfo.CONSTRUCTOR,
+            TonConnectManifestFailed.CONSTRUCTOR,
+            TonConnectManifestInvalid.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public TonConnectManifest() {
+        }
+    }
+
+    /**
+     * The manifest is being downloaded.
+     */
+    public static class TonConnectManifestPending extends TonConnectManifest {
+
+        /**
+         * The manifest is being downloaded.
+         */
+        public TonConnectManifestPending() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -471565541;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The manifest is available.
+     */
+    public static class TonConnectManifestInfo extends TonConnectManifest {
+        /**
+         * URL of the dApp.
+         */
+        public String url;
+        /**
+         * Name of the dApp.
+         */
+        public String name;
+        /**
+         * App icon in PNG or ICO format.
+         */
+        public Document icon;
+
+        /**
+         * The manifest is available.
+         */
+        public TonConnectManifestInfo() {
+        }
+
+        /**
+         * The manifest is available.
+         *
+         * @param url URL of the dApp.
+         * @param name Name of the dApp.
+         * @param icon App icon in PNG or ICO format.
+         */
+        public TonConnectManifestInfo(String url, String name, Document icon) {
+            this.url = url;
+            this.name = name;
+            this.icon = icon;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -324655228;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The manifest has failed to download.
+     */
+    public static class TonConnectManifestFailed extends TonConnectManifest {
+
+        /**
+         * The manifest has failed to download.
+         */
+        public TonConnectManifestFailed() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1698835386;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The manifest is invalid.
+     */
+    public static class TonConnectManifestInvalid extends TonConnectManifest {
+
+        /**
+         * The manifest is invalid.
+         */
+        public TonConnectManifestInvalid() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2095569200;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a pending TON Connect request.
+     */
+    public static class TonConnectRequest extends Object {
+        /**
+         * Unique identifier of the session.
+         */
+        public long sessionId;
+        /**
+         * Unique identifier of the service message in the chat 777000 with the request.
+         */
+        public long messageId;
+        /**
+         * Body of the request.
+         */
+        public byte[] body;
+        /**
+         * Point in time (Unix timestamp) when the request will expire; 0 if never.
+         */
+        public int expirationDate;
+        /**
+         * Topic of the request; may be empty if none.
+         */
+        public String topic;
+        /**
+         * Identifier to trace the request; may be empty if none.
+         */
+        public String traceId;
+
+        /**
+         * Represents a pending TON Connect request.
+         */
+        public TonConnectRequest() {
+        }
+
+        /**
+         * Represents a pending TON Connect request.
+         *
+         * @param sessionId Unique identifier of the session.
+         * @param messageId Unique identifier of the service message in the chat 777000 with the request.
+         * @param body Body of the request.
+         * @param expirationDate Point in time (Unix timestamp) when the request will expire; 0 if never.
+         * @param topic Topic of the request; may be empty if none.
+         * @param traceId Identifier to trace the request; may be empty if none.
+         */
+        public TonConnectRequest(long sessionId, long messageId, byte[] body, int expirationDate, String topic, String traceId) {
+            this.sessionId = sessionId;
+            this.messageId = messageId;
+            this.body = body;
+            this.expirationDate = expirationDate;
+            this.topic = topic;
+            this.traceId = traceId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 212229183;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes state of a request received from a dApp through TON Connect.
+     */
+    public abstract static class TonConnectRequestState extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            TonConnectRequestStatePending.CONSTRUCTOR,
+            TonConnectRequestStateAccepted.CONSTRUCTOR,
+            TonConnectRequestStateRejected.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public TonConnectRequestState() {
+        }
+    }
+
+    /**
+     * The request must be accepted or rejected if it isn't expired yet.
+     */
+    public static class TonConnectRequestStatePending extends TonConnectRequestState {
+        /**
+         * Point in time (Unix timestamp) when the request will expire or has expired.
+         */
+        public int expirationDate;
+
+        /**
+         * The request must be accepted or rejected if it isn't expired yet.
+         */
+        public TonConnectRequestStatePending() {
+        }
+
+        /**
+         * The request must be accepted or rejected if it isn't expired yet.
+         *
+         * @param expirationDate Point in time (Unix timestamp) when the request will expire or has expired.
+         */
+        public TonConnectRequestStatePending(int expirationDate) {
+            this.expirationDate = expirationDate;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -536401449;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The request was accepted.
+     */
+    public static class TonConnectRequestStateAccepted extends TonConnectRequestState {
+
+        /**
+         * The request was accepted.
+         */
+        public TonConnectRequestStateAccepted() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 373585842;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The request was rejected.
+     */
+    public static class TonConnectRequestStateRejected extends TonConnectRequestState {
+
+        /**
+         * The request was rejected.
+         */
+        public TonConnectRequestStateRejected() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2016437734;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a session with its pending TON Connect requests.
+     */
+    public static class TonConnectRequests extends Object {
+        /**
+         * The session.
+         */
+        public TonConnectSession session;
+        /**
+         * The requests.
+         */
+        public TonConnectRequest[] requests;
+
+        /**
+         * Represents a session with its pending TON Connect requests.
+         */
+        public TonConnectRequests() {
+        }
+
+        /**
+         * Represents a session with its pending TON Connect requests.
+         *
+         * @param session The session.
+         * @param requests The requests.
+         */
+        public TonConnectRequests(TonConnectSession session, TonConnectRequest[] requests) {
+            this.session = session;
+            this.requests = requests;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1348359820;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a TON Connect session. See https://github.com/ton-blockchain/ton-connect/tree/main/spec for full TON Connect protocol documentation.
+     */
+    public static class TonConnectSession extends Object {
+        /**
+         * Unique identifier of the session.
+         */
+        public long id;
+        /**
+         * Hex-encoded public X25519 key of the dApp.
+         */
+        public String dappClientId;
+        /**
+         * Hex-encoded public X25519 key of the current user's application; may be empty if none.
+         */
+        public String walletClientId;
+        /**
+         * Point in time (Unix timestamp) when the session was created.
+         */
+        public int creationDate;
+        /**
+         * Manifest of the dApp.
+         */
+        public TonConnectManifest manifest;
+        /**
+         * Nonce used for the session.
+         */
+        public byte[] nonce;
+        /**
+         * Session state.
+         */
+        public TonConnectSessionState state;
+
+        /**
+         * Represents a TON Connect session. See https://github.com/ton-blockchain/ton-connect/tree/main/spec for full TON Connect protocol documentation.
+         */
+        public TonConnectSession() {
+        }
+
+        /**
+         * Represents a TON Connect session. See https://github.com/ton-blockchain/ton-connect/tree/main/spec for full TON Connect protocol documentation.
+         *
+         * @param id Unique identifier of the session.
+         * @param dappClientId Hex-encoded public X25519 key of the dApp.
+         * @param walletClientId Hex-encoded public X25519 key of the current user's application; may be empty if none.
+         * @param creationDate Point in time (Unix timestamp) when the session was created.
+         * @param manifest Manifest of the dApp.
+         * @param nonce Nonce used for the session.
+         * @param state Session state.
+         */
+        public TonConnectSession(long id, String dappClientId, String walletClientId, int creationDate, TonConnectManifest manifest, byte[] nonce, TonConnectSessionState state) {
+            this.id = id;
+            this.dappClientId = dappClientId;
+            this.walletClientId = walletClientId;
+            this.creationDate = creationDate;
+            this.manifest = manifest;
+            this.nonce = nonce;
+            this.state = state;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1444165653;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents identifier of an event in a TON Connect session.
+     */
+    public static class TonConnectSessionEventId extends Object {
+        /**
+         * The event identifier.
+         */
+        public long eventId;
+
+        /**
+         * Represents identifier of an event in a TON Connect session.
+         */
+        public TonConnectSessionEventId() {
+        }
+
+        /**
+         * Represents identifier of an event in a TON Connect session.
+         *
+         * @param eventId The event identifier.
+         */
+        public TonConnectSessionEventId(long eventId) {
+            this.eventId = eventId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1316732711;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes state of a TON Connect session.
+     */
+    public abstract static class TonConnectSessionState extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            TonConnectSessionStatePending.CONSTRUCTOR,
+            TonConnectSessionStateReady.CONSTRUCTOR,
+            TonConnectSessionStateClosing.CONSTRUCTOR,
+            TonConnectSessionStateClosed.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public TonConnectSessionState() {
+        }
+    }
+
+    /**
+     * The session is pending.
+     */
+    public static class TonConnectSessionStatePending extends TonConnectSessionState {
+
+        /**
+         * The session is pending.
+         */
+        public TonConnectSessionStatePending() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1839661231;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is ready.
+     */
+    public static class TonConnectSessionStateReady extends TonConnectSessionState {
+
+        /**
+         * The session is ready.
+         */
+        public TonConnectSessionStateReady() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2044966330;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is being closed.
+     */
+    public static class TonConnectSessionStateClosing extends TonConnectSessionState {
+
+        /**
+         * The session is being closed.
+         */
+        public TonConnectSessionStateClosing() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1997033710;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The session is closed.
+     */
+    public static class TonConnectSessionStateClosed extends TonConnectSessionState {
+
+        /**
+         * The session is closed.
+         */
+        public TonConnectSessionStateClosed() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1053881899;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of TON Connect sessions.
+     */
+    public static class TonConnectSessions extends Object {
+        /**
+         * The list of sessions.
+         */
+        public TonConnectSession[] sessions;
+
+        /**
+         * Contains a list of TON Connect sessions.
+         */
+        public TonConnectSessions() {
+        }
+
+        /**
+         * Contains a list of TON Connect sessions.
+         *
+         * @param sessions The list of sessions.
+         */
+        public TonConnectSessions(TonConnectSession[] sessions) {
+            this.sessions = sessions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 842362001;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents an NFT in the TON blockchain.
+     */
+    public static class TonNft extends Object {
+        /**
+         * Address of the collection to which the NFT belongs; may be empty if unknown.
+         */
+        public String collectionAddress;
+        /**
+         * Address of the NFT.
+         */
+        public String address;
+        /**
+         * Address of the owner of the NFT.
+         */
+        public String ownerAddress;
+        /**
+         * Index of the NFT among all NFTs from the collection as a decimal number.
+         */
+        public String index;
+        /**
+         * Name of the NFT.
+         */
+        public String name;
+        /**
+         * Description of the NFT.
+         */
+        public String description;
+        /**
+         * Image of the NFT; may be null if none.
+         */
+        @Nullable public PhotoSize image;
+        /**
+         * Thumbnail of the NFT; may be null if none.
+         */
+        @Nullable public PhotoSize thumbnail;
+        /**
+         * Content of the NFT; may be null if none.
+         */
+        @Nullable public Document content;
+        /**
+         * Sticker of the NFT; may be null if none.
+         */
+        @Nullable public Sticker sticker;
+        /**
+         * Attributes of the NFT.
+         */
+        public TonNftAttribute[] attributes;
+        /**
+         * Additional data about the NFT; may be null if none.
+         */
+        @Nullable public JsonValue extra;
+
+        /**
+         * Represents an NFT in the TON blockchain.
+         */
+        public TonNft() {
+        }
+
+        /**
+         * Represents an NFT in the TON blockchain.
+         *
+         * @param collectionAddress Address of the collection to which the NFT belongs; may be empty if unknown.
+         * @param address Address of the NFT.
+         * @param ownerAddress Address of the owner of the NFT.
+         * @param index Index of the NFT among all NFTs from the collection as a decimal number.
+         * @param name Name of the NFT.
+         * @param description Description of the NFT.
+         * @param image Image of the NFT; may be null if none.
+         * @param thumbnail Thumbnail of the NFT; may be null if none.
+         * @param content Content of the NFT; may be null if none.
+         * @param sticker Sticker of the NFT; may be null if none.
+         * @param attributes Attributes of the NFT.
+         * @param extra Additional data about the NFT; may be null if none.
+         */
+        public TonNft(String collectionAddress, String address, String ownerAddress, String index, String name, String description, PhotoSize image, PhotoSize thumbnail, Document content, Sticker sticker, TonNftAttribute[] attributes, JsonValue extra) {
+            this.collectionAddress = collectionAddress;
+            this.address = address;
+            this.ownerAddress = ownerAddress;
+            this.index = index;
+            this.name = name;
+            this.description = description;
+            this.image = image;
+            this.thumbnail = thumbnail;
+            this.content = content;
+            this.sticker = sticker;
+            this.attributes = attributes;
+            this.extra = extra;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1595898089;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents an attribute of an NFT in the TON blockchain.
+     */
+    public static class TonNftAttribute extends Object {
+        /**
+         * Trait type.
+         */
+        public String traitType;
+        /**
+         * Value of the attribute.
+         */
+        public String value;
+
+        /**
+         * Represents an attribute of an NFT in the TON blockchain.
+         */
+        public TonNftAttribute() {
+        }
+
+        /**
+         * Represents an attribute of an NFT in the TON blockchain.
+         *
+         * @param traitType Trait type.
+         * @param value Value of the attribute.
+         */
+        public TonNftAttribute(String traitType, String value) {
+            this.traitType = traitType;
+            this.value = value;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 413249030;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of TON NFTs.
+     */
+    public static class TonNfts extends Object {
+        /**
+         * List of NFTs.
+         */
+        public TonNft[] nfts;
+        /**
+         * The offset for the next request. If empty, then there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Represents a list of TON NFTs.
+         */
+        public TonNfts() {
+        }
+
+        /**
+         * Represents a list of TON NFTs.
+         *
+         * @param nfts List of NFTs.
+         * @param nextOffset The offset for the next request. If empty, then there are no more results.
+         */
+        public TonNfts(TonNft[] nfts, String nextOffset) {
+            this.nfts = nfts;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -361315291;
 
         /**
          * @return this.CONSTRUCTOR
@@ -89006,6 +91226,810 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1391918595;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents state of gasless transfers for the current user.
+     */
+    public static class TonWalletGaslessTransfersInfo extends Object {
+        /**
+         * Number of left gasless transfers. The daily available number of gasless transfers is available as getOption(&quot;ton_wallet_gasless_transfer_daily_count_max&quot;).
+         */
+        public int leftCount;
+        /**
+         * Point in time (Unix timestamp) when the number of left transfers will be reset; 0 if never.
+         */
+        public int resetDate;
+        /**
+         * Address of the relayer for gasless transfers; may be empty if unavailable.
+         */
+        public String relayerAddress;
+
+        /**
+         * Represents state of gasless transfers for the current user.
+         */
+        public TonWalletGaslessTransfersInfo() {
+        }
+
+        /**
+         * Represents state of gasless transfers for the current user.
+         *
+         * @param leftCount Number of left gasless transfers. The daily available number of gasless transfers is available as getOption(&quot;ton_wallet_gasless_transfer_daily_count_max&quot;).
+         * @param resetDate Point in time (Unix timestamp) when the number of left transfers will be reset; 0 if never.
+         * @param relayerAddress Address of the relayer for gasless transfers; may be empty if unavailable.
+         */
+        public TonWalletGaslessTransfersInfo(int leftCount, int resetDate, String relayerAddress) {
+            this.leftCount = leftCount;
+            this.resetDate = resetDate;
+            this.relayerAddress = relayerAddress;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 902660845;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a proof of TON wallet ownership.
+     */
+    public static class TonWalletOwnershipProof extends Object {
+        /**
+         * Public key of the wallet.
+         */
+        public byte[] publicKey;
+        /**
+         * The current UNIX timestamp which was used to create the proof.
+         */
+        public int timestamp;
+        /**
+         * The signature prooving the ownership.
+         */
+        public byte[] signature;
+
+        /**
+         * Represents a proof of TON wallet ownership.
+         */
+        public TonWalletOwnershipProof() {
+        }
+
+        /**
+         * Represents a proof of TON wallet ownership.
+         *
+         * @param publicKey Public key of the wallet.
+         * @param timestamp The current UNIX timestamp which was used to create the proof.
+         * @param signature The signature prooving the ownership.
+         */
+        public TonWalletOwnershipProof(byte[] publicKey, int timestamp, byte[] signature) {
+            this.publicKey = publicKey;
+            this.timestamp = timestamp;
+            this.signature = signature;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1221462559;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a challenge for TON wallet ownership proof.
+     */
+    public static class TonWalletOwnershipProofChallenge extends Object {
+        /**
+         * Payload of the challenge.
+         */
+        public String payload;
+        /**
+         * Domain of the proof requester.
+         */
+        public String domain;
+
+        /**
+         * Represents a challenge for TON wallet ownership proof.
+         */
+        public TonWalletOwnershipProofChallenge() {
+        }
+
+        /**
+         * Represents a challenge for TON wallet ownership proof.
+         *
+         * @param payload Payload of the challenge.
+         * @param domain Domain of the proof requester.
+         */
+        public TonWalletOwnershipProofChallenge(String payload, String domain) {
+            this.payload = payload;
+            this.domain = domain;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -794074177;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes state of the wallet of the current user in the TON blockchain.
+     */
+    public static class TonWalletState extends Object {
+        /**
+         * Address of the wallet; may be empty if none.
+         */
+        public String address;
+        /**
+         * Public key of the wallet; may be empty if none.
+         */
+        public byte[] publicKey;
+        /**
+         * The total amount of owned TON Grams, in the smallest units of the cryptocurrency.
+         */
+        public long gramAmount;
+        /**
+         * True, if the wallet is being created.
+         */
+        public boolean isBeingCreated;
+        /**
+         * True, if backup for the wallet key is enabled.
+         */
+        public boolean isBackupEnabled;
+        /**
+         * True, if the user can enable backup for the wallet key.
+         */
+        public boolean canEnableBackup;
+        /**
+         * True, if the wallet key can be exported using getTonWalletSecretPhrase.
+         */
+        public boolean canExportPhrase;
+
+        /**
+         * Describes state of the wallet of the current user in the TON blockchain.
+         */
+        public TonWalletState() {
+        }
+
+        /**
+         * Describes state of the wallet of the current user in the TON blockchain.
+         *
+         * @param address Address of the wallet; may be empty if none.
+         * @param publicKey Public key of the wallet; may be empty if none.
+         * @param gramAmount The total amount of owned TON Grams, in the smallest units of the cryptocurrency.
+         * @param isBeingCreated True, if the wallet is being created.
+         * @param isBackupEnabled True, if backup for the wallet key is enabled.
+         * @param canEnableBackup True, if the user can enable backup for the wallet key.
+         * @param canExportPhrase True, if the wallet key can be exported using getTonWalletSecretPhrase.
+         */
+        public TonWalletState(String address, byte[] publicKey, long gramAmount, boolean isBeingCreated, boolean isBackupEnabled, boolean canEnableBackup, boolean canExportPhrase) {
+            this.address = address;
+            this.publicKey = publicKey;
+            this.gramAmount = gramAmount;
+            this.isBeingCreated = isBeingCreated;
+            this.isBackupEnabled = isBackupEnabled;
+            this.canEnableBackup = canEnableBackup;
+            this.canExportPhrase = canExportPhrase;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -655546174;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a transaction with the TON wallet of the current user.
+     */
+    public static class TonWalletTransaction extends Object {
+        /**
+         * Unique identifier of the transaction.
+         */
+        public String id;
+        /**
+         * Address in the TON blockchain of the transaction peer; may be empty if the transaction isn't a wallet transfer.
+         */
+        public String peerAddress;
+        /**
+         * Identifier of the other user who participated in the transaction; 0 if unknown.
+         */
+        public long peerUserId;
+        /**
+         * Identifier of the domain assigned to the peer address; may be empty if none.
+         */
+        public String peerDomain;
+        /**
+         * Point in time (Unix timestamp) when the transaction was completed.
+         */
+        public int date;
+        /**
+         * The fee amount paid for the transaction in TON Grams, in the smallest units of the cryptocurrency.
+         */
+        public long feeAmount;
+        /**
+         * State of the transaction.
+         */
+        public TonWalletTransactionState state;
+        /**
+         * Type of the transaction.
+         */
+        public TonWalletTransactionType type;
+
+        /**
+         * Represents a transaction with the TON wallet of the current user.
+         */
+        public TonWalletTransaction() {
+        }
+
+        /**
+         * Represents a transaction with the TON wallet of the current user.
+         *
+         * @param id Unique identifier of the transaction.
+         * @param peerAddress Address in the TON blockchain of the transaction peer; may be empty if the transaction isn't a wallet transfer.
+         * @param peerUserId Identifier of the other user who participated in the transaction; 0 if unknown.
+         * @param peerDomain Identifier of the domain assigned to the peer address; may be empty if none.
+         * @param date Point in time (Unix timestamp) when the transaction was completed.
+         * @param feeAmount The fee amount paid for the transaction in TON Grams, in the smallest units of the cryptocurrency.
+         * @param state State of the transaction.
+         * @param type Type of the transaction.
+         */
+        public TonWalletTransaction(String id, String peerAddress, long peerUserId, String peerDomain, int date, long feeAmount, TonWalletTransactionState state, TonWalletTransactionType type) {
+            this.id = id;
+            this.peerAddress = peerAddress;
+            this.peerUserId = peerUserId;
+            this.peerDomain = peerDomain;
+            this.date = date;
+            this.feeAmount = feeAmount;
+            this.state = state;
+            this.type = type;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2081280655;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes state of a transaction with a TON wallet.
+     */
+    public abstract static class TonWalletTransactionState extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            TonWalletTransactionStateSucceeded.CONSTRUCTOR,
+            TonWalletTransactionStateFailed.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public TonWalletTransactionState() {
+        }
+    }
+
+    /**
+     * The transaction succeeded.
+     */
+    public static class TonWalletTransactionStateSucceeded extends TonWalletTransactionState {
+        /**
+         * Hash of the transaction.
+         */
+        public String txHash;
+
+        /**
+         * The transaction succeeded.
+         */
+        public TonWalletTransactionStateSucceeded() {
+        }
+
+        /**
+         * The transaction succeeded.
+         *
+         * @param txHash Hash of the transaction.
+         */
+        public TonWalletTransactionStateSucceeded(String txHash) {
+            this.txHash = txHash;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1719049818;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The transaction failed.
+     */
+    public static class TonWalletTransactionStateFailed extends TonWalletTransactionState {
+
+        /**
+         * The transaction failed.
+         */
+        public TonWalletTransactionStateFailed() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 827481942;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes type of transaction with a TON wallet.
+     */
+    public abstract static class TonWalletTransactionType extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            TonWalletTransactionTypeOnRampDeposit.CONSTRUCTOR,
+            TonWalletTransactionTypeTransfer.CONSTRUCTOR,
+            TonWalletTransactionTypeNftTransfer.CONSTRUCTOR,
+            TonWalletTransactionTypeKeyChange.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public TonWalletTransactionType() {
+        }
+    }
+
+    /**
+     * The transaction is a deposit from an on-ramp provider.
+     */
+    public static class TonWalletTransactionTypeOnRampDeposit extends TonWalletTransactionType {
+        /**
+         * The amount of received cryptocurrency, in the smallest units of the cryptocurrency.
+         */
+        public long amount;
+        /**
+         * Name of the on-ramp provider.
+         */
+        public String providerName;
+
+        /**
+         * The transaction is a deposit from an on-ramp provider.
+         */
+        public TonWalletTransactionTypeOnRampDeposit() {
+        }
+
+        /**
+         * The transaction is a deposit from an on-ramp provider.
+         *
+         * @param amount The amount of received cryptocurrency, in the smallest units of the cryptocurrency.
+         * @param providerName Name of the on-ramp provider.
+         */
+        public TonWalletTransactionTypeOnRampDeposit(long amount, String providerName) {
+            this.amount = amount;
+            this.providerName = providerName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1570430820;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A transfer of TON Grams to or from the wallet.
+     */
+    public static class TonWalletTransactionTypeTransfer extends TonWalletTransactionType {
+        /**
+         * The amount of received cryptocurrency, in the smallest units of the cryptocurrency; negative for outgoing transactions.
+         */
+        public long amount;
+        /**
+         * True, if the fee was paid by Telegram.
+         */
+        public boolean isGasless;
+        /**
+         * Comment added to the transaction.
+         */
+        public String comment;
+        /**
+         * True, if the comment is encrypted and must be decrypted using the user's private key.
+         */
+        public boolean isCommentEncrypted;
+
+        /**
+         * A transfer of TON Grams to or from the wallet.
+         */
+        public TonWalletTransactionTypeTransfer() {
+        }
+
+        /**
+         * A transfer of TON Grams to or from the wallet.
+         *
+         * @param amount The amount of received cryptocurrency, in the smallest units of the cryptocurrency; negative for outgoing transactions.
+         * @param isGasless True, if the fee was paid by Telegram.
+         * @param comment Comment added to the transaction.
+         * @param isCommentEncrypted True, if the comment is encrypted and must be decrypted using the user's private key.
+         */
+        public TonWalletTransactionTypeTransfer(long amount, boolean isGasless, String comment, boolean isCommentEncrypted) {
+            this.amount = amount;
+            this.isGasless = isGasless;
+            this.comment = comment;
+            this.isCommentEncrypted = isCommentEncrypted;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2077618700;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A transfer of a TON NFT to or from the wallet.
+     */
+    public static class TonWalletTransactionTypeNftTransfer extends TonWalletTransactionType {
+        /**
+         * The transferred NFT.
+         */
+        public TonNft nft;
+        /**
+         * True, if the transfer is outgoing.
+         */
+        public boolean isOutgoing;
+        /**
+         * Comment added to the transaction.
+         */
+        public String comment;
+        /**
+         * True, if the comment is encrypted and must be decrypted using the user's private key.
+         */
+        public boolean isCommentEncrypted;
+
+        /**
+         * A transfer of a TON NFT to or from the wallet.
+         */
+        public TonWalletTransactionTypeNftTransfer() {
+        }
+
+        /**
+         * A transfer of a TON NFT to or from the wallet.
+         *
+         * @param nft The transferred NFT.
+         * @param isOutgoing True, if the transfer is outgoing.
+         * @param comment Comment added to the transaction.
+         * @param isCommentEncrypted True, if the comment is encrypted and must be decrypted using the user's private key.
+         */
+        public TonWalletTransactionTypeNftTransfer(TonNft nft, boolean isOutgoing, String comment, boolean isCommentEncrypted) {
+            this.nft = nft;
+            this.isOutgoing = isOutgoing;
+            this.comment = comment;
+            this.isCommentEncrypted = isCommentEncrypted;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 547073159;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Change of the wallet key.
+     */
+    public static class TonWalletTransactionTypeKeyChange extends TonWalletTransactionType {
+
+        /**
+         * Change of the wallet key.
+         */
+        public TonWalletTransactionTypeKeyChange() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1748368342;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of TON Gram transactions.
+     */
+    public static class TonWalletTransactions extends Object {
+        /**
+         * The total amount of owned TON Grams, in the smallest units of the cryptocurrency.
+         */
+        public long gramAmount;
+        /**
+         * List of transactions.
+         */
+        public TonWalletTransaction[] transactions;
+        /**
+         * The offset for the next request. If empty, then there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Represents a list of TON Gram transactions.
+         */
+        public TonWalletTransactions() {
+        }
+
+        /**
+         * Represents a list of TON Gram transactions.
+         *
+         * @param gramAmount The total amount of owned TON Grams, in the smallest units of the cryptocurrency.
+         * @param transactions List of transactions.
+         * @param nextOffset The offset for the next request. If empty, then there are no more results.
+         */
+        public TonWalletTransactions(long gramAmount, TonWalletTransaction[] transactions, String nextOffset) {
+            this.gramAmount = gramAmount;
+            this.transactions = transactions;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1372826145;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Represents expected receiver of a TON wallet transfer.
+     */
+    public abstract static class TonWalletTransferReceiver extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            TonWalletTransferReceiverUser.CONSTRUCTOR,
+            TonWalletTransferReceiverAddress.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public TonWalletTransferReceiver() {
+        }
+    }
+
+    /**
+     * The receiver is specified by its username.
+     */
+    public static class TonWalletTransferReceiverUser extends TonWalletTransferReceiver {
+        /**
+         * Username of the user. Use searchPublicChat to find the user, check that it is a regular user, and then use createUserTonWallet to get information about the user's TON wallet.
+         */
+        public String username;
+
+        /**
+         * The receiver is specified by its username.
+         */
+        public TonWalletTransferReceiverUser() {
+        }
+
+        /**
+         * The receiver is specified by its username.
+         *
+         * @param username Username of the user. Use searchPublicChat to find the user, check that it is a regular user, and then use createUserTonWallet to get information about the user's TON wallet.
+         */
+        public TonWalletTransferReceiverUser(String username) {
+            this.username = username;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1279755598;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The receiver is specified by its address.
+     */
+    public static class TonWalletTransferReceiverAddress extends TonWalletTransferReceiver {
+        /**
+         * Address of the receiver. Use getAddressTonWallet to get information about the user's TON wallet.
+         */
+        public String address;
+
+        /**
+         * The receiver is specified by its address.
+         */
+        public TonWalletTransferReceiverAddress() {
+        }
+
+        /**
+         * The receiver is specified by its address.
+         *
+         * @param address Address of the receiver. Use getAddressTonWallet to get information about the user's TON wallet.
+         */
+        public TonWalletTransferReceiverAddress(String address) {
+            this.address = address;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 8405880;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents result of cryptocurrency transfer from the current user's TON wallet.
+     */
+    public static class TonWalletTransferResult extends Object {
+        /**
+         * True, if the transfer is gasless.
+         */
+        public boolean isGasless;
+        /**
+         * Unique identifier of the sent message; use getTonWalletTransactionByMsgHash to poll information about the transaction.
+         */
+        public byte[] msgHash;
+        /**
+         * The completed transaction; may be null if the transaction is still pending.
+         */
+        @Nullable public TonWalletTransaction transaction;
+
+        /**
+         * Represents result of cryptocurrency transfer from the current user's TON wallet.
+         */
+        public TonWalletTransferResult() {
+        }
+
+        /**
+         * Represents result of cryptocurrency transfer from the current user's TON wallet.
+         *
+         * @param isGasless True, if the transfer is gasless.
+         * @param msgHash Unique identifier of the sent message; use getTonWalletTransactionByMsgHash to poll information about the transaction.
+         * @param transaction The completed transaction; may be null if the transaction is still pending.
+         */
+        public TonWalletTransferResult(boolean isGasless, byte[] msgHash, TonWalletTransaction transaction) {
+            this.isGasless = isGasless;
+            this.msgHash = msgHash;
+            this.transaction = transaction;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1353122790;
 
         /**
          * @return this.CONSTRUCTOR
@@ -89641,6 +92665,7 @@ public class TdApi {
             UpdateChatActiveStories.CONSTRUCTOR,
             UpdateStoryListChatCount.CONSTRUCTOR,
             UpdateStoryStealthMode.CONSTRUCTOR,
+            UpdateAllowedBotUsernamePremiumSuffixes.CONSTRUCTOR,
             UpdateTrustedMiniAppBots.CONSTRUCTOR,
             UpdateOption.CONSTRUCTOR,
             UpdateStickerSet.CONSTRUCTOR,
@@ -89671,6 +92696,10 @@ public class TdApi {
             UpdateActiveLiveLocationMessages.CONSTRUCTOR,
             UpdateOwnedStarCount.CONSTRUCTOR,
             UpdateOwnedGramCount.CONSTRUCTOR,
+            UpdateTonWalletState.CONSTRUCTOR,
+            UpdateTonWalletGaslessTransfersInfo.CONSTRUCTOR,
+            UpdateTonWalletTonConnectSession.CONSTRUCTOR,
+            UpdateTonWalletTonConnectSessionDisconnectRequired.CONSTRUCTOR,
             UpdateChatRevenueAmount.CONSTRUCTOR,
             UpdateStarRevenueStatus.CONSTRUCTOR,
             UpdateGramRevenueStatus.CONSTRUCTOR,
@@ -95284,6 +98313,44 @@ public class TdApi {
     }
 
     /**
+     * Lists of suffixes allowed in secondary bot usernames, which can be added additionally to the main username if the bot's owner has a Telegram Premium subscription.
+     */
+    public static class UpdateAllowedBotUsernamePremiumSuffixes extends Update {
+        /**
+         * The list of allowed suffixes.
+         */
+        public String[] suffixes;
+
+        /**
+         * Lists of suffixes allowed in secondary bot usernames, which can be added additionally to the main username if the bot's owner has a Telegram Premium subscription.
+         */
+        public UpdateAllowedBotUsernamePremiumSuffixes() {
+        }
+
+        /**
+         * Lists of suffixes allowed in secondary bot usernames, which can be added additionally to the main username if the bot's owner has a Telegram Premium subscription.
+         *
+         * @param suffixes The list of allowed suffixes.
+         */
+        public UpdateAllowedBotUsernamePremiumSuffixes(String[] suffixes) {
+            this.suffixes = suffixes;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -95421585;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Lists of bots which Mini Apps must be allowed to read text from clipboard and must be opened without a warning.
      */
     public static class UpdateTrustedMiniAppBots extends Update {
@@ -96509,6 +99576,158 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2126618955;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The state of the TON wallet of the current user has changed.
+     */
+    public static class UpdateTonWalletState extends Update {
+        /**
+         * The new state of the wallet.
+         */
+        public TonWalletState state;
+
+        /**
+         * The state of the TON wallet of the current user has changed.
+         */
+        public UpdateTonWalletState() {
+        }
+
+        /**
+         * The state of the TON wallet of the current user has changed.
+         *
+         * @param state The new state of the wallet.
+         */
+        public UpdateTonWalletState(TonWalletState state) {
+            this.state = state;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1146625413;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The information about gasless transfers has changed.
+     */
+    public static class UpdateTonWalletGaslessTransfersInfo extends Update {
+        /**
+         * The new state of the wallet.
+         */
+        public TonWalletGaslessTransfersInfo info;
+
+        /**
+         * The information about gasless transfers has changed.
+         */
+        public UpdateTonWalletGaslessTransfersInfo() {
+        }
+
+        /**
+         * The information about gasless transfers has changed.
+         *
+         * @param info The new state of the wallet.
+         */
+        public UpdateTonWalletGaslessTransfersInfo(TonWalletGaslessTransfersInfo info) {
+            this.info = info;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1340758750;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A session of a TON Connect has changed.
+     */
+    public static class UpdateTonWalletTonConnectSession extends Update {
+        /**
+         * The new state of the session.
+         */
+        public TonConnectSession session;
+
+        /**
+         * A session of a TON Connect has changed.
+         */
+        public UpdateTonWalletTonConnectSession() {
+        }
+
+        /**
+         * A session of a TON Connect has changed.
+         *
+         * @param session The new state of the session.
+         */
+        public UpdateTonWalletTonConnectSession(TonConnectSession session) {
+            this.session = session;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1709603581;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * TON Connect sessions must be disconnected in a regular way.
+     */
+    public static class UpdateTonWalletTonConnectSessionDisconnectRequired extends Update {
+        /**
+         * Identifiers of the sessions.
+         */
+        public long[] sessionIds;
+
+        /**
+         * TON Connect sessions must be disconnected in a regular way.
+         */
+        public UpdateTonWalletTonConnectSessionDisconnectRequired() {
+        }
+
+        /**
+         * TON Connect sessions must be disconnected in a regular way.
+         *
+         * @param sessionIds Identifiers of the sessions.
+         */
+        public UpdateTonWalletTonConnectSessionDisconnectRequired(long[] sessionIds) {
+            this.sessionIds = sessionIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 919346049;
 
         /**
          * @return this.CONSTRUCTOR
@@ -101598,6 +104817,94 @@ public class TdApi {
     }
 
     /**
+     * Contains TON wallet address of a user.
+     */
+    public static class UserTonWalletAddress extends Object {
+        /**
+         * Identifier of the user; 0 if unknown.
+         */
+        public long userId;
+        /**
+         * Address of the user's wallet in the TON blockchain.
+         */
+        public String walletAddress;
+        /**
+         * Public key of the user.
+         */
+        public byte[] publicKey;
+
+        /**
+         * Contains TON wallet address of a user.
+         */
+        public UserTonWalletAddress() {
+        }
+
+        /**
+         * Contains TON wallet address of a user.
+         *
+         * @param userId Identifier of the user; 0 if unknown.
+         * @param walletAddress Address of the user's wallet in the TON blockchain.
+         * @param publicKey Public key of the user.
+         */
+        public UserTonWalletAddress(long userId, String walletAddress, byte[] publicKey) {
+            this.userId = userId;
+            this.walletAddress = walletAddress;
+            this.publicKey = publicKey;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -666000734;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Represents a list of TON wallet addresses of users.
+     */
+    public static class UserTonWalletAddresses extends Object {
+        /**
+         * A list of TON wallet addresses.
+         */
+        public UserTonWalletAddress[] addresses;
+
+        /**
+         * Represents a list of TON wallet addresses of users.
+         */
+        public UserTonWalletAddresses() {
+        }
+
+        /**
+         * Represents a list of TON wallet addresses of users.
+         *
+         * @param addresses A list of TON wallet addresses.
+         */
+        public UserTonWalletAddresses(UserTonWalletAddress[] addresses) {
+            this.addresses = addresses;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -814605800;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Represents the type of user. The following types are possible: regular users, deleted users and bots.
      */
@@ -101844,6 +105151,10 @@ public class TdApi {
          * Collectible usernames that were purchased at https://fragment.com and can be passed to getCollectibleItemInfo for more details.
          */
         public String[] collectibleUsernames;
+        /**
+         * Secondary non-collectible username; for bots only. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it. If the username is disabled, then Telegram Premium subscription is required to re-enable it.
+         */
+        public String secondaryUsername;
 
         /**
          * Describes usernames assigned to a user, a supergroup, or a channel.
@@ -101858,18 +105169,20 @@ public class TdApi {
          * @param disabledUsernames List of currently disabled usernames; the username can be activated with toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive.
          * @param editableUsername Active or disabled username, which may be changed with setUsername or setSupergroupUsername.
          * @param collectibleUsernames Collectible usernames that were purchased at https://fragment.com and can be passed to getCollectibleItemInfo for more details.
+         * @param secondaryUsername Secondary non-collectible username; for bots only. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it. If the username is disabled, then Telegram Premium subscription is required to re-enable it.
          */
-        public Usernames(String[] activeUsernames, String[] disabledUsernames, String editableUsername, String[] collectibleUsernames) {
+        public Usernames(String[] activeUsernames, String[] disabledUsernames, String editableUsername, String[] collectibleUsernames, String secondaryUsername) {
             this.activeUsernames = activeUsernames;
             this.disabledUsernames = disabledUsernames;
             this.editableUsername = editableUsername;
             this.collectibleUsernames = collectibleUsernames;
+            this.secondaryUsername = secondaryUsername;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1263390614;
+        public static final int CONSTRUCTOR = 768022622;
 
         /**
          * @return this.CONSTRUCTOR
@@ -102662,6 +105975,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1175302923;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes balance of the current user in the bot https://t.me/walt.
+     */
+    public static class WalletBotBalance extends Object {
+        /**
+         * True, if the user has positive TON Gram balance.
+         */
+        public boolean hasBalance;
+        /**
+         * The URL to open to launch the bot; may be empty if none.
+         */
+        public String url;
+
+        /**
+         * Describes balance of the current user in the bot https://t.me/walt.
+         */
+        public WalletBotBalance() {
+        }
+
+        /**
+         * Describes balance of the current user in the bot https://t.me/walt.
+         *
+         * @param hasBalance True, if the user has positive TON Gram balance.
+         * @param url The URL to open to launch the bot; may be empty if none.
+         */
+        public WalletBotBalance(boolean hasBalance, String url) {
+            this.hasBalance = hasBalance;
+            this.url = url;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -855214867;
 
         /**
          * @return this.CONSTRUCTOR
@@ -103509,6 +106866,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1347126571;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Adds a secondary username to a bot. Can be called only if userTypeBot.canBeEdited, the bot has no secondary username and the current user has Telegram Premium subscription. May return an error with a message &quot;OWNER_USERNAMES_LIMIT_EXCEEDED&quot; if the current user already owns at least getOption(&quot;secondary_bot_username_count_max&quot;) bots with a secondary username.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class AddBotSecondaryUsername extends Function<Ok> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+        /**
+         * The new secondary username; must be non-empty. Use checkBotUsername to check username validness.
+         */
+        public String username;
+
+        /**
+         * Default constructor for a function, which adds a secondary username to a bot. Can be called only if userTypeBot.canBeEdited, the bot has no secondary username and the current user has Telegram Premium subscription. May return an error with a message &quot;OWNER_USERNAMES_LIMIT_EXCEEDED&quot; if the current user already owns at least getOption(&quot;secondary_bot_username_count_max&quot;) bots with a secondary username.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public AddBotSecondaryUsername() {
+        }
+
+        /**
+         * Creates a function, which adds a secondary username to a bot. Can be called only if userTypeBot.canBeEdited, the bot has no secondary username and the current user has Telegram Premium subscription. May return an error with a message &quot;OWNER_USERNAMES_LIMIT_EXCEEDED&quot; if the current user already owns at least getOption(&quot;secondary_bot_username_count_max&quot;) bots with a secondary username.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param botUserId Identifier of the target bot.
+         * @param username The new secondary username; must be non-empty. Use checkBotUsername to check username validness.
+         */
+        public AddBotSecondaryUsername(long botUserId, String username) {
+            this.botUserId = botUserId;
+            this.username = username;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 352599609;
 
         /**
          * @return this.CONSTRUCTOR
@@ -105764,6 +109171,68 @@ public class TdApi {
     }
 
     /**
+     * Sends an answer for a request received through TON Connect.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class AnswerTonConnectRequest extends Function<Ok> {
+        /**
+         * Unique identifier of the TON Connect session.
+         */
+        public long sessionId;
+        /**
+         * Identifier of the message with the request.
+         */
+        public long messageId;
+        /**
+         * Identifier to trace the request.
+         */
+        public String traceId;
+        /**
+         * Body of the response.
+         */
+        public byte[] body;
+
+        /**
+         * Default constructor for a function, which sends an answer for a request received through TON Connect.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public AnswerTonConnectRequest() {
+        }
+
+        /**
+         * Creates a function, which sends an answer for a request received through TON Connect.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param sessionId Unique identifier of the TON Connect session.
+         * @param messageId Identifier of the message with the request.
+         * @param traceId Identifier to trace the request.
+         * @param body Body of the response.
+         */
+        public AnswerTonConnectRequest(long sessionId, long messageId, String traceId, byte[] body) {
+            this.sessionId = sessionId;
+            this.messageId = messageId;
+            this.traceId = traceId;
+            this.body = body;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 931013809;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Sets the result of interaction with a Web App and sends corresponding message on behalf of the user to the chat from which the query originated; for bots only.
      *
      * <p> Returns {@link InlineMessageId InlineMessageId} </p>
@@ -107195,7 +110664,7 @@ public class TdApi {
     }
 
     /**
-     * Checks whether a username can be set for a new bot. Use checkChatUsername to check username for other chat types.
+     * Checks whether a username can be set for a new bot or assigned as a secondary username to an existing bot. Use checkChatUsername to check username for other chat types.
      *
      * <p> Returns {@link CheckChatUsernameResult CheckChatUsernameResult} </p>
      */
@@ -107204,9 +110673,13 @@ public class TdApi {
          * Username to be checked.
          */
         public String username;
+        /**
+         * Pass true to check whether the username is suitable as a secondary username for an existing bot; pass false to check whether the username is suitable for createBot.
+         */
+        public boolean isSecondary;
 
         /**
-         * Default constructor for a function, which checks whether a username can be set for a new bot. Use checkChatUsername to check username for other chat types.
+         * Default constructor for a function, which checks whether a username can be set for a new bot or assigned as a secondary username to an existing bot. Use checkChatUsername to check username for other chat types.
          *
          * <p> Returns {@link CheckChatUsernameResult CheckChatUsernameResult} </p>
          */
@@ -107214,20 +110687,22 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which checks whether a username can be set for a new bot. Use checkChatUsername to check username for other chat types.
+         * Creates a function, which checks whether a username can be set for a new bot or assigned as a secondary username to an existing bot. Use checkChatUsername to check username for other chat types.
          *
          * <p> Returns {@link CheckChatUsernameResult CheckChatUsernameResult} </p>
          *
          * @param username Username to be checked.
+         * @param isSecondary Pass true to check whether the username is suitable as a secondary username for an existing bot; pass false to check whether the username is suitable for createBot.
          */
-        public CheckBotUsername(String username) {
+        public CheckBotUsername(String username, boolean isSecondary) {
             this.username = username;
+            this.isSecondary = isSecondary;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1358454679;
+        public static final int CONSTRUCTOR = 508444428;
 
         /**
          * @return this.CONSTRUCTOR
@@ -107823,6 +111298,35 @@ public class TdApi {
     }
 
     /**
+     * Returns information about balance of the current user in the bot https://t.me/walt; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link WalletBotBalance WalletBotBalance} </p>
+     */
+    public static class CheckWalletBotBalance extends Function<WalletBotBalance> {
+
+        /**
+         * Default constructor for a function, which returns information about balance of the current user in the bot https://t.me/walt; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link WalletBotBalance WalletBotBalance} </p>
+         */
+        public CheckWalletBotBalance() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1585020937;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Checks whether a file can be downloaded and saved locally by Web App request.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -107868,6 +111372,68 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -389397278;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Claims a request received through TON Connect for processing on this device.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ClaimTonConnectRequest extends Function<Ok> {
+        /**
+         * Unique identifier of the TON Connect session.
+         */
+        public long sessionId;
+        /**
+         * Identifier of the message with the request.
+         */
+        public long messageId;
+        /**
+         * Identifier of the request assigned by the dApp.
+         */
+        public String dappRequestId;
+        /**
+         * Pass true to reject the request.
+         */
+        public boolean isRejected;
+
+        /**
+         * Default constructor for a function, which claims a request received through TON Connect for processing on this device.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ClaimTonConnectRequest() {
+        }
+
+        /**
+         * Creates a function, which claims a request received through TON Connect for processing on this device.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param sessionId Unique identifier of the TON Connect session.
+         * @param messageId Identifier of the message with the request.
+         * @param dappRequestId Identifier of the request assigned by the dApp.
+         * @param isRejected Pass true to reject the request.
+         */
+        public ClaimTonConnectRequest(long sessionId, long messageId, String dappRequestId, boolean isRejected) {
+            this.sessionId = sessionId;
+            this.messageId = messageId;
+            this.dappRequestId = dappRequestId;
+            this.isRejected = isRejected;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1261244142;
 
         /**
          * @return this.CONSTRUCTOR
@@ -109154,7 +112720,7 @@ public class TdApi {
          */
         public String name;
         /**
-         * Username of the bot. The username must end with &quot;bot&quot;. Use checkBotUsername to find whether the name is suitable.
+         * Username of the bot. The username must end with &quot;bot&quot; or a string from updateAllowedBotUsernamePremiumSuffixes case-insensitive. Use checkBotUsername to find whether the name is suitable. If the username doesn't end with &quot;bot&quot;, then the current user must have Telegram Premium subscription, the chosen username will be assigned as secondary and an additional regular username ending with &quot;bot&quot; will be automatically assigned to the created bot.
          */
         public String username;
         /**
@@ -109177,7 +112743,7 @@ public class TdApi {
          *
          * @param managerBotUserId Identifier of the bot that will manage the created bot.
          * @param name Name of the bot; 1-64 characters.
-         * @param username Username of the bot. The username must end with &quot;bot&quot;. Use checkBotUsername to find whether the name is suitable.
+         * @param username Username of the bot. The username must end with &quot;bot&quot; or a string from updateAllowedBotUsernamePremiumSuffixes case-insensitive. Use checkBotUsername to find whether the name is suitable. If the username doesn't end with &quot;bot&quot;, then the current user must have Telegram Premium subscription, the chosen username will be assigned as secondary and an additional regular username ending with &quot;bot&quot; will be automatically assigned to the created bot.
          * @param viaLink Pass true if the bot is created from an internalLinkTypeRequestManagedBot link.
          */
         public CreateBot(long managerBotUserId, String name, String username, boolean viaLink) {
@@ -110054,6 +113620,110 @@ public class TdApi {
     }
 
     /**
+     * Creates a session for an on-ramp payment.
+     *
+     * <p> Returns {@link OnRampPaymentSession OnRampPaymentSession} </p>
+     */
+    public static class CreateOnRampPaymentSession extends Function<OnRampPaymentSession> {
+        /**
+         * Unique identifier of the on-ramp provider.
+         */
+        public String providerId;
+        /**
+         * The cryptocurrency that will be bought.
+         */
+        public String cryptocurrency;
+        /**
+         * Address to which the cryptocurrency will be sent.
+         */
+        public String address;
+        /**
+         * Name of the chosen payment method; pass an empty string if none.
+         */
+        public String paymentMethodName;
+        /**
+         * ISO 4217 currency code of the currency that will be used for the purchase; pass an empty string if unknown.
+         */
+        public String baseCurrency;
+        /**
+         * The amount of the cryptocurrency to buy; pass an empty string if the user selected baseCurrencyAmount.
+         */
+        public String cryptocurrencyAmount;
+        /**
+         * The amount of the base currency to spend; pass an empty string if the user selected cryptocurrencyAmount.
+         */
+        public String baseCurrencyAmount;
+        /**
+         * Memo for the query; pass an empty string if none.
+         */
+        public String memo;
+        /**
+         * Preferred theme for the WebView; pass &quot;light&quot; for a light theme, &quot;dark&quot; for a dark theme, or leave empty for a default theme.
+         */
+        public String theme;
+        /**
+         * The URL opened on successful payment; pass an empty string if none.
+         */
+        public String successReturnUrl;
+        /**
+         * The URL opened on failed payment; pass an empty string if none.
+         */
+        public String failReturnUrl;
+
+        /**
+         * Default constructor for a function, which creates a session for an on-ramp payment.
+         *
+         * <p> Returns {@link OnRampPaymentSession OnRampPaymentSession} </p>
+         */
+        public CreateOnRampPaymentSession() {
+        }
+
+        /**
+         * Creates a function, which creates a session for an on-ramp payment.
+         *
+         * <p> Returns {@link OnRampPaymentSession OnRampPaymentSession} </p>
+         *
+         * @param providerId Unique identifier of the on-ramp provider.
+         * @param cryptocurrency The cryptocurrency that will be bought.
+         * @param address Address to which the cryptocurrency will be sent.
+         * @param paymentMethodName Name of the chosen payment method; pass an empty string if none.
+         * @param baseCurrency ISO 4217 currency code of the currency that will be used for the purchase; pass an empty string if unknown.
+         * @param cryptocurrencyAmount The amount of the cryptocurrency to buy; pass an empty string if the user selected baseCurrencyAmount.
+         * @param baseCurrencyAmount The amount of the base currency to spend; pass an empty string if the user selected cryptocurrencyAmount.
+         * @param memo Memo for the query; pass an empty string if none.
+         * @param theme Preferred theme for the WebView; pass &quot;light&quot; for a light theme, &quot;dark&quot; for a dark theme, or leave empty for a default theme.
+         * @param successReturnUrl The URL opened on successful payment; pass an empty string if none.
+         * @param failReturnUrl The URL opened on failed payment; pass an empty string if none.
+         */
+        public CreateOnRampPaymentSession(String providerId, String cryptocurrency, String address, String paymentMethodName, String baseCurrency, String cryptocurrencyAmount, String baseCurrencyAmount, String memo, String theme, String successReturnUrl, String failReturnUrl) {
+            this.providerId = providerId;
+            this.cryptocurrency = cryptocurrency;
+            this.address = address;
+            this.paymentMethodName = paymentMethodName;
+            this.baseCurrency = baseCurrency;
+            this.cryptocurrencyAmount = cryptocurrencyAmount;
+            this.baseCurrencyAmount = baseCurrencyAmount;
+            this.memo = memo;
+            this.theme = theme;
+            this.successReturnUrl = successReturnUrl;
+            this.failReturnUrl = failReturnUrl;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -259267122;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns an existing chat corresponding to a given user.
      *
      * <p> Returns {@link Chat Chat} </p>
@@ -110411,6 +114081,100 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1549417869;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Creates a TON Connect session; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link TonConnectSession TonConnectSession} </p>
+     */
+    public static class CreateTonConnectSession extends Function<TonConnectSession> {
+        /**
+         * Hex-encoded public X25519 key of the dApp.
+         */
+        public String dappClientId;
+        /**
+         * URL of the manifest of the dApp.
+         */
+        public String manifestUrl;
+
+        /**
+         * Default constructor for a function, which creates a TON Connect session; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonConnectSession TonConnectSession} </p>
+         */
+        public CreateTonConnectSession() {
+        }
+
+        /**
+         * Creates a function, which creates a TON Connect session; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonConnectSession TonConnectSession} </p>
+         *
+         * @param dappClientId Hex-encoded public X25519 key of the dApp.
+         * @param manifestUrl URL of the manifest of the dApp.
+         */
+        public CreateTonConnectSession(String dappClientId, String manifestUrl) {
+            this.dappClientId = dappClientId;
+            this.manifestUrl = manifestUrl;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1463778794;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Creates a TON wallet for the specified regular user; can be used only if getOption(&quot;can_use_ton_wallet&quot;). The current user must have positive TON wallet balance.
+     *
+     * <p> Returns {@link UserTonWalletAddress UserTonWalletAddress} </p>
+     */
+    public static class CreateUserTonWallet extends Function<UserTonWalletAddress> {
+        /**
+         * Identifier of the user.
+         */
+        public long userId;
+
+        /**
+         * Default constructor for a function, which creates a TON wallet for the specified regular user; can be used only if getOption(&quot;can_use_ton_wallet&quot;). The current user must have positive TON wallet balance.
+         *
+         * <p> Returns {@link UserTonWalletAddress UserTonWalletAddress} </p>
+         */
+        public CreateUserTonWallet() {
+        }
+
+        /**
+         * Creates a function, which creates a TON wallet for the specified regular user; can be used only if getOption(&quot;can_use_ton_wallet&quot;). The current user must have positive TON wallet balance.
+         *
+         * <p> Returns {@link UserTonWalletAddress UserTonWalletAddress} </p>
+         *
+         * @param userId Identifier of the user.
+         */
+        public CreateUserTonWallet(long userId) {
+            this.userId = userId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1295458892;
 
         /**
          * @return this.CONSTRUCTOR
@@ -110979,6 +114743,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1397512722;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Removes a secondary username from a bot. Can be called only if userTypeBot.canBeEdited == true and the bot has a secondary username.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteBotSecondaryUsername extends Function<Ok> {
+        /**
+         * Identifier of the target bot.
+         */
+        public long botUserId;
+
+        /**
+         * Default constructor for a function, which removes a secondary username from a bot. Can be called only if userTypeBot.canBeEdited == true and the bot has a secondary username.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteBotSecondaryUsername() {
+        }
+
+        /**
+         * Creates a function, which removes a secondary username from a bot. Can be called only if userTypeBot.canBeEdited == true and the bot has a secondary username.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param botUserId Identifier of the target bot.
+         */
+        public DeleteBotSecondaryUsername(long botUserId) {
+            this.botUserId = botUserId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1892068368;
 
         /**
          * @return this.CONSTRUCTOR
@@ -111679,6 +115487,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1002732586;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Deletes a community; requires owner privileges.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteCommunity extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+
+        /**
+         * Default constructor for a function, which deletes a community; requires owner privileges.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteCommunity() {
+        }
+
+        /**
+         * Creates a function, which deletes a community; requires owner privileges.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         */
+        public DeleteCommunity(long communityId) {
+            this.communityId = communityId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1848566901;
 
         /**
          * @return this.CONSTRUCTOR
@@ -112998,6 +116850,50 @@ public class TdApi {
     }
 
     /**
+     * Deletes the current TON wallet of the user and creates a new one; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DeleteTonWallet extends Function<Ok> {
+        /**
+         * Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+         */
+        public String password;
+
+        /**
+         * Default constructor for a function, which deletes the current TON wallet of the user and creates a new one; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DeleteTonWallet() {
+        }
+
+        /**
+         * Creates a function, which deletes the current TON wallet of the user and creates a new one; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+         */
+        public DeleteTonWallet(String password) {
+            this.password = password;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1886897005;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Closes the TDLib instance, destroying all local data without a proper logout. The current user session will remain in the list of all active sessions. All local data will be destroyed. After the destruction completes updateAuthorizationState with authorizationStateClosed will be sent. Can be called before authorization.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -113089,6 +116985,94 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2100095102;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Disables backup of the TON wallet of the user. Works only if tonWalletState.isBackupEnabled is true.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DisableTonWalletBackup extends Function<Ok> {
+        /**
+         * Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+         */
+        public String password;
+
+        /**
+         * Default constructor for a function, which disables backup of the TON wallet of the user. Works only if tonWalletState.isBackupEnabled is true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DisableTonWalletBackup() {
+        }
+
+        /**
+         * Creates a function, which disables backup of the TON wallet of the user. Works only if tonWalletState.isBackupEnabled is true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+         */
+        public DisableTonWalletBackup(String password) {
+            this.password = password;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1331171002;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Disables backup of the TON wallet of the user using proof of wallet ownership instead of the password. Works only if tonWalletState.isBackupEnabled is true.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DisableTonWalletBackupWithProof extends Function<Ok> {
+        /**
+         * Proof of the TON wallet ownership; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+         */
+        public TonWalletOwnershipProof proof;
+
+        /**
+         * Default constructor for a function, which disables backup of the TON wallet of the user using proof of wallet ownership instead of the password. Works only if tonWalletState.isBackupEnabled is true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DisableTonWalletBackupWithProof() {
+        }
+
+        /**
+         * Creates a function, which disables backup of the TON wallet of the user using proof of wallet ownership instead of the password. Works only if tonWalletState.isBackupEnabled is true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param proof Proof of the TON wallet ownership; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+         */
+        public DisableTonWalletBackupWithProof(TonWalletOwnershipProof proof) {
+            this.proof = proof;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1938588651;
 
         /**
          * @return this.CONSTRUCTOR
@@ -113253,6 +117237,56 @@ public class TdApi {
     }
 
     /**
+     * Closes a TON Connect session.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DisconnectTonConnectSession extends Function<Ok> {
+        /**
+         * Unique identifier of the TON Connect session to close.
+         */
+        public long sessionId;
+        /**
+         * Encrypted body of the disconnect event; may be empty if the session has already been closed. Use getTonConnectSessionNextEventId to get event identifier for the event.
+         */
+        public byte[] body;
+
+        /**
+         * Default constructor for a function, which closes a TON Connect session.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DisconnectTonConnectSession() {
+        }
+
+        /**
+         * Creates a function, which closes a TON Connect session.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param sessionId Unique identifier of the TON Connect session to close.
+         * @param body Encrypted body of the disconnect event; may be empty if the session has already been closed. Use getTonConnectSessionNextEventId to get event identifier for the event.
+         */
+        public DisconnectTonConnectSession(long sessionId, byte[] body) {
+            this.sessionId = sessionId;
+            this.body = body;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -230966976;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Disconnects website from the current user's Telegram account.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -113286,6 +117320,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -778767395;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Dismissess a received web token without consumption; for official Telegram apps only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class DismissWebToken extends Function<Ok> {
+        /**
+         * The token to dismiss.
+         */
+        public String token;
+
+        /**
+         * Default constructor for a function, which dismissess a received web token without consumption; for official Telegram apps only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public DismissWebToken() {
+        }
+
+        /**
+         * Creates a function, which dismissess a received web token without consumption; for official Telegram apps only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param token The token to dismiss.
+         */
+        public DismissWebToken(String token) {
+            this.token = token;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1397082340;
 
         /**
          * @return this.CONSTRUCTOR
@@ -113998,68 +118076,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 472538940;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * Edits the message from which a callback query has originated with an ephemeral message; for bots only.
-     *
-     * <p> Returns {@link Ok Ok} </p>
-     */
-    public static class EditCallbackQueryMessage extends Function<Ok> {
-        /**
-         * Identifier of the callback query.
-         */
-        public long callbackQueryId;
-        /**
-         * Pass true if the content of the message must be protected from forwarding and saving.
-         */
-        public boolean protectContent;
-        /**
-         * The new message reply markup; pass null if none.
-         */
-        public ReplyMarkup replyMarkup;
-        /**
-         * New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
-         */
-        public InputMessageContent inputMessageContent;
-
-        /**
-         * Default constructor for a function, which edits the message from which a callback query has originated with an ephemeral message; for bots only.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         */
-        public EditCallbackQueryMessage() {
-        }
-
-        /**
-         * Creates a function, which edits the message from which a callback query has originated with an ephemeral message; for bots only.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         *
-         * @param callbackQueryId Identifier of the callback query.
-         * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
-         * @param replyMarkup The new message reply markup; pass null if none.
-         * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
-         */
-        public EditCallbackQueryMessage(long callbackQueryId, boolean protectContent, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
-            this.callbackQueryId = callbackQueryId;
-            this.protectContent = protectContent;
-            this.replyMarkup = replyMarkup;
-            this.inputMessageContent = inputMessageContent;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = 403509242;
 
         /**
          * @return this.CONSTRUCTOR
@@ -115791,6 +119807,56 @@ public class TdApi {
     }
 
     /**
+     * Enables backup of the TON wallet of the user. Works only if tonWalletState.canEnableBackup is true.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class EnableTonWalletBackup extends Function<Ok> {
+        /**
+         * The secret phrase of the user's TON wallet as a space separated list of words.
+         */
+        public String secretPhrase;
+        /**
+         * Proof of the TON wallet ownership; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+         */
+        public TonWalletOwnershipProof proof;
+
+        /**
+         * Default constructor for a function, which enables backup of the TON wallet of the user. Works only if tonWalletState.canEnableBackup is true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public EnableTonWalletBackup() {
+        }
+
+        /**
+         * Creates a function, which enables backup of the TON wallet of the user. Works only if tonWalletState.canEnableBackup is true.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param secretPhrase The secret phrase of the user's TON wallet as a space separated list of words.
+         * @param proof Proof of the TON wallet ownership; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+         */
+        public EnableTonWalletBackup(String secretPhrase, TonWalletOwnershipProof proof) {
+            this.secretPhrase = secretPhrase;
+            this.proof = proof;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 754479745;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Encrypts group call data before sending them over network using tgcalls.
      *
      * <p> Returns {@link Data Data} </p>
@@ -116250,6 +120316,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1119710526;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns information about a TON wallet with the given address; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link UserTonWalletAddress UserTonWalletAddress} </p>
+     */
+    public static class GetAddressTonWallet extends Function<UserTonWalletAddress> {
+        /**
+         * Address in the TON blockchain.
+         */
+        public String address;
+
+        /**
+         * Default constructor for a function, which returns information about a TON wallet with the given address; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link UserTonWalletAddress UserTonWalletAddress} </p>
+         */
+        public GetAddressTonWallet() {
+        }
+
+        /**
+         * Creates a function, which returns information about a TON wallet with the given address; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link UserTonWalletAddress UserTonWalletAddress} </p>
+         *
+         * @param address Address in the TON blockchain.
+         */
+        public GetAddressTonWallet(String address) {
+            this.address = address;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1227177723;
 
         /**
          * @return this.CONSTRUCTOR
@@ -120356,6 +124466,50 @@ public class TdApi {
     }
 
     /**
+     * Returns full information about a community.
+     *
+     * <p> Returns {@link CommunityFullInfo CommunityFullInfo} </p>
+     */
+    public static class GetCommunityFullInfo extends Function<CommunityFullInfo> {
+        /**
+         * Community identifier.
+         */
+        public long communityId;
+
+        /**
+         * Default constructor for a function, which returns full information about a community.
+         *
+         * <p> Returns {@link CommunityFullInfo CommunityFullInfo} </p>
+         */
+        public GetCommunityFullInfo() {
+        }
+
+        /**
+         * Creates a function, which returns full information about a community.
+         *
+         * <p> Returns {@link CommunityFullInfo CommunityFullInfo} </p>
+         *
+         * @param communityId Community identifier.
+         */
+        public GetCommunityFullInfo(long communityId) {
+            this.communityId = communityId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2128198899;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns an affiliate program that was connected to the given affiliate by identifier of the bot that created the program.
      *
      * <p> Returns {@link ConnectedAffiliateProgram ConnectedAffiliateProgram} </p>
@@ -120699,6 +124853,35 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 710354415;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns exchange rates of currencies to USD.
+     *
+     * <p> Returns {@link CurrencyExchangeRates CurrencyExchangeRates} </p>
+     */
+    public static class GetCurrencyExchangeRates extends Function<CurrencyExchangeRates> {
+
+        /**
+         * Default constructor for a function, which returns exchange rates of currencies to USD.
+         *
+         * <p> Returns {@link CurrencyExchangeRates CurrencyExchangeRates} </p>
+         */
+        public GetCurrencyExchangeRates() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1880730661;
 
         /**
          * @return this.CONSTRUCTOR
@@ -125717,6 +129900,292 @@ public class TdApi {
     }
 
     /**
+     * Returns the available on-ramp payment methods based on the current user location.
+     *
+     * <p> Returns {@link OnRampPaymentAvailability OnRampPaymentAvailability} </p>
+     */
+    public static class GetOnRampPaymentAvailability extends Function<OnRampPaymentAvailability> {
+        /**
+         * Unique identifier of the on-ramp provider.
+         */
+        public String providerId;
+        /**
+         * The cryptocurrency that will be bought.
+         */
+        public String cryptocurrency;
+        /**
+         * ISO 4217 currency code of the currency that will be used for the purchase; pass an empty string if unknown.
+         */
+        public String baseCurrency;
+
+        /**
+         * Default constructor for a function, which returns the available on-ramp payment methods based on the current user location.
+         *
+         * <p> Returns {@link OnRampPaymentAvailability OnRampPaymentAvailability} </p>
+         */
+        public GetOnRampPaymentAvailability() {
+        }
+
+        /**
+         * Creates a function, which returns the available on-ramp payment methods based on the current user location.
+         *
+         * <p> Returns {@link OnRampPaymentAvailability OnRampPaymentAvailability} </p>
+         *
+         * @param providerId Unique identifier of the on-ramp provider.
+         * @param cryptocurrency The cryptocurrency that will be bought.
+         * @param baseCurrency ISO 4217 currency code of the currency that will be used for the purchase; pass an empty string if unknown.
+         */
+        public GetOnRampPaymentAvailability(String providerId, String cryptocurrency, String baseCurrency) {
+            this.providerId = providerId;
+            this.cryptocurrency = cryptocurrency;
+            this.baseCurrency = baseCurrency;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -298703297;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the limits for an on-ramp payment; only for providers that supports limits retrieval.
+     *
+     * <p> Returns {@link OnRampPaymentLimits OnRampPaymentLimits} </p>
+     */
+    public static class GetOnRampPaymentLimits extends Function<OnRampPaymentLimits> {
+        /**
+         * Unique identifier of the on-ramp provider.
+         */
+        public String providerId;
+        /**
+         * The cryptocurrency that will be bought.
+         */
+        public String cryptocurrency;
+        /**
+         * ISO 4217 currency code of the currency that will be used for the purchase.
+         */
+        public String baseCurrency;
+        /**
+         * Name of the chosen payment method; pass an empty string if none.
+         */
+        public String paymentMethodName;
+
+        /**
+         * Default constructor for a function, which returns the limits for an on-ramp payment; only for providers that supports limits retrieval.
+         *
+         * <p> Returns {@link OnRampPaymentLimits OnRampPaymentLimits} </p>
+         */
+        public GetOnRampPaymentLimits() {
+        }
+
+        /**
+         * Creates a function, which returns the limits for an on-ramp payment; only for providers that supports limits retrieval.
+         *
+         * <p> Returns {@link OnRampPaymentLimits OnRampPaymentLimits} </p>
+         *
+         * @param providerId Unique identifier of the on-ramp provider.
+         * @param cryptocurrency The cryptocurrency that will be bought.
+         * @param baseCurrency ISO 4217 currency code of the currency that will be used for the purchase.
+         * @param paymentMethodName Name of the chosen payment method; pass an empty string if none.
+         */
+        public GetOnRampPaymentLimits(String providerId, String cryptocurrency, String baseCurrency, String paymentMethodName) {
+            this.providerId = providerId;
+            this.cryptocurrency = cryptocurrency;
+            this.baseCurrency = baseCurrency;
+            this.paymentMethodName = paymentMethodName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1655117622;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns a quote for an on-ramp payment; only for providers that supports quote retrieval.
+     *
+     * <p> Returns {@link OnRampPaymentQuote OnRampPaymentQuote} </p>
+     */
+    public static class GetOnRampPaymentQuote extends Function<OnRampPaymentQuote> {
+        /**
+         * Unique identifier of the on-ramp provider.
+         */
+        public String providerId;
+        /**
+         * The cryptocurrency that will be bought.
+         */
+        public String cryptocurrency;
+        /**
+         * ISO 4217 currency code of the currency that will be used for the purchase.
+         */
+        public String baseCurrency;
+        /**
+         * The amount of the cryptocurrency to buy; pass an empty string if the user selected baseCurrencyAmount.
+         */
+        public String cryptocurrencyAmount;
+        /**
+         * The amount of the base currency to spend; pass an empty string if the user selected cryptocurrencyAmount.
+         */
+        public String baseCurrencyAmount;
+        /**
+         * Name of the chosen payment method; pass an empty string if none.
+         */
+        public String paymentMethodName;
+
+        /**
+         * Default constructor for a function, which returns a quote for an on-ramp payment; only for providers that supports quote retrieval.
+         *
+         * <p> Returns {@link OnRampPaymentQuote OnRampPaymentQuote} </p>
+         */
+        public GetOnRampPaymentQuote() {
+        }
+
+        /**
+         * Creates a function, which returns a quote for an on-ramp payment; only for providers that supports quote retrieval.
+         *
+         * <p> Returns {@link OnRampPaymentQuote OnRampPaymentQuote} </p>
+         *
+         * @param providerId Unique identifier of the on-ramp provider.
+         * @param cryptocurrency The cryptocurrency that will be bought.
+         * @param baseCurrency ISO 4217 currency code of the currency that will be used for the purchase.
+         * @param cryptocurrencyAmount The amount of the cryptocurrency to buy; pass an empty string if the user selected baseCurrencyAmount.
+         * @param baseCurrencyAmount The amount of the base currency to spend; pass an empty string if the user selected cryptocurrencyAmount.
+         * @param paymentMethodName Name of the chosen payment method; pass an empty string if none.
+         */
+        public GetOnRampPaymentQuote(String providerId, String cryptocurrency, String baseCurrency, String cryptocurrencyAmount, String baseCurrencyAmount, String paymentMethodName) {
+            this.providerId = providerId;
+            this.cryptocurrency = cryptocurrency;
+            this.baseCurrency = baseCurrency;
+            this.cryptocurrencyAmount = cryptocurrencyAmount;
+            this.baseCurrencyAmount = baseCurrencyAmount;
+            this.paymentMethodName = paymentMethodName;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -701180612;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the list of fiat currencies supported by an on-ramp provider for the given cryptocurrency.
+     *
+     * <p> Returns {@link Currencies Currencies} </p>
+     */
+    public static class GetOnRampProviderBaseCurrencies extends Function<Currencies> {
+        /**
+         * Unique identifier of the on-ramp provider; only for providers that supports base currencies.
+         */
+        public String providerId;
+        /**
+         * The cryptocurrency that will be bought.
+         */
+        public String cryptocurrency;
+
+        /**
+         * Default constructor for a function, which returns the list of fiat currencies supported by an on-ramp provider for the given cryptocurrency.
+         *
+         * <p> Returns {@link Currencies Currencies} </p>
+         */
+        public GetOnRampProviderBaseCurrencies() {
+        }
+
+        /**
+         * Creates a function, which returns the list of fiat currencies supported by an on-ramp provider for the given cryptocurrency.
+         *
+         * <p> Returns {@link Currencies Currencies} </p>
+         *
+         * @param providerId Unique identifier of the on-ramp provider; only for providers that supports base currencies.
+         * @param cryptocurrency The cryptocurrency that will be bought.
+         */
+        public GetOnRampProviderBaseCurrencies(String providerId, String cryptocurrency) {
+            this.providerId = providerId;
+            this.cryptocurrency = cryptocurrency;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1538920144;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns available on-ramp providers.
+     *
+     * <p> Returns {@link OnRampProviders OnRampProviders} </p>
+     */
+    public static class GetOnRampProviders extends Function<OnRampProviders> {
+        /**
+         * Pass a cryptocurrency to receive only providers that support it; pass an empty string to receive all providers.
+         */
+        public String cryptocurrency;
+
+        /**
+         * Default constructor for a function, which returns available on-ramp providers.
+         *
+         * <p> Returns {@link OnRampProviders OnRampProviders} </p>
+         */
+        public GetOnRampProviders() {
+        }
+
+        /**
+         * Creates a function, which returns available on-ramp providers.
+         *
+         * <p> Returns {@link OnRampProviders OnRampProviders} </p>
+         *
+         * @param cryptocurrency Pass a cryptocurrency to receive only providers that support it; pass an empty string to receive all providers.
+         */
+        public GetOnRampProviders(String cryptocurrency) {
+            this.cryptocurrency = cryptocurrency;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1322197529;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options &quot;version&quot; and &quot;commit_hash&quot;.
      *
      * <p> Returns {@link OptionValue OptionValue} </p>
@@ -129814,7 +134283,7 @@ public class TdApi {
     }
 
     /**
-     * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously.
+     * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, TON blockchain addresses, URLs, and email addresses) found in the text. Can be called synchronously.
      *
      * <p> Returns {@link TextEntities TextEntities} </p>
      */
@@ -129825,7 +134294,7 @@ public class TdApi {
         public String text;
 
         /**
-         * Default constructor for a function, which returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously.
+         * Default constructor for a function, which returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, TON blockchain addresses, URLs, and email addresses) found in the text. Can be called synchronously.
          *
          * <p> Returns {@link TextEntities TextEntities} </p>
          */
@@ -129833,7 +134302,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously.
+         * Creates a function, which returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, TON blockchain addresses, URLs, and email addresses) found in the text. Can be called synchronously.
          *
          * <p> Returns {@link TextEntities TextEntities} </p>
          *
@@ -129989,7 +134458,197 @@ public class TdApi {
     }
 
     /**
-     * Returns the list of TON blockchain transactions of the current user.
+     * Returns a URL for TON Center Streaming API.
+     *
+     * <p> Returns {@link TonCenterStreamingApiUrl TonCenterStreamingApiUrl} </p>
+     */
+    public static class GetTonCenterStreamingApiUrl extends Function<TonCenterStreamingApiUrl> {
+
+        /**
+         * Default constructor for a function, which returns a URL for TON Center Streaming API.
+         *
+         * <p> Returns {@link TonCenterStreamingApiUrl TonCenterStreamingApiUrl} </p>
+         */
+        public GetTonCenterStreamingApiUrl() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1072334480;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns pending requests with a dApp through TON Connect.
+     *
+     * <p> Returns {@link TonConnectRequests TonConnectRequests} </p>
+     */
+    public static class GetTonConnectDAppPendingRequests extends Function<TonConnectRequests> {
+        /**
+         * Hex-encoded public X25519 key of the dApp.
+         */
+        public String dappClientId;
+
+        /**
+         * Default constructor for a function, which returns pending requests with a dApp through TON Connect.
+         *
+         * <p> Returns {@link TonConnectRequests TonConnectRequests} </p>
+         */
+        public GetTonConnectDAppPendingRequests() {
+        }
+
+        /**
+         * Creates a function, which returns pending requests with a dApp through TON Connect.
+         *
+         * <p> Returns {@link TonConnectRequests TonConnectRequests} </p>
+         *
+         * @param dappClientId Hex-encoded public X25519 key of the dApp.
+         */
+        public GetTonConnectDAppPendingRequests(String dappClientId) {
+            this.dappClientId = dappClientId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1172395254;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the next event identifier for the given TON Connect session.
+     *
+     * <p> Returns {@link TonConnectSessionEventId TonConnectSessionEventId} </p>
+     */
+    public static class GetTonConnectSessionNextEventId extends Function<TonConnectSessionEventId> {
+        /**
+         * Unique identifier of the TON Connect session.
+         */
+        public long sessionId;
+
+        /**
+         * Default constructor for a function, which returns the next event identifier for the given TON Connect session.
+         *
+         * <p> Returns {@link TonConnectSessionEventId TonConnectSessionEventId} </p>
+         */
+        public GetTonConnectSessionNextEventId() {
+        }
+
+        /**
+         * Creates a function, which returns the next event identifier for the given TON Connect session.
+         *
+         * <p> Returns {@link TonConnectSessionEventId TonConnectSessionEventId} </p>
+         *
+         * @param sessionId Unique identifier of the TON Connect session.
+         */
+        public GetTonConnectSessionNextEventId(long sessionId) {
+            this.sessionId = sessionId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1178689222;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns pending requests in a TON Connect session.
+     *
+     * <p> Returns {@link TonConnectRequests TonConnectRequests} </p>
+     */
+    public static class GetTonConnectSessionPendingRequests extends Function<TonConnectRequests> {
+        /**
+         * Unique identifier of the session.
+         */
+        public long sessionId;
+
+        /**
+         * Default constructor for a function, which returns pending requests in a TON Connect session.
+         *
+         * <p> Returns {@link TonConnectRequests TonConnectRequests} </p>
+         */
+        public GetTonConnectSessionPendingRequests() {
+        }
+
+        /**
+         * Creates a function, which returns pending requests in a TON Connect session.
+         *
+         * <p> Returns {@link TonConnectRequests TonConnectRequests} </p>
+         *
+         * @param sessionId Unique identifier of the session.
+         */
+        public GetTonConnectSessionPendingRequests(long sessionId) {
+            this.sessionId = sessionId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1611488247;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns active TON Connect sessions; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link TonConnectSessions TonConnectSessions} </p>
+     */
+    public static class GetTonConnectSessions extends Function<TonConnectSessions> {
+
+        /**
+         * Default constructor for a function, which returns active TON Connect sessions; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonConnectSessions TonConnectSessions} </p>
+         */
+        public GetTonConnectSessions() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1869959974;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the list of TON Gram transactions of the current user.
      *
      * <p> Returns {@link TonTransactions TonTransactions} </p>
      */
@@ -130008,7 +134667,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns the list of TON blockchain transactions of the current user.
+         * Default constructor for a function, which returns the list of TON Gram transactions of the current user.
          *
          * <p> Returns {@link TonTransactions TonTransactions} </p>
          */
@@ -130016,7 +134675,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns the list of TON blockchain transactions of the current user.
+         * Creates a function, which returns the list of TON Gram transactions of the current user.
          *
          * <p> Returns {@link TonTransactions TonTransactions} </p>
          *
@@ -130034,6 +134693,273 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1935011115;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns NFTs stored on the TON wallet of the user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link TonNfts TonNfts} </p>
+     */
+    public static class GetTonWalletNfts extends Function<TonNfts> {
+        /**
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of NFTs to be returned; must be positive and can't be greater than 20.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns NFTs stored on the TON wallet of the user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonNfts TonNfts} </p>
+         */
+        public GetTonWalletNfts() {
+        }
+
+        /**
+         * Creates a function, which returns NFTs stored on the TON wallet of the user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonNfts TonNfts} </p>
+         *
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of NFTs to be returned; must be positive and can't be greater than 20.
+         */
+        public GetTonWalletNfts(String offset, int limit) {
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1499593741;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns a challenge which may be used to proof ownership of a TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link TonWalletOwnershipProofChallenge TonWalletOwnershipProofChallenge} </p>
+     */
+    public static class GetTonWalletOwnershipProofChallenge extends Function<TonWalletOwnershipProofChallenge> {
+
+        /**
+         * Default constructor for a function, which returns a challenge which may be used to proof ownership of a TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonWalletOwnershipProofChallenge TonWalletOwnershipProofChallenge} </p>
+         */
+        public GetTonWalletOwnershipProofChallenge() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -334491918;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the secret phrase of the user's TON wallet as a space separated list of words. Works only if tonWalletState.canExportPhrase is true.
+     *
+     * <p> Returns {@link Text Text} </p>
+     */
+    public static class GetTonWalletSecretPhrase extends Function<Text> {
+        /**
+         * Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+         */
+        public String password;
+
+        /**
+         * Default constructor for a function, which returns the secret phrase of the user's TON wallet as a space separated list of words. Works only if tonWalletState.canExportPhrase is true.
+         *
+         * <p> Returns {@link Text Text} </p>
+         */
+        public GetTonWalletSecretPhrase() {
+        }
+
+        /**
+         * Creates a function, which returns the secret phrase of the user's TON wallet as a space separated list of words. Works only if tonWalletState.canExportPhrase is true.
+         *
+         * <p> Returns {@link Text Text} </p>
+         *
+         * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+         */
+        public GetTonWalletSecretPhrase(String password) {
+            this.password = password;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1644390868;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns a TON wallet transaction by their identifier.
+     *
+     * <p> Returns {@link TonWalletTransaction TonWalletTransaction} </p>
+     */
+    public static class GetTonWalletTransaction extends Function<TonWalletTransaction> {
+        /**
+         * Identifier of the transaction.
+         */
+        public String transactionId;
+
+        /**
+         * Default constructor for a function, which returns a TON wallet transaction by their identifier.
+         *
+         * <p> Returns {@link TonWalletTransaction TonWalletTransaction} </p>
+         */
+        public GetTonWalletTransaction() {
+        }
+
+        /**
+         * Creates a function, which returns a TON wallet transaction by their identifier.
+         *
+         * <p> Returns {@link TonWalletTransaction TonWalletTransaction} </p>
+         *
+         * @param transactionId Identifier of the transaction.
+         */
+        public GetTonWalletTransaction(String transactionId) {
+            this.transactionId = transactionId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 254723496;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns a TON wallet transaction by their msgHash; return an error if the transaction isn't finalized yet.
+     *
+     * <p> Returns {@link TonWalletTransaction TonWalletTransaction} </p>
+     */
+    public static class GetTonWalletTransactionByMsgHash extends Function<TonWalletTransaction> {
+        /**
+         * Value of msgHash of the transaction.
+         */
+        public String msgHash;
+
+        /**
+         * Default constructor for a function, which returns a TON wallet transaction by their msgHash; return an error if the transaction isn't finalized yet.
+         *
+         * <p> Returns {@link TonWalletTransaction TonWalletTransaction} </p>
+         */
+        public GetTonWalletTransactionByMsgHash() {
+        }
+
+        /**
+         * Creates a function, which returns a TON wallet transaction by their msgHash; return an error if the transaction isn't finalized yet.
+         *
+         * <p> Returns {@link TonWalletTransaction TonWalletTransaction} </p>
+         *
+         * @param msgHash Value of msgHash of the transaction.
+         */
+        public GetTonWalletTransactionByMsgHash(String msgHash) {
+            this.msgHash = msgHash;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 777069339;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the list of TON wallet transactions of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link TonWalletTransactions TonWalletTransactions} </p>
+     */
+    public static class GetTonWalletTransactions extends Function<TonWalletTransactions> {
+        /**
+         * Direction of the transactions to receive; pass null to get all transactions.
+         */
+        public TransactionDirection direction;
+        /**
+         * Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of transactions to return.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns the list of TON wallet transactions of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonWalletTransactions TonWalletTransactions} </p>
+         */
+        public GetTonWalletTransactions() {
+        }
+
+        /**
+         * Creates a function, which returns the list of TON wallet transactions of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonWalletTransactions TonWalletTransactions} </p>
+         *
+         * @param direction Direction of the transactions to receive; pass null to get all transactions.
+         * @param offset Offset of the first transaction to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of transactions to return.
+         */
+        public GetTonWalletTransactions(TransactionDirection direction, String offset, int limit) {
+            this.direction = direction;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1119847015;
 
         /**
          * @return this.CONSTRUCTOR
@@ -130759,6 +135685,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1957008133;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns TON wallet addresses of the specified users; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link UserTonWalletAddresses UserTonWalletAddresses} </p>
+     */
+    public static class GetUserTonWalletAddresses extends Function<UserTonWalletAddresses> {
+        /**
+         * Identifiers of the users whose wallet addresses have to be returned. If a user has no TON wallet, it will be skipped in the result.
+         */
+        public long[] userIds;
+
+        /**
+         * Default constructor for a function, which returns TON wallet addresses of the specified users; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link UserTonWalletAddresses UserTonWalletAddresses} </p>
+         */
+        public GetUserTonWalletAddresses() {
+        }
+
+        /**
+         * Creates a function, which returns TON wallet addresses of the specified users; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link UserTonWalletAddresses UserTonWalletAddresses} </p>
+         *
+         * @param userIds Identifiers of the users whose wallet addresses have to be returned. If a user has no TON wallet, it will be skipped in the result.
+         */
+        public GetUserTonWalletAddresses(long[] userIds) {
+            this.userIds = userIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1030468042;
 
         /**
          * @return this.CONSTRUCTOR
@@ -132234,50 +137204,6 @@ public class TdApi {
     }
 
     /**
-     * Returns full information about a community. The data will be sent through update.
-     *
-     * <p> Returns {@link Ok Ok} </p>
-     */
-    public static class LoadCommunityFullInfo extends Function<Ok> {
-        /**
-         * Community identifier.
-         */
-        public long communityId;
-
-        /**
-         * Default constructor for a function, which returns full information about a community. The data will be sent through update.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         */
-        public LoadCommunityFullInfo() {
-        }
-
-        /**
-         * Creates a function, which returns full information about a community. The data will be sent through update.
-         *
-         * <p> Returns {@link Ok Ok} </p>
-         *
-         * @param communityId Community identifier.
-         */
-        public LoadCommunityFullInfo(long communityId) {
-            this.communityId = communityId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -913011971;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
      * Loads more topics in a channel direct messages chat administered by the current user. The loaded topics will be sent through updateDirectMessagesChatTopic. Topics are sorted by their topic.order in descending order. Returns a 404 error if all topics have been loaded.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -132484,6 +137410,64 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 289855160;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Loads or reloads the current state of gasless transfers for the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class LoadTonWalletGaslessTransfersInfo extends Function<Ok> {
+
+        /**
+         * Default constructor for a function, which loads or reloads the current state of gasless transfers for the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public LoadTonWalletGaslessTransfersInfo() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2023155190;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Loads state of the TON wallet of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class LoadTonWalletState extends Function<Ok> {
+
+        /**
+         * Default constructor for a function, which loads state of the TON wallet of the current user; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public LoadTonWalletState() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 354270648;
 
         /**
          * @return this.CONSTRUCTOR
@@ -136787,6 +141771,62 @@ public class TdApi {
     }
 
     /**
+     * Replaces the current TON wallet with another existing v6r2 wallet or changes private key of the current TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ReplaceTonWallet extends Function<Ok> {
+        /**
+         * Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+         */
+        public String password;
+        /**
+         * Original public key of the new TON wallet.
+         */
+        public byte[] anchorPublicKey;
+        /**
+         * Proof of ownership of the new private key of the TON wallet; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+         */
+        public TonWalletOwnershipProof proof;
+
+        /**
+         * Default constructor for a function, which replaces the current TON wallet with another existing v6r2 wallet or changes private key of the current TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ReplaceTonWallet() {
+        }
+
+        /**
+         * Creates a function, which replaces the current TON wallet with another existing v6r2 wallet or changes private key of the current TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param password Password of the current user; pass an empty string unless receive an error with a message &quot;PASSWORD_MISSING&quot; for a passwordless request.
+         * @param anchorPublicKey Original public key of the new TON wallet.
+         * @param proof Proof of ownership of the new private key of the TON wallet; use getTonWalletOwnershipProofChallenge to get a challenge for the proof.
+         */
+        public ReplaceTonWallet(String password, byte[] anchorPublicKey, TonWalletOwnershipProof proof) {
+            this.password = password;
+            this.anchorPublicKey = anchorPublicKey;
+            this.proof = proof;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1127922374;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Replaces the current RTMP URL for streaming to the video chat of a chat; requires owner privileges in the chat.
      *
      * <p> Returns {@link RtmpUrl RtmpUrl} </p>
@@ -136820,6 +141860,74 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 558862304;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Replies to a callback query with an ephemeral message; for bots only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ReplyToCallbackQueryWithEphemeralMessage extends Function<Ok> {
+        /**
+         * Identifier of the callback query.
+         */
+        public long callbackQueryId;
+        /**
+         * Pass true if the ephemeral message must replace the message from which the callback query originated.
+         */
+        public boolean replaceCallbackQueryMessage;
+        /**
+         * Pass true if the content of the message must be protected from forwarding and saving.
+         */
+        public boolean protectContent;
+        /**
+         * The new message reply markup; pass null if none.
+         */
+        public ReplyMarkup replyMarkup;
+        /**
+         * New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+         */
+        public InputMessageContent inputMessageContent;
+
+        /**
+         * Default constructor for a function, which replies to a callback query with an ephemeral message; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ReplyToCallbackQueryWithEphemeralMessage() {
+        }
+
+        /**
+         * Creates a function, which replies to a callback query with an ephemeral message; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param callbackQueryId Identifier of the callback query.
+         * @param replaceCallbackQueryMessage Pass true if the ephemeral message must replace the message from which the callback query originated.
+         * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
+         * @param replyMarkup The new message reply markup; pass null if none.
+         * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+         */
+        public ReplyToCallbackQueryWithEphemeralMessage(long callbackQueryId, boolean replaceCallbackQueryMessage, boolean protectContent, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
+            this.callbackQueryId = callbackQueryId;
+            this.replaceCallbackQueryMessage = replaceCallbackQueryMessage;
+            this.protectContent = protectContent;
+            this.replyMarkup = replyMarkup;
+            this.inputMessageContent = inputMessageContent;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -77034825;
 
         /**
          * @return this.CONSTRUCTOR
@@ -136875,7 +141983,7 @@ public class TdApi {
     }
 
     /**
-     * Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.canBeReported.
+     * Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, if chat.canBeReported, or if messageProperties.canReportChat.
      *
      * <p> Returns {@link ReportChatResult ReportChatResult} </p>
      */
@@ -136898,7 +142006,7 @@ public class TdApi {
         public String text;
 
         /**
-         * Default constructor for a function, which reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.canBeReported.
+         * Default constructor for a function, which reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, if chat.canBeReported, or if messageProperties.canReportChat.
          *
          * <p> Returns {@link ReportChatResult ReportChatResult} </p>
          */
@@ -136906,7 +142014,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.canBeReported.
+         * Creates a function, which reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, if chat.canBeReported, or if messageProperties.canReportChat.
          *
          * <p> Returns {@link ReportChatResult ReportChatResult} </p>
          *
@@ -142055,6 +147163,210 @@ public class TdApi {
     }
 
     /**
+     * Sends a request to TON Center API and returns its response in JSON format.
+     *
+     * <p> Returns {@link Text Text} </p>
+     */
+    public static class SendTonCenterApiRequest extends Function<Text> {
+        /**
+         * The path of the requested endpoint. See https://toncenter.com/api/v3/index.html for the list of supported endpoints.
+         */
+        public String endpoint;
+        /**
+         * Type of the request.
+         */
+        public TonCenterApiRequestType type;
+
+        /**
+         * Default constructor for a function, which sends a request to TON Center API and returns its response in JSON format.
+         *
+         * <p> Returns {@link Text Text} </p>
+         */
+        public SendTonCenterApiRequest() {
+        }
+
+        /**
+         * Creates a function, which sends a request to TON Center API and returns its response in JSON format.
+         *
+         * <p> Returns {@link Text Text} </p>
+         *
+         * @param endpoint The path of the requested endpoint. See https://toncenter.com/api/v3/index.html for the list of supported endpoints.
+         * @param type Type of the request.
+         */
+        public SendTonCenterApiRequest(String endpoint, TonCenterApiRequestType type) {
+            this.endpoint = endpoint;
+            this.type = type;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -812754760;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Accepts or rejects a TON Connect session.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SendTonConnectSessionConnectResult extends Function<Ok> {
+        /**
+         * Unique identifier of the session.
+         */
+        public long sessionId;
+        /**
+         * Answer to the challenge received from setTonConnectSessionWalletClientId.
+         */
+        public byte[] challengeAnswer;
+        /**
+         * Pass true to reject the request; pass false to accept it.
+         */
+        public boolean isError;
+        /**
+         * Body of the result.
+         */
+        public byte[] body;
+        /**
+         * Identifier to trace the connection request.
+         */
+        public String traceId;
+
+        /**
+         * Default constructor for a function, which accepts or rejects a TON Connect session.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SendTonConnectSessionConnectResult() {
+        }
+
+        /**
+         * Creates a function, which accepts or rejects a TON Connect session.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param sessionId Unique identifier of the session.
+         * @param challengeAnswer Answer to the challenge received from setTonConnectSessionWalletClientId.
+         * @param isError Pass true to reject the request; pass false to accept it.
+         * @param body Body of the result.
+         * @param traceId Identifier to trace the connection request.
+         */
+        public SendTonConnectSessionConnectResult(long sessionId, byte[] challengeAnswer, boolean isError, byte[] body, String traceId) {
+            this.sessionId = sessionId;
+            this.challengeAnswer = challengeAnswer;
+            this.isError = isError;
+            this.body = body;
+            this.traceId = traceId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1435055549;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Sends a cryptocurrency from the user's TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+     *
+     * <p> Returns {@link TonWalletTransferResult TonWalletTransferResult} </p>
+     */
+    public static class SendTonWalletTransfer extends Function<TonWalletTransferResult> {
+        /**
+         * Identifier of the user who will receive the transfer; pass 0 if unknown.
+         */
+        public long userId;
+        /**
+         * Address in the TON blockchain of the transaction peer.
+         */
+        public String address;
+        /**
+         * The amount of the sent cryptocurrency, in the smallest units of the cryptocurrency.
+         */
+        public long amount;
+        /**
+         * Comment added to the transaction.
+         */
+        public String comment;
+        /**
+         * Pass true if the comment is encrypted and must be decrypted using the receiver's or sender's private key.
+         */
+        public boolean isCommentEncrypted;
+        /**
+         * Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
+         */
+        public int sendingId;
+        /**
+         * Serialized data for regular cryptocurrency transfer request. The minimum allowed transfer amount is getOption(&quot;ton_wallet_transfer_amount_min&quot;).
+         */
+        public byte[] regularTransferData;
+        /**
+         * Serialized data for gasless cryptocurrency transfer request; pass an empty string to force a regular request. The minimum allowed transfer amount for a gassless transfer is getOption(&quot;ton_wallet_gasless_transfer_amount_min&quot;).
+         */
+        public byte[] gaslessTransferData;
+
+        /**
+         * Default constructor for a function, which sends a cryptocurrency from the user's TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonWalletTransferResult TonWalletTransferResult} </p>
+         */
+        public SendTonWalletTransfer() {
+        }
+
+        /**
+         * Creates a function, which sends a cryptocurrency from the user's TON wallet; can be used only if getOption(&quot;can_use_ton_wallet&quot;).
+         *
+         * <p> Returns {@link TonWalletTransferResult TonWalletTransferResult} </p>
+         *
+         * @param userId Identifier of the user who will receive the transfer; pass 0 if unknown.
+         * @param address Address in the TON blockchain of the transaction peer.
+         * @param amount The amount of the sent cryptocurrency, in the smallest units of the cryptocurrency.
+         * @param comment Comment added to the transaction.
+         * @param isCommentEncrypted Pass true if the comment is encrypted and must be decrypted using the receiver's or sender's private key.
+         * @param sendingId Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates.
+         * @param regularTransferData Serialized data for regular cryptocurrency transfer request. The minimum allowed transfer amount is getOption(&quot;ton_wallet_transfer_amount_min&quot;).
+         * @param gaslessTransferData Serialized data for gasless cryptocurrency transfer request; pass an empty string to force a regular request. The minimum allowed transfer amount for a gassless transfer is getOption(&quot;ton_wallet_gasless_transfer_amount_min&quot;).
+         */
+        public SendTonWalletTransfer(long userId, String address, long amount, String comment, boolean isCommentEncrypted, int sendingId, byte[] regularTransferData, byte[] gaslessTransferData) {
+            this.userId = userId;
+            this.address = address;
+            this.amount = amount;
+            this.comment = comment;
+            this.isCommentEncrypted = isCommentEncrypted;
+            this.sendingId = sendingId;
+            this.regularTransferData = regularTransferData;
+            this.gaslessTransferData = gaslessTransferData;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 173682008;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Sends a custom request from a Web App.
      *
      * <p> Returns {@link CustomRequestResult CustomRequestResult} </p>
@@ -145059,6 +150371,106 @@ public class TdApi {
     }
 
     /**
+     * Changes permissions of regular members in the given community; requires canBanMembers administrator right in the community.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetCommunityPermissions extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * New permissions of the community.
+         */
+        public CommunityPermissions permissions;
+
+        /**
+         * Default constructor for a function, which changes permissions of regular members in the given community; requires canBanMembers administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetCommunityPermissions() {
+        }
+
+        /**
+         * Creates a function, which changes permissions of regular members in the given community; requires canBanMembers administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param permissions New permissions of the community.
+         */
+        public SetCommunityPermissions(long communityId, CommunityPermissions permissions) {
+            this.communityId = communityId;
+            this.permissions = permissions;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1089063260;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes the photo of a community; requires canChangeInfo administrator right in the community.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetCommunityPhoto extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * New chat photo; pass null to delete the chat photo.
+         */
+        public InputChatPhoto photo;
+
+        /**
+         * Default constructor for a function, which changes the photo of a community; requires canChangeInfo administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetCommunityPhoto() {
+        }
+
+        /**
+         * Creates a function, which changes the photo of a community; requires canChangeInfo administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param photo New chat photo; pass null to delete the chat photo.
+         */
+        public SetCommunityPhoto(long communityId, InputChatPhoto photo) {
+            this.communityId = communityId;
+            this.photo = photo;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -2055048100;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Sets a custom emoji sticker set thumbnail.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -146753,9 +152165,9 @@ public class TdApi {
          */
         public MessageSender verifiedId;
         /**
-         * Custom description of verification reason; 0-getOption(&quot;bot_verification_custom_description_length_max&quot;). If empty, then &quot;was verified by organization &quot;organization_name&quot;&quot; will be used as description. Can be specified only if the bot is allowed to provide custom description.
+         * Custom description of verification reason; 0-getOption(&quot;bot_verification_custom_description_length_max&quot;) characters. Only TextUrl entities are supported. If empty, then &quot;was verified by organization &quot;organization_name&quot;&quot; will be used as description. Can be specified only if the bot is allowed to provide custom description.
          */
-        public String customDescription;
+        public FormattedText customDescription;
 
         /**
          * Default constructor for a function, which changes the verification status of a user or a chat by an owned bot.
@@ -146772,9 +152184,9 @@ public class TdApi {
          *
          * @param botUserId Identifier of the owned bot, which will verify the user or the chat.
          * @param verifiedId Identifier of the user or the supergroup or channel chat, which will be verified by the bot.
-         * @param customDescription Custom description of verification reason; 0-getOption(&quot;bot_verification_custom_description_length_max&quot;). If empty, then &quot;was verified by organization &quot;organization_name&quot;&quot; will be used as description. Can be specified only if the bot is allowed to provide custom description.
+         * @param customDescription Custom description of verification reason; 0-getOption(&quot;bot_verification_custom_description_length_max&quot;) characters. Only TextUrl entities are supported. If empty, then &quot;was verified by organization &quot;organization_name&quot;&quot; will be used as description. Can be specified only if the bot is allowed to provide custom description.
          */
-        public SetMessageSenderBotVerification(long botUserId, MessageSender verifiedId, String customDescription) {
+        public SetMessageSenderBotVerification(long botUserId, MessageSender verifiedId, FormattedText customDescription) {
             this.botUserId = botUserId;
             this.verifiedId = verifiedId;
             this.customDescription = customDescription;
@@ -146783,7 +152195,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1262364086;
+        public static final int CONSTRUCTOR = 2101755632;
 
         /**
          * @return this.CONSTRUCTOR
@@ -148780,6 +154192,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -775883218;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Sets walletClientId for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session.
+     *
+     * <p> Returns {@link TonConnectChallenge TonConnectChallenge} </p>
+     */
+    public static class SetTonConnectSessionWalletClientId extends Function<TonConnectChallenge> {
+        /**
+         * Unique identifier of the session.
+         */
+        public long sessionId;
+        /**
+         * Hex-encoded public X25519 key of the current user's application calculated from the TON wallet private key and session parameters.
+         */
+        public String walletClientId;
+
+        /**
+         * Default constructor for a function, which sets walletClientId for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session.
+         *
+         * <p> Returns {@link TonConnectChallenge TonConnectChallenge} </p>
+         */
+        public SetTonConnectSessionWalletClientId() {
+        }
+
+        /**
+         * Creates a function, which sets walletClientId for a pending TON Connect session. Then, sendTonConnectSessionConnectResult must be used to accept or reject the session.
+         *
+         * <p> Returns {@link TonConnectChallenge TonConnectChallenge} </p>
+         *
+         * @param sessionId Unique identifier of the session.
+         * @param walletClientId Hex-encoded public X25519 key of the current user's application calculated from the TON wallet private key and session parameters.
+         */
+        public SetTonConnectSessionWalletClientId(long sessionId, String walletClientId) {
+            this.sessionId = sessionId;
+            this.walletClientId = walletClientId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1686326443;
 
         /**
          * @return this.CONSTRUCTOR
