@@ -83,11 +83,20 @@ extern "C" {
 # ifndef OPENSSL_NO_CAST
 #  define OPENSSL_NO_CAST
 # endif
+# ifndef OPENSSL_NO_CMAC
+#  define OPENSSL_NO_CMAC
+# endif
+# ifndef OPENSSL_NO_CMP
+#  define OPENSSL_NO_CMP
+# endif
 # ifndef OPENSSL_NO_CMS
 #  define OPENSSL_NO_CMS
 # endif
 # ifndef OPENSSL_NO_COMP
 #  define OPENSSL_NO_COMP
+# endif
+# ifndef OPENSSL_NO_CRMF
+#  define OPENSSL_NO_CRMF
 # endif
 # ifndef OPENSSL_NO_CRYPTO_MDEBUG
 #  define OPENSSL_NO_CRYPTO_MDEBUG
@@ -113,6 +122,9 @@ extern "C" {
 # ifndef OPENSSL_NO_DSA
 #  define OPENSSL_NO_DSA
 # endif
+# ifndef OPENSSL_NO_EC2M
+#  define OPENSSL_NO_EC2M
+# endif
 # ifndef OPENSSL_NO_EC_NISTP_64_GCC_128
 #  define OPENSSL_NO_EC_NISTP_64_GCC_128
 # endif
@@ -124,6 +136,9 @@ extern "C" {
 # endif
 # ifndef OPENSSL_NO_EXTERNAL_TESTS
 #  define OPENSSL_NO_EXTERNAL_TESTS
+# endif
+# ifndef OPENSSL_NO_FILENAMES
+#  define OPENSSL_NO_FILENAMES
 # endif
 # ifndef OPENSSL_NO_FIPS_JITTER
 #  define OPENSSL_NO_FIPS_JITTER
