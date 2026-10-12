@@ -116,9 +116,11 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
         no-autoerrinit no-autoload-config \
         no-http no-quic \
         no-gost no-fips no-padlockeng \
-        no-ct no-dsa no-http no-ocsp no-des \
+        no-ct no-dsa no-ocsp no-des \
         no-blake2 no-bf no-rmd160 no-scrypt \
-        no-seed no-ts no-quic no-rc4"
+        no-rc4 \
+        no-cmp no-ec2m no-cmac \
+        no-filenames"
 
     if [[ $ABI == "x86" ]] ; then
       LDFLAGS="$EXTRA_LDFLAGS" ./Configure android-x86 shared ${PARAMS} -U__ANDROID_API__ -D__ANDROID_API__=$ANDROID_API_LEVEL || exit 1
@@ -131,7 +133,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
     fi
 
     sed -i.bak \
-    -e 's/-O3/-O3 -ffunction-sections -fdata-sections/g' \
+    -e 's/-O3/-O3 -ffunction-sections -fdata-sections -fno-unwind-tables -fno-asynchronous-unwind-tables/g' \
     -e 's/libcrypto\.so/libcryptox.so/g' \
     -e 's/libcrypto\.a/libcryptox.a/g' \
     -e 's|-lcrypto |-lcryptox |g' \
