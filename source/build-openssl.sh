@@ -147,7 +147,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
     ln -sf libcryptox.so libcrypto.so
     ln -sf libsslx.so libssl.so
 
-    INSTALL_DIR="$OPENSSL_INSTALL_DIR/${ANDROID_NDK_VERSION}/android-${ANDROID_API}/$ABI"
+    INSTALL_DIR="$OPENSSL_INSTALL_DIR/${ANDROID_NDK_VERSION}/android-${ANDROID_API_LEVEL}/$ABI"
     echo "Copying to ${INSTALL_DIR}"
     mkdir -p "${INSTALL_DIR}/lib" || exit 1
     (cp -a libcryptox.so libcrypto.so libsslx.so libssl.so "${INSTALL_DIR}/lib/.") || exit 1
