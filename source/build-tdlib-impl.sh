@@ -91,7 +91,7 @@ for ABI in $ABIS ; do
   cmake -S "$TDLIB_SOURCE_DIR" \
         -B "$TDLIB_SOURCE_DIR/$TDLIB_BUILD_DIR" \
         -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake" \
-        -DOPENSSL_ROOT_DIR="$OPENSSL_INSTALL_DIR/$ABI" \
+        -DOPENSSL_ROOT_DIR="$OPENSSL_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API_LEVEL/$ABI" \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -GNinja \
         -DANDROID_ABI="$ABI" \
