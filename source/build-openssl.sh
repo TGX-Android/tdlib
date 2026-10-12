@@ -3,7 +3,7 @@ set -e
 
 OPENSSL_SOURCE_DIR=${1:-openssl}
 OPENSSL_INSTALL_DIR=${2:-build/openssl}
-TGX_FLAVORS=${3:-"latest tens marshmallow lollipop legacy"}
+TGX_FLAVORS=${3:-"latest qrs tens marshmallow lollipop legacy"}
 
 source "$(pwd)/setup.sh" || exit 1
 
@@ -45,7 +45,10 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
 
   case "${TGX_FLAVOR}" in
     latest)
-      ANDROID_API_LEVEL=30
+      ANDROID_API_LEVEL=33
+      ;;
+    qrs)
+      ANDROID_API_LEVEL=29
       ;;
     tens)
       ANDROID_API_LEVEL=24
