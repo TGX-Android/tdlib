@@ -58,12 +58,6 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
     ABIS="armeabi-v7a x86"
   fi
 
-  if [[ ${ANDROID_NDK_VERSION%%.*} -ge 27 ]] ; then
-    ANDROID_STL="c++_shared"
-  else
-    ANDROID_STL="c++_static"
-  fi
-
   case "${TGX_FLAVOR}" in
     latest)
       ANDROID_API_LEVEL=24
@@ -93,7 +87,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
   pushd "$TDLIB_SOURCE_DIR/example/android" > /dev/null || exit 1
   rm build-tdlib.sh
   cp "$TDLIB_BUILD_SCRIPT" build-tdlib.sh
-  ./build-tdlib.sh "$ANDROID_SDK_ROOT" "$ANDROID_NDK_VERSION" "$OPENSSL_INSTALL_DIR" "$ANDROID_STL" Java "$ANDROID_API_LEVEL" "$ABIS" "$ANDROID_SDK_PACKAGE" || exit 1
+  ./build-tdlib.sh "$ANDROID_SDK_ROOT" "$ANDROID_NDK_VERSION" "$OPENSSL_INSTALL_DIR" "c++_shared" Java "$ANDROID_API_LEVEL" "$ABIS" "$ANDROID_SDK_PACKAGE" || exit 1
   popd > /dev/null || exit 1
 
   mkdir -p "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API_LEVEL"
