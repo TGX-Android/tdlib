@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "c15d3f5a5de6e3ba5839822c451152e5e18bb700";
+    private static final String GIT_COMMIT_HASH = "a94b83d67ab4c8397c6245e541b31a4131ea2f79";
 
     private TdApi() {
     }
@@ -24846,9 +24846,9 @@ public class TdApi {
          */
         public byte[] data;
         /**
-         * The front side of an identity document.
+         * The front side of an identity document; may be null if the element isn't an identity document.
          */
-        public DatedFile frontSide;
+        @Nullable public DatedFile frontSide;
         /**
          * The reverse side of an identity document; may be null.
          */
@@ -24885,7 +24885,7 @@ public class TdApi {
          *
          * @param type Type of Telegram Passport element.
          * @param data Encrypted JSON-encoded data about the user.
-         * @param frontSide The front side of an identity document.
+         * @param frontSide The front side of an identity document; may be null if the element isn't an identity document.
          * @param reverseSide The reverse side of an identity document; may be null.
          * @param selfie Selfie with the document; may be null.
          * @param translation List of files containing a certified English translation of the document.
@@ -27459,9 +27459,9 @@ public class TdApi {
          */
         @Nullable public GiftPurchaseLimits overallLimits;
         /**
-         * Background of the gift.
+         * Background of the gift; may be null if the gift has no background.
          */
-        public GiftBackground background;
+        @Nullable public GiftBackground background;
         /**
          * Point in time (Unix timestamp) when the gift was sent for the first time; for sold out gifts only.
          */
@@ -27494,7 +27494,7 @@ public class TdApi {
          * @param nextSendDate Point in time (Unix timestamp) when the gift can be sent next time by the current user; may be 0 or a date in the past. If the date is in the future, then call canSendGift to get the reason, why the gift can't be sent now.
          * @param userLimits Number of times the gift can be purchased by the current user; may be null if not limited.
          * @param overallLimits Number of times the gift can be purchased by all users; may be null if not limited.
-         * @param background Background of the gift.
+         * @param background Background of the gift; may be null if the gift has no background.
          * @param firstSendDate Point in time (Unix timestamp) when the gift was sent for the first time; for sold out gifts only.
          * @param lastSendDate Point in time (Unix timestamp) when the gift was sent for the last time; for sold out gifts only.
          */
@@ -79702,9 +79702,9 @@ public class TdApi {
          */
         public int subscriptionPeriod;
         /**
-         * Information about the bought subscription.
+         * Information about the bought subscription; may be null if no information about the subscription is available.
          */
-        public ProductInfo productInfo;
+        @Nullable public ProductInfo productInfo;
 
         /**
          * The transaction is a purchase of a subscription from a bot or a business account by the current user; relevant for regular users only.
@@ -79717,7 +79717,7 @@ public class TdApi {
          *
          * @param userId Identifier of the bot or the business account user who created the subscription link.
          * @param subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
-         * @param productInfo Information about the bought subscription.
+         * @param productInfo Information about the bought subscription; may be null if no information about the subscription is available.
          */
         public StarTransactionTypeBotSubscriptionPurchase(long userId, int subscriptionPeriod, ProductInfo productInfo) {
             this.userId = userId;
@@ -79752,9 +79752,9 @@ public class TdApi {
          */
         public int subscriptionPeriod;
         /**
-         * Information about the bought subscription.
+         * Information about the bought subscription; may be null if no information about the subscription is available.
          */
-        public ProductInfo productInfo;
+        @Nullable public ProductInfo productInfo;
         /**
          * Invoice payload.
          */
@@ -79775,7 +79775,7 @@ public class TdApi {
          *
          * @param userId Identifier of the user who bought the subscription.
          * @param subscriptionPeriod The number of seconds between consecutive Telegram Star debitings.
-         * @param productInfo Information about the bought subscription.
+         * @param productInfo Information about the bought subscription; may be null if no information about the subscription is available.
          * @param invoicePayload Invoice payload.
          * @param affiliate Information about the affiliate which received commission from the transaction; may be null if none.
          */
@@ -105152,7 +105152,7 @@ public class TdApi {
          */
         public String[] collectibleUsernames;
         /**
-         * Secondary non-collectible username; for bots only. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it. If the username is disabled, then Telegram Premium subscription is required to re-enable it.
+         * Secondary non-collectible username. Currently, must be non-empty only for bot accounts. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it. If the username is disabled, then Telegram Premium subscription is required to re-enable it.
          */
         public String secondaryUsername;
 
@@ -105169,7 +105169,7 @@ public class TdApi {
          * @param disabledUsernames List of currently disabled usernames; the username can be activated with toggleUsernameIsActive, toggleBotUsernameIsActive, or toggleSupergroupUsernameIsActive.
          * @param editableUsername Active or disabled username, which may be changed with setUsername or setSupergroupUsername.
          * @param collectibleUsernames Collectible usernames that were purchased at https://fragment.com and can be passed to getCollectibleItemInfo for more details.
-         * @param secondaryUsername Secondary non-collectible username; for bots only. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it. If the username is disabled, then Telegram Premium subscription is required to re-enable it.
+         * @param secondaryUsername Secondary non-collectible username. Currently, must be non-empty only for bot accounts. Can't be used in toggleBotUsernameIsActive; use addBotSecondaryUsername or deleteBotSecondaryUsername to edit it. If the username is disabled, then Telegram Premium subscription is required to re-enable it.
          */
         public Usernames(String[] activeUsernames, String[] disabledUsernames, String editableUsername, String[] collectibleUsernames, String secondaryUsername) {
             this.activeUsernames = activeUsernames;
@@ -108845,11 +108845,11 @@ public class TdApi {
          */
         public long queryId;
         /**
-         * The result.
+         * The result; must be null if a URL is passed.
          */
         public ChatJoinRequestResult result;
         /**
-         * URL of the Web App to open.
+         * URL of the Web App to open; must be null if a result is passed.
          */
         public String url;
 
@@ -108867,8 +108867,8 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param queryId Identifier of the query.
-         * @param result The result.
-         * @param url URL of the Web App to open.
+         * @param result The result; must be null if a URL is passed.
+         * @param url URL of the Web App to open; must be null if a result is passed.
          */
         public AnswerChatJoinRequestQuery(long queryId, ChatJoinRequestResult result, String url) {
             this.queryId = queryId;
@@ -154797,7 +154797,7 @@ public class TdApi {
     }
 
     /**
-     * Shares users after pressing a keyboardButtonTypeRequestUsers button with the bot.
+     * Shares users after pressing a keyboardButtonTypeRequestUsers or keyboardButtonTypeRequestManagedBot button with the bot.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -154820,7 +154820,7 @@ public class TdApi {
         public boolean onlyCheck;
 
         /**
-         * Default constructor for a function, which shares users after pressing a keyboardButtonTypeRequestUsers button with the bot.
+         * Default constructor for a function, which shares users after pressing a keyboardButtonTypeRequestUsers or keyboardButtonTypeRequestManagedBot button with the bot.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -154828,7 +154828,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which shares users after pressing a keyboardButtonTypeRequestUsers button with the bot.
+         * Creates a function, which shares users after pressing a keyboardButtonTypeRequestUsers or keyboardButtonTypeRequestManagedBot button with the bot.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
