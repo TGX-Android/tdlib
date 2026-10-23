@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions, or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "9d92b49bc5d0d2e29fe518239af647a88f8680e6";
+    private static final String GIT_COMMIT_HASH = "ea3f69ce11aef458bfbb09869b809ede4447486f";
 
     private TdApi() {
     }
