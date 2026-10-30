@@ -55,6 +55,20 @@ public final class Client {
     }
 
     /**
+     * Interface for interceptor of queries to the TDLib, e.g. of tests that answer some of them.
+     */
+    public interface Interceptor {
+        /**
+         * Callback called on each query before it is sent to the TDLib.
+         *
+         * @param query Query that is being sent.
+         * @return Answer to the query that result handler will receive instead of the answer of the
+         *         TDLib, or null to send the query to the TDLib.
+         */
+        TdApi.Object intercept(TdApi.Function<?> query);
+    }
+
+    /**
      * Exception class thrown when TDLib error occurred while performing {@link #execute(TdApi.Function)}.
      */
     public static class ExecutionException extends Exception {
@@ -84,6 +98,14 @@ public final class Client {
      *                         defaultExceptionHandler will be called.
      */
     public void send(TdApi.Function<?> query, ResultHandler resultHandler, ExceptionHandler exceptionHandler) {
+        Interceptor interceptor = this.interceptor;
+        TdApi.Object answer = interceptor != null ? interceptor.intercept(query) : null;
+        if (answer != null) {
+            // The answer comes on the thread of results after answers to earlier queries
+            ResultHandler handler = resultHandler;
+            query = new TdApi.SetAlarm(0);
+            resultHandler = handler != null ? object -> handler.onResult(answer) : null;
+        }
         long queryId = currentQueryId.incrementAndGet();
         if (resultHandler != null) {
             handlers.put(queryId, new Handler(resultHandler, exceptionHandler));
@@ -101,6 +123,15 @@ public final class Client {
      */
     public void send(TdApi.Function<?> query, ResultHandler resultHandler) {
         send(query, resultHandler, null);
+    }
+
+    /**
+     * Sets the interceptor of queries to the TDLib.
+     *
+     * @param interceptor Interceptor of queries, or null to send all queries to the TDLib.
+     */
+    public void setInterceptor(Interceptor interceptor) {
+        this.interceptor = interceptor;
     }
 
     /**
@@ -216,6 +247,7 @@ public final class Client {
     private static final AtomicLong clientCount = new AtomicLong();
 
     private static final ResponseReceiver responseReceiver = new ResponseReceiver();
+    private volatile Interceptor interceptor;
 
     private static class Handler {
         final ResultHandler resultHandler;
