@@ -106,6 +106,9 @@ rm -rf java
 cp -R "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION_PRIMARY/android-24/tdlib/java" .
 popd > /dev/null
 
+# Interceptor of queries for tests of Telegram X, lost when Client.java is generated again
+git -C .. apply source/patches/client-interceptor.patch || exit 1
+
 pushd .. > /dev/null
 if [ -e "$OPENSSL_INSTALL_DIR" ] ; then
   rm -rf openssl
