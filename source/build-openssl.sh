@@ -3,7 +3,7 @@ set -e
 
 OPENSSL_SOURCE_DIR=${1:-openssl}
 OPENSSL_INSTALL_DIR=${2:-build/openssl}
-TGX_FLAVORS=${3:-"latest qrs tens marshmallow lollipop legacy"}
+TGX_FLAVORS=${3:-"latest qrs nop marshmallow lollipop legacy"}
 
 source "$(pwd)/setup.sh" || exit 1
 
@@ -50,7 +50,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
     qrs)
       ANDROID_API_LEVEL=29
       ;;
-    tens)
+    nop)
       ANDROID_API_LEVEL=24
       ;;
     marshmallow)

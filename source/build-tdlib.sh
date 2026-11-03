@@ -6,7 +6,7 @@ TDLIB_INSTALL_DIR=${2:-build/td}
 OPENSSL_INSTALL_DIR=${3:-build/openssl}
 ANDROID_SDK_PACKAGE=${4:-android-37.2}
 TDLIB_BUILD_SCRIPT="$(pwd)/build-tdlib-impl.sh"
-TGX_FLAVORS=${5:-"latest qrs tens marshmallow lollipop legacy"}
+TGX_FLAVORS=${5:-"latest qrs nop marshmallow lollipop legacy"}
 
 source "$(pwd)/setup.sh" --light
 
@@ -65,7 +65,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
     qrs)
       ANDROID_API_LEVEL=29
       ;;
-    tens)
+    nop)
       ANDROID_API_LEVEL=24
       ;;
     marshmallow)

@@ -4,7 +4,7 @@ set -e
 SYMBOLS_INSTALL_DIR=${1:-build}
 TDLIB_INSTALL_DIR=${2:-build/td}
 OPENSSL_INSTALL_DIR=${3:-build/openssl}
-TGX_FLAVORS=${4:-"latest qrs tens marshmallow lollipop legacy"}
+TGX_FLAVORS=${4:-"latest qrs nop marshmallow lollipop legacy"}
 
 source "$(pwd)/setup.sh" --light
 
@@ -47,7 +47,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
     qrs)
       ANDROID_API_LEVEL=29
       ;;
-    tens)
+    nop)
       ANDROID_API_LEVEL=24
       ;;
     marshmallow)
