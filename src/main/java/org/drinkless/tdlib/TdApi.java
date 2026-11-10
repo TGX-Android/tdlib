@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions, or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "4c6377aa7386c39217878a9a56d581922ad37ca4";
+    private static final String GIT_COMMIT_HASH = "c8828d50f5eac2fc7089ce1089d7ce9095c61b5e";
 
     private TdApi() {
     }
@@ -66,6 +66,7 @@ public class TdApi {
             AddChatToList.CONSTRUCTOR,
             AddChatWelcomeMessage.CONSTRUCTOR,
             AddChecklistTasks.CONSTRUCTOR,
+            AddCommunityChat.CONSTRUCTOR,
             AddContact.CONSTRUCTOR,
             AddCustomServerLanguagePack.CONSTRUCTOR,
             AddFavoriteSticker.CONSTRUCTOR,
@@ -104,6 +105,7 @@ public class TdApi {
             AnswerShippingQuery.CONSTRUCTOR,
             AnswerTonConnectRequest.CONSTRUCTOR,
             AnswerWebAppQuery.CONSTRUCTOR,
+            AnswerWidgetQuery.CONSTRUCTOR,
             ApplyPremiumGiftCode.CONSTRUCTOR,
             ApplyUnpaidMessagesToken.CONSTRUCTOR,
             ApproveSuggestedPost.CONSTRUCTOR,
@@ -299,6 +301,7 @@ public class TdApi {
             EditInlineMessageMedia.CONSTRUCTOR,
             EditInlineMessageReplyMarkup.CONSTRUCTOR,
             EditInlineMessageText.CONSTRUCTOR,
+            EditInlineMessageWidgetData.CONSTRUCTOR,
             EditMessageCaption.CONSTRUCTOR,
             EditMessageChecklist.CONSTRUCTOR,
             EditMessageLiveLocation.CONSTRUCTOR,
@@ -306,13 +309,16 @@ public class TdApi {
             EditMessageReplyMarkup.CONSTRUCTOR,
             EditMessageSchedulingState.CONSTRUCTOR,
             EditMessageText.CONSTRUCTOR,
+            EditMessageWidgetData.CONSTRUCTOR,
             EditProxy.CONSTRUCTOR,
             EditQuickReplyMessage.CONSTRUCTOR,
             EditStarSubscription.CONSTRUCTOR,
             EditStory.CONSTRUCTOR,
             EditStoryCover.CONSTRUCTOR,
+            EditStoryMusic.CONSTRUCTOR,
             EditTextCompositionStyle.CONSTRUCTOR,
             EditUserStarSubscription.CONSTRUCTOR,
+            EditWidgetData.CONSTRUCTOR,
             EnableProxy.CONSTRUCTOR,
             EnableTonWalletBackup.CONSTRUCTOR,
             EncryptGroupCallData.CONSTRUCTOR,
@@ -320,6 +326,8 @@ public class TdApi {
             EndGroupCallRecording.CONSTRUCTOR,
             EndGroupCallScreenSharing.CONSTRUCTOR,
             FinishFileGeneration.CONSTRUCTOR,
+            FixRecognizedRichMessageWithAi.CONSTRUCTOR,
+            FixRecognizedTextWithAi.CONSTRUCTOR,
             FixRichMessageWithAi.CONSTRUCTOR,
             FixTextWithAi.CONSTRUCTOR,
             ForwardMessages.CONSTRUCTOR,
@@ -413,7 +421,9 @@ public class TdApi {
             GetCloseFriends.CONSTRUCTOR,
             GetCollectibleItemInfo.CONSTRUCTOR,
             GetCommands.CONSTRUCTOR,
+            GetCommunityAddChatRequests.CONSTRUCTOR,
             GetCommunityFullInfo.CONSTRUCTOR,
+            GetCommunityMemberChats.CONSTRUCTOR,
             GetConnectedAffiliateProgram.CONSTRUCTOR,
             GetConnectedAffiliatePrograms.CONSTRUCTOR,
             GetConnectedWebsites.CONSTRUCTOR,
@@ -483,6 +493,7 @@ public class TdApi {
             GetInstalledStickerSets.CONSTRUCTOR,
             GetInternalLink.CONSTRUCTOR,
             GetInternalLinkType.CONSTRUCTOR,
+            GetJoinedCommunities.CONSTRUCTOR,
             GetJsonString.CONSTRUCTOR,
             GetJsonValue.CONSTRUCTOR,
             GetKeywordEmojis.CONSTRUCTOR,
@@ -593,6 +604,7 @@ public class TdApi {
             GetSearchSponsoredChats.CONSTRUCTOR,
             GetSearchedForTags.CONSTRUCTOR,
             GetSecretChat.CONSTRUCTOR,
+            GetSpeechRecognitionLanguages.CONSTRUCTOR,
             GetStakeDiceState.CONSTRUCTOR,
             GetStarAdAccountUrl.CONSTRUCTOR,
             GetStarGiftPaymentOptions.CONSTRUCTOR,
@@ -620,6 +632,7 @@ public class TdApi {
             GetStoryStatistics.CONSTRUCTOR,
             GetSuggestedFileName.CONSTRUCTOR,
             GetSuggestedStickerSetName.CONSTRUCTOR,
+            GetSuitableCommunityChats.CONSTRUCTOR,
             GetSuitableDiscussionChats.CONSTRUCTOR,
             GetSuitablePersonalChats.CONSTRUCTOR,
             GetSupergroup.CONSTRUCTOR,
@@ -629,6 +642,7 @@ public class TdApi {
             GetSupportUser.CONSTRUCTOR,
             GetTemporaryPasswordState.CONSTRUCTOR,
             GetTextCompositionStyleExample.CONSTRUCTOR,
+            GetTextEmojiRanges.CONSTRUCTOR,
             GetTextEntities.CONSTRUCTOR,
             GetThemeParametersJsonString.CONSTRUCTOR,
             GetThemedChatEmojiStatuses.CONSTRUCTOR,
@@ -673,6 +687,8 @@ public class TdApi {
             GetWebAppPlaceholder.CONSTRUCTOR,
             GetWebAppUrl.CONSTRUCTOR,
             GetWebPageInstantView.CONSTRUCTOR,
+            GetWidgetPublicData.CONSTRUCTOR,
+            GetWidgetQueryAnswer.CONSTRUCTOR,
             GiftPremiumWithStars.CONSTRUCTOR,
             HideContactCloseBirthdays.CONSTRUCTOR,
             HideSuggestedAction.CONSTRUCTOR,
@@ -724,6 +740,8 @@ public class TdApi {
             ProcessChatHasProtectedContentDisableRequest.CONSTRUCTOR,
             ProcessChatJoinRequest.CONSTRUCTOR,
             ProcessChatJoinRequests.CONSTRUCTOR,
+            ProcessCommunityAddChatRequest.CONSTRUCTOR,
+            ProcessCommunityAddChatRequests.CONSTRUCTOR,
             ProcessGiftPurchaseOffer.CONSTRUCTOR,
             ProcessPushNotification.CONSTRUCTOR,
             ProcessWebProxyCarrierMessage.CONSTRUCTOR,
@@ -740,6 +758,7 @@ public class TdApi {
             ReadFilePart.CONSTRUCTOR,
             ReaddQuickReplyShortcutMessages.CONSTRUCTOR,
             RecognizeSpeech.CONSTRUCTOR,
+            RecognizeSpeechInFile.CONSTRUCTOR,
             RecoverAuthenticationPassword.CONSTRUCTOR,
             RecoverPassword.CONSTRUCTOR,
             RefundStarPayment.CONSTRUCTOR,
@@ -749,6 +768,7 @@ public class TdApi {
             RemoveAllWebBrowserSettingsExceptions.CONSTRUCTOR,
             RemoveBusinessConnectedBotFromChat.CONSTRUCTOR,
             RemoveChatActionBar.CONSTRUCTOR,
+            RemoveCommunityChat.CONSTRUCTOR,
             RemoveContacts.CONSTRUCTOR,
             RemoveFavoriteSticker.CONSTRUCTOR,
             RemoveFileFromDownloads.CONSTRUCTOR,
@@ -949,6 +969,7 @@ public class TdApi {
             SetCloseFriends.CONSTRUCTOR,
             SetCommands.CONSTRUCTOR,
             SetCommunityName.CONSTRUCTOR,
+            SetCommunityNotificationSettings.CONSTRUCTOR,
             SetCommunityPermissions.CONSTRUCTOR,
             SetCommunityPhoto.CONSTRUCTOR,
             SetCustomEmojiStickerSetThumbnail.CONSTRUCTOR,
@@ -1077,6 +1098,8 @@ public class TdApi {
             ToggleChatIsPinned.CONSTRUCTOR,
             ToggleChatIsTranslatable.CONSTRUCTOR,
             ToggleChatViewAsTopics.CONSTRUCTOR,
+            ToggleCommunityAreChatsCollapsed.CONSTRUCTOR,
+            ToggleCommunityMemberIsBanned.CONSTRUCTOR,
             ToggleDirectMessagesChatTopicCanSendUnpaidMessages.CONSTRUCTOR,
             ToggleDownloadIsPaused.CONSTRUCTOR,
             ToggleForumTopicIsClosed.CONSTRUCTOR,
@@ -11635,7 +11658,7 @@ public class TdApi {
          */
         @Nullable public StoryList list;
         /**
-         * A parameter used to determine order of the stories in the story list; 0 if the stories don't need to be shown in the story list. Stories must be sorted by the pair (order, storyPosterChatId) in descending order.
+         * A parameter used to determine order of the stories in the story list; 0 if the stories don't need to be shown in the story list. Stories must be sorted by the pair (order, chatId) in descending order.
          */
         public long order;
         /**
@@ -11662,7 +11685,7 @@ public class TdApi {
          *
          * @param chatId Identifier of the chat that posted the stories.
          * @param list Identifier of the story list in which the stories are shown; may be null if the stories aren't shown in a story list.
-         * @param order A parameter used to determine order of the stories in the story list; 0 if the stories don't need to be shown in the story list. Stories must be sorted by the pair (order, storyPosterChatId) in descending order.
+         * @param order A parameter used to determine order of the stories in the story list; 0 if the stories don't need to be shown in the story list. Stories must be sorted by the pair (order, chatId) in descending order.
          * @param canBeArchived True, if the stories are shown in the main story list and can be archived; otherwise, the stories can be hidden from the main story list only by calling removeTopChat with topChatCategoryUsers and the chatId. Stories of the current user can't be archived nor hidden using removeTopChat.
          * @param maxReadStoryId Identifier of the last read active story.
          * @param stories Basic information about the stories; use getStory to get full information about the stories. The stories are in chronological order (i.e., in order of increasing story identifiers).
@@ -17530,7 +17553,7 @@ public class TdApi {
      */
     public static class ChatNotificationSettings extends Object {
         /**
-         * If true, the value for the relevant type of chat or the forum chat is used instead of muteFor.
+         * If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of muteFor.
          */
         public boolean useDefaultMuteFor;
         /**
@@ -17538,7 +17561,7 @@ public class TdApi {
          */
         public int muteFor;
         /**
-         * If true, the value for the relevant type of chat or the forum chat is used instead of soundId.
+         * If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of soundId.
          */
         public boolean useDefaultSound;
         /**
@@ -17546,7 +17569,7 @@ public class TdApi {
          */
         public long soundId;
         /**
-         * If true, the value for the relevant type of chat or the forum chat is used instead of showPreview.
+         * If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of showPreview.
          */
         public boolean useDefaultShowPreview;
         /**
@@ -17554,7 +17577,7 @@ public class TdApi {
          */
         public boolean showPreview;
         /**
-         * If true, the value for the relevant type of chat is used instead of muteStories.
+         * If true, the value for the chat's community or the relevant type of chat is used instead of muteStories.
          */
         public boolean useDefaultMuteStories;
         /**
@@ -17562,7 +17585,7 @@ public class TdApi {
          */
         public boolean muteStories;
         /**
-         * If true, the value for the relevant type of chat is used instead of storySoundId.
+         * If true, the value for the chat's community or the relevant type of chat is used instead of storySoundId.
          */
         public boolean useDefaultStorySound;
         /**
@@ -17570,7 +17593,7 @@ public class TdApi {
          */
         public long storySoundId;
         /**
-         * If true, the value for the relevant type of chat is used instead of showStoryPoster.
+         * If true, the value for the chat's community or the relevant type of chat is used instead of showStoryPoster.
          */
         public boolean useDefaultShowStoryPoster;
         /**
@@ -17578,7 +17601,7 @@ public class TdApi {
          */
         public boolean showStoryPoster;
         /**
-         * If true, the value for the relevant type of chat or the forum chat is used instead of disablePinnedMessageNotifications.
+         * If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of disablePinnedMessageNotifications.
          */
         public boolean useDefaultDisablePinnedMessageNotifications;
         /**
@@ -17586,7 +17609,7 @@ public class TdApi {
          */
         public boolean disablePinnedMessageNotifications;
         /**
-         * If true, the value for the relevant type of chat or the forum chat is used instead of disableMentionNotifications.
+         * If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of disableMentionNotifications.
          */
         public boolean useDefaultDisableMentionNotifications;
         /**
@@ -17603,21 +17626,21 @@ public class TdApi {
         /**
          * Contains information about notification settings for a chat or a forum topic.
          *
-         * @param useDefaultMuteFor If true, the value for the relevant type of chat or the forum chat is used instead of muteFor.
+         * @param useDefaultMuteFor If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of muteFor.
          * @param muteFor Time left before notifications will be unmuted, in seconds.
-         * @param useDefaultSound If true, the value for the relevant type of chat or the forum chat is used instead of soundId.
+         * @param useDefaultSound If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of soundId.
          * @param soundId Identifier of the notification sound to be played for messages; 0 if sound is disabled.
-         * @param useDefaultShowPreview If true, the value for the relevant type of chat or the forum chat is used instead of showPreview.
+         * @param useDefaultShowPreview If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of showPreview.
          * @param showPreview True, if message content must be displayed in notifications.
-         * @param useDefaultMuteStories If true, the value for the relevant type of chat is used instead of muteStories.
+         * @param useDefaultMuteStories If true, the value for the chat's community or the relevant type of chat is used instead of muteStories.
          * @param muteStories True, if story notifications are disabled for the chat.
-         * @param useDefaultStorySound If true, the value for the relevant type of chat is used instead of storySoundId.
+         * @param useDefaultStorySound If true, the value for the chat's community or the relevant type of chat is used instead of storySoundId.
          * @param storySoundId Identifier of the notification sound to be played for stories; 0 if sound is disabled.
-         * @param useDefaultShowStoryPoster If true, the value for the relevant type of chat is used instead of showStoryPoster.
+         * @param useDefaultShowStoryPoster If true, the value for the chat's community or the relevant type of chat is used instead of showStoryPoster.
          * @param showStoryPoster True, if the chat that posted a story must be displayed in notifications.
-         * @param useDefaultDisablePinnedMessageNotifications If true, the value for the relevant type of chat or the forum chat is used instead of disablePinnedMessageNotifications.
+         * @param useDefaultDisablePinnedMessageNotifications If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of disablePinnedMessageNotifications.
          * @param disablePinnedMessageNotifications If true, notifications for incoming pinned messages will be created as for an ordinary unread message.
-         * @param useDefaultDisableMentionNotifications If true, the value for the relevant type of chat or the forum chat is used instead of disableMentionNotifications.
+         * @param useDefaultDisableMentionNotifications If true, the value for the topic's chat, the chat's community, or the relevant type of chat is used instead of disableMentionNotifications.
          * @param disableMentionNotifications If true, notifications for messages with mentions will be created as for an ordinary unread message.
          */
         public ChatNotificationSettings(boolean useDefaultMuteFor, int muteFor, boolean useDefaultSound, long soundId, boolean useDefaultShowPreview, boolean showPreview, boolean useDefaultMuteStories, boolean muteStories, boolean useDefaultStorySound, long storySoundId, boolean useDefaultShowStoryPoster, boolean showStoryPoster, boolean useDefaultDisablePinnedMessageNotifications, boolean disablePinnedMessageNotifications, boolean useDefaultDisableMentionNotifications, boolean disableMentionNotifications) {
@@ -17690,7 +17713,7 @@ public class TdApi {
          */
         public boolean canSendPolls;
         /**
-         * True, if the user can send animations, games, stickers, and dice and use inline bots.
+         * True, if the user can send animations, games, stickers, widgets, and dice and use inline bots.
          */
         public boolean canSendOtherMessages;
         /**
@@ -17739,7 +17762,7 @@ public class TdApi {
          * @param canSendVideoNotes True, if the user can send video notes.
          * @param canSendVoiceNotes True, if the user can send voice notes.
          * @param canSendPolls True, if the user can send polls and checklists.
-         * @param canSendOtherMessages True, if the user can send animations, games, stickers, and dice and use inline bots.
+         * @param canSendOtherMessages True, if the user can send animations, games, stickers, widgets, and dice and use inline bots.
          * @param canAddLinkPreviews True, if the user may add a link preview to their messages.
          * @param canReactToMessages True, if the user can react to messages.
          * @param canEditTag True, if the user may change the tag of self.
@@ -20343,6 +20366,44 @@ public class TdApi {
     }
 
     /**
+     * Represents a list of communities.
+     */
+    public static class Communities extends Object {
+        /**
+         * List of community identifiers.
+         */
+        public long[] communityIds;
+
+        /**
+         * Represents a list of communities.
+         */
+        public Communities() {
+        }
+
+        /**
+         * Represents a list of communities.
+         *
+         * @param communityIds List of community identifiers.
+         */
+        public Communities(long[] communityIds) {
+            this.communityIds = communityIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -330512172;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Represents a community consisting of supergroup chats, channel chats and chats with bots.
      */
     public static class Community extends Object {
@@ -20374,6 +20435,10 @@ public class TdApi {
          * Actions that non-administrator community members are allowed to take in the community.
          */
         public CommunityPermissions permissions;
+        /**
+         * True, if all chats of the community are collapsed into one entry in the chat list.
+         */
+        public boolean areChatsCollapsed;
 
         /**
          * Represents a community consisting of supergroup chats, channel chats and chats with bots.
@@ -20391,8 +20456,9 @@ public class TdApi {
          * @param date Point in time (Unix timestamp) when the community was joined, or the point in time when the community was created, in case the user is not a member of any chat in the community.
          * @param status Status of the current user in the community.
          * @param permissions Actions that non-administrator community members are allowed to take in the community.
+         * @param areChatsCollapsed True, if all chats of the community are collapsed into one entry in the chat list.
          */
-        public Community(long id, boolean haveAccess, String name, ChatPhotoInfo photo, int date, CommunityMemberStatus status, CommunityPermissions permissions) {
+        public Community(long id, boolean haveAccess, String name, ChatPhotoInfo photo, int date, CommunityMemberStatus status, CommunityPermissions permissions, boolean areChatsCollapsed) {
             this.id = id;
             this.haveAccess = haveAccess;
             this.name = name;
@@ -20400,12 +20466,119 @@ public class TdApi {
             this.date = date;
             this.status = status;
             this.permissions = permissions;
+            this.areChatsCollapsed = areChatsCollapsed;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1684827592;
+        public static final int CONSTRUCTOR = -1501636358;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a request to add a chat to a community.
+     */
+    public static class CommunityAddChatRequest extends Object {
+        /**
+         * Identifier of the chat to be added.
+         */
+        public long chatId;
+        /**
+         * True, if the chat will be visible only to administrators of the community.
+         */
+        public boolean isHidden;
+        /**
+         * Identifier of the user who sent the request.
+         */
+        public long senderUserId;
+        /**
+         * Point in time (Unix timestamp) when the request was sent.
+         */
+        public int date;
+
+        /**
+         * Describes a request to add a chat to a community.
+         */
+        public CommunityAddChatRequest() {
+        }
+
+        /**
+         * Describes a request to add a chat to a community.
+         *
+         * @param chatId Identifier of the chat to be added.
+         * @param isHidden True, if the chat will be visible only to administrators of the community.
+         * @param senderUserId Identifier of the user who sent the request.
+         * @param date Point in time (Unix timestamp) when the request was sent.
+         */
+        public CommunityAddChatRequest(long chatId, boolean isHidden, long senderUserId, int date) {
+            this.chatId = chatId;
+            this.isHidden = isHidden;
+            this.senderUserId = senderUserId;
+            this.date = date;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2125404501;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of requests to add chats to a community.
+     */
+    public static class CommunityAddChatRequests extends Object {
+        /**
+         * Approximate total number of requests found.
+         */
+        public int totalCount;
+        /**
+         * List of the requests.
+         */
+        public CommunityAddChatRequest[] requests;
+        /**
+         * The offset for the next getCommunityAddChatRequests request. If empty, then there are no more results.
+         */
+        public String nextOffset;
+
+        /**
+         * Contains a list of requests to add chats to a community.
+         */
+        public CommunityAddChatRequests() {
+        }
+
+        /**
+         * Contains a list of requests to add chats to a community.
+         *
+         * @param totalCount Approximate total number of requests found.
+         * @param requests List of the requests.
+         * @param nextOffset The offset for the next getCommunityAddChatRequests request. If empty, then there are no more results.
+         */
+        public CommunityAddChatRequests(int totalCount, CommunityAddChatRequest[] requests, String nextOffset) {
+            this.totalCount = totalCount;
+            this.requests = requests;
+            this.nextOffset = nextOffset;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2015337973;
 
         /**
          * @return this.CONSTRUCTOR
@@ -20552,6 +20725,10 @@ public class TdApi {
          * Number of pending requests for addition of chats to the community; 0 if the current user isn't an administrator of the community.
          */
         public int addChatRequestCount;
+        /**
+         * Notification settings for the community. Default notification settings are chosen based on the type of a chat in the community.
+         */
+        public ChatNotificationSettings notificationSettings;
 
         /**
          * Contains full information about a community.
@@ -20567,19 +20744,21 @@ public class TdApi {
          * @param administratorCount Number of privileged users in the community; 0 if the current user isn't an administrator of the community.
          * @param bannedCount Number of users banned from the community; 0 if the current user isn't an administrator of the community.
          * @param addChatRequestCount Number of pending requests for addition of chats to the community; 0 if the current user isn't an administrator of the community.
+         * @param notificationSettings Notification settings for the community. Default notification settings are chosen based on the type of a chat in the community.
          */
-        public CommunityFullInfo(ChatPhoto photo, CommunityChat[] chats, int administratorCount, int bannedCount, int addChatRequestCount) {
+        public CommunityFullInfo(ChatPhoto photo, CommunityChat[] chats, int administratorCount, int bannedCount, int addChatRequestCount, ChatNotificationSettings notificationSettings) {
             this.photo = photo;
             this.chats = chats;
             this.administratorCount = administratorCount;
             this.bannedCount = bannedCount;
             this.addChatRequestCount = addChatRequestCount;
+            this.notificationSettings = notificationSettings;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -88511019;
+        public static final int CONSTRUCTOR = -917988141;
 
         /**
          * @return this.CONSTRUCTOR
@@ -20618,6 +20797,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1463434973;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains information about chats in a community, which are joined or owned by a member of the community.
+     */
+    public static class CommunityMemberChats extends Object {
+        /**
+         * Identifiers of the chats owned by the member. The chats will be removed from the community if the member is banned in the community.
+         */
+        public long[] ownedChatIds;
+        /**
+         * Identifiers of the non-owned chats joined by the member.
+         */
+        public long[] joinedChatIds;
+
+        /**
+         * Contains information about chats in a community, which are joined or owned by a member of the community.
+         */
+        public CommunityMemberChats() {
+        }
+
+        /**
+         * Contains information about chats in a community, which are joined or owned by a member of the community.
+         *
+         * @param ownedChatIds Identifiers of the chats owned by the member. The chats will be removed from the community if the member is banned in the community.
+         * @param joinedChatIds Identifiers of the non-owned chats joined by the member.
+         */
+        public CommunityMemberChats(long[] ownedChatIds, long[] joinedChatIds) {
+            this.ownedChatIds = ownedChatIds;
+            this.joinedChatIds = joinedChatIds;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 2068259090;
 
         /**
          * @return this.CONSTRUCTOR
@@ -34026,7 +34249,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAnimation, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAnimation, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34049,7 +34272,7 @@ public class TdApi {
          * @param videoWidth Width of the video.
          * @param videoHeight Height of the video.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAnimation, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAnimation, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultAnimation(String id, String title, String thumbnailUrl, String thumbnailMimeType, String videoUrl, String videoMimeType, int videoDuration, int videoWidth, int videoHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34116,7 +34339,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34137,7 +34360,7 @@ public class TdApi {
          * @param thumbnailWidth Thumbnail width, if known.
          * @param thumbnailHeight Thumbnail height, if known.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultArticle(String id, String url, String title, String description, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34194,7 +34417,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAudio, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAudio, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34213,7 +34436,7 @@ public class TdApi {
          * @param audioUrl The URL of the audio file.
          * @param audioDuration Audio file duration, in seconds.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAudio, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageAudio, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultAudio(String id, String title, String performer, String audioUrl, int audioDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34268,7 +34491,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34287,7 +34510,7 @@ public class TdApi {
          * @param thumbnailWidth Thumbnail width, if known.
          * @param thumbnailHeight Thumbnail height, if known.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultContact(String id, Contact contact, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34354,7 +34577,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageDocument, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageDocument, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34376,7 +34599,7 @@ public class TdApi {
          * @param thumbnailWidth Width of the thumbnail.
          * @param thumbnailHeight Height of the thumbnail.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageDocument, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageDocument, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultDocument(String id, String title, String description, String documentUrl, String mimeType, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34492,7 +34715,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34513,7 +34736,7 @@ public class TdApi {
          * @param thumbnailWidth Thumbnail width, if known.
          * @param thumbnailHeight Thumbnail height, if known.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultLocation(String id, Location location, int livePeriod, String title, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34578,7 +34801,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessagePhoto, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessagePhoto, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34599,7 +34822,7 @@ public class TdApi {
          * @param photoWidth Width of the photo.
          * @param photoHeight Height of the photo.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessagePhoto, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessagePhoto, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultPhoto(String id, String title, String description, String thumbnailUrl, String photoUrl, int photoWidth, int photoHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34656,7 +34879,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageSticker, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageSticker, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34675,7 +34898,7 @@ public class TdApi {
          * @param stickerWidth Width of the sticker.
          * @param stickerHeight Height of the sticker.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageSticker, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageSticker, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultSticker(String id, String thumbnailUrl, String stickerUrl, int stickerWidth, int stickerHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34730,7 +34953,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34749,7 +34972,7 @@ public class TdApi {
          * @param thumbnailWidth Thumbnail width, if known.
          * @param thumbnailHeight Thumbnail height, if known.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultVenue(String id, Venue venue, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34820,7 +35043,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVideo, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVideo, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34843,7 +35066,7 @@ public class TdApi {
          * @param videoHeight Height of the video.
          * @param videoDuration Video duration, in seconds.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVideo, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVideo, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultVideo(String id, String title, String description, String thumbnailUrl, String videoUrl, String mimeType, int videoWidth, int videoHeight, int videoDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -34898,7 +35121,7 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVoiceNote, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVoiceNote, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
@@ -34916,7 +35139,7 @@ public class TdApi {
          * @param voiceNoteUrl The URL of the voice note file.
          * @param voiceNoteDuration Duration of the voice note, in seconds.
          * @param replyMarkup The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null.
-         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVoiceNote, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, or inputMessageContact.
+         * @param inputMessageContent The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageRichMessage, inputMessageVoiceNote, inputMessageInvoice, inputMessageLiveLocation, inputMessageLocation, inputMessageVenue, inputMessageWidget, inputMessageSharedWidget, or inputMessageContact.
          */
         public InputInlineQueryResultVoiceNote(String id, String title, String voiceNoteUrl, int voiceNoteDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.id = id;
@@ -35122,6 +35345,8 @@ public class TdApi {
             InputMessageStakeDice.CONSTRUCTOR,
             InputMessageStory.CONSTRUCTOR,
             InputMessageChecklist.CONSTRUCTOR,
+            InputMessageWidget.CONSTRUCTOR,
+            InputMessageSharedWidget.CONSTRUCTOR,
             InputMessageForwarded.CONSTRUCTOR
         })
         public @interface Constructors {}
@@ -36295,6 +36520,148 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1722965261;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A message with an HTML widget; for bots only.
+     */
+    public static class InputMessageWidget extends InputMessageContent {
+        /**
+         * Width of the widget; 0 if the widget must occupy the whole width of the message bubble.
+         */
+        public int width;
+        /**
+         * Height of the widget; 0 if the height of the widget isn't fixed.
+         */
+        public int height;
+        /**
+         * HTML code of the widget; 1-32768 bytes; must not exceed 4096 bytes when compressed by zlib with the maximal compression level.
+         */
+        public String html;
+        /**
+         * Public data of the widget, which will be available in copies and forwards of the message.
+         */
+        public String publicData;
+        /**
+         * Data of the widget, which is specific to the chat.
+         */
+        public String chatData;
+        /**
+         * Widget caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+         */
+        public FormattedText caption;
+        /**
+         * True, if the caption must be shown above the widget; otherwise, the caption must be shown below the widget.
+         */
+        public boolean showCaptionAboveMedia;
+        /**
+         * Pass true to allow the widget to send queries to the bot.
+         */
+        public boolean allowQueries;
+        /**
+         * Pass true to create a shared widget, which can be sent again by its identifier.
+         */
+        public boolean isShared;
+
+        /**
+         * A message with an HTML widget; for bots only.
+         */
+        public InputMessageWidget() {
+        }
+
+        /**
+         * A message with an HTML widget; for bots only.
+         *
+         * @param width Width of the widget; 0 if the widget must occupy the whole width of the message bubble.
+         * @param height Height of the widget; 0 if the height of the widget isn't fixed.
+         * @param html HTML code of the widget; 1-32768 bytes; must not exceed 4096 bytes when compressed by zlib with the maximal compression level.
+         * @param publicData Public data of the widget, which will be available in copies and forwards of the message.
+         * @param chatData Data of the widget, which is specific to the chat.
+         * @param caption Widget caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+         * @param showCaptionAboveMedia True, if the caption must be shown above the widget; otherwise, the caption must be shown below the widget.
+         * @param allowQueries Pass true to allow the widget to send queries to the bot.
+         * @param isShared Pass true to create a shared widget, which can be sent again by its identifier.
+         */
+        public InputMessageWidget(int width, int height, String html, String publicData, String chatData, FormattedText caption, boolean showCaptionAboveMedia, boolean allowQueries, boolean isShared) {
+            this.width = width;
+            this.height = height;
+            this.html = html;
+            this.publicData = publicData;
+            this.chatData = chatData;
+            this.caption = caption;
+            this.showCaptionAboveMedia = showCaptionAboveMedia;
+            this.allowQueries = allowQueries;
+            this.isShared = isShared;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 999197869;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A message with an existing shared widget; for bots only.
+     */
+    public static class InputMessageSharedWidget extends InputMessageContent {
+        /**
+         * Identifier of the shared widget.
+         */
+        public long widgetId;
+        /**
+         * Data of the widget, which is specific to the chat.
+         */
+        public String chatData;
+        /**
+         * Widget caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+         */
+        public FormattedText caption;
+        /**
+         * True, if the caption must be shown above the widget; otherwise, the caption must be shown below the widget.
+         */
+        public boolean showCaptionAboveMedia;
+
+        /**
+         * A message with an existing shared widget; for bots only.
+         */
+        public InputMessageSharedWidget() {
+        }
+
+        /**
+         * A message with an existing shared widget; for bots only.
+         *
+         * @param widgetId Identifier of the shared widget.
+         * @param chatData Data of the widget, which is specific to the chat.
+         * @param caption Widget caption; pass null to use an empty caption; 0-getOption(&quot;message_caption_length_max&quot;) characters.
+         * @param showCaptionAboveMedia True, if the caption must be shown above the widget; otherwise, the caption must be shown below the widget.
+         */
+        public InputMessageSharedWidget(long widgetId, String chatData, FormattedText caption, boolean showCaptionAboveMedia) {
+            this.widgetId = widgetId;
+            this.chatData = chatData;
+            this.caption = caption;
+            this.showCaptionAboveMedia = showCaptionAboveMedia;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -271303570;
 
         /**
          * @return this.CONSTRUCTOR
@@ -39902,7 +40269,6 @@ public class TdApi {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
             InputStoryAreaTypeLocation.CONSTRUCTOR,
-            InputStoryAreaTypeFoundVenue.CONSTRUCTOR,
             InputStoryAreaTypePreviousVenue.CONSTRUCTOR,
             InputStoryAreaTypeSuggestedReaction.CONSTRUCTOR,
             InputStoryAreaTypeMessage.CONSTRUCTOR,
@@ -39959,50 +40325,6 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1433714887;
-
-        /**
-         * @return this.CONSTRUCTOR
-         */
-        @Override
-        public int getConstructor() {
-            return CONSTRUCTOR;
-        }
-    }
-
-    /**
-     * An area pointing to a venue found by the bot getOption(&quot;venue_search_bot_username&quot;).
-     */
-    public static class InputStoryAreaTypeFoundVenue extends InputStoryAreaType {
-        /**
-         * Identifier of the inline query, used to find the venue.
-         */
-        public long queryId;
-        /**
-         * Identifier of the inline query result.
-         */
-        public String resultId;
-
-        /**
-         * An area pointing to a venue found by the bot getOption(&quot;venue_search_bot_username&quot;).
-         */
-        public InputStoryAreaTypeFoundVenue() {
-        }
-
-        /**
-         * An area pointing to a venue found by the bot getOption(&quot;venue_search_bot_username&quot;).
-         *
-         * @param queryId Identifier of the inline query, used to find the venue.
-         * @param resultId Identifier of the inline query result.
-         */
-        public InputStoryAreaTypeFoundVenue(long queryId, String resultId) {
-            this.queryId = queryId;
-            this.resultId = resultId;
-        }
-
-        /**
-         * Identifier uniquely determining type of the object.
-         */
-        public static final int CONSTRUCTOR = -1395809130;
 
         /**
          * @return this.CONSTRUCTOR
@@ -40282,7 +40604,7 @@ public class TdApi {
      */
     public static class InputStoryAreas extends Object {
         /**
-         * List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation, inputStoryAreaTypeFoundVenue, and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, up to 1 inputStoryAreaTypeMessage area, up to getOption(&quot;story_link_area_count_max&quot;) inputStoryAreaTypeLink areas if the current user is a Telegram Premium user, up to 3 inputStoryAreaTypeWeather areas, and up to 1 inputStoryAreaTypeUpgradedGift area.
+         * List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, up to 1 inputStoryAreaTypeMessage area, up to getOption(&quot;story_link_area_count_max&quot;) inputStoryAreaTypeLink areas if the current user is a Telegram Premium user, up to 3 inputStoryAreaTypeWeather areas, and up to 1 inputStoryAreaTypeUpgradedGift area.
          */
         public InputStoryArea[] areas;
 
@@ -40295,7 +40617,7 @@ public class TdApi {
         /**
          * Contains a list of story areas to be added.
          *
-         * @param areas List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation, inputStoryAreaTypeFoundVenue, and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, up to 1 inputStoryAreaTypeMessage area, up to getOption(&quot;story_link_area_count_max&quot;) inputStoryAreaTypeLink areas if the current user is a Telegram Premium user, up to 3 inputStoryAreaTypeWeather areas, and up to 1 inputStoryAreaTypeUpgradedGift area.
+         * @param areas List of input story areas. Currently, a story can have up to 10 inputStoryAreaTypeLocation and inputStoryAreaTypePreviousVenue areas, up to getOption(&quot;story_suggested_reaction_area_count_max&quot;) inputStoryAreaTypeSuggestedReaction areas, up to 1 inputStoryAreaTypeMessage area, up to getOption(&quot;story_link_area_count_max&quot;) inputStoryAreaTypeLink areas if the current user is a Telegram Premium user, up to 3 inputStoryAreaTypeWeather areas, and up to 1 inputStoryAreaTypeUpgradedGift area.
          */
         public InputStoryAreas(InputStoryArea[] areas) {
             this.areas = areas;
@@ -40548,7 +40870,7 @@ public class TdApi {
      */
     public static class InputThumbnail extends Object {
         /**
-         * Thumbnail file to send. Sending thumbnails by fileId is currently not supported.
+         * Thumbnail file to send. Sending thumbnails by inputFileId or inputFileRemote is currently not supported.
          */
         public InputFile thumbnail;
         /**
@@ -40569,7 +40891,7 @@ public class TdApi {
         /**
          * A thumbnail to be sent along with a file; must be in JPEG or WEBP format for stickers, and less than 200 KB in size.
          *
-         * @param thumbnail Thumbnail file to send. Sending thumbnails by fileId is currently not supported.
+         * @param thumbnail Thumbnail file to send. Sending thumbnails by inputFileId or inputFileRemote is currently not supported.
          * @param width Thumbnail width, usually shouldn't exceed 320. Use 0 if unknown.
          * @param height Thumbnail height, usually shouldn't exceed 320. Use 0 if unknown.
          */
@@ -43017,7 +43339,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1697768710;
+        public static final int CONSTRUCTOR = 9715338;
 
         /**
          * @return this.CONSTRUCTOR
@@ -48312,6 +48634,7 @@ public class TdApi {
             MessagePoll.CONSTRUCTOR,
             MessageStakeDice.CONSTRUCTOR,
             MessageStory.CONSTRUCTOR,
+            MessageWidget.CONSTRUCTOR,
             MessageChecklist.CONSTRUCTOR,
             MessageInvoice.CONSTRUCTOR,
             MessageCall.CONSTRUCTOR,
@@ -49563,6 +49886,104 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1514236353;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A message with an HTML widget.
+     */
+    public static class MessageWidget extends MessageContent {
+        /**
+         * Width of the widget; 0 if the widget must occupy the whole width of the message bubble.
+         */
+        public int width;
+        /**
+         * Height of the widget; 0 if the height of the widget isn't fixed.
+         */
+        public int height;
+        /**
+         * HTML code of the widget.
+         */
+        public String html;
+        /**
+         * Public data of the widget.
+         */
+        public String publicData;
+        /**
+         * Data of the widget, which is specific to the chat.
+         */
+        public String chatData;
+        /**
+         * Identifier of the shared widget; 0 if the widget isn't shared.
+         */
+        public long widgetId;
+        /**
+         * Widget caption.
+         */
+        public FormattedText caption;
+        /**
+         * True, if the caption must be shown above the widget; otherwise, the caption must be shown below the widget.
+         */
+        public boolean showCaptionAboveMedia;
+        /**
+         * True, if the message is a copy of the widget.
+         */
+        public boolean isCopy;
+        /**
+         * True, if the widget can send queries to the bot.
+         */
+        public boolean canSendQueries;
+        /**
+         * True, if the widget can send queries to the bot in the background.
+         */
+        public boolean canSendBackgroundQueries;
+
+        /**
+         * A message with an HTML widget.
+         */
+        public MessageWidget() {
+        }
+
+        /**
+         * A message with an HTML widget.
+         *
+         * @param width Width of the widget; 0 if the widget must occupy the whole width of the message bubble.
+         * @param height Height of the widget; 0 if the height of the widget isn't fixed.
+         * @param html HTML code of the widget.
+         * @param publicData Public data of the widget.
+         * @param chatData Data of the widget, which is specific to the chat.
+         * @param widgetId Identifier of the shared widget; 0 if the widget isn't shared.
+         * @param caption Widget caption.
+         * @param showCaptionAboveMedia True, if the caption must be shown above the widget; otherwise, the caption must be shown below the widget.
+         * @param isCopy True, if the message is a copy of the widget.
+         * @param canSendQueries True, if the widget can send queries to the bot.
+         * @param canSendBackgroundQueries True, if the widget can send queries to the bot in the background.
+         */
+        public MessageWidget(int width, int height, String html, String publicData, String chatData, long widgetId, FormattedText caption, boolean showCaptionAboveMedia, boolean isCopy, boolean canSendQueries, boolean canSendBackgroundQueries) {
+            this.width = width;
+            this.height = height;
+            this.html = html;
+            this.publicData = publicData;
+            this.chatData = chatData;
+            this.widgetId = widgetId;
+            this.caption = caption;
+            this.showCaptionAboveMedia = showCaptionAboveMedia;
+            this.isCopy = isCopy;
+            this.canSendQueries = canSendQueries;
+            this.canSendBackgroundQueries = canSendBackgroundQueries;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1527832547;
 
         /**
          * @return this.CONSTRUCTOR
@@ -52315,7 +52736,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1872034960;
+        public static final int CONSTRUCTOR = -772044490;
 
         /**
          * @return this.CONSTRUCTOR
@@ -55317,7 +55738,7 @@ public class TdApi {
          */
         public int originSendDate;
         /**
-         * Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageChecklist, messageContact, messageDice, messageDocument, messageGame, messageGiveaway, messageGiveawayWinners, messageInvoice, messageLocation, messagePaidMedia, messagePhoto, messagePoll, messageStakeDice, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
+         * Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageChecklist, messageContact, messageDice, messageDocument, messageGame, messageGiveaway, messageGiveawayWinners, messageInvoice, messageLocation, messagePaidMedia, messagePhoto, messagePoll, messageStakeDice, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, messageVoiceNote, or messageWidget.
          */
         @Nullable public MessageContent content;
 
@@ -55337,7 +55758,7 @@ public class TdApi {
          * @param pollOptionId Identifier of the poll option in the original message that was replied; empty if none.
          * @param origin Information about origin of the message if the message was from another chat or topic; may be null for messages from the same chat.
          * @param originSendDate Point in time (Unix timestamp) when the message was sent if the message was from another chat or topic; 0 for messages from the same chat.
-         * @param content Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageChecklist, messageContact, messageDice, messageDocument, messageGame, messageGiveaway, messageGiveawayWinners, messageInvoice, messageLocation, messagePaidMedia, messagePhoto, messagePoll, messageStakeDice, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, or messageVoiceNote.
+         * @param content Media content of the message if the message was from another chat or topic; may be null for messages from the same chat and messages without media. Can be only one of the following types: messageAnimation, messageAudio, messageChecklist, messageContact, messageDice, messageDocument, messageGame, messageGiveaway, messageGiveawayWinners, messageInvoice, messageLocation, messagePaidMedia, messagePhoto, messagePoll, messageStakeDice, messageSticker, messageStory, messageText (for link preview), messageVenue, messageVideo, messageVideoNote, messageVoiceNote, or messageWidget.
          */
         public MessageReplyToMessage(long chatId, long messageId, TextQuote quote, int checklistTaskId, String pollOptionId, MessageOrigin origin, int originSendDate, MessageContent content) {
             this.chatId = chatId;
@@ -56398,7 +56819,7 @@ public class TdApi {
          */
         public int unreadMessageCount;
         /**
-         * The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+         * The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
          */
         public Message[] messages;
         /**
@@ -56419,7 +56840,7 @@ public class TdApi {
          * @param messageThreadId Message thread identifier, unique within the chat.
          * @param replyInfo Information about the message thread; may be null for forum topic threads.
          * @param unreadMessageCount Approximate number of unread messages in the message thread.
-         * @param messages The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+         * @param messages The messages from which the thread starts. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
          * @param draftMessage A draft of a message in the message thread; may be null if none.
          */
         public MessageThreadInfo(long chatId, long messageThreadId, MessageReplyInfo replyInfo, int unreadMessageCount, Message[] messages, DraftMessage draftMessage) {
@@ -78441,6 +78862,44 @@ public class TdApi {
     }
 
     /**
+     * Contains a list of probable languages of speech.
+     */
+    public static class SpeechRecognitionLanguages extends Object {
+        /**
+         * IETF language tags of the languages in descending order of their probability; for example, &quot;en-US&quot;.
+         */
+        public String[] languageCodes;
+
+        /**
+         * Contains a list of probable languages of speech.
+         */
+        public SpeechRecognitionLanguages() {
+        }
+
+        /**
+         * Contains a list of probable languages of speech.
+         *
+         * @param languageCodes IETF language tags of the languages in descending order of their probability; for example, &quot;en-US&quot;.
+         */
+        public SpeechRecognitionLanguages(String[] languageCodes) {
+            this.languageCodes = languageCodes;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1112642086;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * This class is an abstract base class.
      * Describes result of speech recognition in a voice note.
      */
@@ -83713,6 +84172,10 @@ public class TdApi {
          */
         public FormattedText caption;
         /**
+         * Music attached to the story; may be null if none.
+         */
+        @Nullable public Audio music;
+        /**
          * Identifiers of story albums to which the story is added; only for manageable stories.
          */
         public int[] albumIds;
@@ -83752,9 +84215,10 @@ public class TdApi {
          * @param content Content of the story.
          * @param areas Clickable areas to be shown on the story content.
          * @param caption Caption of the story.
+         * @param music Music attached to the story; may be null if none.
          * @param albumIds Identifiers of story albums to which the story is added; only for manageable stories.
          */
-        public Story(int id, long posterChatId, MessageSender posterId, int date, boolean isBeingPosted, boolean isBeingEdited, boolean isEdited, boolean isPostedToChatPage, boolean isVisibleOnlyForSelf, boolean canBeAddedToAlbum, boolean canBeDeleted, boolean canBeEdited, boolean canBeForwarded, boolean canBeReplied, boolean canSetPrivacySettings, boolean canToggleIsPostedToChatPage, boolean canGetStatistics, boolean canGetInteractions, boolean hasExpiredViewers, StoryRepostInfo repostInfo, StoryInteractionInfo interactionInfo, ReactionType chosenReactionType, StoryPrivacySettings privacySettings, StoryContent content, StoryArea[] areas, FormattedText caption, int[] albumIds) {
+        public Story(int id, long posterChatId, MessageSender posterId, int date, boolean isBeingPosted, boolean isBeingEdited, boolean isEdited, boolean isPostedToChatPage, boolean isVisibleOnlyForSelf, boolean canBeAddedToAlbum, boolean canBeDeleted, boolean canBeEdited, boolean canBeForwarded, boolean canBeReplied, boolean canSetPrivacySettings, boolean canToggleIsPostedToChatPage, boolean canGetStatistics, boolean canGetInteractions, boolean hasExpiredViewers, StoryRepostInfo repostInfo, StoryInteractionInfo interactionInfo, ReactionType chosenReactionType, StoryPrivacySettings privacySettings, StoryContent content, StoryArea[] areas, FormattedText caption, Audio music, int[] albumIds) {
             this.id = id;
             this.posterChatId = posterChatId;
             this.posterId = posterId;
@@ -83781,13 +84245,14 @@ public class TdApi {
             this.content = content;
             this.areas = areas;
             this.caption = caption;
+            this.music = music;
             this.albumIds = albumIds;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1551193142;
+        public static final int CONSTRUCTOR = -1192230650;
 
         /**
          * @return this.CONSTRUCTOR
@@ -86560,6 +87025,10 @@ public class TdApi {
          */
         public boolean hasForumTabs;
         /**
+         * True, if the supergroup is a forum, which topics are shown in a sidebar. If true, then hasForumTabs is false.
+         */
+        public boolean hasForumSidebar;
+        /**
          * Information about the restrictions that must be applied to the corresponding supergroup or channel chat; may be null if none.
          */
         @Nullable public RestrictionInfo restrictionInfo;
@@ -86603,11 +87072,12 @@ public class TdApi {
          * @param verificationStatus Information about verification status of the supergroup or channel; may be null if none.
          * @param hasDirectMessagesGroup True, if the channel has direct messages group.
          * @param hasForumTabs True, if the supergroup is a forum, which topics are shown in the same way as in channel direct messages groups.
+         * @param hasForumSidebar True, if the supergroup is a forum, which topics are shown in a sidebar. If true, then hasForumTabs is false.
          * @param restrictionInfo Information about the restrictions that must be applied to the corresponding supergroup or channel chat; may be null if none.
          * @param paidMessageStarCount Number of Telegram Stars that must be paid by non-administrator users of the supergroup chat for each sent message.
          * @param activeStoryState State of active stories of the supergroup or channel; may be null if there are no active stories.
          */
-        public Supergroup(long id, Usernames usernames, int date, ChatMemberStatus status, int memberCount, int boostLevel, boolean hasAutomaticTranslation, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean showMessageSender, boolean joinToSendMessages, boolean joinByRequest, boolean isSlowModeEnabled, boolean isChannel, boolean isBroadcastGroup, boolean isForum, boolean isDirectMessagesGroup, boolean isAdministeredDirectMessagesGroup, VerificationStatus verificationStatus, boolean hasDirectMessagesGroup, boolean hasForumTabs, RestrictionInfo restrictionInfo, long paidMessageStarCount, ActiveStoryState activeStoryState) {
+        public Supergroup(long id, Usernames usernames, int date, ChatMemberStatus status, int memberCount, int boostLevel, boolean hasAutomaticTranslation, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean showMessageSender, boolean joinToSendMessages, boolean joinByRequest, boolean isSlowModeEnabled, boolean isChannel, boolean isBroadcastGroup, boolean isForum, boolean isDirectMessagesGroup, boolean isAdministeredDirectMessagesGroup, VerificationStatus verificationStatus, boolean hasDirectMessagesGroup, boolean hasForumTabs, boolean hasForumSidebar, RestrictionInfo restrictionInfo, long paidMessageStarCount, ActiveStoryState activeStoryState) {
             this.id = id;
             this.usernames = usernames;
             this.date = date;
@@ -86630,6 +87100,7 @@ public class TdApi {
             this.verificationStatus = verificationStatus;
             this.hasDirectMessagesGroup = hasDirectMessagesGroup;
             this.hasForumTabs = hasForumTabs;
+            this.hasForumSidebar = hasForumSidebar;
             this.restrictionInfo = restrictionInfo;
             this.paidMessageStarCount = paidMessageStarCount;
             this.activeStoryState = activeStoryState;
@@ -86638,7 +87109,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1134998957;
+        public static final int CONSTRUCTOR = -1673662503;
 
         /**
          * @return this.CONSTRUCTOR
@@ -89629,6 +90100,88 @@ public class TdApi {
     }
 
     /**
+     * Describes a part of a text.
+     */
+    public static class TextRange extends Object {
+        /**
+         * Offset of the part, in UTF-16 code units.
+         */
+        public int offset;
+        /**
+         * Length of the part, in UTF-16 code units.
+         */
+        public int length;
+
+        /**
+         * Describes a part of a text.
+         */
+        public TextRange() {
+        }
+
+        /**
+         * Describes a part of a text.
+         *
+         * @param offset Offset of the part, in UTF-16 code units.
+         * @param length Length of the part, in UTF-16 code units.
+         */
+        public TextRange(int offset, int length) {
+            this.offset = offset;
+            this.length = length;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1166339562;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains a list of text parts.
+     */
+    public static class TextRanges extends Object {
+        /**
+         * List of text parts.
+         */
+        public TextRange[] ranges;
+
+        /**
+         * Contains a list of text parts.
+         */
+        public TextRanges() {
+        }
+
+        /**
+         * Contains a list of text parts.
+         *
+         * @param ranges List of text parts.
+         */
+        public TextRanges(TextRange[] ranges) {
+            this.ranges = ranges;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 986061048;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Contains parameters of the application theme.
      */
     public static class ThemeParameters extends Object {
@@ -91965,7 +92518,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 239770335;
+        public static final int CONSTRUCTOR = 1337170800;
 
         /**
          * @return this.CONSTRUCTOR
@@ -92265,7 +92818,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -655546174;
+        public static final int CONSTRUCTOR = -302902556;
 
         /**
          * @return this.CONSTRUCTOR
@@ -92345,7 +92898,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2081280655;
+        public static final int CONSTRUCTOR = -580191176;
 
         /**
          * @return this.CONSTRUCTOR
@@ -92511,7 +93064,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1570430820;
+        public static final int CONSTRUCTOR = -282211019;
 
         /**
          * @return this.CONSTRUCTOR
@@ -92567,7 +93120,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -2077618700;
+        public static final int CONSTRUCTOR = -1040037236;
 
         /**
          * @return this.CONSTRUCTOR
@@ -92748,7 +93301,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1372826145;
+        public static final int CONSTRUCTOR = -402386265;
 
         /**
          * @return this.CONSTRUCTOR
@@ -93580,6 +94133,7 @@ public class TdApi {
             UpdateStarRevenueStatus.CONSTRUCTOR,
             UpdateGramRevenueStatus.CONSTRUCTOR,
             UpdateSpeechRecognitionTrial.CONSTRUCTOR,
+            UpdateSpeechRecognitionInFile.CONSTRUCTOR,
             UpdateGroupCallMessageLevels.CONSTRUCTOR,
             UpdateDiceEmojis.CONSTRUCTOR,
             UpdateStakeDiceState.CONSTRUCTOR,
@@ -93600,6 +94154,9 @@ public class TdApi {
             UpdateNewCallbackQuery.CONSTRUCTOR,
             UpdateNewInlineCallbackQuery.CONSTRUCTOR,
             UpdateNewBusinessCallbackQuery.CONSTRUCTOR,
+            UpdateNewWidgetQuery.CONSTRUCTOR,
+            UpdateNewInlineWidgetQuery.CONSTRUCTOR,
+            UpdateNewWidgetCopyQuery.CONSTRUCTOR,
             UpdateNewShippingQuery.CONSTRUCTOR,
             UpdateNewPreCheckoutQuery.CONSTRUCTOR,
             UpdateNewCustomEvent.CONSTRUCTOR,
@@ -100917,6 +101474,50 @@ public class TdApi {
     }
 
     /**
+     * Speech in an audio file was partially recognized. The final result will be returned by the corresponding recognizeSpeechInFile request.
+     */
+    public static class UpdateSpeechRecognitionInFile extends Update {
+        /**
+         * Identifier of the speech recognition as specified in recognizeSpeechInFile.
+         */
+        public long recognitionId;
+        /**
+         * Partially recognized text.
+         */
+        public String partialText;
+
+        /**
+         * Speech in an audio file was partially recognized. The final result will be returned by the corresponding recognizeSpeechInFile request.
+         */
+        public UpdateSpeechRecognitionInFile() {
+        }
+
+        /**
+         * Speech in an audio file was partially recognized. The final result will be returned by the corresponding recognizeSpeechInFile request.
+         *
+         * @param recognitionId Identifier of the speech recognition as specified in recognizeSpeechInFile.
+         * @param partialText Partially recognized text.
+         */
+        public UpdateSpeechRecognitionInFile(long recognitionId, String partialText) {
+            this.recognitionId = recognitionId;
+            this.partialText = partialText;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -922861464;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * The levels of live story group call messages have changed.
      */
     public static class UpdateGroupCallMessageLevels extends Update {
@@ -101870,6 +102471,252 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 336745316;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A new incoming widget query; for bots only.
+     */
+    public static class UpdateNewWidgetQuery extends Update {
+        /**
+         * Unique query identifier.
+         */
+        public long id;
+        /**
+         * Identifier of the user who sent the query.
+         */
+        public long senderUserId;
+        /**
+         * Identifier of the chat where the query was sent.
+         */
+        public long chatId;
+        /**
+         * Identifier of the message from which the query originated.
+         */
+        public long messageId;
+        /**
+         * Identifier that uniquely corresponds to the chat to which the message was sent.
+         */
+        public long chatInstance;
+        /**
+         * Type of the chat to which the message was sent.
+         */
+        public String chatType;
+        /**
+         * Type of the query.
+         */
+        public WidgetQueryType queryType;
+        /**
+         * Data of the query.
+         */
+        public byte[] data;
+        /**
+         * Identifier of the shared widget from which the query originated; 0 if the widget isn't shared.
+         */
+        public long widgetId;
+        /**
+         * TON wallet card of the user who sent the query; may be null if none.
+         */
+        @Nullable public TonWalletCard walletCard;
+
+        /**
+         * A new incoming widget query; for bots only.
+         */
+        public UpdateNewWidgetQuery() {
+        }
+
+        /**
+         * A new incoming widget query; for bots only.
+         *
+         * @param id Unique query identifier.
+         * @param senderUserId Identifier of the user who sent the query.
+         * @param chatId Identifier of the chat where the query was sent.
+         * @param messageId Identifier of the message from which the query originated.
+         * @param chatInstance Identifier that uniquely corresponds to the chat to which the message was sent.
+         * @param chatType Type of the chat to which the message was sent.
+         * @param queryType Type of the query.
+         * @param data Data of the query.
+         * @param widgetId Identifier of the shared widget from which the query originated; 0 if the widget isn't shared.
+         * @param walletCard TON wallet card of the user who sent the query; may be null if none.
+         */
+        public UpdateNewWidgetQuery(long id, long senderUserId, long chatId, long messageId, long chatInstance, String chatType, WidgetQueryType queryType, byte[] data, long widgetId, TonWalletCard walletCard) {
+            this.id = id;
+            this.senderUserId = senderUserId;
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.chatInstance = chatInstance;
+            this.chatType = chatType;
+            this.queryType = queryType;
+            this.data = data;
+            this.widgetId = widgetId;
+            this.walletCard = walletCard;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -43285453;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A new incoming widget query from a message sent via a bot; for bots only.
+     */
+    public static class UpdateNewInlineWidgetQuery extends Update {
+        /**
+         * Unique query identifier.
+         */
+        public long id;
+        /**
+         * Identifier of the user who sent the query.
+         */
+        public long senderUserId;
+        /**
+         * Identifier of the inline message from which the query originated.
+         */
+        public String inlineMessageId;
+        /**
+         * Identifier that uniquely corresponds to the chat to which the message was sent.
+         */
+        public long chatInstance;
+        /**
+         * Type of the chat to which the message was sent.
+         */
+        public String chatType;
+        /**
+         * Type of the query.
+         */
+        public WidgetQueryType queryType;
+        /**
+         * Data of the query.
+         */
+        public byte[] data;
+        /**
+         * Identifier of the shared widget from which the query originated; 0 if the widget isn't shared.
+         */
+        public long widgetId;
+        /**
+         * TON wallet card of the user who sent the query; may be null if none.
+         */
+        @Nullable public TonWalletCard walletCard;
+
+        /**
+         * A new incoming widget query from a message sent via a bot; for bots only.
+         */
+        public UpdateNewInlineWidgetQuery() {
+        }
+
+        /**
+         * A new incoming widget query from a message sent via a bot; for bots only.
+         *
+         * @param id Unique query identifier.
+         * @param senderUserId Identifier of the user who sent the query.
+         * @param inlineMessageId Identifier of the inline message from which the query originated.
+         * @param chatInstance Identifier that uniquely corresponds to the chat to which the message was sent.
+         * @param chatType Type of the chat to which the message was sent.
+         * @param queryType Type of the query.
+         * @param data Data of the query.
+         * @param widgetId Identifier of the shared widget from which the query originated; 0 if the widget isn't shared.
+         * @param walletCard TON wallet card of the user who sent the query; may be null if none.
+         */
+        public UpdateNewInlineWidgetQuery(long id, long senderUserId, String inlineMessageId, long chatInstance, String chatType, WidgetQueryType queryType, byte[] data, long widgetId, TonWalletCard walletCard) {
+            this.id = id;
+            this.senderUserId = senderUserId;
+            this.inlineMessageId = inlineMessageId;
+            this.chatInstance = chatInstance;
+            this.chatType = chatType;
+            this.queryType = queryType;
+            this.data = data;
+            this.widgetId = widgetId;
+            this.walletCard = walletCard;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -843836421;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * A new incoming widget query from a copy of a shared widget; for bots only.
+     */
+    public static class UpdateNewWidgetCopyQuery extends Update {
+        /**
+         * Unique query identifier.
+         */
+        public long id;
+        /**
+         * Identifier of the user who sent the query.
+         */
+        public long senderUserId;
+        /**
+         * Type of the query.
+         */
+        public WidgetQueryType queryType;
+        /**
+         * Data of the query.
+         */
+        public byte[] data;
+        /**
+         * Identifier of the shared widget from which the query originated.
+         */
+        public long widgetId;
+        /**
+         * TON wallet card of the user who sent the query; may be null if none.
+         */
+        @Nullable public TonWalletCard walletCard;
+
+        /**
+         * A new incoming widget query from a copy of a shared widget; for bots only.
+         */
+        public UpdateNewWidgetCopyQuery() {
+        }
+
+        /**
+         * A new incoming widget query from a copy of a shared widget; for bots only.
+         *
+         * @param id Unique query identifier.
+         * @param senderUserId Identifier of the user who sent the query.
+         * @param queryType Type of the query.
+         * @param data Data of the query.
+         * @param widgetId Identifier of the shared widget from which the query originated.
+         * @param walletCard TON wallet card of the user who sent the query; may be null if none.
+         */
+        public UpdateNewWidgetCopyQuery(long id, long senderUserId, WidgetQueryType queryType, byte[] data, long widgetId, TonWalletCard walletCard) {
+            this.id = id;
+            this.senderUserId = senderUserId;
+            this.queryType = queryType;
+            this.data = data;
+            this.widgetId = widgetId;
+            this.walletCard = walletCard;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 755000376;
 
         /**
          * @return this.CONSTRUCTOR
@@ -103607,7 +104454,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 1648818475;
+        public static final int CONSTRUCTOR = -1303529334;
 
         /**
          * @return this.CONSTRUCTOR
@@ -106117,6 +106964,10 @@ public class TdApi {
          */
         public boolean hasTopics;
         /**
+         * True, if the bot has topics, which are shown in a sidebar.
+         */
+        public boolean hasTopicSidebar;
+        /**
          * True, if users can create and delete topics in the chat with the bot.
          */
         public boolean allowsUsersToCreateTopics;
@@ -106171,6 +107022,7 @@ public class TdApi {
          * @param canReadAllGroupMessages True, if the bot can read all messages in basic group or supergroup chats and not just those addressed to the bot. In private and channel chats a bot can always read all messages.
          * @param hasMainWebApp True, if the bot has the main Web App.
          * @param hasTopics True, if the bot has topics.
+         * @param hasTopicSidebar True, if the bot has topics, which are shown in a sidebar.
          * @param allowsUsersToCreateTopics True, if users can create and delete topics in the chat with the bot.
          * @param canManageBots True, if the bot can manage other bots.
          * @param isInline True, if the bot supports inline queries.
@@ -106182,12 +107034,13 @@ public class TdApi {
          * @param canBeAddedToAttachmentMenu True, if the bot can be added to attachment or side menu.
          * @param activeUserCount The number of recently active users of the bot.
          */
-        public UserTypeBot(boolean canBeEdited, boolean canJoinGroups, boolean canReadAllGroupMessages, boolean hasMainWebApp, boolean hasTopics, boolean allowsUsersToCreateTopics, boolean canManageBots, boolean isInline, String inlineQueryPlaceholder, boolean supportsGuestQueries, boolean isGuard, boolean needLocation, boolean canConnectToBusiness, boolean canBeAddedToAttachmentMenu, int activeUserCount) {
+        public UserTypeBot(boolean canBeEdited, boolean canJoinGroups, boolean canReadAllGroupMessages, boolean hasMainWebApp, boolean hasTopics, boolean hasTopicSidebar, boolean allowsUsersToCreateTopics, boolean canManageBots, boolean isInline, String inlineQueryPlaceholder, boolean supportsGuestQueries, boolean isGuard, boolean needLocation, boolean canConnectToBusiness, boolean canBeAddedToAttachmentMenu, int activeUserCount) {
             this.canBeEdited = canBeEdited;
             this.canJoinGroups = canJoinGroups;
             this.canReadAllGroupMessages = canReadAllGroupMessages;
             this.hasMainWebApp = hasMainWebApp;
             this.hasTopics = hasTopics;
+            this.hasTopicSidebar = hasTopicSidebar;
             this.allowsUsersToCreateTopics = allowsUsersToCreateTopics;
             this.canManageBots = canManageBots;
             this.isInline = isInline;
@@ -106203,7 +107056,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 565626918;
+        public static final int CONSTRUCTOR = 1974057584;
 
         /**
          * @return this.CONSTRUCTOR
@@ -108091,6 +108944,299 @@ public class TdApi {
     }
 
     /**
+     * Contains public data of a widget.
+     */
+    public static class WidgetPublicData extends Object {
+        /**
+         * Public data of the widget.
+         */
+        public String data;
+        /**
+         * The number of seconds after which the public data can be polled again.
+         */
+        public int pollPeriod;
+
+        /**
+         * Contains public data of a widget.
+         */
+        public WidgetPublicData() {
+        }
+
+        /**
+         * Contains public data of a widget.
+         *
+         * @param data Public data of the widget.
+         * @param pollPeriod The number of seconds after which the public data can be polled again.
+         */
+        public WidgetPublicData(String data, int pollPeriod) {
+            this.data = data;
+            this.pollPeriod = pollPeriod;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1018965146;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Contains an answer to a widget query.
+     */
+    public static class WidgetQueryAnswer extends Object {
+        /**
+         * Data returned by the bot.
+         */
+        public String data;
+
+        /**
+         * Contains an answer to a widget query.
+         */
+        public WidgetQueryAnswer() {
+        }
+
+        /**
+         * Contains an answer to a widget query.
+         *
+         * @param data Data returned by the bot.
+         */
+        public WidgetQueryAnswer(String data) {
+            this.data = data;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1557837077;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * This class is an abstract base class.
+     * Describes type of a widget query.
+     */
+    public abstract static class WidgetQueryType extends Object {
+        /**
+         * Describes possible values returned by getConstructor().
+         */
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({
+            WidgetQueryTypeData.CONSTRUCTOR,
+            WidgetQueryTypeSignData.CONSTRUCTOR,
+            WidgetQueryTypeSentTransaction.CONSTRUCTOR
+        })
+        public @interface Constructors {}
+
+        /**
+         * @return identifier uniquely determining type of the object.
+         */
+        @Constructors
+        @Override
+        public abstract int getConstructor();
+        /**
+         * Default class constructor.
+         */
+        public WidgetQueryType() {
+        }
+    }
+
+    /**
+     * The query contains data for the bot.
+     */
+    public static class WidgetQueryTypeData extends WidgetQueryType {
+        /**
+         * True, if the TON wallet card of the user who sends the query is sent to the bot along with the query.
+         */
+        public boolean withWallet;
+
+        /**
+         * The query contains data for the bot.
+         */
+        public WidgetQueryTypeData() {
+        }
+
+        /**
+         * The query contains data for the bot.
+         *
+         * @param withWallet True, if the TON wallet card of the user who sends the query is sent to the bot along with the query.
+         */
+        public WidgetQueryTypeData(boolean withWallet) {
+            this.withWallet = withWallet;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 594102106;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The query contains data signed by a TON wallet of the user who sends the query.
+     */
+    public static class WidgetQueryTypeSignData extends WidgetQueryType {
+        /**
+         * The wallet that signed the data.
+         */
+        public WidgetQueryWallet wallet;
+        /**
+         * JSON-serialized signed data.
+         */
+        public String signData;
+
+        /**
+         * The query contains data signed by a TON wallet of the user who sends the query.
+         */
+        public WidgetQueryTypeSignData() {
+        }
+
+        /**
+         * The query contains data signed by a TON wallet of the user who sends the query.
+         *
+         * @param wallet The wallet that signed the data.
+         * @param signData JSON-serialized signed data.
+         */
+        public WidgetQueryTypeSignData(WidgetQueryWallet wallet, String signData) {
+            this.wallet = wallet;
+            this.signData = signData;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -252898499;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * The query notifies the bot about a transaction sent from a TON wallet of the user who sends the query.
+     */
+    public static class WidgetQueryTypeSentTransaction extends WidgetQueryType {
+        /**
+         * The wallet from which the transaction was sent.
+         */
+        public WidgetQueryWallet wallet;
+        /**
+         * Value of msgHash of the transaction.
+         */
+        public String msgHash;
+
+        /**
+         * The query notifies the bot about a transaction sent from a TON wallet of the user who sends the query.
+         */
+        public WidgetQueryTypeSentTransaction() {
+        }
+
+        /**
+         * The query notifies the bot about a transaction sent from a TON wallet of the user who sends the query.
+         *
+         * @param wallet The wallet from which the transaction was sent.
+         * @param msgHash Value of msgHash of the transaction.
+         */
+        public WidgetQueryTypeSentTransaction(WidgetQueryWallet wallet, String msgHash) {
+            this.wallet = wallet;
+            this.msgHash = msgHash;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 989539590;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Describes a TON wallet of the user, who is used in a widget query.
+     */
+    public static class WidgetQueryWallet extends Object {
+        /**
+         * Address of the wallet.
+         */
+        public String address;
+        /**
+         * Balance of the wallet, in the smallest units of the cryptocurrency.
+         */
+        public long gramAmount;
+        /**
+         * Public key of the wallet; may be empty if unknown.
+         */
+        public byte[] publicKey;
+        /**
+         * Serialized StateInit of the wallet contract; must be empty if and only if publicKey is empty.
+         */
+        public byte[] stateInit;
+
+        /**
+         * Describes a TON wallet of the user, who is used in a widget query.
+         */
+        public WidgetQueryWallet() {
+        }
+
+        /**
+         * Describes a TON wallet of the user, who is used in a widget query.
+         *
+         * @param address Address of the wallet.
+         * @param gramAmount Balance of the wallet, in the smallest units of the cryptocurrency.
+         * @param publicKey Public key of the wallet; may be empty if unknown.
+         * @param stateInit Serialized StateInit of the wallet contract; must be empty if and only if publicKey is empty.
+         */
+        public WidgetQueryWallet(String address, long gramAmount, byte[] publicKey, byte[] stateInit) {
+            this.address = address;
+            this.gramAmount = gramAmount;
+            this.publicKey = publicKey;
+            this.stateInit = stateInit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -839692036;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Accepts an incoming call.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -108689,6 +109835,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1554619499;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Adds a chat to a community. If the current user isn't allowed to change the list of chats in the community, then a request to add the chat is sent to administrators of the community instead and the method fails with the error &quot;COMMUNITY_REQUEST_CREATED&quot;.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class AddCommunityChat extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * Identifier of the chat to add; only chats with owned bots and owned basic group, supergroup and channel chats are allowed; basic group chats will be automatically upgraded to supergroup chats. A community can have up to getOption(&quot;community_chat_count_max&quot;) supergroup and channel chats and up to getOption(&quot;community_bot_count_max&quot;) chats with bots; otherwise, the method fails with the error &quot;COMMUNITY_PEERS_TOO_MUCH&quot;.
+         */
+        public long chatId;
+        /**
+         * Pass true if the chat will be visible only to administrators of the community.
+         */
+        public boolean isHidden;
+
+        /**
+         * Default constructor for a function, which adds a chat to a community. If the current user isn't allowed to change the list of chats in the community, then a request to add the chat is sent to administrators of the community instead and the method fails with the error &quot;COMMUNITY_REQUEST_CREATED&quot;.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public AddCommunityChat() {
+        }
+
+        /**
+         * Creates a function, which adds a chat to a community. If the current user isn't allowed to change the list of chats in the community, then a request to add the chat is sent to administrators of the community instead and the method fails with the error &quot;COMMUNITY_REQUEST_CREATED&quot;.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param chatId Identifier of the chat to add; only chats with owned bots and owned basic group, supergroup and channel chats are allowed; basic group chats will be automatically upgraded to supergroup chats. A community can have up to getOption(&quot;community_chat_count_max&quot;) supergroup and channel chats and up to getOption(&quot;community_bot_count_max&quot;) chats with bots; otherwise, the method fails with the error &quot;COMMUNITY_PEERS_TOO_MUCH&quot;.
+         * @param isHidden Pass true if the chat will be visible only to administrators of the community.
+         */
+        public AddCommunityChat(long communityId, long chatId, boolean isHidden) {
+            this.communityId = communityId;
+            this.chatId = chatId;
+            this.isHidden = isHidden;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -861733581;
 
         /**
          * @return this.CONSTRUCTOR
@@ -109588,7 +110790,7 @@ public class TdApi {
          */
         public String resultId;
         /**
-         * Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;), getOption(&quot;photo_search_bot_username&quot;), and getOption(&quot;venue_search_bot_username&quot;).
+         * Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;) and getOption(&quot;photo_search_bot_username&quot;).
          */
         public boolean hideViaBot;
 
@@ -109609,7 +110811,7 @@ public class TdApi {
          * @param replyToMessageId Identifier of a quick reply message in the same shortcut to be replied; pass 0 if none.
          * @param queryId Identifier of the inline query.
          * @param resultId Identifier of the inline query result.
-         * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;), getOption(&quot;photo_search_bot_username&quot;), and getOption(&quot;venue_search_bot_username&quot;).
+         * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;) and getOption(&quot;photo_search_bot_username&quot;).
          */
         public AddQuickReplyShortcutInlineQueryResultMessage(String shortcutName, long replyToMessageId, long queryId, String resultId, boolean hideViaBot) {
             this.shortcutName = shortcutName;
@@ -110733,6 +111935,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1447316391;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Sets the result of a widget query; for bots only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class AnswerWidgetQuery extends Function<Ok> {
+        /**
+         * Identifier of the widget query.
+         */
+        public long widgetQueryId;
+        /**
+         * Data to be returned to the widget.
+         */
+        public String data;
+
+        /**
+         * Default constructor for a function, which sets the result of a widget query; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public AnswerWidgetQuery() {
+        }
+
+        /**
+         * Creates a function, which sets the result of a widget query; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param widgetQueryId Identifier of the widget query.
+         * @param data Data to be returned to the widget.
+         */
+        public AnswerWidgetQuery(long widgetQueryId, String data) {
+            this.widgetQueryId = widgetQueryId;
+            this.data = data;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1940154684;
 
         /**
          * @return this.CONSTRUCTOR
@@ -114129,7 +115381,7 @@ public class TdApi {
      */
     public static class CraftGift extends Function<CraftGiftResult> {
         /**
-         * Identifier of the gifts to use for crafting. In the case of a successful craft, the resulting gift will have the number of the first gift. Consequently, the first gift must not have been withdrawn to the TON blockchain as an NFT and must have an empty giftAddress.
+         * Identifier of the gifts to use for crafting. In the case of a successful craft, the resulting gift will have the number of the first gift. Consequently, unless getOption(&quot;can_craft_from_withdrawn_first_gift&quot;) is true, the first gift must not have been withdrawn to the TON blockchain as an NFT and must have an empty giftAddress.
          */
         public String[] receivedGiftIds;
 
@@ -114146,7 +115398,7 @@ public class TdApi {
          *
          * <p> Returns {@link CraftGiftResult CraftGiftResult} </p>
          *
-         * @param receivedGiftIds Identifier of the gifts to use for crafting. In the case of a successful craft, the resulting gift will have the number of the first gift. Consequently, the first gift must not have been withdrawn to the TON blockchain as an NFT and must have an empty giftAddress.
+         * @param receivedGiftIds Identifier of the gifts to use for crafting. In the case of a successful craft, the resulting gift will have the number of the first gift. Consequently, unless getOption(&quot;can_craft_from_withdrawn_first_gift&quot;) is true, the first gift must not have been withdrawn to the TON blockchain as an NFT and must have an empty giftAddress.
          */
         public CraftGift(String[] receivedGiftIds) {
             this.receivedGiftIds = receivedGiftIds;
@@ -120530,6 +121782,74 @@ public class TdApi {
     }
 
     /**
+     * Edits data of a widget in an inline message sent via the bot; for bots only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class EditInlineMessageWidgetData extends Function<Ok> {
+        /**
+         * Inline message identifier.
+         */
+        public String inlineMessageId;
+        /**
+         * Pass true to edit public data of the widget.
+         */
+        public boolean editPublicData;
+        /**
+         * New public data of the widget; ignored if editPublicData is false.
+         */
+        public String publicData;
+        /**
+         * Pass true to edit data of the widget, which is specific to the chat.
+         */
+        public boolean editChatData;
+        /**
+         * New data of the widget, which is specific to the chat; ignored if editChatData is false.
+         */
+        public String chatData;
+
+        /**
+         * Default constructor for a function, which edits data of a widget in an inline message sent via the bot; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public EditInlineMessageWidgetData() {
+        }
+
+        /**
+         * Creates a function, which edits data of a widget in an inline message sent via the bot; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param inlineMessageId Inline message identifier.
+         * @param editPublicData Pass true to edit public data of the widget.
+         * @param publicData New public data of the widget; ignored if editPublicData is false.
+         * @param editChatData Pass true to edit data of the widget, which is specific to the chat.
+         * @param chatData New data of the widget, which is specific to the chat; ignored if editChatData is false.
+         */
+        public EditInlineMessageWidgetData(String inlineMessageId, boolean editPublicData, String publicData, boolean editChatData, String chatData) {
+            this.inlineMessageId = inlineMessageId;
+            this.editPublicData = editPublicData;
+            this.publicData = publicData;
+            this.editChatData = editChatData;
+            this.chatData = chatData;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1748954409;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Edits the message content caption. Returns the edited message after the edit is completed on the server side.
      *
      * <p> Returns {@link Message Message} </p>
@@ -120958,6 +122278,80 @@ public class TdApi {
     }
 
     /**
+     * Edits data of a widget sent by the bot; for bots only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class EditMessageWidgetData extends Function<Ok> {
+        /**
+         * The chat the message belongs to.
+         */
+        public long chatId;
+        /**
+         * Identifier of the widget message.
+         */
+        public long messageId;
+        /**
+         * Pass true to edit public data of the widget.
+         */
+        public boolean editPublicData;
+        /**
+         * New public data of the widget; ignored if editPublicData is false.
+         */
+        public String publicData;
+        /**
+         * Pass true to edit data of the widget, which is specific to the chat.
+         */
+        public boolean editChatData;
+        /**
+         * New data of the widget, which is specific to the chat; ignored if editChatData is false.
+         */
+        public String chatData;
+
+        /**
+         * Default constructor for a function, which edits data of a widget sent by the bot; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public EditMessageWidgetData() {
+        }
+
+        /**
+         * Creates a function, which edits data of a widget sent by the bot; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param chatId The chat the message belongs to.
+         * @param messageId Identifier of the widget message.
+         * @param editPublicData Pass true to edit public data of the widget.
+         * @param publicData New public data of the widget; ignored if editPublicData is false.
+         * @param editChatData Pass true to edit data of the widget, which is specific to the chat.
+         * @param chatData New data of the widget, which is specific to the chat; ignored if editChatData is false.
+         */
+        public EditMessageWidgetData(long chatId, long messageId, boolean editPublicData, String publicData, boolean editChatData, String chatData) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.editPublicData = editPublicData;
+            this.publicData = publicData;
+            this.editChatData = editChatData;
+            this.chatData = chatData;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1935817582;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Edits an existing proxy server for network requests. Can be called before authorization.
      *
      * <p> Returns {@link AddedProxy AddedProxy} </p>
@@ -121250,6 +122644,62 @@ public class TdApi {
     }
 
     /**
+     * Changes music attached to a story. Can be called only if story.canBeEdited == true and the story isn't being edited now.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class EditStoryMusic extends Function<Ok> {
+        /**
+         * Identifier of the chat that posted the story.
+         */
+        public long storyPosterChatId;
+        /**
+         * Identifier of the story to edit.
+         */
+        public int storyId;
+        /**
+         * The new music; pass null to remove music from the story. The music can be up to 60 seconds long.
+         */
+        public InputAudio music;
+
+        /**
+         * Default constructor for a function, which changes music attached to a story. Can be called only if story.canBeEdited == true and the story isn't being edited now.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public EditStoryMusic() {
+        }
+
+        /**
+         * Creates a function, which changes music attached to a story. Can be called only if story.canBeEdited == true and the story isn't being edited now.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param storyPosterChatId Identifier of the chat that posted the story.
+         * @param storyId Identifier of the story to edit.
+         * @param music The new music; pass null to remove music from the story. The music can be up to 60 seconds long.
+         */
+        public EditStoryMusic(long storyPosterChatId, int storyId, InputAudio music) {
+            this.storyPosterChatId = storyPosterChatId;
+            this.storyId = storyId;
+            this.music = music;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1931178625;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Edits a custom text composition style that was created by the current user.
      *
      * <p> Returns {@link TextCompositionStyle TextCompositionStyle} </p>
@@ -121363,6 +122813,62 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1370582665;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Edits public data of a shared widget created by the bot; for bots only.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class EditWidgetData extends Function<Ok> {
+        /**
+         * Identifier of the shared widget.
+         */
+        public long widgetId;
+        /**
+         * New public data of the widget.
+         */
+        public String publicData;
+        /**
+         * Time during which the public data can be cached, in seconds; 5-3600. Pass 0 to keep the current value, which is 30 by default.
+         */
+        public int cacheTime;
+
+        /**
+         * Default constructor for a function, which edits public data of a shared widget created by the bot; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public EditWidgetData() {
+        }
+
+        /**
+         * Creates a function, which edits public data of a shared widget created by the bot; for bots only.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param widgetId Identifier of the shared widget.
+         * @param publicData New public data of the widget.
+         * @param cacheTime Time during which the public data can be cached, in seconds; 5-3600. Pass 0 to keep the current value, which is 30 by default.
+         */
+        public EditWidgetData(long widgetId, String publicData, int cacheTime) {
+            this.widgetId = widgetId;
+            this.publicData = publicData;
+            this.cacheTime = cacheTime;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1057345257;
 
         /**
          * @return this.CONSTRUCTOR
@@ -121701,6 +123207,94 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1055060835;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Fixes a rich message with text received as a result of speech recognition using an AI model by correcting recognition errors and adding punctuation. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * <p> Returns {@link RichMessage RichMessage} </p>
+     */
+    public static class FixRecognizedRichMessageWithAi extends Function<RichMessage> {
+        /**
+         * The message with the recognized text.
+         */
+        public InputRichMessage message;
+
+        /**
+         * Default constructor for a function, which fixes a rich message with text received as a result of speech recognition using an AI model by correcting recognition errors and adding punctuation. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         */
+        public FixRecognizedRichMessageWithAi() {
+        }
+
+        /**
+         * Creates a function, which fixes a rich message with text received as a result of speech recognition using an AI model by correcting recognition errors and adding punctuation. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link RichMessage RichMessage} </p>
+         *
+         * @param message The message with the recognized text.
+         */
+        public FixRecognizedRichMessageWithAi(InputRichMessage message) {
+            this.message = message;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1417726111;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Fixes text received as a result of speech recognition using an AI model by correcting recognition errors and adding punctuation; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+     *
+     * <p> Returns {@link FormattedText FormattedText} </p>
+     */
+    public static class FixRecognizedTextWithAi extends Function<FormattedText> {
+        /**
+         * The recognized text.
+         */
+        public FormattedText text;
+
+        /**
+         * Default constructor for a function, which fixes text received as a result of speech recognition using an AI model by correcting recognition errors and adding punctuation; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link FormattedText FormattedText} </p>
+         */
+        public FixRecognizedTextWithAi() {
+        }
+
+        /**
+         * Creates a function, which fixes text received as a result of speech recognition using an AI model by correcting recognition errors and adding punctuation; must not be used in secret chats. May return an error with a message &quot;AICOMPOSE_FLOOD_PREMIUM&quot; if Telegram Premium is required to send further requests.
+         *
+         * <p> Returns {@link FormattedText FormattedText} </p>
+         *
+         * @param text The recognized text.
+         */
+        public FixRecognizedTextWithAi(FormattedText text) {
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1287522189;
 
         /**
          * @return this.CONSTRUCTOR
@@ -123591,7 +125185,7 @@ public class TdApi {
     }
 
     /**
-     * Returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+     * Returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing story.id). For optimal performance, the number of returned stories is chosen by TDLib.
      *
      * <p> Returns {@link Stories Stories} </p>
      */
@@ -123610,7 +125204,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+         * Default constructor for a function, which returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing story.id). For optimal performance, the number of returned stories is chosen by TDLib.
          *
          * <p> Returns {@link Stories Stories} </p>
          */
@@ -123618,7 +125212,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+         * Creates a function, which returns the list of all stories posted by the given chat; requires canEditStories administrator right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing story.id). For optimal performance, the number of returned stories is chosen by TDLib.
          *
          * <p> Returns {@link Stories Stories} </p>
          *
@@ -124023,7 +125617,7 @@ public class TdApi {
     }
 
     /**
-     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
+     * Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing chatEvent.id).
      *
      * <p> Returns {@link ChatEvents ChatEvents} </p>
      */
@@ -124054,7 +125648,7 @@ public class TdApi {
         public long[] userIds;
 
         /**
-         * Default constructor for a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
+         * Default constructor for a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing chatEvent.id).
          *
          * <p> Returns {@link ChatEvents ChatEvents} </p>
          */
@@ -124062,7 +125656,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing eventId).
+         * Creates a function, which returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only in supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing chatEvent.id).
          *
          * <p> Returns {@link ChatEvents ChatEvents} </p>
          *
@@ -124361,7 +125955,7 @@ public class TdApi {
     }
 
     /**
-     * Returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
+     * Returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -124388,7 +125982,7 @@ public class TdApi {
         public boolean onlyLocal;
 
         /**
-         * Default constructor for a function, which returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
+         * Default constructor for a function, which returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -124396,7 +125990,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
+         * Creates a function, which returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline method if onlyLocal is true.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -125201,7 +126795,7 @@ public class TdApi {
     }
 
     /**
-     * Returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+     * Returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing story.id). For optimal performance, the number of returned stories is chosen by TDLib.
      *
      * <p> Returns {@link Stories Stories} </p>
      */
@@ -125220,7 +126814,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+         * Default constructor for a function, which returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing story.id). For optimal performance, the number of returned stories is chosen by TDLib.
          *
          * <p> Returns {@link Stories Stories} </p>
          */
@@ -125228,7 +126822,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing storyId). For optimal performance, the number of returned stories is chosen by TDLib.
+         * Creates a function, which returns the list of stories that were posted by the given chat to its chat page. If fromStoryId == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing story.id). For optimal performance, the number of returned stories is chosen by TDLib.
          *
          * <p> Returns {@link Stories Stories} </p>
          *
@@ -125413,7 +127007,7 @@ public class TdApi {
     }
 
     /**
-     * Returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+     * Returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -125424,7 +127018,7 @@ public class TdApi {
         public long chatId;
 
         /**
-         * Default constructor for a function, which returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+         * Default constructor for a function, which returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -125432,7 +127026,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+         * Creates a function, which returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -126077,6 +127671,62 @@ public class TdApi {
     }
 
     /**
+     * Returns pending requests to add chats to a community. Administrators of the community with canEditChatList right receive all requests; other users receive only requests sent by them.
+     *
+     * <p> Returns {@link CommunityAddChatRequests CommunityAddChatRequests} </p>
+     */
+    public static class GetCommunityAddChatRequests extends Function<CommunityAddChatRequests> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         */
+        public String offset;
+        /**
+         * The maximum number of requests to return.
+         */
+        public int limit;
+
+        /**
+         * Default constructor for a function, which returns pending requests to add chats to a community. Administrators of the community with canEditChatList right receive all requests; other users receive only requests sent by them.
+         *
+         * <p> Returns {@link CommunityAddChatRequests CommunityAddChatRequests} </p>
+         */
+        public GetCommunityAddChatRequests() {
+        }
+
+        /**
+         * Creates a function, which returns pending requests to add chats to a community. Administrators of the community with canEditChatList right receive all requests; other users receive only requests sent by them.
+         *
+         * <p> Returns {@link CommunityAddChatRequests CommunityAddChatRequests} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results.
+         * @param limit The maximum number of requests to return.
+         */
+        public GetCommunityAddChatRequests(long communityId, String offset, int limit) {
+            this.communityId = communityId;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1000408904;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns full information about a community.
      *
      * <p> Returns {@link CommunityFullInfo CommunityFullInfo} </p>
@@ -126110,6 +127760,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -2128198899;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns chats in a community, which were joined by a member of the community; requires canBanMembers administrator right in the community. Can be used to show chats that will be affected by the member ban.
+     *
+     * <p> Returns {@link CommunityMemberChats CommunityMemberChats} </p>
+     */
+    public static class GetCommunityMemberChats extends Function<CommunityMemberChats> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * Identifier of the member.
+         */
+        public MessageSender memberId;
+
+        /**
+         * Default constructor for a function, which returns chats in a community, which were joined by a member of the community; requires canBanMembers administrator right in the community. Can be used to show chats that will be affected by the member ban.
+         *
+         * <p> Returns {@link CommunityMemberChats CommunityMemberChats} </p>
+         */
+        public GetCommunityMemberChats() {
+        }
+
+        /**
+         * Creates a function, which returns chats in a community, which were joined by a member of the community; requires canBanMembers administrator right in the community. Can be used to show chats that will be affected by the member ban.
+         *
+         * <p> Returns {@link CommunityMemberChats CommunityMemberChats} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param memberId Identifier of the member.
+         */
+        public GetCommunityMemberChats(long communityId, MessageSender memberId) {
+            this.communityId = communityId;
+            this.memberId = memberId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1898245376;
 
         /**
          * @return this.CONSTRUCTOR
@@ -126947,7 +128647,7 @@ public class TdApi {
     }
 
     /**
-     * Returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+     * Returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -126974,7 +128674,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+         * Default constructor for a function, which returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -126982,7 +128682,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+         * Creates a function, which returns messages in the topic in a channel direct messages chat administered by the current user. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -127666,7 +129366,7 @@ public class TdApi {
     }
 
     /**
-     * Returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+     * Returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -127693,7 +129393,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+         * Default constructor for a function, which returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -127701,7 +129401,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+         * Creates a function, which returns messages in a topic in a forum supergroup chat or a chat with a bot with topics. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -127734,7 +129434,7 @@ public class TdApi {
     }
 
     /**
-     * Returns an HTTPS link to a topic in a forum supergroup chat. This is an offline method.
+     * Returns an HTTPS link to a topic in a forum supergroup chat or a chat with a bot. This is an offline method.
      *
      * <p> Returns {@link MessageLink MessageLink} </p>
      */
@@ -127749,7 +129449,7 @@ public class TdApi {
         public int forumTopicId;
 
         /**
-         * Default constructor for a function, which returns an HTTPS link to a topic in a forum supergroup chat. This is an offline method.
+         * Default constructor for a function, which returns an HTTPS link to a topic in a forum supergroup chat or a chat with a bot. This is an offline method.
          *
          * <p> Returns {@link MessageLink MessageLink} </p>
          */
@@ -127757,7 +129457,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns an HTTPS link to a topic in a forum supergroup chat. This is an offline method.
+         * Creates a function, which returns an HTTPS link to a topic in a forum supergroup chat or a chat with a bot. This is an offline method.
          *
          * <p> Returns {@link MessageLink MessageLink} </p>
          *
@@ -129122,6 +130822,35 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1948428535;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns the list of communities joined by the current user.
+     *
+     * <p> Returns {@link Communities Communities} </p>
+     */
+    public static class GetJoinedCommunities extends Function<Communities> {
+
+        /**
+         * Default constructor for a function, which returns the list of communities joined by the current user.
+         *
+         * <p> Returns {@link Communities Communities} </p>
+         */
+        public GetJoinedCommunities() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 106980818;
 
         /**
          * @return this.CONSTRUCTOR
@@ -131220,7 +132949,7 @@ public class TdApi {
     }
 
     /**
-     * Returns messages in a message thread of a message. Can be used only if messageProperties.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+     * Returns messages in a message thread of a message. Can be used only if messageProperties.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -131247,7 +132976,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns messages in a message thread of a message. Can be used only if messageProperties.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+         * Default constructor for a function, which returns messages in a message thread of a message. Can be used only if messageProperties.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -131255,7 +132984,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns messages in a message thread of a message. Can be used only if messageProperties.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+         * Creates a function, which returns messages in a message thread of a message. Can be used only if messageProperties.canGetMessageThread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -133865,7 +135594,7 @@ public class TdApi {
     }
 
     /**
-     * Returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+     * Returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
      *
      * <p> Returns {@link Messages Messages} </p>
      */
@@ -133888,7 +135617,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+         * Default constructor for a function, which returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
          *
          * <p> Returns {@link Messages Messages} </p>
          */
@@ -133896,7 +135625,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing messageId).
+         * Creates a function, which returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing message.id).
          *
          * <p> Returns {@link Messages Messages} </p>
          *
@@ -134250,6 +135979,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 40599169;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns 1-3 most probable languages of speech in voice notes.
+     *
+     * <p> Returns {@link SpeechRecognitionLanguages SpeechRecognitionLanguages} </p>
+     */
+    public static class GetSpeechRecognitionLanguages extends Function<SpeechRecognitionLanguages> {
+        /**
+         * Identifier of the chat; pass 0 if none.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which returns 1-3 most probable languages of speech in voice notes.
+         *
+         * <p> Returns {@link SpeechRecognitionLanguages SpeechRecognitionLanguages} </p>
+         */
+        public GetSpeechRecognitionLanguages() {
+        }
+
+        /**
+         * Creates a function, which returns 1-3 most probable languages of speech in voice notes.
+         *
+         * <p> Returns {@link SpeechRecognitionLanguages SpeechRecognitionLanguages} </p>
+         *
+         * @param chatId Identifier of the chat; pass 0 if none.
+         */
+        public GetSpeechRecognitionLanguages(long chatId) {
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1967118600;
 
         /**
          * @return this.CONSTRUCTOR
@@ -135578,6 +137351,35 @@ public class TdApi {
     }
 
     /**
+     * Returns a list of supergroup and channel chats owned by the current user, which can be added to a community.
+     *
+     * <p> Returns {@link Chats Chats} </p>
+     */
+    public static class GetSuitableCommunityChats extends Function<Chats> {
+
+        /**
+         * Default constructor for a function, which returns a list of supergroup and channel chats owned by the current user, which can be added to a community.
+         *
+         * <p> Returns {@link Chats Chats} </p>
+         */
+        public GetSuitableCommunityChats() {
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1870093801;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Returns a list of basic group and supergroup chats, which can be used as a discussion group for a channel. Returned basic group chats must be first upgraded to supergroups before they can be set as a discussion group. To set a returned supergroup as a discussion group, access to its old messages must be enabled using toggleSupergroupIsAllHistoryAvailable first.
      *
      * <p> Returns {@link Chats Chats} </p>
@@ -135912,6 +137714,50 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1657648173;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Returns positions of all emoji found in the text in order of their appearance. Can be called synchronously.
+     *
+     * <p> Returns {@link TextRanges TextRanges} </p>
+     */
+    public static class GetTextEmojiRanges extends Function<TextRanges> {
+        /**
+         * The text in which to look for emoji.
+         */
+        public String text;
+
+        /**
+         * Default constructor for a function, which returns positions of all emoji found in the text in order of their appearance. Can be called synchronously.
+         *
+         * <p> Returns {@link TextRanges TextRanges} </p>
+         */
+        public GetTextEmojiRanges() {
+        }
+
+        /**
+         * Creates a function, which returns positions of all emoji found in the text in order of their appearance. Can be called synchronously.
+         *
+         * <p> Returns {@link TextRanges TextRanges} </p>
+         *
+         * @param text The text in which to look for emoji.
+         */
+        public GetTextEmojiRanges(String text) {
+            this.text = text;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1507493223;
 
         /**
          * @return this.CONSTRUCTOR
@@ -137898,6 +139744,118 @@ public class TdApi {
     }
 
     /**
+     * Returns the current public data of a widget. Must be called only if the widget is visible on the screen and asked to poll its public data.
+     *
+     * <p> Returns {@link WidgetPublicData WidgetPublicData} </p>
+     */
+    public static class GetWidgetPublicData extends Function<WidgetPublicData> {
+        /**
+         * Identifier of the chat with the message.
+         */
+        public long chatId;
+        /**
+         * Identifier of the widget message. The message must not be scheduled.
+         */
+        public long messageId;
+
+        /**
+         * Default constructor for a function, which returns the current public data of a widget. Must be called only if the widget is visible on the screen and asked to poll its public data.
+         *
+         * <p> Returns {@link WidgetPublicData WidgetPublicData} </p>
+         */
+        public GetWidgetPublicData() {
+        }
+
+        /**
+         * Creates a function, which returns the current public data of a widget. Must be called only if the widget is visible on the screen and asked to poll its public data.
+         *
+         * <p> Returns {@link WidgetPublicData WidgetPublicData} </p>
+         *
+         * @param chatId Identifier of the chat with the message.
+         * @param messageId Identifier of the widget message. The message must not be scheduled.
+         */
+        public GetWidgetPublicData(long chatId, long messageId) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 785502640;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Sends a widget query to a bot and returns an answer. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires.
+     *
+     * <p> Returns {@link WidgetQueryAnswer WidgetQueryAnswer} </p>
+     */
+    public static class GetWidgetQueryAnswer extends Function<WidgetQueryAnswer> {
+        /**
+         * Identifier of the chat with the message.
+         */
+        public long chatId;
+        /**
+         * Identifier of the widget message from which the query originated. The message must not be scheduled.
+         */
+        public long messageId;
+        /**
+         * Type of the query.
+         */
+        public WidgetQueryType queryType;
+        /**
+         * Data of the query.
+         */
+        public byte[] data;
+
+        /**
+         * Default constructor for a function, which sends a widget query to a bot and returns an answer. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires.
+         *
+         * <p> Returns {@link WidgetQueryAnswer WidgetQueryAnswer} </p>
+         */
+        public GetWidgetQueryAnswer() {
+        }
+
+        /**
+         * Creates a function, which sends a widget query to a bot and returns an answer. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires.
+         *
+         * <p> Returns {@link WidgetQueryAnswer WidgetQueryAnswer} </p>
+         *
+         * @param chatId Identifier of the chat with the message.
+         * @param messageId Identifier of the widget message from which the query originated. The message must not be scheduled.
+         * @param queryType Type of the query.
+         * @param data Data of the query.
+         */
+        public GetWidgetQueryAnswer(long chatId, long messageId, WidgetQueryType queryType, byte[] data) {
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.queryType = queryType;
+            this.data = data;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1345275611;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Allows to buy a Telegram Premium subscription for another user with payment in Telegram Stars; for bots only.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -138812,7 +140770,7 @@ public class TdApi {
     }
 
     /**
-     * Loads more active stories from a story list. The loaded stories will be sent through updates. Active stories are sorted by the pair (activeStories.order, activeStories.storyPosterChatId) in descending order. Returns a 404 error if all active stories have been loaded.
+     * Loads more active stories from a story list. The loaded stories will be sent through updates. Active stories are sorted by the pair (activeStories.order, activeStories.chatId) in descending order. Returns a 404 error if all active stories have been loaded.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -138823,7 +140781,7 @@ public class TdApi {
         public StoryList storyList;
 
         /**
-         * Default constructor for a function, which loads more active stories from a story list. The loaded stories will be sent through updates. Active stories are sorted by the pair (activeStories.order, activeStories.storyPosterChatId) in descending order. Returns a 404 error if all active stories have been loaded.
+         * Default constructor for a function, which loads more active stories from a story list. The loaded stories will be sent through updates. Active stories are sorted by the pair (activeStories.order, activeStories.chatId) in descending order. Returns a 404 error if all active stories have been loaded.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -138831,7 +140789,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which loads more active stories from a story list. The loaded stories will be sent through updates. Active stories are sorted by the pair (activeStories.order, activeStories.storyPosterChatId) in descending order. Returns a 404 error if all active stories have been loaded.
+         * Creates a function, which loads more active stories from a story list. The loaded stories will be sent through updates. Active stories are sorted by the pair (activeStories.order, activeStories.chatId) in descending order. Returns a 404 error if all active stories have been loaded.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -140104,6 +142062,10 @@ public class TdApi {
          */
         public FormattedText caption;
         /**
+         * Music to be attached to the story; pass null if none. The music can be up to 60 seconds long. The bot getOption(&quot;audio_search_bot_username&quot;) can be used to find the music files.
+         */
+        public InputAudio music;
+        /**
          * The privacy settings for the story; ignored for stories posted on behalf of supergroup and channel chats.
          */
         public StoryPrivacySettings privacySettings;
@@ -140145,6 +142107,7 @@ public class TdApi {
          * @param content Content of the story.
          * @param areas Clickable rectangle areas to be shown on the story media; pass null if none.
          * @param caption Story caption; pass null to use an empty caption; 0-getOption(&quot;story_caption_length_max&quot;) characters; can have entities only if getOption(&quot;can_use_text_entities_in_story_caption&quot;).
+         * @param music Music to be attached to the story; pass null if none. The music can be up to 60 seconds long. The bot getOption(&quot;audio_search_bot_username&quot;) can be used to find the music files.
          * @param privacySettings The privacy settings for the story; ignored for stories posted on behalf of supergroup and channel chats.
          * @param albumIds Identifiers of story albums to which the story will be added upon posting. An album can have up to getOption(&quot;story_album_size_max&quot;) stories.
          * @param activePeriod Period after which the story is moved to archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram Premium users, and 86400 otherwise.
@@ -140152,11 +142115,12 @@ public class TdApi {
          * @param isPostedToChatPage Pass true to keep the story accessible after expiration.
          * @param protectContent Pass true if the content of the story must be protected from forwarding and screenshotting.
          */
-        public PostStory(long chatId, InputStoryContent content, InputStoryAreas areas, FormattedText caption, StoryPrivacySettings privacySettings, int[] albumIds, int activePeriod, StoryFullId fromStoryFullId, boolean isPostedToChatPage, boolean protectContent) {
+        public PostStory(long chatId, InputStoryContent content, InputStoryAreas areas, FormattedText caption, InputAudio music, StoryPrivacySettings privacySettings, int[] albumIds, int activePeriod, StoryFullId fromStoryFullId, boolean isPostedToChatPage, boolean protectContent) {
             this.chatId = chatId;
             this.content = content;
             this.areas = areas;
             this.caption = caption;
+            this.music = music;
             this.privacySettings = privacySettings;
             this.albumIds = albumIds;
             this.activePeriod = activePeriod;
@@ -140168,7 +142132,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -1725643742;
+        public static final int CONSTRUCTOR = -313838892;
 
         /**
          * @return this.CONSTRUCTOR
@@ -140443,6 +142407,112 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 1048722894;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Handles a pending request to add a chat to a community; requires canEditChatList administrator right in the community.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ProcessCommunityAddChatRequest extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * Identifier of the chat from the request.
+         */
+        public long chatId;
+        /**
+         * Pass true to approve the request and add the chat to the community; pass false to decline it. If the community already has the maximum number of chats, then approval fails with the error &quot;COMMUNITY_PEERS_TOO_MUCH&quot;.
+         */
+        public boolean approve;
+
+        /**
+         * Default constructor for a function, which handles a pending request to add a chat to a community; requires canEditChatList administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ProcessCommunityAddChatRequest() {
+        }
+
+        /**
+         * Creates a function, which handles a pending request to add a chat to a community; requires canEditChatList administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param chatId Identifier of the chat from the request.
+         * @param approve Pass true to approve the request and add the chat to the community; pass false to decline it. If the community already has the maximum number of chats, then approval fails with the error &quot;COMMUNITY_PEERS_TOO_MUCH&quot;.
+         */
+        public ProcessCommunityAddChatRequest(long communityId, long chatId, boolean approve) {
+            this.communityId = communityId;
+            this.chatId = chatId;
+            this.approve = approve;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1652704988;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Handles all pending requests to add chats to a community; requires canEditChatList administrator right in the community.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ProcessCommunityAddChatRequests extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * Pass true to approve all requests and add the chats to the community; pass false to decline them.
+         */
+        public boolean approve;
+
+        /**
+         * Default constructor for a function, which handles all pending requests to add chats to a community; requires canEditChatList administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ProcessCommunityAddChatRequests() {
+        }
+
+        /**
+         * Creates a function, which handles all pending requests to add chats to a community; requires canEditChatList administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param approve Pass true to approve all requests and add the chats to the community; pass false to decline them.
+         */
+        public ProcessCommunityAddChatRequests(long communityId, boolean approve) {
+            this.communityId = communityId;
+            this.approve = approve;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1586127930;
 
         /**
          * @return this.CONSTRUCTOR
@@ -141242,6 +143312,56 @@ public class TdApi {
     }
 
     /**
+     * Recognizes speech in an audio file and returns the recognized text. The file must be in OGG format with Opus codec and must have size up to 1 MB. The same rules as for recognizeSpeech apply to the Telegram Premium requirement and speech recognition trial; must not be used in secret chats.
+     *
+     * <p> Returns {@link Text Text} </p>
+     */
+    public static class RecognizeSpeechInFile extends Function<Text> {
+        /**
+         * The audio file.
+         */
+        public InputFile audioFile;
+        /**
+         * Unique identifier of the speech recognition, which will be used in updateSpeechRecognitionInFile to send partially recognized text; pass 0 if partial results aren't needed.
+         */
+        public long recognitionId;
+
+        /**
+         * Default constructor for a function, which recognizes speech in an audio file and returns the recognized text. The file must be in OGG format with Opus codec and must have size up to 1 MB. The same rules as for recognizeSpeech apply to the Telegram Premium requirement and speech recognition trial; must not be used in secret chats.
+         *
+         * <p> Returns {@link Text Text} </p>
+         */
+        public RecognizeSpeechInFile() {
+        }
+
+        /**
+         * Creates a function, which recognizes speech in an audio file and returns the recognized text. The file must be in OGG format with Opus codec and must have size up to 1 MB. The same rules as for recognizeSpeech apply to the Telegram Premium requirement and speech recognition trial; must not be used in secret chats.
+         *
+         * <p> Returns {@link Text Text} </p>
+         *
+         * @param audioFile The audio file.
+         * @param recognitionId Unique identifier of the speech recognition, which will be used in updateSpeechRecognitionInFile to send partially recognized text; pass 0 if partial results aren't needed.
+         */
+        public RecognizeSpeechInFile(InputFile audioFile, long recognitionId) {
+            this.audioFile = audioFile;
+            this.recognitionId = recognitionId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 1158465679;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Recovers the 2-step verification password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -141672,6 +143792,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = -1650968070;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Removes a chat from a community. Members of the chat, which aren't members of other chats in the community, will be removed from the community. Requires owner privileges in the supergroup or channel chat, or ownership of the bot for chats with bots, or canEditChatList administrator right in the community.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class RemoveCommunityChat extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * Identifier of the chat to remove.
+         */
+        public long chatId;
+
+        /**
+         * Default constructor for a function, which removes a chat from a community. Members of the chat, which aren't members of other chats in the community, will be removed from the community. Requires owner privileges in the supergroup or channel chat, or ownership of the bot for chats with bots, or canEditChatList administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public RemoveCommunityChat() {
+        }
+
+        /**
+         * Creates a function, which removes a chat from a community. Members of the chat, which aren't members of other chats in the community, will be removed from the community. Requires owner privileges in the supergroup or channel chat, or ownership of the bot for chats with bots, or canEditChatList administrator right in the community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param chatId Identifier of the chat to remove.
+         */
+        public RemoveCommunityChat(long communityId, long chatId) {
+            this.communityId = communityId;
+            this.chatId = chatId;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 898536429;
 
         /**
          * @return this.CONSTRUCTOR
@@ -143667,11 +145837,11 @@ public class TdApi {
     }
 
     /**
-     * Replies to a callback query with an ephemeral message; for bots only.
+     * Replies to a callback query with an ephemeral message; for bots only. Returns the sent message.
      *
-     * <p> Returns {@link Ok Ok} </p>
+     * <p> Returns {@link Message Message} </p>
      */
-    public static class ReplyToCallbackQueryWithEphemeralMessage extends Function<Ok> {
+    public static class ReplyToCallbackQueryWithEphemeralMessage extends Function<Message> {
         /**
          * Identifier of the callback query.
          */
@@ -143689,28 +145859,28 @@ public class TdApi {
          */
         public ReplyMarkup replyMarkup;
         /**
-         * New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+         * New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
          */
         public InputMessageContent inputMessageContent;
 
         /**
-         * Default constructor for a function, which replies to a callback query with an ephemeral message; for bots only.
+         * Default constructor for a function, which replies to a callback query with an ephemeral message; for bots only. Returns the sent message.
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link Message Message} </p>
          */
         public ReplyToCallbackQueryWithEphemeralMessage() {
         }
 
         /**
-         * Creates a function, which replies to a callback query with an ephemeral message; for bots only.
+         * Creates a function, which replies to a callback query with an ephemeral message; for bots only. Returns the sent message.
          *
-         * <p> Returns {@link Ok Ok} </p>
+         * <p> Returns {@link Message Message} </p>
          *
          * @param callbackQueryId Identifier of the callback query.
          * @param replaceCallbackQueryMessage Pass true if the ephemeral message must replace the message from which the callback query originated.
          * @param protectContent Pass true if the content of the message must be protected from forwarding and saving.
          * @param replyMarkup The new message reply markup; pass null if none.
-         * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote.
+         * @param inputMessageContent New content of the message. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageRichMessage, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact.
          */
         public ReplyToCallbackQueryWithEphemeralMessage(long callbackQueryId, boolean replaceCallbackQueryMessage, boolean protectContent, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
             this.callbackQueryId = callbackQueryId;
@@ -143723,7 +145893,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = -77034825;
+        public static final int CONSTRUCTOR = 1672608572;
 
         /**
          * @return this.CONSTRUCTOR
@@ -143793,7 +145963,7 @@ public class TdApi {
          */
         public byte[] optionId;
         /**
-         * Identifiers of reported messages. Use messageProperties.canReportChat to check whether the message can be reported.
+         * Identifiers of reported messages. Use messageProperties.canReportChat to check whether the message can be reported. Ephemeral messages must be reported separately.
          */
         public long[] messageIds;
         /**
@@ -143816,7 +145986,7 @@ public class TdApi {
          *
          * @param chatId Chat identifier.
          * @param optionId Option identifier chosen by the user; leave empty for the initial request.
-         * @param messageIds Identifiers of reported messages. Use messageProperties.canReportChat to check whether the message can be reported.
+         * @param messageIds Identifiers of reported messages. Use messageProperties.canReportChat to check whether the message can be reported. Ephemeral messages must be reported separately.
          * @param text Additional report details if asked by the server; 0-1024 characters; leave empty for the initial request.
          */
         public ReportChat(long chatId, byte[] optionId, long[] messageIds, String text) {
@@ -145261,7 +147431,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for call and group call messages. Returns the results in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+     * Searches for call and group call messages. Returns the results in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
      *
      * <p> Returns {@link FoundMessages FoundMessages} </p>
      */
@@ -145280,7 +147450,7 @@ public class TdApi {
         public boolean onlyMissed;
 
         /**
-         * Default constructor for a function, which searches for call and group call messages. Returns the results in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+         * Default constructor for a function, which searches for call and group call messages. Returns the results in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          */
@@ -145288,7 +147458,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for call and group call messages. Returns the results in reverse chronological order (i.e., in order of decreasing messageId). For optimal performance, the number of returned messages is chosen by TDLib.
+         * Creates a function, which searches for call and group call messages. Returns the results in reverse chronological order (i.e., in order of decreasing message.id). For optimal performance, the number of returned messages is chosen by TDLib.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          *
@@ -145429,7 +147599,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
+     * Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message.id. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
      *
      * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
      */
@@ -145468,7 +147638,7 @@ public class TdApi {
         public SearchMessagesFilter filter;
 
         /**
-         * Default constructor for a function, which searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
+         * Default constructor for a function, which searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message.id. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
          *
          * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
          */
@@ -145476,7 +147646,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
+         * Creates a function, which searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message.id. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, senderId, filter and topicId search criteria is expected to be supported, only if it is required for Telegram official application implementation.
          *
          * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
          *
@@ -146031,7 +148201,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (message.date, message.chatId, message.id)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      *
      * <p> Returns {@link FoundMessages FoundMessages} </p>
      */
@@ -146070,7 +148240,7 @@ public class TdApi {
         public int maxDate;
 
         /**
-         * Default constructor for a function, which searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * Default constructor for a function, which searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (message.date, message.chatId, message.id)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          */
@@ -146078,7 +148248,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chatId, messageId)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * Creates a function, which searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (message.date, message.chatId, message.id)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          *
@@ -146671,7 +148841,7 @@ public class TdApi {
     }
 
     /**
-     * Searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+     * Searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing message.id. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
      *
      * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
      */
@@ -146702,7 +148872,7 @@ public class TdApi {
         public int limit;
 
         /**
-         * Default constructor for a function, which searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * Default constructor for a function, which searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing message.id. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
          */
@@ -146710,7 +148880,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing messageId. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
+         * Creates a function, which searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing message.id. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit.
          *
          * <p> Returns {@link FoundChatMessages FoundChatMessages} </p>
          *
@@ -148247,7 +150417,7 @@ public class TdApi {
          */
         public String resultId;
         /**
-         * Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;), getOption(&quot;photo_search_bot_username&quot;), and getOption(&quot;venue_search_bot_username&quot;).
+         * Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;) and getOption(&quot;photo_search_bot_username&quot;).
          */
         public boolean hideViaBot;
 
@@ -148270,7 +150440,7 @@ public class TdApi {
          * @param options Options to be used to send the message; pass null to use default options.
          * @param queryId Identifier of the inline query.
          * @param resultId Identifier of the inline query result.
-         * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;), getOption(&quot;photo_search_bot_username&quot;), and getOption(&quot;venue_search_bot_username&quot;).
+         * @param hideViaBot Pass true to hide the bot, via which the message is sent. Can be used only for bots getOption(&quot;animation_search_bot_username&quot;) and getOption(&quot;photo_search_bot_username&quot;).
          */
         public SendInlineQueryResultMessage(long chatId, MessageTopic topicId, InputMessageReplyTo replyTo, MessageSendOptions options, long queryId, String resultId, boolean hideViaBot) {
             this.chatId = chatId;
@@ -149201,7 +151371,7 @@ public class TdApi {
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 173682008;
+        public static final int CONSTRUCTOR = 1666990190;
 
         /**
          * @return this.CONSTRUCTOR
@@ -152206,6 +154376,56 @@ public class TdApi {
          * Identifier uniquely determining type of the object.
          */
         public static final int CONSTRUCTOR = 448771436;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Changes notification settings of a community.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class SetCommunityNotificationSettings extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * New notification settings for the community.
+         */
+        public ChatNotificationSettings notificationSettings;
+
+        /**
+         * Default constructor for a function, which changes notification settings of a community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public SetCommunityNotificationSettings() {
+        }
+
+        /**
+         * Creates a function, which changes notification settings of a community.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param notificationSettings New notification settings for the community.
+         */
+        public SetCommunityNotificationSettings(long communityId, ChatNotificationSettings notificationSettings) {
+            this.communityId = communityId;
+            this.notificationSettings = notificationSettings;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1727991282;
 
         /**
          * @return this.CONSTRUCTOR
@@ -158674,6 +160894,112 @@ public class TdApi {
     }
 
     /**
+     * Changes whether all chats of a community are collapsed into one entry in the chat list. If the chats are expanded, then the community is removed from all chat folders.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ToggleCommunityAreChatsCollapsed extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * Pass true to collapse all chats of the community into one entry in the chat list.
+         */
+        public boolean areChatsCollapsed;
+
+        /**
+         * Default constructor for a function, which changes whether all chats of a community are collapsed into one entry in the chat list. If the chats are expanded, then the community is removed from all chat folders.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ToggleCommunityAreChatsCollapsed() {
+        }
+
+        /**
+         * Creates a function, which changes whether all chats of a community are collapsed into one entry in the chat list. If the chats are expanded, then the community is removed from all chat folders.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param areChatsCollapsed Pass true to collapse all chats of the community into one entry in the chat list.
+         */
+        public ToggleCommunityAreChatsCollapsed(long communityId, boolean areChatsCollapsed) {
+            this.communityId = communityId;
+            this.areChatsCollapsed = areChatsCollapsed;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = -1708259775;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
+     * Bans or unbans a member of a community; requires canBanMembers administrator right in the community. A banned member is banned in all chats of the community. Administrators of the community can be banned only by the owner of the community and administrators, which can edit administrator rights of the member. If an owner of a chat in the community is banned, then the chat is removed from the community; in this case, canEditChatList administrator right is also required.
+     *
+     * <p> Returns {@link Ok Ok} </p>
+     */
+    public static class ToggleCommunityMemberIsBanned extends Function<Ok> {
+        /**
+         * Identifier of the community.
+         */
+        public long communityId;
+        /**
+         * Identifier of the member to ban or unban.
+         */
+        public MessageSender memberId;
+        /**
+         * Pass true to ban the member; pass false to unban the member.
+         */
+        public boolean isBanned;
+
+        /**
+         * Default constructor for a function, which bans or unbans a member of a community; requires canBanMembers administrator right in the community. A banned member is banned in all chats of the community. Administrators of the community can be banned only by the owner of the community and administrators, which can edit administrator rights of the member. If an owner of a chat in the community is banned, then the chat is removed from the community; in this case, canEditChatList administrator right is also required.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         */
+        public ToggleCommunityMemberIsBanned() {
+        }
+
+        /**
+         * Creates a function, which bans or unbans a member of a community; requires canBanMembers administrator right in the community. A banned member is banned in all chats of the community. Administrators of the community can be banned only by the owner of the community and administrators, which can edit administrator rights of the member. If an owner of a chat in the community is banned, then the chat is removed from the community; in this case, canEditChatList administrator right is also required.
+         *
+         * <p> Returns {@link Ok Ok} </p>
+         *
+         * @param communityId Identifier of the community.
+         * @param memberId Identifier of the member to ban or unban.
+         * @param isBanned Pass true to ban the member; pass false to unban the member.
+         */
+        public ToggleCommunityMemberIsBanned(long communityId, MessageSender memberId, boolean isBanned) {
+            this.communityId = communityId;
+            this.memberId = memberId;
+            this.isBanned = isBanned;
+        }
+
+        /**
+         * Identifier uniquely determining type of the object.
+         */
+        public static final int CONSTRUCTOR = 307460053;
+
+        /**
+         * @return this.CONSTRUCTOR
+         */
+        @Override
+        public int getConstructor() {
+            return CONSTRUCTOR;
+        }
+    }
+
+    /**
      * Allows to send unpaid messages to the given topic of the channel direct messages chat administered by the current user.
      *
      * <p> Returns {@link Ok Ok} </p>
@@ -159871,6 +162197,10 @@ public class TdApi {
          * New value of hasForumTabs; ignored if isForum is false.
          */
         public boolean hasForumTabs;
+        /**
+         * New value of hasForumSidebar; ignored if isForum is false. Must be false if hasForumTabs is true.
+         */
+        public boolean hasForumSidebar;
 
         /**
          * Default constructor for a function, which toggles whether the supergroup is a forum; requires owner privileges in the supergroup. Discussion supergroups can't be converted to forums.
@@ -159888,17 +162218,19 @@ public class TdApi {
          * @param supergroupId Identifier of the supergroup.
          * @param isForum New value of isForum.
          * @param hasForumTabs New value of hasForumTabs; ignored if isForum is false.
+         * @param hasForumSidebar New value of hasForumSidebar; ignored if isForum is false. Must be false if hasForumTabs is true.
          */
-        public ToggleSupergroupIsForum(long supergroupId, boolean isForum, boolean hasForumTabs) {
+        public ToggleSupergroupIsForum(long supergroupId, boolean isForum, boolean hasForumTabs, boolean hasForumSidebar) {
             this.supergroupId = supergroupId;
             this.isForum = isForum;
             this.hasForumTabs = hasForumTabs;
+            this.hasForumSidebar = hasForumSidebar;
         }
 
         /**
          * Identifier uniquely determining type of the object.
          */
-        public static final int CONSTRUCTOR = 371064337;
+        public static final int CONSTRUCTOR = -549703817;
 
         /**
          * @return this.CONSTRUCTOR
