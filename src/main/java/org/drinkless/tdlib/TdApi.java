@@ -13,7 +13,7 @@ import java.lang.annotation.RetentionPolicy;
  * It has no inner classes, functions, or public members.
  */
 public class TdApi {
-    private static final String GIT_COMMIT_HASH = "c8828d50f5eac2fc7089ce1089d7ce9095c61b5e";
+    private static final String GIT_COMMIT_HASH = "03220f6b3043c6fd7785fbf0901d63f19ad19974";
 
     private TdApi() {
     }
@@ -52838,7 +52838,7 @@ public class TdApi {
          */
         public int uniqueGiftNumber;
         /**
-         * Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the receiver.
+         * Number of Telegram Stars that can be claimed by the receiver instead of the regular gift within getOption(&quot;gift_sell_period&quot;) seconds from its sending; 0 if the gift can't be sold by the receiver.
          */
         public long sellStarCount;
         /**
@@ -52909,7 +52909,7 @@ public class TdApi {
          * @param receivedGiftId Unique identifier of the received gift for the current user; only for the receiver of the gift.
          * @param text Message added to the gift.
          * @param uniqueGiftNumber Unique number of the gift among gifts upgraded from the same gift after upgrade; 0 if yet unassigned.
-         * @param sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the receiver.
+         * @param sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift within getOption(&quot;gift_sell_period&quot;) seconds from its sending; 0 if the gift can't be sold by the receiver.
          * @param prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
          * @param isUpgradeSeparate True, if the upgrade was bought after the gift was sent. In this case, prepaid upgrade cost must not be added to the gift cost.
          * @param isFromAuction True, if the message is a notification about a gift won on an auction.
@@ -72273,7 +72273,7 @@ public class TdApi {
          */
         public int[] collectionIds;
         /**
-         * Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the current user.
+         * Number of Telegram Stars that can be claimed by the receiver instead of the regular gift within getOption(&quot;gift_sell_period&quot;) seconds from its sending; 0 if the gift can't be sold by the receiver.
          */
         public long sellStarCount;
         /**
@@ -72336,7 +72336,7 @@ public class TdApi {
          * @param date Point in time (Unix timestamp) when the gift was sent.
          * @param gift The gift.
          * @param collectionIds Identifiers of collections to which the gift is added; only for the receiver of the gift.
-         * @param sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift; 0 if the gift can't be sold by the current user.
+         * @param sellStarCount Number of Telegram Stars that can be claimed by the receiver instead of the regular gift within getOption(&quot;gift_sell_period&quot;) seconds from its sending; 0 if the gift can't be sold by the receiver.
          * @param prepaidUpgradeStarCount Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift.
          * @param isUpgradeSeparate True, if the upgrade was bought after the gift was sent. In this case, prepaid upgrade cost must not be added to the gift cost.
          * @param transferStarCount Number of Telegram Stars that must be paid to transfer the upgraded gift; only for the receiver of the gift.
@@ -118611,7 +118611,7 @@ public class TdApi {
     }
 
     /**
-     * Deletes a gift without receiving Telegram Stars for it. Use receivedGift.canBeDeleted or messageGift.canBeDeleted to check whether the gift can be deleted.
+     * Deletes a gift without receiving Telegram Stars for it. Use receivedGift.canBeDeleted or messageGift.canBeDeleted to check whether the gift can be deleted. The gift may be deleted even it can still be sold using sellGift.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -118626,7 +118626,7 @@ public class TdApi {
         public String receivedGiftId;
 
         /**
-         * Default constructor for a function, which deletes a gift without receiving Telegram Stars for it. Use receivedGift.canBeDeleted or messageGift.canBeDeleted to check whether the gift can be deleted.
+         * Default constructor for a function, which deletes a gift without receiving Telegram Stars for it. Use receivedGift.canBeDeleted or messageGift.canBeDeleted to check whether the gift can be deleted. The gift may be deleted even it can still be sold using sellGift.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -118634,7 +118634,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which deletes a gift without receiving Telegram Stars for it. Use receivedGift.canBeDeleted or messageGift.canBeDeleted to check whether the gift can be deleted.
+         * Creates a function, which deletes a gift without receiving Telegram Stars for it. Use receivedGift.canBeDeleted or messageGift.canBeDeleted to check whether the gift can be deleted. The gift may be deleted even it can still be sold using sellGift.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
@@ -149407,7 +149407,7 @@ public class TdApi {
     }
 
     /**
-     * Sells a gift for Telegram Stars; requires owner privileges for gifts owned by a chat.
+     * Sells a gift for Telegram Stars. Use receivedGift.sellStarCount or messageGift.sellStarCount to check whether the gift is soldable. A gift can be sold if it is soldable and not more than getOption(&quot;gift_sell_period&quot;) seconds passed since gift sending.
      *
      * <p> Returns {@link Ok Ok} </p>
      */
@@ -149422,7 +149422,7 @@ public class TdApi {
         public String receivedGiftId;
 
         /**
-         * Default constructor for a function, which sells a gift for Telegram Stars; requires owner privileges for gifts owned by a chat.
+         * Default constructor for a function, which sells a gift for Telegram Stars. Use receivedGift.sellStarCount or messageGift.sellStarCount to check whether the gift is soldable. A gift can be sold if it is soldable and not more than getOption(&quot;gift_sell_period&quot;) seconds passed since gift sending.
          *
          * <p> Returns {@link Ok Ok} </p>
          */
@@ -149430,7 +149430,7 @@ public class TdApi {
         }
 
         /**
-         * Creates a function, which sells a gift for Telegram Stars; requires owner privileges for gifts owned by a chat.
+         * Creates a function, which sells a gift for Telegram Stars. Use receivedGift.sellStarCount or messageGift.sellStarCount to check whether the gift is soldable. A gift can be sold if it is soldable and not more than getOption(&quot;gift_sell_period&quot;) seconds passed since gift sending.
          *
          * <p> Returns {@link Ok Ok} </p>
          *
