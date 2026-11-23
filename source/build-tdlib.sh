@@ -6,6 +6,7 @@ TDLIB_INSTALL_DIR=${2:-build/td}
 OPENSSL_INSTALL_DIR=${3:-build/openssl}
 ANDROID_SDK_PACKAGE=${4:-android-37.2}
 TDLIB_BUILD_SCRIPT="$(pwd)/build-tdlib-impl.sh"
+TDLIB_FLAGS_FILE="$(pwd)/tdlib-flags.cmake"
 TGX_FLAVORS=${5:-"latest qrs nop marshmallow lollipop legacy"}
 
 source "$(pwd)/setup.sh" --light
@@ -93,7 +94,7 @@ for TGX_FLAVOR in $TGX_FLAVORS; do
   pushd "$TDLIB_SOURCE_DIR/example/android" > /dev/null || exit 1
   rm build-tdlib.sh
   cp "$TDLIB_BUILD_SCRIPT" build-tdlib.sh
-  ./build-tdlib.sh "$ANDROID_SDK_ROOT" "$ANDROID_NDK_VERSION" "$OPENSSL_INSTALL_DIR" "c++_shared" Java "$ANDROID_API_LEVEL" "$ABIS" "$ANDROID_SDK_PACKAGE" || exit 1
+  ./build-tdlib.sh "$ANDROID_SDK_ROOT" "$ANDROID_NDK_VERSION" "$OPENSSL_INSTALL_DIR" "c++_shared" Java "$ANDROID_API_LEVEL" "$ABIS" "$ANDROID_SDK_PACKAGE" "$TDLIB_FLAGS_FILE" || exit 1
   popd > /dev/null || exit 1
 
   mkdir -p "$TDLIB_INSTALL_DIR/$ANDROID_NDK_VERSION/android-$ANDROID_API_LEVEL"

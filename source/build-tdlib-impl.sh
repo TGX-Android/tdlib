@@ -9,6 +9,7 @@ TDLIB_INTERFACE=${5:-Java}
 ANDROID_API_LEVEL=${6:-16}
 ABIS=${7:-"arm64-v8a armeabi-v7a x86_64 x86"}
 ANDROID_SDK_PACKAGE=${8:-android-37.2}
+TDLIB_FLAGS_FILE=${9:-}
 
 if [ "$ANDROID_STL" != "c++_static" ] && [ "$ANDROID_STL" != "c++_shared" ] ; then
   echo 'Error: ANDROID_STL must be either "c++_static" or "c++_shared".'
@@ -85,6 +86,12 @@ for ABI in $ABIS ; do
 
   echo "Building TDLib for $ABI at API level $ANDROID_API_LEVEL with NDK $ANDROID_NDK_VERSION..."
 
+  TDLIB_FLAGS="$TDLIB_PREFIX_MAP"
+  # Processors with PAC and BTI run Android 12 or newer: only latest (API 33) and qrs (API 29)
+  if [ "$ABI" == "arm64-v8a" ] && [ "$ANDROID_API_LEVEL" -ge 29 ] ; then
+    TDLIB_FLAGS="$TDLIB_FLAGS -mbranch-protection=standard"
+  fi
+
   TDLIB_BUILD_DIR="build-$ANDROID_API_LEVEL-$ABI-$TDLIB_INTERFACE"
   mkdir -p "$TDLIB_BUILD_DIR" || exit 1
   cd "$TDLIB_BUILD_DIR"
@@ -97,7 +104,8 @@ for ABI in $ABIS ; do
         -DANDROID_ABI="$ABI" \
         -DANDROID_STL="$ANDROID_STL" \
         -DANDROID_PLATFORM="android-$ANDROID_API_LEVEL" \
-        -DCMAKE_C_FLAGS="$TDLIB_PREFIX_MAP" -DCMAKE_CXX_FLAGS="$TDLIB_PREFIX_MAP" \
+        -DCMAKE_C_FLAGS="$TDLIB_FLAGS" -DCMAKE_CXX_FLAGS="$TDLIB_FLAGS" \
+        ${TDLIB_FLAGS_FILE:+-DCMAKE_PROJECT_TdAndroid_INCLUDE="$TDLIB_FLAGS_FILE"} \
         ${TDLIB_INTERFACE_OPTION:+"$TDLIB_INTERFACE_OPTION"} || exit 1
   if [ "$TDLIB_INTERFACE" == "Java" ] || [ "$TDLIB_INTERFACE" == "JSONJava" ] ; then
     cmake --build . --target tdjni || exit 1
