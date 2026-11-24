@@ -41,6 +41,12 @@ if [ ! -e "$TDLIB_BUILD_SCRIPT" ] ; then
   exit 1
 fi
 
+# Profiles that tdlib-flags.cmake builds by
+mkdir -p build/profiles || exit 1
+for ABI in arm64-v8a armeabi-v7a; do
+  gunzip -c "profiles/$ABI.profdata.gz" > "build/profiles/$ABI.profdata" || exit 1
+done
+
 ANDROID_SDK_ROOT="$(cd "$(dirname -- "$ANDROID_SDK_ROOT")" >/dev/null; pwd -P)/$(basename -- "$ANDROID_SDK_ROOT")"
 TDLIB_SOURCE_DIR="$(cd "$(dirname -- "$TDLIB_SOURCE_DIR")" >/dev/null; pwd -P)/$(basename -- "$TDLIB_SOURCE_DIR")"
 TDLIB_INSTALL_DIR="$(cd "$(dirname -- "$TDLIB_INSTALL_DIR")" >/dev/null; pwd -P)/$(basename -- "$TDLIB_INSTALL_DIR")"
